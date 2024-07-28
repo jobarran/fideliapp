@@ -1,7 +1,7 @@
 'use server'
 
+import { UserRole } from "@/interfaces";
 import prisma from "@/lib/prisma"
-import { UserRole } from "@prisma/client";
 import bcryptjs from 'bcryptjs';
 
 interface Props {
