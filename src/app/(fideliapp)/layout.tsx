@@ -8,16 +8,13 @@ export default async function BaseLayout({
 }) {
 
     const session = await auth()
-
-    if (!session?.user ) {
-        return null
-    }
+    const user = session?.user || null;
 
     return (
 
         <main>
 
-            <TopMenu user={session.user}/>
+            <TopMenu user={user}/>
 
             <div className="flex flex-col items-center justify-center">
                 <div className="container px-4 py-4">
