@@ -4,25 +4,39 @@ import React, { useEffect } from 'react'
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/actions';
 import clsx from 'clsx';
+import { IoCloseSharp } from "react-icons/io5";
+
 
 
 interface Props {
     loginModal: boolean;
-    setLoginModal: () => void
+    setLoginModal: () => void;
+    setNewAccountModal: () => void;
 }
 
-export const LoginModal = ({ loginModal, setLoginModal }: Props) => {
-
-    const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        if (event.target instanceof HTMLDivElement && event.target.id === 'login-modal') {
-            setLoginModal();
-        }
-    };
+export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Props) => {
 
     const [state, dispatch] = useFormState(authenticate, undefined);
 
+    useEffect(() => {
+        if (state === 'Success') {
+            setLoginModal(); 
+        }
+    }, [state]); 
+
+    const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        if (event.target instanceof HTMLDivElement && event.target.id === 'login-modal') {
+            setLoginModal(); 
+        }
+    };
+
+    const handleCreateAccountClick = () => {
+        setLoginModal(); 
+        setNewAccountModal(); 
+    };
+
     const modalClasses = `fixed inset-0 flex justify-center items-center bg-opacity-50 z-50 transition-opacity duration-300 ${loginModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`;
-    const modalContentClasses = `bg-white rounded-lg overflow-hidden h-auto w-full max-w-xs md:max-w-sm xl:max-w-lg transition-opacity duration-300 ${loginModal ? 'opacity-100' : 'opacity-0'}`;
+    const modalContentClasses = `relative bg-white rounded-lg overflow-hidden h-full w-full sm:max-w-xs md:max-w-sm xl:max-w-lg sm:h-auto transition-opacity duration-300 ${loginModal ? 'opacity-100' : 'opacity-0'}`;
     const blurEffectClasses = `fixed inset-0 bg-black bg-opacity-30 z-40 transition-opacity duration-300 ${loginModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`;
 
     return (
@@ -36,27 +50,27 @@ export const LoginModal = ({ loginModal, setLoginModal }: Props) => {
                 onClick={handleOverlayClick}
             >
                 <div className={modalContentClasses}>
+                    <button
+                        className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                        onClick={setLoginModal}
+                    >
+                        <IoCloseSharp />
+                    </button>
                     <div className="p-4">
                         <div>
                             <span className="text-sm text-gray-900">Bienvenido!</span>
                             <h1 className="text-xl font-bold">Iniciar sesión con tu cuenta</h1>
                         </div>
                         <div className="overflow-auto max-h-[70vh]">
-
                             <form action={dispatch} className="space-y-3">
-
                                 <div className="my-3">
                                     <label className="block text-md mb-2" htmlFor="email">Email</label>
                                     <input className="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="email" name="email" id='email' placeholder="email" required />
                                 </div>
-
                                 <div className="mt-5">
-                                    <label className="block text-md mb-2" htmlFor="password">Password</label>
-                                    <input className="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="password" name="password" id='password' placeholder="password" />
+                                    <label className="block text-md mb-2" htmlFor="password">Contraseña</label>
+                                    <input className="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="password" name="password" id='password' placeholder="contraseña" />
                                 </div>
-
-
-
                                 <div
                                     className="flex "
                                     aria-live="polite"
@@ -68,12 +82,13 @@ export const LoginModal = ({ loginModal, setLoginModal }: Props) => {
                                         </div>
                                     )}
                                 </div>
-
-
                                 <div className="flex justify-between">
                                     <span className="text-sm text-blue-700 hover:underline cursor-pointer">Olvide mi contraseña</span>
 
-                                    <span className="text-sm text-blue-700 hover:underline cursor-pointer">Crear cuenta</span>
+                                    <span
+                                        className="text-sm text-blue-700 hover:underline cursor-pointer"
+                                        onClick={handleCreateAccountClick}
+                                    >Crear cuenta</span>
                                 </div>
                                 <div className="">
                                     <LoginButton />
@@ -84,11 +99,6 @@ export const LoginModal = ({ loginModal, setLoginModal }: Props) => {
                                 </div>
                             </form>
                         </div>
-
-
-
-
-
                     </div>
                 </div>
             </div>

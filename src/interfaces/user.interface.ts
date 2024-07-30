@@ -10,4 +10,4 @@ export interface User {
 
 
 
-export type UserRole = 'admin' | 'user'
+export type UserRole = 'CLIENT' | 'USER' | 'ADMIN'

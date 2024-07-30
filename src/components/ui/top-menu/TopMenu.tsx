@@ -1,13 +1,11 @@
 'use client';
 
-
 import { logout } from "@/actions";
 import { User } from "@/interfaces";
 import { useState } from "react";
-
 import { FaSearch } from "react-icons/fa";
-import { login } from '../../../actions/auth/login';
 import { LoginModal } from "./LoginModal";
+import { NewAccountModal } from "@/components";
 
 
 interface Props {
@@ -17,6 +15,7 @@ interface Props {
 export const TopMenu = ({ user }: Props) => {
 
   const [loginModal, setLoginModal] = useState(false)
+  const [newAccountModal, setNewAccountModal] = useState(false)
 
   return (
 
@@ -25,6 +24,12 @@ export const TopMenu = ({ user }: Props) => {
       <LoginModal
         loginModal={loginModal}
         setLoginModal={() => setLoginModal(!loginModal)}
+        setNewAccountModal={() => setNewAccountModal(!newAccountModal)}
+      />
+
+      <NewAccountModal
+        newAccountModal={newAccountModal}
+        setNewAccountModal={() => setNewAccountModal(!newAccountModal)}
       />
 
       <div className="flex justify-between items-center h-full px-4">
@@ -37,7 +42,7 @@ export const TopMenu = ({ user }: Props) => {
         </div>
 
         {/* Center - Icons */}
-        <div className="flex justify-center items-center space-x-2">
+        <div className="hidden sm:flex justify-center items-center space-x-2">
           <input
             type="text"
             id="simple-search"
@@ -58,12 +63,10 @@ export const TopMenu = ({ user }: Props) => {
           {user ? (
             <>
               {/* User Name */}
-              <span className="hidden lg:inline text-sm">Hola {user.name}</span>
-              {/* Logout button or icon */}
-              <button onClick={logout} className="text-sm text-blue-500 hover:underline">Logout</button>
+              <span className="text-xs text-slate-800">Hola {user.name}!</span>
             </>
           ) : (
-            <button onClick={()=>setLoginModal(true)} className="text-xs text-slate-800">Iniciar sesión</button>
+            <button onClick={() => setLoginModal(true)} className="text-xs text-slate-800">Iniciar sesión</button>
           )}
         </div>
 

@@ -21,7 +21,7 @@ export const registerUser = async ({ name, lastName, email, password, role }: Pr
             lastName: lastName,
             email: email.toLowerCase(),
             password: bcryptjs.hashSync(password),
-            role: role ? role : 'admin',
+            role: role ? role : 'USER',
         };
 
         const user = await prisma.user.create({
