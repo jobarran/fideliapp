@@ -78,7 +78,7 @@ export const NewAccountModal = ({ newAccountModal, setNewAccountModal }: Props) 
                             <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
 
                                 <div className="my-3">
-                                    <label className="block text-md mb-2" htmlFor="email">Email</label>
+                                    <label className="block text-md mb-2" htmlFor="new-email">Email</label>
                                     <input
                                         type="email"
                                         id='new-email'
@@ -103,7 +103,7 @@ export const NewAccountModal = ({ newAccountModal, setNewAccountModal }: Props) 
                                     />
                                 </div>
                                 <div className="my-3">
-                                    <label className="block text-md mb-2" htmlFor="name">Nombre</label>
+                                    <label className="block text-md mb-2" htmlFor="new-name">Nombre</label>
                                     <input
                                         type="name"
                                         id="new-name"
@@ -119,7 +119,7 @@ export const NewAccountModal = ({ newAccountModal, setNewAccountModal }: Props) 
                                     />
                                 </div>
                                 <div className="my-3">
-                                    <label className="block text-md mb-2" htmlFor="lastName">Apellido</label>
+                                    <label className="block text-md mb-2" htmlFor="new-lastName">Apellido</label>
 
                                     <input
                                         type="lastName"
@@ -136,7 +136,7 @@ export const NewAccountModal = ({ newAccountModal, setNewAccountModal }: Props) 
                                     />
                                 </div>
                                 <div className="my-3">
-                                    <label className="block text-md mb-2" htmlFor="password">Contraseña</label>
+                                    <label className="block text-md mb-2" htmlFor="new-password">Contraseña</label>
 
                                     <input
                                         type="password"

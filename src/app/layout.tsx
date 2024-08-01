@@ -1,3 +1,4 @@
+import { Provider } from '@/components'
 import './globals.css'
 import { roboto } from '@/config/fonts'
 import type { Metadata } from 'next'
@@ -16,8 +17,10 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body suppressHydrationWarning={true} className={roboto.className}>
-        {children}
-        </body>
+        <Provider>
+          {children}
+        </Provider>
+      </body>
     </html>
   )
 }

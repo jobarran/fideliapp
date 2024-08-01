@@ -6,6 +6,7 @@ import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { LoginModal } from "./LoginModal";
 import { NewAccountModal } from "@/components";
+import { useSession } from "next-auth/react"
 
 
 interface Props {
@@ -16,6 +17,7 @@ export const TopMenu = ({ user }: Props) => {
 
   const [loginModal, setLoginModal] = useState(false)
   const [newAccountModal, setNewAccountModal] = useState(false)
+  // const { data: session, status } = useSession() No se usa pero esta configurado
 
   return (
 
@@ -63,8 +65,9 @@ export const TopMenu = ({ user }: Props) => {
           {user ? (
             <>
               {/* User Name */}
-              <span className="text-xs text-slate-800">Hola {user.name}!</span>
-            </>
+              <span className="text-xs text-slate-800">
+                Hola <span className="font-bold">{user.name}</span>!
+              </span>            </>
           ) : (
             <button onClick={() => setLoginModal(true)} className="text-xs text-slate-800">Iniciar sesión</button>
           )}

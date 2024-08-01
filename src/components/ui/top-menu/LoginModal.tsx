@@ -20,19 +20,21 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
 
     useEffect(() => {
         if (state === 'Success') {
-            setLoginModal(); 
+            setLoginModal();
+            window.location.reload();
         }
-    }, [state]); 
+    }, [state]);
+    
 
     const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (event.target instanceof HTMLDivElement && event.target.id === 'login-modal') {
-            setLoginModal(); 
+            setLoginModal();
         }
     };
 
     const handleCreateAccountClick = () => {
-        setLoginModal(); 
-        setNewAccountModal(); 
+        setLoginModal();
+        setNewAccountModal();
     };
 
     const modalClasses = `fixed inset-0 flex justify-center items-center bg-opacity-50 z-50 transition-opacity duration-300 ${loginModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`;
@@ -76,11 +78,13 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
                                     aria-live="polite"
                                     aria-atomic="true"
                                 >
-                                    {state === "CredentialsSignin" && (
-                                        <div className='flex flex-row mb- mt-1'>
-                                            <p className="text-sm text-red-500">Sorry, something went wrong. Please double-check your credentials.</p>
-                                        </div>
-                                    )}
+                                    {
+                                        state === "CredentialsSignin" && (
+                                            <div className='flex flex-row mb- mt-1'>
+                                                <p className="text-sm text-red-500">Sorry, something went wrong. Please double-check your credentials.</p>
+                                            </div>
+                                        )
+                                    }
                                 </div>
                                 <div className="flex justify-between">
                                     <span className="text-sm text-blue-700 hover:underline cursor-pointer">Olvide mi contraseña</span>
@@ -107,16 +111,18 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
 }
 
 function LoginButton() {
-
     const { pending } = useFormStatus();
 
     return (
         <button
             type="submit"
-            className={clsx({
-                "mb-3 w-full bg-slate-800 hover:bg-slate-950 text-white py-2 rounded-md transition duration-100": !pending,
-                "cursor-not-allowed opacity-50": pending
-            })}
+            className={clsx(
+                "mb-3 w-full py-2 rounded-md transition duration-100",
+                {
+                    "bg-slate-800 hover:bg-slate-950 text-white": !pending,
+                    "bg-slate-800 text-white opacity-50 cursor-not-allowed": pending
+                }
+            )}
             disabled={pending}
         >
             Iniciar sesión
