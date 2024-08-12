@@ -1,8 +1,13 @@
+import { CompanyCardsByUser } from "@/components";
 
-export default function Home() {
+
+
+export default async function Home() {
+
+
   return (
-    <main className="flex flex-col items-center justify-between">
-        <h1>Home</h1>
+    <main className="flex flex-col">
+      <CompanyCardsByUser/>
     </main>
   );
 }

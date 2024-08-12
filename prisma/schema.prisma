@@ -35,8 +35,8 @@ model User {
   role     UserRole @default(USER)
 
   // Relations - Down
-  cards   Card[]
-  company Company?
+  Cards   Card[]
+  Company Company?
 
   // Timestamps
   createdAt DateTime @default(now())
@@ -51,20 +51,29 @@ model Company {
   name            String
   activityType    String
   backgroundColor String?
-  logo            String?
   acceptReferral  Boolean @default(false)
   address         String?
   openDays        String?
   openHours       String?
 
   // Relations - Down
-  products  Product[]
-  templates PointTransactionTemplate[]
-  cards     Card[]
+  Products    Product[]
+  Templates   PointTransactionTemplate[]
+  Cards       Card[]
+  CompanyLogo CompanyLogo?
 
   // Relations - Up
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique
+}
+
+model CompanyLogo {
+  id  String @id @default(uuid())
+  url String
+
+  // Relations - Up
+  company   Company? @relation(fields: [companyId], references: [id])
+  companyId String   @unique
 }
 
 model Card {
@@ -72,7 +81,7 @@ model Card {
   points Int    @default(0)
 
   // Relations - Down
-  history PointTransaction[]
+  History PointTransaction[]
 
   // Relations - Up
   user      User    @relation(fields: [userId], references: [id])
