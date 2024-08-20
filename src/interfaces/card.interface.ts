@@ -1,4 +1,9 @@
-import { CompanyLogo } from "./company.interface";
+export interface ActivityType {
+    id: string;
+    name: string;
+    category: 'PRODUCT' | 'SERVICE'; // Ensure ActivityCategory is defined correctly
+    subCategoryId: string | null;
+}
 
 export interface Card {
     id: string;
@@ -11,8 +16,8 @@ export interface Card {
     };
     company: {
         name: string;
-        activityType: string;
-        backgroundColor: string | null; // Allow null
+        activityType: ActivityType; // Update this to match the actual structure
+        backgroundColor: string | null;
         CompanyLogo: {
             id: string;
             url: string;

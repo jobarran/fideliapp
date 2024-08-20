@@ -1,21 +1,20 @@
-
 export interface Company {
-    id: string;
+  id: string;
+  name: string;
+  activityTypeId: string;
+  backgroundColor: string | null;
+  acceptReferral: boolean;
+  address: string | null;
+  openDays: string | null;
+  openHours: string | null;
+  userId: string;
+  CompanyLogo: CompanyLogo | null;
+  user: {
     name: string;
-    activityType: string;
-    backgroundColor: string | null;
-    acceptReferral: boolean;
-    address: string | null;
-    openDays: string | null;
-    openHours: string | null;
-    userId: string;
-    CompanyLogo: CompanyLogo | null;
-    user: {
-      name: string;
-      lastName: string;
-    };
+    lastName: string;
   };
+};
 
 export interface CompanyLogo {
-    url: string;
-  }
+  url: string;
+}

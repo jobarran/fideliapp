@@ -25,6 +25,11 @@ enum UserRole {
   ADMIN
 }
 
+enum ActivityCategory {
+  PRODUCT
+  SERVICE
+}
+
 model User {
   id       String   @id @default(uuid())
   name     String
@@ -49,7 +54,6 @@ model User {
 model Company {
   id              String  @id @default(uuid())
   name            String
-  activityType    String
   backgroundColor String?
   acceptReferral  Boolean @default(false)
   address         String?
@@ -65,6 +69,31 @@ model Company {
   // Relations - Up
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique
+
+  // Relations - Many-to-One
+  activityType   ActivityType @relation(fields: [activityTypeId], references: [id])
+  activityTypeId String
+}
+
+model ActivityType {
+  id       String           @id @default(uuid())
+  name     String
+  category ActivityCategory
+
+  // Relations - One-to-Many with SubCategory
+  subCategory   SubCategory? @relation(fields: [subCategoryId], references: [id])
+  subCategoryId String?
+
+  // Relations - One-to-Many with Company
+  companies Company[] // One ActivityType can relate to many Companies
+}
+
+model SubCategory {
+  id   String @id @default(uuid())
+  name String
+
+  // Relations - Many-to-One with ActivityType
+  activityTypes ActivityType[]
 }
 
 model CompanyLogo {

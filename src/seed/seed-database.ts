@@ -8,12 +8,48 @@ async function main() {
   await prisma.card.deleteMany();
   await prisma.company.deleteMany();
   await prisma.user.deleteMany();
+  await prisma.activityType.deleteMany();
+  await prisma.subCategory.deleteMany();
 
   // Insert users
-  const { users, companies } = initialData;
+  const { users, companies, activityTypes, subCategories } = initialData;
   await prisma.user.createMany({
     data: users,
   });
+
+  // Insert subCategories
+  const subCategoryResults = await Promise.all(subCategories.map(subCat =>
+    prisma.subCategory.create({
+      data: subCat,
+    })
+  ));
+
+  // Create a map of subCategory names to IDs
+  const subCategoryMap = subCategoryResults.reduce((map, subCat) => {
+    map[subCat.name] = subCat.id;
+    return map;
+  }, {} as Record<string, string>);
+
+  // Insert activity types with subCategoryId
+  const activityTypeResults = await Promise.all(activityTypes.map(activityType =>
+    prisma.activityType.create({
+      data: {
+        name: activityType.name,
+        category: activityType.category,
+        subCategory: {
+          connect: {
+            id: subCategoryMap[activityType.subCategoryName],
+          },
+        },
+      },
+    })
+  ));
+
+  // Create a map of activity type names to IDs
+  const activityTypeMap = activityTypeResults.reduce((map, activityType) => {
+    map[activityType.name] = activityType.id;
+    return map;
+  }, {} as Record<string, string>);
 
   // Retrieve created users
   const usersDB = await prisma.user.findMany();
@@ -36,7 +72,7 @@ async function main() {
         const company = await prisma.company.create({
           data: {
             name: companyData.name,
-            activityType: companyData.activityType,
+            activityTypeId: activityTypeMap[companyData.activityType],
             backgroundColor: companyData.backgroundColor,
             acceptReferral: companyData.acceptReferral,
             address: companyData.address,
@@ -63,20 +99,20 @@ async function main() {
     }
   }
 
-   // Create cards for all users with role 'USER' for each company
-   const userUsers = usersDB.filter(user => user.role === UserRole.USER);
-   for (const user of userUsers) {
-     for (const company of createdCompanies) {
-       const randomPoints = Math.floor(Math.random() * 1001);
-       await prisma.card.create({
-         data: {
-           points: randomPoints,
-           userId: user.id,
-           companyId: company.id,
-         },
-       });
-     }
-   }
+  // Create cards for all users with role 'USER' for each company
+  const userUsers = usersDB.filter(user => user.role === UserRole.USER);
+  for (const user of userUsers) {
+    for (const company of createdCompanies) {
+      const randomPoints = Math.floor(Math.random() * 1001);
+      await prisma.card.create({
+        data: {
+          points: randomPoints,
+          userId: user.id,
+          companyId: company.id,
+        },
+      });
+    }
+  }
 
   console.log('Seed executed successfully');
 }

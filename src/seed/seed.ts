@@ -24,10 +24,20 @@ export interface SeedCompany {
   logo: string
 }
 
+export interface SeedActivityType {
+  name: string;
+  category: 'PRODUCT' | 'SERVICE';
+  subCategoryName: string; // Changed to subCategoryName to clarify that it's a string
+}
 
+export interface SeedSubCategory {
+  name: string;
+}
 interface SeedData {
   users: SeedUser[];
   companies: SeedCompany[];
+  activityTypes: SeedActivityType[];
+  subCategories: SeedSubCategory[];
 }
 
 
@@ -207,6 +217,31 @@ export const initialData: SeedData = {
       openHours: '8-20',
       logo: 'tienda-de-cafe.jpg'
     },
-  ]
+  ],
+
+  activityTypes: [
+    { name: 'Cafe', category: 'SERVICE', subCategoryName: 'Gastronomía' },
+    { name: 'Barbería', category: 'SERVICE', subCategoryName: 'Belleza' },
+    { name: 'Restaurante', category: 'SERVICE', subCategoryName: 'Gastronomía' },
+    { name: 'Cervecería', category: 'PRODUCT', subCategoryName: 'Gastronomía' },
+    { name: 'Librería', category: 'PRODUCT', subCategoryName: 'Cultura' },
+    { name: 'Panadería', category: 'PRODUCT', subCategoryName: 'Gastronomía' },
+    { name: 'Tienda de Ropa', category: 'PRODUCT', subCategoryName: 'Moda' },
+    { name: 'Gimnasio', category: 'SERVICE', subCategoryName: 'Salud' },
+    { name: 'Centro de Estética', category: 'SERVICE', subCategoryName: 'Belleza' },
+    { name: 'Tienda de Música', category: 'PRODUCT', subCategoryName: 'Cultura' },
+    { name: 'Peluquería', category: 'SERVICE', subCategoryName: 'Belleza' },
+    { name: 'Cine', category: 'SERVICE', subCategoryName: 'Entretenimiento' },
+    { name: 'Heladería', category: 'PRODUCT', subCategoryName: 'Gastronomía' },
+  ],
+
+  subCategories: [
+    { name: 'Gastronomía' },
+    { name: 'Belleza' },
+    { name: 'Cultura' },
+    { name: 'Moda' },
+    { name: 'Salud' },
+    { name: 'Entretenimiento' },
+  ],
 
 }
