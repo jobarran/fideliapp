@@ -76,6 +76,8 @@ async function main() {
             backgroundColor: companyData.backgroundColor,
             acceptReferral: companyData.acceptReferral,
             address: companyData.address,
+            lat: companyData.lat,
+            lng: companyData.lng,
             openDays: companyData.openDays,
             openHours: companyData.openHours,
             userId: user.id,

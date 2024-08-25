@@ -11,8 +11,10 @@
     "seed": "ts-node src/seed/seed-database.ts"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.8",
     "@prisma/client": "^5.12.1",
     "@react-google-maps/api": "^2.19.3",
+    "@types/google.maps": "^3.55.12",
     "@vercel/postgres": "^0.9.0",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.4.0",

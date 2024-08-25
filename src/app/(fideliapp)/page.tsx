@@ -2,39 +2,42 @@ import { getAllActivityType, getAllCardsByUser, getAllCompanies } from "@/action
 import { auth } from "@/auth.config";
 import { ActivityTypes, CompaniesAll, CompanyCardsByUser, HowItWorks, MapComponent, MapProvider } from "@/components";
 import { Card } from "@/interfaces";
+import { companyLocationsMap } from "@/utils";
 
 export default async function Home() {
   const session = await auth();
   const user = session?.user || null;
 
-  // Fetch activities and companies in parallel to improve performance
   const [activities, companies] = await Promise.all([getAllActivityType(), getAllCompanies()]);
 
   let myCompanyCards: Card[] = [];
 
-  // Fetch cards only if the user is logged in
   if (user) {
     myCompanyCards = await getAllCardsByUser(user.id);
   }
 
+  const companyLocs = await companyLocationsMap(companies);
+
   return (
-    <MapProvider>
 
-      <main className="flex flex-col">
-        {user && myCompanyCards.length > 0 && <CompanyCardsByUser myCompanyCards={myCompanyCards} />}
+    <main className="flex flex-col">
 
-        {activities.length > 0 && <ActivityTypes activities={activities} />}
+      {user && myCompanyCards.length > 0 && <CompanyCardsByUser myCompanyCards={myCompanyCards} />}
 
-        {companies.length > 0 ? (
-          <CompaniesAll companiesAll={companies} />
-        ) : (
-          <p>No hay negocios disponibles.</p>
-        )}
+      {/* {activities.length > 0 && <ActivityTypes activities={activities} />} */}
 
-       <MapComponent />      
+      {companies.length > 0 ? (
+        <CompaniesAll companiesAll={companies} />
+      ) : (
+        <p>No hay negocios disponibles.</p>
+      )}
 
-        <HowItWorks />
-      </main>
-    </MapProvider>
+      <MapProvider>
+        <MapComponent companyLocation={companyLocs} />
+      </MapProvider>
+      
+      <HowItWorks />
+
+    </main>
   );
 }

@@ -20,7 +20,7 @@ interface Props {
 export const CompanyCardsByUserSlider = ({ myCards }: Props) => {
 
     return (
-        <div className='w-full mt-2 mb-2'>
+        <div className='w-full mt-2 mb-4'>
             <Swiper
                 breakpoints={{
                     320: { // when window width is >= 320px

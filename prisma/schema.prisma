@@ -57,6 +57,8 @@ model Company {
   backgroundColor String?
   acceptReferral  Boolean @default(false)
   address         String?
+  lat             Float?
+  lng             Float?
   openDays        String?
   openHours       String?
 

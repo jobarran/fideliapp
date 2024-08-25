@@ -1,4 +1,4 @@
-import { TopMenu } from "@/components";
+import { MapProvider, TopMenu } from "@/components";
 import { auth } from "@/auth.config";
 import React from "react";
 import { User } from "@/interfaces";
@@ -25,13 +25,13 @@ export default async function BaseLayout({
     return (
         <main>
             <TopMenu user={user} />
-            <div className="flex flex-col items-center justify-center">
-                <div className="container px-4 py-4">
-                    <div className="max-w-4xl w-full mx-auto">
-                        {passUserToChildren(children)}
+                <div className="flex flex-col items-center justify-center">
+                    <div className="container px-4 py-4">
+                        <div className="max-w-4xl w-full mx-auto">
+                            {passUserToChildren(children)}
+                        </div>
                     </div>
                 </div>
-            </div>
         </main>
     );
 }

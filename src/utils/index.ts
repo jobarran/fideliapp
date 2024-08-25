@@ -1,2 +1,5 @@
 export * from './generatePaginationNumbers'
 export * from './cardTextColor'
+export * from './exampleMapPlaces'
+export * from './companyLocationMap'
+export * from './createMarkerContent'

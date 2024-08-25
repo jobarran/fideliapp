@@ -5,14 +5,17 @@ import prisma from "@/lib/prisma";
 import { v2 as cloudinary } from 'cloudinary';
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+
 cloudinary.config( process.env.CLOUDINARY_URL ?? '' )
 
 const companySchema = z.object({
     id: z.string().uuid().optional().nullable(),
     name: z.string().min(3).max(255),
-    activityType: z.string().min(3).max(255),
+    activityTypeId: z.string().uuid(),
     backgroundColor: z.string().min(3).max(255),
     address: z.string().min(3).max(255),
+    lat: z.number().min(-90).max(90), 
+    lng: z.number().min(-180).max(180), 
     openDays: z.string().min(3).max(255),
     openHours: z.string().min(3).max(255),
 });

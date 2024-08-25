@@ -7,7 +7,7 @@ export * from './ui/home/HowItWorks'
 export * from './ui/home/ActivityTypes'
 
 export * from './provider/Provider'
-export * from './provider/map-provider'
+export * from './provider/MapProvider'
 
 export * from './slider/company-cards-by-user/CompanyCardsByUser'
 export * from './slider/company-cards-by-user/CompanyCardsByUserSlider'
@@ -25,3 +25,5 @@ export * from './company/AdminNewCompanyModal'
 export * from './company/CompanyLogo'
 
 export * from './map/MapComponent'
+export * from './map/CompanyMarker'
+export * from './map/MapInitializer'
