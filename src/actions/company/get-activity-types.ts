@@ -8,6 +8,9 @@ export const getActivityTypes = async () => {
       select: {
         id: true,
         name: true,
+        category: true,
+        subCategoryId: true,
+
       },
       orderBy: {
         name: 'asc',

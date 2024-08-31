@@ -19,7 +19,7 @@ export const CompanyGridFilterButtons = ({ filters, handleClearFilters, setCompa
           className="flex items-center p-1 rounded-lg border-2 hover:bg-gray-200 focus:outline-none"
           onClick={() => setCompanyFilterModal(true)}
         >
-          <p className='text-sm text-slate-800'>Filtros</p>
+          <p className='text-sm text-slate-800 hidden sm:block'>Filtros</p>
           <MdOutlineFilterList className="w-5 h-5 text-gray-600 ml-1" aria-hidden="true" />
         </button>
         {isAnyFilterApplied && (
@@ -30,7 +30,7 @@ export const CompanyGridFilterButtons = ({ filters, handleClearFilters, setCompa
         className="flex items-center p-1 rounded-lg border-2 hover:bg-gray-200 focus:outline-none"
         onClick={handleClearFilters}
       >
-        <p className='text-sm text-slate-800'>Borrar filtros</p>
+        <p className='text-sm text-slate-800 hidden sm:block'>Borrar filtros</p>
         <MdOutlineFilterListOff className="w-5 h-5 text-gray-600 ml-1" aria-hidden="true" />
       </button>
     </div>

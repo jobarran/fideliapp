@@ -11,12 +11,15 @@ interface Props {
 export const CompanyCardsByUserCards = ({ card }: Props) => {
 
     // Unified color logic
-    const backgroundColor = card.company.backgroundColor || '#slate-900'; // Dark gray as default
+    const borderColor = '#slate-900'
+    const backgroundColor = card.company.backgroundColor || '#slate-900';
     const color = backgroundColor
 
     return (
-        <div className="w-70 rounded-lg shadow-lg overflow-hidden"
-            style={{ borderColor: backgroundColor, borderWidth: 2, borderStyle: 'solid' }}>
+        <div
+            className="w-70 rounded-lg shadow-lg overflow-hidden"
+            style={{ borderColor: borderColor, borderWidth: 2, borderStyle: 'solid' }}
+        >
             <div className="flex flex-col items-center justify-center h-2/3 bg-white">
                 <div className="mt-1 text-base font-medium" style={{ color: color }}>{card.company.name}</div>
                 <div className="mt-1 mb-2">

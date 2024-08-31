@@ -5,7 +5,7 @@ import { User } from "@/interfaces";
 import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { LoginModal } from "./LoginModal";
-import { NewAccountModal } from "@/components";
+import { NewAccountModal, SearchCompany } from "@/components";
 import { useSession } from "next-auth/react"
 
 
@@ -45,19 +45,7 @@ export const TopMenu = ({ user }: Props) => {
 
         {/* Center - Icons */}
         <div className="hidden sm:flex justify-center items-center space-x-2">
-          <input
-            type="text"
-            id="simple-search"
-            className="bg-gray-50 border border-gray-300 text-slate-800 text-sm rounded-lg p-1 pl-3"
-            placeholder="Buscar locales"
-            required
-          />
-          <button
-            type="submit"
-            className="p-2 text-sm font-medium text-white bg-slate-800 rounded-lg hover:bg-slate-950">
-            <FaSearch />
-            <span className="sr-only">Search</span>
-          </button>
+          <SearchCompany />
         </div>
 
         {/* Right Side - User Name & Avatar */}

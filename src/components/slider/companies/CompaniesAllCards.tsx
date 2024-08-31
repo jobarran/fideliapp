@@ -12,10 +12,9 @@ export const CompaniesAllCards = ({ company }: Props) => {
 
     // Unified color logic
     const backgroundColor =  '#slate-900'; // Dark gray as default
-    const color = backgroundColor
 
     return (
-        <div className="w-70 rounded-lg overflow-hidden"
+        <div className="rounded-lg overflow-hidden"
             style={{ borderColor: backgroundColor, borderWidth: 2, borderStyle: 'solid' }}>
             <div className="flex flex-col items-center justify-center h-24 bg-white">
                 {/* <div className="mt-1 text-base font-medium" style={{ color: color }}>{company.name}</div> */}

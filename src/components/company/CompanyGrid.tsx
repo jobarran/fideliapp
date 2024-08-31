@@ -1,19 +1,19 @@
 "use client"
 
-import { Company } from "@/interfaces";
+import { ActivityType, Company } from "@/interfaces";
 import { CompanyGridItem } from "./CompanyGridItem";
 import { CompanyGridFilter } from "./CompanyGridFilter";
 import { useCompanyFilter } from "@/hooks";
 
 interface Props {
   companies: Company[];
-  activityTypes: { id: string; name: string }[];
+  activityTypes: ActivityType[];
+  search: string; // Add this line
 }
 
-
-export const CompanyGrid = ({ companies, activityTypes }: Props) => {
-
-  const { filteredCompanies, filters, setFilters, clearFilters } = useCompanyFilter(companies);
+export const CompanyGrid = ({ companies, activityTypes, search }: Props) => {
+  // Pass `search` to `useCompanyFilter`
+  const { filteredCompanies, filters, setFilters, clearFilters } = useCompanyFilter(companies, search);
 
   return (
     <>
@@ -25,15 +25,12 @@ export const CompanyGrid = ({ companies, activityTypes }: Props) => {
       />
 
       <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-6 gap-5 mb-10 mt-4">
-        {
-          filteredCompanies.map(company => (
-            <CompanyGridItem
-              key={company.id}
-              company={company}
-            />
-          ))
-        }
-
+        {filteredCompanies.map(company => (
+          <CompanyGridItem
+            key={company.id}
+            company={company}
+          />
+        ))}
       </div>
     </>
   );

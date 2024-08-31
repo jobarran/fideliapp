@@ -1,13 +1,14 @@
 "use client";
 
-import { CompanyFilters } from '@/interfaces';
+import { ActivityType, CompanyFilters } from '@/interfaces';
 import React, { useEffect, useRef, useState } from 'react';
 import { IoCloseSharp } from "react-icons/io5";
+import { CompanyGridFilterModalActivityType } from './CompanyGridFilterModalActivityType';
 
 interface Props {
     filters: CompanyFilters;
     handleInputChange: (name: keyof CompanyFilters, value: string[] | string) => void;
-    activityTypes: { id: string; name: string }[];
+    activityTypes: ActivityType[];
     companyFilterModal: boolean;
     setCompanyFilterModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -74,17 +75,13 @@ export const CompanyGridFilterModal = ({ filters, activityTypes, handleInputChan
                             <h1 className="text-lg font-bold">¿Qué estas buscando?</h1>
                         </div>
                     </div>
-                    <div className="flex flex-wrap gap-2 p-4">
-                        {activityTypes.map(type => (
-                            <button
-                                key={type.id}
-                                className={`px-3 py-1 text-sm rounded-full ${selectedActivityTypes.includes(type.id) ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700'}`}
-                                onClick={() => handleTagClick(type.id)}
-                            >
-                                {type.name}
-                            </button>
-                        ))}
-                    </div>
+
+                    <CompanyGridFilterModalActivityType
+                        activityTypes={activityTypes}
+                        selectedActivityTypes={selectedActivityTypes}
+                        onTagClick={handleTagClick}
+                    />
+
                 </div>
             </div>
         </div>

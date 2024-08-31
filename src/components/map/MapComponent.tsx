@@ -5,6 +5,8 @@ import { useRef, useState, useCallback } from "react";
 import CompanyMarker from "./CompanyMarker";
 import useUserLocation from "@/hooks/useUserLocation"; // Import the custom hook
 import { CompanyLocation } from "@/interfaces";
+import { useIsMounted } from "@/hooks";
+import { MapSkeleton } from "./MapSkeleton";
 
 // Map's styling
 export const defaultMapContainerStyle = {

@@ -1,6 +1,6 @@
 import { getAllActivityType, getAllCardsByUser, getAllCompanies } from "@/actions";
 import { auth } from "@/auth.config";
-import { CompaniesAll, CompanyCardsByUser, HowItWorks, MapComponent, MapProvider } from "@/components";
+import { CompaniesAll, CompanyCardsByUser, HowItWorks, MapComponent, MapProvider, SearchCompanySmallScreen } from "@/components";
 import { Card } from "@/interfaces";
 import { companyLocationsMap } from "@/utils";
 
@@ -21,6 +21,8 @@ export default async function Home() {
   return (
 
     <main className="flex flex-col">
+
+      <SearchCompanySmallScreen/>
 
       {user && myCompanyCards.length > 0 && <CompanyCardsByUser myCompanyCards={myCompanyCards} />}
 

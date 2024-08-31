@@ -1,8 +1,8 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Company } from '@/interfaces'
-import { CompaniesAllSlider } from '@/components'
+import { CompaniesAllSlider, FullWidthLoading } from '@/components'
 import Link from 'next/link'
 
 
@@ -14,6 +14,7 @@ export const CompaniesAll = ({ companiesAll }: Props) => {
 
     return (
         <div>
+
             <div className="flex justify-between items-center">
                 <p className="text-lg text-gray-900">Negocios destacados</p>
                 <Link
@@ -23,6 +24,7 @@ export const CompaniesAll = ({ companiesAll }: Props) => {
                 </Link>
             </div>
             <CompaniesAllSlider companiesAll={companiesAll} />
+
         </div>
     )
 }

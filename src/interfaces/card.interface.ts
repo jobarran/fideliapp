@@ -1,7 +1,7 @@
 export interface ActivityType {
     id: string;
     name: string;
-    category: 'PRODUCT' | 'SERVICE'; // Ensure ActivityCategory is defined correctly
+    category: 'PRODUCT' | 'SERVICE';
     subCategoryId: string | null;
 }
 

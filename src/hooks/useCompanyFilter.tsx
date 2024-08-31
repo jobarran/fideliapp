@@ -1,9 +1,9 @@
 import { useState, useMemo } from 'react';
 import { Company } from '@/interfaces';
 
-export const useCompanyFilter = (companies: Company[]) => {
+export const useCompanyFilter = (companies: Company[], search: string) => {
   const [filters, setFilters] = useState({
-    name: '',
+    name: search, // Initialize with the provided search value
     activityTypeId: [] as string[],
   });
 

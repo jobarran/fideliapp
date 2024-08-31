@@ -11,17 +11,28 @@ import 'swiper/css/pagination';
 // import required modules
 import { FreeMode } from 'swiper/modules';
 import { Card, Company } from '@/interfaces';
-import { CompaniesAllCards, CompanyCardsByUserCards } from '@/components';
+import { CompaniesAllCards, CompaniesAllLoading, CompanyCardsByUserCards, FullWidthLoading } from '@/components';
+import { useEffect, useState } from 'react';
+import { useIsMounted } from '@/hooks';
 
 interface Props {
     companiesAll: Company[]
 }
 export const CompaniesAllSlider = ({ companiesAll }: Props) => {
+    
+    const isMounted = useIsMounted(); // Use the custom hook
 
+    if (!isMounted) {
+        return (
+            <div className='w-full mt-2 mb-4'>
+                <CompaniesAllLoading />
+            </div>
+        );
+    }
+    
     return (
         <div className='w-full mt-2 mb-4'>
-            <Swiper
-                breakpoints={{
+                <Swiper breakpoints={{
                     320: { // when window width is >= 320px
                         slidesPerView: 3.5,
                     },
@@ -35,19 +46,19 @@ export const CompaniesAllSlider = ({ companiesAll }: Props) => {
                         slidesPerView: 8.5,
                     },
                 }} spaceBetween={10}
-                modules={[FreeMode]}
-                className="clientsCardsSlider"
-                pagination={{
-                    clickable: true,
-                }}
-            >
-                {companiesAll.map((company: Company) => (
-                    <SwiperSlide key={company.id}>
-                        <CompaniesAllCards company={company} />
-                    </SwiperSlide>
-                ))}
+                    modules={[FreeMode]}
+                    className="clientsCardsSlider"
+                    pagination={{
+                        clickable: true,
+                    }}
+                >
+                    {companiesAll.map((company: Company) => (
+                        <SwiperSlide key={company.id}>
+                            <CompaniesAllCards company={company} />
+                        </SwiperSlide>
+                    ))}
 
-            </Swiper>
+                </Swiper>
         </div >
     );
 };

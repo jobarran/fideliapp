@@ -1,1 +1,3 @@
 - Company Search bar in home with small screens
+- Skeletton home
+- Cards border remove color
