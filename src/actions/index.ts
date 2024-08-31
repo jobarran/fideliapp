@@ -4,6 +4,7 @@ export { registerUser } from './auth/register';
 
 export { getAllCompanies } from './company/get-all-companies'
 export { registerCompany } from './company/register-company'
+export { getActivityTypes } from './company/get-activity-types'
 
 export { getAllCardsByUser } from './card/get-all-cards-by-user'
 

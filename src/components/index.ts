@@ -23,7 +23,13 @@ export * from './slider/companies/CompaniesAllImage'
 export * from './company/CompanyLogo'
 export * from './company/AdminNewCompanyModal'
 export * from './company/CompanyLogo'
+export * from './company/CompanyGrid'
+export * from './company/CompanyGridItem'
+export * from './company/CompanyGridImage'
+export * from './company/CompanyGridFilter'
+export * from './company/CompanyGridFilterModal'
+export * from './company/CompanyGridFilterButtons'
 
 export * from './map/MapComponent'
-export * from './map/CompanyMarker'
-export * from './map/MapInitializer'
+export { default as CompanyMarker } from './map/CompanyMarker';
+export { default as MapInitializer } from './map/MapInitializer';

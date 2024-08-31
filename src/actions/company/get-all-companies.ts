@@ -2,10 +2,7 @@
 
 import prisma from '@/lib/prisma';
 
-
-
 export const getAllCompanies = async () => {
-
   try {
     const companies = await prisma.company.findMany({
       include: {
@@ -20,21 +17,21 @@ export const getAllCompanies = async () => {
             lastName: true, 
           },
         },
+        activityType: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
       },
       orderBy: {
-        name: 'asc'
-      }
+        name: 'asc',
+      },
     });
 
-
     return companies;
-
-
-
   } catch (error) {
     console.log(error);
     return [];
   }
-
-
 }

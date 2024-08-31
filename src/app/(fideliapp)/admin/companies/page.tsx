@@ -4,7 +4,7 @@ import { AdminNewCompanyModal, CompanyLogo } from "@/components";
 import Link from "next/link";
 
 
-export default async function CompaniesPage() {
+export default async function AdminCompaniesPage() {
 
 
     const companies = await getAllCompanies()
@@ -79,7 +79,7 @@ export default async function CompaniesPage() {
                                         </Link>
                                     </td>
                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        {company.activityType}
+                                        {company.activityTypeId}
                                     </td>
 
                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">

@@ -1,6 +1,6 @@
 import { getAllActivityType, getAllCardsByUser, getAllCompanies } from "@/actions";
 import { auth } from "@/auth.config";
-import { ActivityTypes, CompaniesAll, CompanyCardsByUser, HowItWorks, MapComponent, MapProvider } from "@/components";
+import { CompaniesAll, CompanyCardsByUser, HowItWorks, MapComponent, MapProvider } from "@/components";
 import { Card } from "@/interfaces";
 import { companyLocationsMap } from "@/utils";
 

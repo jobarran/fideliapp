@@ -1,0 +1,1 @@
+- Company Search bar in home with small screens

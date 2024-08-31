@@ -1,7 +1,10 @@
 export interface Company {
   id: string;
   name: string;
-  activityTypeId: string;
+  activityType: {
+    name: string;
+    id: string;
+  };
   backgroundColor: string | null;
   acceptReferral: boolean;
   address: string | null;
@@ -15,7 +18,7 @@ export interface Company {
     name: string;
     lastName: string;
   };
-};
+}
 
 export interface CompanyLogo {
   url: string;
@@ -29,3 +32,8 @@ export interface CompanyLocation {
   openDays: string;
   openHours: string;
 };
+
+export interface CompanyFilters {
+  name: string;
+  activityTypeId: string[];
+}
