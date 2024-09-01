@@ -7,6 +7,7 @@ import { FaSearch } from "react-icons/fa";
 import { LoginModal } from "./LoginModal";
 import { NewAccountModal, SearchCompany } from "@/components";
 import { useSession } from "next-auth/react"
+import Link from "next/link";
 
 
 interface Props {
@@ -38,10 +39,9 @@ export const TopMenu = ({ user }: Props) => {
 
         {/* Left Side */}
         <div className="flex items-center">
-          <a href="/">
+          <Link href={`/`} >
             <h1 className="text-xl font-bold text-slate-800">FideliApp</h1>
-          </a>
-        </div>
+          </Link>        </div>
 
         {/* Center - Icons */}
         <div className="hidden sm:flex justify-center items-center space-x-2">

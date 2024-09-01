@@ -110,6 +110,7 @@ model CompanyLogo {
 model Card {
   id     String @id @default(uuid())
   points Int    @default(0)
+  favourite Boolean @default(false) 
 
   // Relations - Down
   History PointTransaction[]

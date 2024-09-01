@@ -1,20 +1,24 @@
 import { getAllActivityType, getAllCardsByUser, getAllCompanies } from "@/actions";
-import { auth } from "@/auth.config";
 import { CompaniesAll, CompanyCardsByUser, HowItWorks, MapComponent, MapProvider, SearchCompanySmallScreen } from "@/components";
 import { Card } from "@/interfaces";
-import { companyLocationsMap } from "@/utils";
+import { companyLocationsMap, sortCards } from "@/utils";
 
 export default async function Home() {
-  const session = await auth();
-  const user = session?.user || null;
+
 
   const [activities, companies] = await Promise.all([getAllActivityType(), getAllCompanies()]);
 
   let myCompanyCards: Card[] = [];
 
-  if (user) {
-    myCompanyCards = await getAllCardsByUser(user.id);
-  }
+  const cardsResult = await getAllCardsByUser();
+  
+  if (cardsResult.ok) {
+    myCompanyCards = cardsResult.cards || [];
+  } else {
+    console.error(cardsResult.message); 
+  }  
+
+  const sortedCards = sortCards(myCompanyCards);
 
   const companyLocs = await companyLocationsMap(companies);
 
@@ -24,9 +28,7 @@ export default async function Home() {
 
       <SearchCompanySmallScreen/>
 
-      {user && myCompanyCards.length > 0 && <CompanyCardsByUser myCompanyCards={myCompanyCards} />}
-
-      {/* {activities.length > 0 && <ActivityTypes activities={activities} />} */}
+      {myCompanyCards.length > 0 && <CompanyCardsByUser myCompanyCards={sortedCards} />}
 
       {companies.length > 0 ? (
         <CompaniesAll companiesAll={companies} />

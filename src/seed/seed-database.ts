@@ -106,9 +106,12 @@ async function main() {
   for (const user of userUsers) {
     for (const company of createdCompanies) {
       const randomPoints = Math.floor(Math.random() * 1001);
+      const randomFavourite = Math.random() < 0.5; 
+
       await prisma.card.create({
         data: {
           points: randomPoints,
+          favourite: randomFavourite, 
           userId: user.id,
           companyId: company.id,
         },

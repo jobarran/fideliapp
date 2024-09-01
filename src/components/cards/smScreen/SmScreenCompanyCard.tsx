@@ -1,14 +1,15 @@
 import React from 'react'
 import Link from "next/link";
 import { Card } from '@/interfaces';
+import { CompanyCardsByUserImage } from '@/components';
 import { FaRegHeart, FaHeart, FaStar, FaRegStar, FaGift } from "react-icons/fa6";
-import { CompanyCardsByUserImage } from './CompanyCardsByUserImage';
+
 
 interface Props {
     card: Card,
 }
 
-export const CompanyCardsByUserCards = ({ card }: Props) => {
+export const SmScreenCompanyCard = ({ card }: Props) => {
 
     // Unified color logic
     const borderColor = '#slate-900'
@@ -17,7 +18,6 @@ export const CompanyCardsByUserCards = ({ card }: Props) => {
 
     return (
         <Link href={`/cards/${card.id}`} >
-
             <div
                 className="w-70 rounded-lg shadow-sm overflow-hidden  bg-white"
                 style={{ borderColor: borderColor, borderWidth: 2, borderStyle: 'solid' }}
@@ -41,7 +41,7 @@ export const CompanyCardsByUserCards = ({ card }: Props) => {
                 <div className="flex items-center justify-between px-4 pb-2">
                     {/* Mis puntos section at bottom left */}
                     <div className="flex flex-col items-start">
-                        <p className="text-xs font-medium" style={{ color: color }}>{`${card.points} puntos`}</p>
+                        <p className="text-xs font-medium" style={{ color: color }}>{`${card.points} puntos`}</p> {/* Random number */}
                     </div>
                     {/* Icons section at bottom right */}
                     <div className="flex space-x-2">
@@ -54,5 +54,6 @@ export const CompanyCardsByUserCards = ({ card }: Props) => {
                 </div>
             </div>
         </Link>
+
     )
 }
