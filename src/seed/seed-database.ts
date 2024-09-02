@@ -1,6 +1,7 @@
 import { UserRole } from '@prisma/client';
 import prisma from '../lib/prisma';
 import { initialData } from './seed';
+import { generateSlug } from '../utils/generateSlug';
 
 async function main() {
   // Clear existing data
@@ -68,10 +69,12 @@ async function main() {
     if (user && user.role === 'CLIENT') {
       // Check if company for this userId already exists
       if (!createdUserIds.has(user.id)) {
+        const slug = generateSlug(companyData.name, user.id)
         // Create company for CLIENT user
         const company = await prisma.company.create({
           data: {
             name: companyData.name,
+            slug: slug,
             activityTypeId: activityTypeMap[companyData.activityType],
             backgroundColor: companyData.backgroundColor,
             acceptReferral: companyData.acceptReferral,

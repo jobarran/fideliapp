@@ -57,6 +57,7 @@ model Company {
   backgroundColor String?
   acceptReferral  Boolean @default(false)
   address         String?
+  slug            String  @unique
   lat             Float?
   lng             Float?
   openDays        String?
@@ -108,9 +109,9 @@ model CompanyLogo {
 }
 
 model Card {
-  id     String @id @default(uuid())
-  points Int    @default(0)
-  favourite Boolean @default(false) 
+  id        String  @id @default(uuid())
+  points    Int     @default(0)
+  favourite Boolean @default(false)
 
   // Relations - Down
   History PointTransaction[]

@@ -8,6 +8,7 @@ export interface Company {
   backgroundColor: string | null;
   acceptReferral: boolean;
   address: string | null;
+  slug: string;
   lat: number | null;
   lng: number | null;
   openDays: string | null;

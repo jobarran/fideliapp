@@ -19,7 +19,7 @@ export const CompaniesAllCards = ({ company }: Props) => {
             <div className="flex flex-col items-center justify-center h-24 bg-white">
                 {/* <div className="mt-1 text-base font-medium" style={{ color: color }}>{company.name}</div> */}
                 <div className="mt-1 mb-2">
-                    <Link href={`/product/${company.name}`}>
+                    <Link href={`/companies/${company.slug}`}>
                         <div className="relative w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-white">
                             <CompaniesAllImage
                                 src={company.CompanyLogo?.url}

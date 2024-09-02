@@ -1,4 +1,4 @@
-import { MapProvider, TopMenu } from "@/components";
+import { Footer, MapProvider, TopMenu } from "@/components";
 import { auth } from "@/auth.config";
 import React from "react";
 import { User } from "@/interfaces";
@@ -23,8 +23,9 @@ export default async function BaseLayout({
     };
 
     return (
-        <main>
-            <TopMenu user={user} />
+        <div className="flex flex-col min-h-screen">
+            <div className="flex-grow">
+                <TopMenu user={user} />
                 <div className="flex flex-col items-center justify-center">
                     <div className="container px-4 py-4">
                         <div className="max-w-4xl w-full mx-auto">
@@ -32,6 +33,8 @@ export default async function BaseLayout({
                         </div>
                     </div>
                 </div>
-        </main>
+            </div>
+            <Footer />
+        </div>
     );
 }
