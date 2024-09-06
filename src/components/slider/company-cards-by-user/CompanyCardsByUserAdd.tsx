@@ -1,22 +1,15 @@
+import Link from 'next/link';
 import React from 'react';
 
 export const CompanyCardsByUserAdd = () => {
-    const backgroundColor = '#f0f0f0'; // Light gray background
-    const borderColor = '#333'; // Darker gray for the border
 
     return (
-        <div 
-            className="w-70 h-32 rounded-lg shadow-lg overflow-hidden flex items-center justify-center"
-            style={{
-                backgroundColor: backgroundColor,
-                borderColor: borderColor,
-                borderWidth: 2,
-                borderStyle: 'dotted',
-            }}
-        >
-            <div className="text-base font-medium" style={{ color: borderColor }}>
-                Agregar Tarjeta
+        <Link href={`/companies`}>
+            <div className="w-70 h-32 rounded-lg shadow-sm overflow-hidden flex items-center justify-center bg-neutral-50 border-2 border-slate-200 hover:bg-white">
+                <div className="text-base font-medium text-slate-400">
+                    Agregar Tarjeta
+                </div>
             </div>
-        </div>
+        </Link>
     );
 };

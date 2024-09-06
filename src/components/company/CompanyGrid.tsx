@@ -8,11 +8,12 @@ import { useCompanyFilter } from "@/hooks";
 interface Props {
   companies: Company[];
   activityTypes: ActivityType[];
-  search: string; // Add this line
+  search: string;
+  companyIdByUserCard: string[]
 }
 
-export const CompanyGrid = ({ companies, activityTypes, search }: Props) => {
-  // Pass `search` to `useCompanyFilter`
+export const CompanyGrid = ({ companies, activityTypes, search, companyIdByUserCard }: Props) => {
+
   const { filteredCompanies, filters, setFilters, clearFilters } = useCompanyFilter(companies, search);
 
   return (
@@ -29,6 +30,7 @@ export const CompanyGrid = ({ companies, activityTypes, search }: Props) => {
           <CompanyGridItem
             key={company.id}
             company={company}
+            isInUserCards={companyIdByUserCard.includes(company.slug)} // Pass true if company.id is in companyIdByUserCard, false otherwise
           />
         ))}
       </div>

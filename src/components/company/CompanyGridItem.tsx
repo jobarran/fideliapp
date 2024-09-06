@@ -5,23 +5,26 @@ import Link from 'next/link';
 
 import { CompanyLogo } from './CompanyLogo';
 import { CompanyGridImage } from './CompanyGridImage';
+import { FaCheck } from 'react-icons/fa6';
 
 interface Props {
     company: Company;
+    isInUserCards: boolean
 }
 
-export const CompanyGridItem = ({ company }: Props) => {
+export const CompanyGridItem = ({ company, isInUserCards }: Props) => {
 
     // Unified color logic
-    const backgroundColor = '#slate-900'; // Dark gray as default
+    const borderColor = isInUserCards ? 'border-green-700' : 'border-slate-200';
+
+
 
     return (
-        <div className="w-70 rounded-lg overflow-hidden"
-            style={{ borderColor: backgroundColor, borderWidth: 2, borderStyle: 'solid' }}>
-            <Link href={`/product/${company.name}`}>
-                <div className="flex flex-col items-center justify-center h-24 bg-white hover:bg-gray-100">
+        <div className={`relative w-70 rounded-lg  border-2 bg-white hover:bg-gray-100 ${borderColor}`}>
+            <Link href={`/companies/${company.slug}`}>
+                <div className="flex flex-col items-center justify-center h-24">
                     <div className="mt-2">
-                        <div className="relative w-14 h-14 rounded-full overflow-hidden flex items-center justify-center bg-white">
+                        <div className="relative w-14 h-14 rounded-full overflow-hidden flex items-center justify-center">
                             <CompanyGridImage
                                 src={company.CompanyLogo?.url}
                                 width={0}
@@ -32,6 +35,11 @@ export const CompanyGridItem = ({ company }: Props) => {
                                 style={{ width: '100%', height: 'auto' }}
                             />
                         </div>
+                        {isInUserCards && (
+                            <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-green-600 border-2 border-white rounded-full -top-2 -right-2">
+                                ✔
+                            </div>
+                        )}
 
                     </div>
                     <div className="text-center mb-1 mt-1 text-xs">

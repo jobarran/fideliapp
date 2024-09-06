@@ -39,6 +39,7 @@ export * from './company/CompanyGridFilter'
 export * from './company/CompanyGridFilterModal'
 export * from './company/CompanyGridFilterButtons'
 export * from './company/CompanyGridFilterModalActivityType'
+export * from './company/CreateCardButton'
 
 export * from './map/MapComponent'
 export * from './map/MapSkeleton'

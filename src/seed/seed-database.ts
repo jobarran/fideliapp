@@ -104,17 +104,20 @@ async function main() {
     }
   }
 
-  // Create cards for all users with role 'USER' for each company
+  // Create 3 random cards for each user with role 'USER'
   const userUsers = usersDB.filter(user => user.role === UserRole.USER);
   for (const user of userUsers) {
-    for (const company of createdCompanies) {
+    const shuffledCompanies = createdCompanies.sort(() => 0.5 - Math.random());
+    const selectedCompanies = shuffledCompanies.slice(0, 3); // Select 3 random companies
+
+    for (const company of selectedCompanies) {
       const randomPoints = Math.floor(Math.random() * 1001);
-      const randomFavourite = Math.random() < 0.5; 
+      const randomFavourite = Math.random() < 0.5;
 
       await prisma.card.create({
         data: {
           points: randomPoints,
-          favourite: randomFavourite, 
+          favourite: randomFavourite,
           userId: user.id,
           companyId: company.id,
         },
