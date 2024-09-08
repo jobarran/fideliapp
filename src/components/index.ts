@@ -5,6 +5,7 @@ export * from './ui/top-menu/NewAccountModal'
 export * from './ui/top-menu/SearchCompany'
 export * from './ui/top-menu/SearchCompanySmallScreen'
 export * from './ui/footer/Footer'
+export * from './ui/top-menu/UserDropdownMenu'
 
 export * from './ui/loading/FullWidthLoading'
 
