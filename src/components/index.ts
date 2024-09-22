@@ -41,11 +41,18 @@ export * from './company/CompanyGridFilterModal'
 export * from './company/CompanyGridFilterButtons'
 export * from './company/CompanyGridFilterModalActivityType'
 export * from './company/CreateCardButton'
+export * from './company/CompanyCreateWorkingHoursSelector'
+export * from './company/CompanyCreateOpenHoursSelector'
 
 export * from './map/MapComponent'
 export * from './map/MapSkeleton'
 export { default as CompanyMarker } from './map/CompanyMarker';
 export { default as MapInitializer } from './map/MapInitializer';
+export * from './map/SearchErrorMessage'
+export * from './map/SearchBox'
+export * from './map/CreateCompanyMapComponent'
+export * from './map/CreateCompanyMapContainer'
+export * from './map/CreateCompanySearchBox'
 
 export * from './cards/lgScreen/LgScreenCards'
 

@@ -63,29 +63,37 @@ async function main() {
   const createdUserIds = new Set<string>();
   const createdCompanies = [];
 
-  // Create companies and logos for CLIENT users
-  for (const companyData of companies) {
-    const user = usersMap[companyData.userEmail.toLowerCase()];
-    if (user && user.role === 'CLIENT') {
-      // Check if company for this userId already exists
-      if (!createdUserIds.has(user.id)) {
-        const slug = generateSlug(companyData.name, user.id)
-        // Create company for CLIENT user
-        const company = await prisma.company.create({
-          data: {
-            name: companyData.name,
-            slug: slug,
-            activityTypeId: activityTypeMap[companyData.activityType],
-            backgroundColor: companyData.backgroundColor,
-            acceptReferral: companyData.acceptReferral,
-            address: companyData.address,
-            lat: companyData.lat,
-            lng: companyData.lng,
-            openDays: companyData.openDays,
-            openHours: companyData.openHours,
-            userId: user.id,
-          },
-        });
+   // Seed Script (JSON Field Approach)
+const defaultOpenHours = {
+  mon: { from: '09:00', to: '17:00' },
+  tue: { from: '09:00', to: '17:00' },
+  wed: { from: '09:00', to: '17:00' },
+  thu: { from: '09:00', to: '17:00' },
+  fri: { from: '09:00', to: '17:00' },
+  sat: { from: '09:00', to: '17:00' },
+  sun: { closed: true },
+};
+
+// Create companies and logos for CLIENT users
+for (const companyData of companies) {
+  const user = usersMap[companyData.userEmail.toLowerCase()];
+  if (user && user.role === 'CLIENT') {
+    if (!createdUserIds.has(user.id)) {
+      const slug = generateSlug(companyData.name, user.id);
+      const company = await prisma.company.create({
+        data: {
+          name: companyData.name,
+          slug: slug,
+          activityTypeId: activityTypeMap[companyData.activityType],
+          backgroundColor: companyData.backgroundColor,
+          acceptReferral: companyData.acceptReferral,
+          address: companyData.address,
+          lat: companyData.lat,
+          lng: companyData.lng,
+          openHours: defaultOpenHours, // Store opening hours as JSON
+          userId: user.id,
+        },
+      });
 
         // Create logo for the company
         await prisma.companyLogo.create({

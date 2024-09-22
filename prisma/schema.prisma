@@ -60,14 +60,13 @@ model Company {
   slug            String  @unique
   lat             Float?
   lng             Float?
-  openDays        String?
-  openHours       String?
 
   // Relations - Down
   Products    Product[]
   Templates   PointTransactionTemplate[]
   Cards       Card[]
   CompanyLogo CompanyLogo?
+  openHours   Json // Store as JSON
 
   // Relations - Up
   user   User   @relation(fields: [userId], references: [id])

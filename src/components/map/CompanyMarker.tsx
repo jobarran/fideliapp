@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from 'react';
 
 type CustomMarkerProps = {
     position: { lat: number; lng: number };
-    map: google.maps.Map; // Ensure the map object is passed as a prop
+    map: google.maps.Map | null; // Ensure the map object is passed as a prop
     onClick: () => void;
 };
 

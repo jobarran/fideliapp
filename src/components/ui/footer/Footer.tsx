@@ -1,4 +1,5 @@
 // Footer.js
+import Link from 'next/link';
 import React from 'react';
 
 export const Footer = () => {
@@ -13,7 +14,9 @@ export const Footer = () => {
                         <a href="#" className="hover:underline me-4 md:me-6">Términos y condiciones</a>
                     </li>
                     <li>
-                        <a href="#" className="hover:underline me-4 md:me-6">Registrar tu negocio</a>
+                        <Link href={`/companies/create`}>
+                            <h1 className="hover:underline me-4 md:me-6">Registrar tu negocio</h1>
+                        </Link>
                     </li>
                     <li>
                         <a href="#" className="hover:underline">Contáctanos</a>

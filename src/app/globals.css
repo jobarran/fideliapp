@@ -27,3 +27,6 @@ body {
   align-items: center;
 }
 
+input[type="checkbox"]:checked {
+  accent-color: #1E293B; /* This is slate-800 */
+}
