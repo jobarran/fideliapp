@@ -1,12 +1,13 @@
 "use client";
 
-import { useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { colorOptions } from '@/config';
 import { generateSlug } from '@/utils';
+import { CompanyCreateWorkingHoursSelector, CompanyDetails, CompanyLogoAndColor, CreateCompanyMapContainer } from '@/components';
+import { useRouter } from 'next/navigation';
+import { User } from '@/interfaces';
+import { getActivityTypes, registerCompany } from '@/actions';
 import clsx from 'clsx';
-import { CompanyCreateWorkingHoursSelector, CreateCompanyMapContainer } from '@/components';
 
 interface DayHours {
   from: string;
@@ -21,26 +22,35 @@ type FormInputs = {
   slug: string;
   lat: number;
   lng: number;
-  openDays: string;
+  openHours: string;
+  activityTypeId: string;
+  logo?: FileList | undefined;
 };
 
-export const CreateCompanyForm = () => {
-  const { data: session } = useSession({ required: true });
+interface Props {
+  user: User | null
+}
+
+export const CreateCompanyForm = ({ user }: Props) => {
+  const router = useRouter();
 
   const [slug, setSlug] = useState<string>('');
-  const [selectedColor, setSelectedColor] = useState<string>(colorOptions[0]);
+  const [selectedColor, setSelectedColor] = useState<string>(''); // Default color
   const [address, setAddress] = useState<string>('');
   const [lat, setLat] = useState<number>(0);
   const [lng, setLng] = useState<number>(0);
-  const [openDays, setOpenDays] = useState<{ [key: string]: DayHours }>({});
+  const [openHours, setOpenHours] = useState<{ [key: string]: DayHours }>({});
+  const [activityTypes, setActivityTypes] = useState<Array<{ id: string, name: string }>>([]);
+  const [activityType, setActivityType] = useState<string>('')
+  const [currentStep, setCurrentStep] = useState<number>(1); // Step state for rendering cards
 
   const {
     handleSubmit,
     register,
     watch,
-    formState: { isValid, errors },
+    formState: { isValid },
   } = useForm<FormInputs>({
-    mode: 'onChange', // Enforce validation on change
+    mode: 'onChange',
     defaultValues: {
       name: '',
       backgroundColor: selectedColor,
@@ -49,111 +59,135 @@ export const CreateCompanyForm = () => {
       slug: '',
       lat: 0,
       lng: 0,
-      openDays: '',
+      openHours: '',
+      activityTypeId: ''
     }
   });
 
   const nameValue = watch('name');
+  const activityTypeId = watch('activityTypeId'); // Watch the activityTypeId
+
+  // Redirect if no session
+  useEffect(() => {
+    if (!user) {
+      const callbackUrl = encodeURIComponent(window.location.href);
+      router.push(`/auth/login?callbackUrl=${callbackUrl}`);
+    }
+  }, []);
+
+  // Fetch activity types on component mount
+  useEffect(() => {
+    const fetchActivityTypes = async () => {
+      const types = await getActivityTypes();
+      setActivityTypes(types);
+    };
+    fetchActivityTypes();
+  }, []);
 
   useEffect(() => {
-    if (nameValue && session?.user?.id) {
-      const newSlug = generateSlug(nameValue, session.user.id);
+    if (nameValue && user?.id) {
+      const newSlug = generateSlug(nameValue, user.id);
       setSlug(newSlug);
     }
-  }, [nameValue, session?.user?.id]);
+  }, [nameValue, user?.id]);
 
   const onSubmit = async (data: FormInputs) => {
-    const formData = {
-      ...data,
-      slug,
-      address,
-      lat,
-      lng,
-      openDays,
-    };
-    console.log(formData);
+    const formData = new FormData();
+
+    const { logo, ...companyToSave } = data;
+
+    // Append individual fields to FormData
+    formData.append("name", companyToSave.name);
+    formData.append("activityTypeId", companyToSave.activityTypeId);
+    formData.append("backgroundColor", selectedColor);
+    formData.append("address", address);
+    formData.append("lat", lat.toString());
+    formData.append("lng", lng.toString());
+
+    Object.entries(openHours).forEach(([day, hours]) => {
+      formData.append(`openHours[${day}][from]`, hours.from);
+      formData.append(`openHours[${day}][to]`, hours.to);
+    });
+
+    formData.append("slug", slug);
+    formData.append("acceptReferral", companyToSave.acceptReferral ? "true" : "false");
+
+    if (logo && logo.length > 0) {
+      formData.append('logo', logo[0]);
+    }
+
+    await registerCompany(formData);
+    router.replace(`/admin/users`)
   };
 
   return (
     <div className="bg-white p-8 shadow-lg rounded-lg mx-auto">
-
-      <form onSubmit={handleSubmit(onSubmit)} >
-
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
-
-          {/* Name */}
-          <div className="flex flex-col space-y-4">
-
-            <input
-              id="name"
-              {...register('name', { required: 'Company name is required' })}
-              className="input border border-gray-300 p-2 rounded"
-              placeholder="Company Name"
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {currentStep === 1 && ( // First Card
+          <CompanyDetails
+            register={register}
+            watch={watch}
+            isValid={isValid}
+            openHours={openHours}
+            setOpenHours={setOpenHours}
+            address={address}
+            setAddress={setAddress}
+            lat={lat}
+            setLat={setLat}
+            lng={lng}
+            setLng={setLng}
+            activityTypes={activityTypes}
+            setActivityType={setActivityType}
             />
+        )}
 
-            {/* Background Color */}
-            <div className="flex space-x-2">
-              {colorOptions.map((color) => (
-                <div
-                  key={color}
-                  onClick={() => setSelectedColor(color)}
-                  className={clsx(
-                    'w-10 h-10 rounded cursor-pointer',
-                    selectedColor === color ? 'ring-4 ring-offset-2 ring-slate-800' : ''
-                  )}
-                  style={{ backgroundColor: color }}
-                ></div>
-              ))}
-            </div>
-            <input type="hidden" {...register('backgroundColor')} value={selectedColor} />
+        {currentStep === 2 && ( // Second Card
+          <CompanyLogoAndColor
+            register={register}
+            selectedColor={selectedColor}
+            setSelectedColor={setSelectedColor}
+            name={nameValue}  
+            address={address}  
+            activityType={activityType} 
+          />
+        )}
 
-            {/* Slug (Disabled) */}
-            <div className="hidden">
-              <input
-                id="slug"
-                value={slug}
-                disabled
-                className="input border border-gray-300 p-2 rounded bg-gray-100"
-              />
-            </div>
+        <div className="flex justify-end mt-4">
+          {currentStep === 1 && ( // Show "Siguiente" button on first step
+            <button
+              type="button"
+              onClick={() => setCurrentStep(2)}
+              disabled={!isValid || Object.keys(openHours).length === 0 || address.trim() === ''}
+              className={clsx(
+                'mt-4 py-2 px-4 w-full rounded font-semibold text-white',
+                !isValid || Object.keys(openHours).length === 0 || address.trim() === ''
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-slate-800 hover:bg-slate-950'
+              )}
+            >
+              Siguiente
+            </button>
+          )}
 
-            {/* Open Days */}
-            <CompanyCreateWorkingHoursSelector openDays={openDays} setOpenDays={setOpenDays} />
-
-            {/* Accept Referral */}
-            <div className="flex items-center space-x-3">
-              <input
-                type="checkbox"
-                id="acceptReferral"
-                {...register('acceptReferral')}
-                className="h-4 w-4"
-              />
-              <label htmlFor="acceptReferral" className="text-sm font-medium italic">
-                Aceptar referidos
-              </label>
-            </div>
-
-          </div>
-
-          {/* Address */}
-          <CreateCompanyMapContainer setAddress={setAddress} setLat={setLat} setLng={setLng} />
-
+          {currentStep === 2 && ( // Show "Crear" button on second step
+            <button
+              disabled={!isValid}
+              type="submit"
+              className={clsx(
+                'mt-4 py-2 px-4 w-full rounded font-semibold text-white',
+                isValid
+                  ? 'bg-slate-800 hover:bg-slate-950'
+                  : 'bg-gray-400 cursor-not-allowed'
+              )}
+            >
+              Crear
+            </button>
+          )}
         </div>
 
-        {/* Submit Button */}
-        <button
-          disabled={!isValid || Object.keys(openDays).length === 0}
-          type="submit"
-          className={clsx(
-            'mt-4 py-2 px-4 w-full rounded font-semibold text-white',
-            isValid && Object.keys(openDays).length > 0 && address.trim() !== ""
-              ? 'bg-slate-800 hover:bg-slate-950'
-              : 'bg-gray-400 cursor-not-allowed'
-          )}
-        >
-          Crear
-        </button>
       </form>
-    </div >
+    </div>
   );
 };
+
+export default CreateCompanyForm;

@@ -28,7 +28,7 @@ export const CompaniesAllCards = ({ company }: Props) => {
                                 alt={company.name}
                                 className="object-cover"
                                 priority
-                                style={{ width: '100%', height: 'auto' }}
+                                style={{ width: '100%', height: '100%' }}
                             />
                         </div>
                     </Link>

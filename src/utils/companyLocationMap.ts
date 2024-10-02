@@ -11,7 +11,6 @@ export async function companyLocationsMap(companies:Company[]): Promise<CompanyL
       lng: company.lng ?? 0, 
       name: company.name,
       address: company.address || '',
-      openDays: company.openDays || '',
       openHours: company.openHours || '',
     }));
   }

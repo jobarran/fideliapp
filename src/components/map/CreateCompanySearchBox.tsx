@@ -3,6 +3,7 @@
 import { useState, useContext } from 'react';
 import { useCombobox } from 'downshift';
 import { MapContext } from './MapInitializer';
+import { fullAdress } from '../../utils/fullAdress';
 
 interface Suggestion {
   id: string;
@@ -58,7 +59,9 @@ export const CreateCompanySearchBox = ({ setMarkerPosition, setMapCenter, setAdd
             const location = results[0].geometry.location;
             setMarkerPosition(new window.google.maps.LatLng(location.lat(), location.lng()));
             setMapCenter(new window.google.maps.LatLng(location.lat(), location.lng())); // Update map center
-            setAddress(selectedItem.address); // Set the selected address
+            const adress = fullAdress(selectedItem.address)
+            adress && setAddress(selectedItem.address)
+            console.log(adress)
           } else {
             console.error('Geocode was not successful for the following reason: ' + status);
           }
@@ -77,11 +80,10 @@ export const CreateCompanySearchBox = ({ setMarkerPosition, setMapCenter, setAdd
       />
       <ul
         {...getMenuProps()}
-        className={`absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg ${
-          isOpen ? 'block' : 'hidden'
-        }`}
+        className={`absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg ${isOpen ? 'block' : 'hidden'
+          }`}
       >
-         {/* If no search results and input is not empty, show the placeholder */}
+        {/* If no search results and input is not empty, show the placeholder */}
         {searchResult.length === 0 && inputValue.trim().length > 0 && (
           <li className="p-2 text-gray-500">Escriba la dirección y la ciudad de su negocio</li>
         )}

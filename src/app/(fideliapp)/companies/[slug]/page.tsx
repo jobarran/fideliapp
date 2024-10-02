@@ -77,7 +77,7 @@ export default async function CompanyBySlugPage({ params }: Props) {
                   <span className="text-gray-500 ml-1">{company.address}</span>
                 </p>
               )}
-              {company.openDays && (
+              {/* {company.openDays && (
                 <p className="text-md flex items-center">
                   <span className="inline sm:hidden">
                     <FaCalendarAlt className="text-sm" />
@@ -87,8 +87,8 @@ export default async function CompanyBySlugPage({ params }: Props) {
                   </span>
                   <span className="text-gray-500 ml-1">{company.openDays}</span>
                 </p>
-              )}
-              {company.openHours && (
+              )} */}
+              {/* {company.openHours && (
                 <p className="text-md flex items-center">
                   <span className="inline sm:hidden">
                     <FaRegClock className="text-sm" />
@@ -98,7 +98,7 @@ export default async function CompanyBySlugPage({ params }: Props) {
                   </span>
                   <span className="text-gray-500 ml-1">{company.openHours}</span>
                 </p>
-              )}
+              )} */}
             </div>
           </div>
         </div>

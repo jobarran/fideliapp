@@ -8,18 +8,24 @@ export const Footer = () => {
             <div className="w-full mx-auto max-w-screen-xl p-2 flex flex-col items-center md:flex-row md:items-center md:justify-between">
                 <ul className="flex flex-wrap items-center justify-center text-sm font-semibold text-gray-500">
                     <li>
-                        <a href="#" className="hover:underline me-4 md:me-6">Quiénes somos</a>
+                        <Link href="/about" className="hover:underline me-4 md:me-6">
+                            Quiénes somos
+                        </Link>
                     </li>
                     <li>
-                        <a href="#" className="hover:underline me-4 md:me-6">Términos y condiciones</a>
+                        <Link href="/terms" className="hover:underline me-4 md:me-6">
+                            Términos y condiciones
+                        </Link>
                     </li>
                     <li>
-                        <Link href={`/companies/create`}>
+                        <Link href="/companies/create">
                             <h1 className="hover:underline me-4 md:me-6">Registrar tu negocio</h1>
                         </Link>
                     </li>
                     <li>
-                        <a href="#" className="hover:underline">Contáctanos</a>
+                        <Link href="/contact" className="hover:underline">
+                            Contáctanos
+                        </Link>
                     </li>
                 </ul>
                 <div className="border-t border-gray-300 dark:border-gray-700 w-full md:w-auto my-2 md:my-0" />

@@ -11,13 +11,11 @@ export interface Company {
   slug: string;
   lat: number | null;
   lng: number | null;
-  openHours: {
-    [key: string]: { // Using string index to represent days of the week
-      from: string; // Opening time in HH:mm format
-      to: string;   // Closing time in HH:mm format
-      closed?: boolean; // Optional property for closed days
-    };
-  };
+  openHours: Record<string, { 
+    from: string;
+    to: string;
+    closed?: boolean;
+  }> | {}; 
   userId: string;
   CompanyLogo: CompanyLogo | null;
   user: {
@@ -35,9 +33,13 @@ export interface CompanyLocation {
   lng: number;
   name: string;
   address: string;
-  openDays: string; // You may want to adjust this if needed
-  openHours: string; // Consider changing this to an object if necessary
-}
+  openHours: {
+    [key: string]: { // Using string index to represent days of the week
+      from: string; // Opening time in HH:mm format
+      to: string;   // Closing time in HH:mm format
+      closed?: boolean; // Optional property for closed days
+    };
+  };}
 
 export interface CompanyFilters {
   name: string;

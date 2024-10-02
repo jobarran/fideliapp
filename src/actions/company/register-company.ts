@@ -11,17 +11,17 @@ cloudinary.config(process.env.CLOUDINARY_URL ?? '');
 const companySchema = z.object({
     id: z.string().uuid().optional().nullable(),
     name: z.string().min(3).max(255),
-    slug: z.string().min(3).max(255), // Add slug with validation
+    slug: z.string().min(3).max(255), 
     activityTypeId: z.string().uuid(),
     backgroundColor: z.string().min(3).max(255).nullable(),
     address: z.string().min(3).max(255).nullable(),
-    lat: z.number().min(-90).max(90).nullable(),
-    lng: z.number().min(-180).max(180).nullable(),
+    lat: z.preprocess((val) => parseFloat(val as string), z.number()),
+    lng: z.preprocess((val) => parseFloat(val as string), z.number()),
     openHours: z.array(z.object({
         day: z.enum(['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']),
-        from: z.string(), // Define the expected structure
+        from: z.string(), 
         to: z.string(),
-    })).optional(), // Make it optional
+    })).optional(), 
 });
 
 export const registerCompany = async (formData: FormData) => {
@@ -38,6 +38,8 @@ export const registerCompany = async (formData: FormData) => {
     }
 
     const companyData = companyParsed.data;
+    console.log(companyData);
+
     const { openHours, slug, ...rest } = companyData; // Destructure and remove `id`
 
     if (!userId) {
@@ -77,7 +79,7 @@ export const registerCompany = async (formData: FormData) => {
                             from,
                             to,
                         })) : 
-                        [], // Provide an empty array if openDays is not defined
+                        [], 
                 },
             }
         });

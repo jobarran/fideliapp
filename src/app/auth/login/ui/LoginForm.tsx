@@ -2,96 +2,76 @@
 
 import { authenticate } from '@/actions';
 import clsx from 'clsx';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react'
 import { useFormState, useFormStatus } from 'react-dom';
 
+
 export const LoginForm = () => {
 
-
     const [state, dispatch] = useFormState(authenticate, undefined);
+    const router = useRouter();
+    const searchParams = useSearchParams();
 
     useEffect(() => {
-
         if (state === 'Success') {
-            //redirect
-            // router.replace('/')
-            window.location.replace('/')
+          const callbackUrl = searchParams.get('callbackUrl') || '/'; // Fallback to home
+          console.log('Redirecting to:', callbackUrl);
+          router.push(callbackUrl); // Perform redirection
         }
-    
-    }, [state])
-
-
+      }, [state, searchParams, router]);
 
     return (
-
-        <form action={dispatch} className="space-y-3">
-
-            <>
-                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">
-                    Your email
-                </label>
-                <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    className="bg-gray-50 border text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
-                    required
-                />
-            </>
-            <div>
-                <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900">
-                    Password
-                </label>
-                <input
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="••••••••"
-                    className="bg-gray-50 border text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                    required
-                />
-            </div>
-
-            <div
-                className="flex "
-                aria-live="polite"
-                aria-atomic="true"
-            >
-                {state === "CredentialsSignin" && (
-                    <div className='flex flex-row mb- mt-1'>
-                        <p className="text-sm text-red-500">Sorry, something went wrong. Please double-check your credentials.</p>
+        <div>
+            <div className="relative bg-white rounded-lg overflow-hidden transition-opacity duration-300 ">
+                <div className="p-4">
+                    <div>
+                        <span className="text-sm text-gray-900">Bienvenido!</span>
+                        <h1 className="text-xl font-bold">Debe iniciar sesión para continuar</h1>
                     </div>
-                )}
+                    <div className="overflow-auto max-h-[70vh]">
+                        <form action={dispatch} className="space-y-3">
+                            <div className="my-3">
+                                <label className="block text-md mb-2" htmlFor="email">Email</label>
+                                <input className="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="email" name="email" id='auth-email' placeholder="email" required />
+                            </div>
+                            <div className="mt-5">
+                                <label className="block text-md mb-2" htmlFor="password">Contraseña</label>
+                                <input className="px-4 w-full border-2 py-2 rounded-md text-sm outline-none" type="password" name="password" id='auth-password' placeholder="contraseña" />
+                            </div>
+                            <div className="flex justify-between">
+                                <span className="text-sm text-blue-700 hover:underline cursor-pointer">Olvide mi contraseña</span>
+                                <span className="text-sm text-blue-700 hover:underline cursor-pointer">Crear cuenta</span>
+                            </div>
+                            <LoginButton />
+                            <div className="flex space-x-2 justify-center items-end bg-white hover:bg-slate-100 text-slate-800 py-2 border-2 rounded-md transition duration-100">
+                                <img className="h-5 cursor-pointer" src="https://i.imgur.com/arC60SB.png" alt="" />
+                                <button>Iniciar sesión con Google</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-
-            <LoginButton />
-
-
-            <p className="text-sm font-light text-gray-500">
-                Don’t have an account yet?{' '}
-                <a href="/auth/new-account" className="font-medium text-sky-600 hover:underline">
-                    Sign up
-                </a>
-            </p>
-        </form>
-    )
+        </div>
+    );
 }
 
 function LoginButton() {
-
     const { pending } = useFormStatus();
 
     return (
         <button
             type="submit"
-            className={clsx({
-                "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full w-full": !pending,
-                "cursor-not-allowed opacity-50": pending
-            })}
+            className={clsx(
+                "mb-3 w-full py-2 rounded-md transition duration-100",
+                {
+                    "bg-slate-800 hover:bg-slate-950 text-white": !pending,
+                    "bg-slate-800 text-white opacity-50 cursor-not-allowed": pending
+                }
+            )}
             disabled={pending}
         >
-            Sign in
+            Iniciar sesión
         </button>
     );
 }
-

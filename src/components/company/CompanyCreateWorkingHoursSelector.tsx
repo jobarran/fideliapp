@@ -18,13 +18,13 @@ interface DayHours {
 }
 
 interface CompanyCreateWorkingHoursSelectorProps {
-  openDays: { [key: string]: DayHours };
-  setOpenDays: (days: { [key: string]: DayHours }) => void;
+  openHours: { [key: string]: DayHours };
+  setOpenHours: (days: { [key: string]: DayHours }) => void;
 }
 
 export const CompanyCreateWorkingHoursSelector: React.FC<CompanyCreateWorkingHoursSelectorProps> = ({
-  openDays,
-  setOpenDays,
+  openHours,
+  setOpenHours,
 }) => {
 
   const defaultHours = { from: '09:00', to: '17:00' };
@@ -58,8 +58,8 @@ export const CompanyCreateWorkingHoursSelector: React.FC<CompanyCreateWorkingHou
   };
 
   useEffect(() => {
-    setOpenDays(selectedDays);
-  }, [selectedDays, setOpenDays]);
+    setOpenHours(selectedDays);
+  }, [selectedDays, setOpenHours]);
 
   return (
     <div className="flex flex-col">
