@@ -34,7 +34,7 @@ export const getAllCompanies = async (): Promise<Company[]> => {
      // Safely parse openHours from Prisma's Json type
      return companies.map(company => ({
       ...company,
-      openHours: company.openHours 
+      openHours: (company.openHours as Prisma.JsonObject)
         ? (company.openHours as Prisma.JsonObject) // Explicit cast to Prisma.JsonObject
         : {}, // Fallback to an empty object if openHours is null or invalid
     }));

@@ -1,5 +1,5 @@
 import React from 'react'
-import { CompanyCardsByUserImage, CompanyCreateCardAvatar } from '..'
+import { CompanyCreateCardAvatar } from '..'
 import { FaHeart, FaRegHeart } from 'react-icons/fa6'
 
 interface Props {

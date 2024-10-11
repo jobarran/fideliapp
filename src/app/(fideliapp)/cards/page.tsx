@@ -1,9 +1,7 @@
-import { getAllCardsByUser } from '@/actions';
-import { CompanyCardsByUserSlider, SmScreenCards } from '@/components';
+import { getActivityTypes, getAllCardsByUser } from '@/actions';
+import { UserCardGrid } from '@/components';
 import { Card } from '@/interfaces';
-import Link from 'next/link';
 import React from 'react';
-import { LgScreenCards } from '../../../components/cards/lgScreen/LgScreenCards';
 import { sortCards } from '@/utils';
 
 export default async function CardsPage() {
@@ -11,6 +9,7 @@ export default async function CardsPage() {
     let myCompanyCards: Card[] = [];
 
     const cardsResult = await getAllCardsByUser();
+    const activityTypes = await getActivityTypes();
 
     if (cardsResult.ok) {
         myCompanyCards = cardsResult.cards || [];  // Ensure it's always an array
@@ -21,13 +20,13 @@ export default async function CardsPage() {
     const sortedCards = sortCards(myCompanyCards);
 
     return (
-        <>
-            <div className='hidden sm:block'>
-                <LgScreenCards myCompanyCards={sortedCards} />
-            </div>
-            <div className='block sm:hidden'>
-                <SmScreenCards myCompanyCards={sortedCards} />
-            </div>
-        </>
-    );
+
+        <UserCardGrid
+            userCards={sortedCards}
+            gridClass="w-full mt-4 mb-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2"
+            activityTypes={activityTypes}
+            search={''}
+        />
+
+    )
 }

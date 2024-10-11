@@ -19,7 +19,7 @@ export default async function CreateCompanyPage() {
     return (
         <div>
             {company ? (
-                <CompanyCreateCardExist company={company} />
+                <CompanyCreateCardExist company={company} userId={user?.id} />
             ) : (
                 <CreateCompanyForm user={user} />
             )}

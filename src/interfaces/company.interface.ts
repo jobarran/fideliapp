@@ -11,11 +11,11 @@ export interface Company {
   slug: string;
   lat: number | null;
   lng: number | null;
-  openHours: Record<string, { 
+  openHours: Record<string, {
     from: string;
     to: string;
-    closed?: boolean;
-  }> | {}; 
+    closed: boolean;
+  }> | {};
   userId: string;
   CompanyLogo: CompanyLogo | null;
   user: {
@@ -37,11 +37,64 @@ export interface CompanyLocation {
     [key: string]: { // Using string index to represent days of the week
       from: string; // Opening time in HH:mm format
       to: string;   // Closing time in HH:mm format
-      closed?: boolean; // Optional property for closed days
+      closed: boolean; // Optional property for closed days
     };
-  };}
+  };
+}
 
 export interface CompanyFilters {
   name: string;
   activityTypeId: string[];
+}
+
+export interface CompanyClientDashboard {
+  id: string;
+  name: string;
+  activityType: {
+    name: string;
+    id: string;
+  };
+  activityTypeId: string;
+  backgroundColor: string;
+  acceptReferral: boolean;
+  address: string;
+  slug: string;
+  lat: number | null;
+  lng: number | null;
+  openHours: Record<string, {
+    from: string;
+    to: string;
+    closed: boolean;
+  }> | {} | null;
+  userId: string;
+  CompanyLogo: CompanyLogo | null;
+}
+
+export interface CompanyClientInformation {
+  id: string;
+  name: string;
+  activityType: {
+    name: string;
+    id: string;
+  };
+  activityTypeId: string;
+  backgroundColor: string;
+  acceptReferral: boolean;
+  address: string;
+  slug: string;
+  lat: number | null;
+  lng: number | null;
+  openHours: Record<string, {
+    from: string;
+    to: string;
+    closed: boolean;
+  }> 
+  userId: string;
+  CompanyLogo: CompanyLogo | null;
+}
+
+export interface DayHours {
+  closed: boolean;
+  from: string;
+  to: string;
 }

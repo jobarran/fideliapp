@@ -1,5 +1,5 @@
 import { getCardById } from "@/actions";
-import { SmScreenCompanyCard } from "@/components";
+import { UserCard } from "@/components";
 import { redirect } from "next/navigation";
 
 interface Props {
@@ -19,7 +19,7 @@ export default async function CardsByIdPage({ params }: Props) {
 
   return (
     <div>
-      <SmScreenCompanyCard key={card.id} card={card} />
+      <UserCard key={card.id} card={card} />
     </div>
   );
 }

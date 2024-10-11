@@ -54,19 +54,19 @@ model User {
 model Company {
   id              String  @id @default(uuid())
   name            String
-  backgroundColor String?
+  backgroundColor String
   acceptReferral  Boolean @default(false)
-  address         String?
+  address         String
   slug            String  @unique
   lat             Float?
   lng             Float?
+  openHours       Json // Store as JSON
 
   // Relations - Down
   Products    Product[]
   Templates   PointTransactionTemplate[]
   Cards       Card[]
   CompanyLogo CompanyLogo?
-  openHours   Json // Store as JSON
 
   // Relations - Up
   user   User   @relation(fields: [userId], references: [id])

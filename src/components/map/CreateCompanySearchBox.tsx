@@ -61,7 +61,6 @@ export const CreateCompanySearchBox = ({ setMarkerPosition, setMapCenter, setAdd
             setMapCenter(new window.google.maps.LatLng(location.lat(), location.lng())); // Update map center
             const adress = fullAdress(selectedItem.address)
             adress && setAddress(selectedItem.address)
-            console.log(adress)
           } else {
             console.error('Geocode was not successful for the following reason: ' + status);
           }

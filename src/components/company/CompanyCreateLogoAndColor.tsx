@@ -24,8 +24,6 @@ export const CompanyLogoAndColor = ({
 }: CompanyLogoAndColorProps) => {
 
     const [logo, setLogo] = useState<string>(''); // State to store the uploaded logo
-    const [images, setImages] = useState([])
-    const [imageURLS, setImageURLS] = useState([])
 
     useEffect(() => {
         setSelectedColor(colorOptions[0])
@@ -37,7 +35,6 @@ export const CompanyLogoAndColor = ({
             // Create a URL for the uploaded file
             const file = e.target.files[0];
             const imageUrl = URL.createObjectURL(file);
-            console.log(imageUrl)
             setLogo(imageUrl); // Set the image URL for preview
         }
     };

@@ -1,1 +1,80 @@
-MODIFICAR LA PAGINA DE LOGIN Y REFISTER PARA DARLE ESTILO
+src/
+├── components/
+│   ├── cards/
+│   │   ├── LgScreenCards.tsx
+│   │   ├── SmScreenCards.tsx
+│   │   └── CompanyCard.tsx          # Consolidated common card logic
+│   ├── client/
+│   │   ├── Dashboard/
+│   │   │   ├── Dashboard.tsx
+│   │   │   ├── DashboardHeader.tsx
+│   │   │   ├── DashboardNavigation.tsx
+│   │   │   ├── DashboardContent.tsx
+│   │   │   ├── DashboardContentInformation.tsx
+│   │   │   ├── DashboardContentProducts.tsx
+│   │   │   └── DashboardContentTransactions.tsx
+│   ├── company/
+│   │   ├── AdminNewCompanyModal.tsx
+│   │   ├── CompanyCreate/
+│   │   │   ├── CreateCompanyCard.tsx
+│   │   │   ├── CreateCompanyDetails.tsx
+│   │   │   ├── CreateLogoAndColor.tsx
+│   │   │   ├── CreateOpenHoursSelector.tsx
+│   │   │   └── CreateWorkingHoursSelector.tsx
+│   │   ├── CompanyGrid/
+│   │   │   ├── Grid.tsx
+│   │   │   ├── GridItem.tsx
+│   │   │   ├── GridFilter.tsx
+│   │   │   ├── GridFilterButtons.tsx
+│   │   │   └── GridFilterModal/
+│   │   │       ├── Modal.tsx
+│   │   │       ├── ModalActivityType.tsx
+│   │   │       └── ModalFilterButtons.tsx  # If specific to filter modal
+│   │   └── CompanyLogo.tsx
+│   ├── map/
+│   │   ├── Map.tsx
+│   │   ├── MapInitializer.tsx
+│   │   ├── SearchBox.tsx          # Consolidated common search functionality
+│   │   ├── Marker.tsx             # Consolidated marker logic (CompanyMarker, etc.)
+│   │   └── MapSkeleton.tsx
+│   ├── providers/
+│   │   ├── MapProvider.tsx
+│   │   └── AppProvider.tsx
+│   ├── slider/
+│   │   ├── Companies/
+│   │   │   ├── CompaniesSlider.tsx
+│   │   │   ├── CompaniesCard.tsx   # Combined common card logic
+│   │   │   ├── CompaniesImage.tsx
+│   │   │   ├── CompaniesLoading.tsx
+│   │   │   └── CompaniesLoadingCard.tsx
+│   │   ├── CompanyCardsByUser/
+│   │   │   ├── CardsByUserSlider.tsx
+│   │   │   ├── CardsByUserCard.tsx
+│   │   │   ├── CardsByUserImage.tsx
+│   │   │   └── CardsByUserLoading.tsx
+│   ├── ui/
+│   │   ├── Layout/
+│   │   │   ├── Footer.tsx
+│   │   │   ├── TopMenu.tsx
+│   │   │   ├── Avatar.tsx
+│   │   │   ├── UserDropdownMenu.tsx
+│   │   │   └── LoginModal.tsx
+│   │   ├── Home/
+│   │   │   ├── ActivityTypes.tsx
+│   │   │   └── HowItWorks.tsx
+│   │   ├── Form/
+│   │   │   ├── CheckboxField.tsx
+│   │   │   ├── ColorPicker.tsx
+│   │   │   ├── OpenHourSelector.tsx
+│   │   │   ├── SelectField.tsx
+│   │   │   └── TextField.tsx
+│   │   ├── Loading/
+│   │   │   └── FullWidthLoading.tsx
+│   │   └── Modals/
+│   │       └── NewAccountModal.tsx
+│   └── index.ts
+
+Enviar señal de compra tipo chat (no qr, no nada) y responde señal de venta
+Grid Item = CompanyLink
+useFilter for company.name and card.company.name
+Company Grid == UserCard Grid

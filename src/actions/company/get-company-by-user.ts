@@ -25,8 +25,7 @@ export const getCompanyByUser = async (userId: string) => {
       });
   
       if (!company) return null;
-  
-      return company; // Return the company directly
+      return company; 
   
     } catch (error) {
       console.log(error);

@@ -3,9 +3,8 @@
 import { Company } from '@/interfaces';
 import Link from 'next/link';
 
-import { CompanyLogo } from './CompanyLogo';
 import { CompanyGridImage } from './CompanyGridImage';
-import { FaCheck } from 'react-icons/fa6';
+import { cropText } from '../../utils/cropText';
 
 interface Props {
     company: Company;
@@ -32,7 +31,7 @@ export const CompanyGridItem = ({ company, isInUserCards }: Props) => {
                                 alt={company.name}
                                 className="object-cover"
                                 priority
-                                style={{ width: '100%', height: 'auto' }}
+                                style={{ width: '100%', height: '100%' }}
                             />
                         </div>
                         {isInUserCards && (
@@ -43,7 +42,7 @@ export const CompanyGridItem = ({ company, isInUserCards }: Props) => {
 
                     </div>
                     <div className="text-center mb-1 mt-1 text-xs">
-                        {company.name}
+                        {cropText(company.name, 14)}
                     </div>
                 </div>
             </Link>

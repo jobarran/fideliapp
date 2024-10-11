@@ -1,11 +1,17 @@
 import { CompanyCreateWorkingHoursSelector, CreateCompanyMapContainer } from '@/components';
 
+interface DayHours {
+  from: string;  // Make 'from' optional
+  to: string;    // Make 'to' optional
+  closed: boolean; // Keep the closed property in DayHours
+}
+
 interface CompanyDetailsProps {
   register: any;
   watch: any;
   isValid: boolean;
-  openHours: { [key: string]: { from: string; to: string } };
-  setOpenHours: (openHours: { [key: string]: { from: string; to: string } }) => void;
+  openHours: { [key: string]: DayHours }; 
+  setOpenHours: (openHours: { [key: string]: DayHours }) => void; 
   address: string;
   setAddress: (address: string) => void;
   lat: number;
@@ -31,6 +37,7 @@ export const CompanyDetails = ({
   activityTypes,
   setActivityType
 }: CompanyDetailsProps) => {
+
   return (
     <>
       <h2 className="text-xl font-semibold mb-10 flex justify-center">Información del negocio</h2>
@@ -46,6 +53,7 @@ export const CompanyDetails = ({
           />
           {/* Open Days */}
           <CompanyCreateWorkingHoursSelector openHours={openHours} setOpenHours={setOpenHours} />
+
           {/* Activity Type */}
           <select
             {...register('activityTypeId', { required: 'Tipo de actividad' })}

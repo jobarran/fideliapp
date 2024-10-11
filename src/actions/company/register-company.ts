@@ -11,17 +11,17 @@ cloudinary.config(process.env.CLOUDINARY_URL ?? '');
 const companySchema = z.object({
     id: z.string().uuid().optional().nullable(),
     name: z.string().min(3).max(255),
-    slug: z.string().min(3).max(255), 
+    slug: z.string().min(3).max(255),
     activityTypeId: z.string().uuid(),
-    backgroundColor: z.string().min(3).max(255).nullable(),
-    address: z.string().min(3).max(255).nullable(),
+    backgroundColor: z.string().min(3).max(255),
+    address: z.string().min(3).max(255),
     lat: z.preprocess((val) => parseFloat(val as string), z.number()),
     lng: z.preprocess((val) => parseFloat(val as string), z.number()),
-    openHours: z.array(z.object({
-        day: z.enum(['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']),
-        from: z.string(), 
+    openHours: z.record(z.object({
+        from: z.string(),
         to: z.string(),
-    })).optional(), 
+        closed: z.boolean(),
+    })).optional().default({}), // Default to empty object
 });
 
 export const registerCompany = async (formData: FormData) => {
@@ -29,16 +29,21 @@ export const registerCompany = async (formData: FormData) => {
     const session = await auth();
     const userId = session?.user.id;
 
-    const data = Object.fromEntries(formData);
+     // Use a Record type to ensure types are correctly asserted
+     const data: Record<string, FormDataEntryValue> = Object.fromEntries(formData);
+
+     // Parse openHours from JSON string back to an object if it exists
+     if (data.openHours) {
+         data.openHours = JSON.parse(data.openHours as string);
+     }
+
     const companyParsed = companySchema.safeParse(data);
 
     if (!companyParsed.success) {
-        console.log(companyParsed.error);
         return { ok: false };
     }
 
     const companyData = companyParsed.data;
-    console.log(companyData);
 
     const { openHours, slug, ...rest } = companyData; // Destructure and remove `id`
 
@@ -72,15 +77,7 @@ export const registerCompany = async (formData: FormData) => {
                 lat: rest.lat,
                 lng: rest.lng,
                 activityTypeId: rest.activityTypeId,
-                openHours: {
-                    create: openHours ? 
-                        openHours.map(({ day, from, to }) => ({
-                            day,
-                            from,
-                            to,
-                        })) : 
-                        [], 
-                },
+                openHours: openHours
             }
         });
 

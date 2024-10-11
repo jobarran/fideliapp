@@ -14,13 +14,13 @@ export default async function CompaniesPage({ searchParams }: Props) {
   const companyIdByUserCard = await getCompanyIdByUserCard();
 
   return (
-    <>
-      <CompanyGrid
-        companies={companies}
-        activityTypes={activityTypes}
-        search={search || ''}
-        companyIdByUserCard={companyIdByUserCard}
-      />
-    </>
+
+    <CompanyGrid
+      companies={companies}
+      activityTypes={activityTypes}
+      search={search || ''}
+      companyIdByUserCard={companyIdByUserCard}
+    />
+
   );
 }

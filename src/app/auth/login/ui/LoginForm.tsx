@@ -16,7 +16,6 @@ export const LoginForm = () => {
     useEffect(() => {
         if (state === 'Success') {
           const callbackUrl = searchParams.get('callbackUrl') || '/'; // Fallback to home
-          console.log('Redirecting to:', callbackUrl);
           router.push(callbackUrl); // Perform redirection
         }
       }, [state, searchParams, router]);

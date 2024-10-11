@@ -1,13 +1,14 @@
-import { Company } from '@/interfaces';
+import { Company, CompanyClientDashboard } from '@/interfaces';
 import Link from 'next/link';
 import React from 'react'
-import { CompaniesAllImage } from '..';
+import { CompanyLinkImage } from './CompanyLinkImage';
 
 interface Props {
-    company: any
+    company: CompanyClientDashboard,
+    userId: string | undefined
 }
 
-export const CompanyCreateCardExist = ({ company }: Props) => {
+export const CompanyCreateCardExist = ({ company, userId }: Props) => {
 
     const borderColor = company?.backgroundColor! !== '#FFFFFF' ? company?.backgroundColor! : '#4F4F4F';
 
@@ -17,7 +18,7 @@ export const CompanyCreateCardExist = ({ company }: Props) => {
 
             {/* Add a flex container to center the Link div */}
             <div className="flex justify-center items-center">
-                <Link href={`/companies/${company.slug}`}>
+                <Link href={`/client/${userId}`}>
                     <div
                         className="w-72 rounded-lg shadow-sm bg-white flex justify-center mb-10"
                         style={{ borderColor: borderColor, borderWidth: 1, borderStyle: 'solid' }}
@@ -28,7 +29,7 @@ export const CompanyCreateCardExist = ({ company }: Props) => {
                             </div>
                             <div className="mt-1 mb-2">
                                 <div className="relative w-20 h-20 rounded-full overflow-hidden flex items-center justify-center bg-white my-4">
-                                    <CompaniesAllImage
+                                    <CompanyLinkImage
                                         src={company.CompanyLogo?.url}
                                         width={0}
                                         height={0}

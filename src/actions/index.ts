@@ -7,7 +7,7 @@ export { registerCompany } from './company/register-company'
 export { getActivityTypes } from './company/get-activity-types'
 export { getCompanyBySlug } from './company/get-company-by-slug'
 export { getCompanyByUser } from './company/get-company-by-user'
-
+export { updateCompany } from './company/update-company'
 
 export { getAllCardsByUser } from './card/get-all-cards-by-user'
 export { getCardById } from './card/get-card-by-id'
@@ -16,3 +16,5 @@ export { checkUserCardForCompany } from './card/check-user-card-for-company'
 export { createNewCard } from './card/create-new-card'
 
 export { getAllActivityType } from './activity-type/get-all-activityType'
+
+export { getUserById } from './user/get-user-by-id'

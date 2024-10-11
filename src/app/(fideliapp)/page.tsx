@@ -1,7 +1,8 @@
 import { getAllActivityType, getAllCardsByUser, getAllCompanies } from "@/actions";
-import { CompaniesAll, CompanyCardsByUser, HowItWorks, MapComponent, MapProvider, SearchCompanySmallScreen } from "@/components";
+import { HowItWorks, MapComponent, MapProvider, SearchCompanySmallScreen, UserCardSlider } from "@/components";
 import { Card } from "@/interfaces";
 import { companyLocationsMap, sortCards } from "@/utils";
+import { CompanySlider } from '../../components/slider/CompanySlider';
 
 export default async function Home() {
 
@@ -28,10 +29,10 @@ export default async function Home() {
 
       <SearchCompanySmallScreen/>
 
-      {myCompanyCards.length > 0 && <CompanyCardsByUser myCompanyCards={sortedCards} />}
+      {myCompanyCards.length > 0 && <UserCardSlider userCards={sortedCards} />}
 
       {companies.length > 0 ? (
-        <CompaniesAll companiesAll={companies} />
+        <CompanySlider companiesAll={companies} />
       ) : (
         <p>No hay negocios disponibles.</p>
       )}

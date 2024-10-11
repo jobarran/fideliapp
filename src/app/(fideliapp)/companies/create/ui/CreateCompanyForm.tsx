@@ -10,8 +10,9 @@ import { getActivityTypes, registerCompany } from '@/actions';
 import clsx from 'clsx';
 
 interface DayHours {
-  from: string;
-  to: string;
+  from: string;  
+  to: string;    
+  closed: boolean; 
 }
 
 type FormInputs = {
@@ -103,12 +104,7 @@ export const CreateCompanyForm = ({ user }: Props) => {
     formData.append("address", address);
     formData.append("lat", lat.toString());
     formData.append("lng", lng.toString());
-
-    Object.entries(openHours).forEach(([day, hours]) => {
-      formData.append(`openHours[${day}][from]`, hours.from);
-      formData.append(`openHours[${day}][to]`, hours.to);
-    });
-
+    formData.append("openHours", JSON.stringify(openHours)); // Serialize to JSON string
     formData.append("slug", slug);
     formData.append("acceptReferral", companyToSave.acceptReferral ? "true" : "false");
 
@@ -117,7 +113,7 @@ export const CreateCompanyForm = ({ user }: Props) => {
     }
 
     await registerCompany(formData);
-    router.replace(`/admin/users`)
+    router.replace(`/client/${user?.id}`)
   };
 
   return (
@@ -138,7 +134,7 @@ export const CreateCompanyForm = ({ user }: Props) => {
             setLng={setLng}
             activityTypes={activityTypes}
             setActivityType={setActivityType}
-            />
+          />
         )}
 
         {currentStep === 2 && ( // Second Card
@@ -146,9 +142,9 @@ export const CreateCompanyForm = ({ user }: Props) => {
             register={register}
             selectedColor={selectedColor}
             setSelectedColor={setSelectedColor}
-            name={nameValue}  
-            address={address}  
-            activityType={activityType} 
+            name={nameValue}
+            address={address}
+            activityType={activityType}
           />
         )}
 
