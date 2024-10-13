@@ -5,6 +5,7 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/actions';
 import clsx from 'clsx';
 import { IoCloseSharp } from "react-icons/io5";
+import Image from 'next/image';
 
 
 
@@ -23,7 +24,7 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
             setLoginModal();
             window.location.reload();
         }
-    }, [state]);
+    }, [state, setLoginModal]);
     
 
     const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -97,7 +98,7 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
                                 <div className="">
                                     <LoginButton />
                                     <div className="flex  space-x-2 justify-center items-end bg-white hover:bg-slate-100 text-slate-800 py-2 border-2 rounded-md transition duration-100">
-                                        <img className=" h-5 cursor-pointer" src="https://i.imgur.com/arC60SB.png" alt="" />
+                                        {/* <Image className="cursor-pointer" src="https://i.imgur.com/arC60SB.png" alt="" width={5} height={5} /> */}
                                         <button >Iniciar sesión con Google</button>
                                     </div>
                                 </div>

@@ -3,12 +3,11 @@
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { generateSlug } from '@/utils';
-import { CompanyCreateCard, CompanyDetails, CreateCompanyMapContainer } from '@/components';
+import { CompanyCreateCard, CompanyDetails } from '@/components';
 import { useRouter } from 'next/navigation';
 import { User } from '@/interfaces';
 import { getActivityTypes, registerCompany } from '@/actions';
 import clsx from 'clsx';
-import { auth } from '@/auth.config';
 import { useSession } from 'next-auth/react';
 
 interface DayHours {
@@ -77,7 +76,7 @@ export const CreateCompanyForm = ({ user }: Props) => {
       const callbackUrl = encodeURIComponent(window.location.href);
       router.push(`/auth/login?callbackUrl=${callbackUrl}`);
     }
-  }, []);
+  });
 
   // Fetch activity types on component mount
   useEffect(() => {

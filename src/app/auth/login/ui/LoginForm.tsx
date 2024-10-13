@@ -2,6 +2,7 @@
 
 import { authenticate } from '@/actions';
 import clsx from 'clsx';
+import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect } from 'react'
 import { useFormState, useFormStatus } from 'react-dom';
@@ -44,7 +45,7 @@ export const LoginForm = () => {
                             </div>
                             <LoginButton />
                             <div className="flex space-x-2 justify-center items-end bg-white hover:bg-slate-100 text-slate-800 py-2 border-2 rounded-md transition duration-100">
-                                <img className="h-5 cursor-pointer" src="https://i.imgur.com/arC60SB.png" alt="" />
+                                {/* <Image className="h-5 cursor-pointer" src="https://i.imgur.com/arC60SB.png" alt="" width={0} height={0} /> */}
                                 <button>Iniciar sesión con Google</button>
                             </div>
                         </form>

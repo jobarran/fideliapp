@@ -77,6 +77,4 @@ src/
 Enviar señal de compra tipo chat (no qr, no nada) y responde señal de venta
 
 
-updateLogo on changeImageModal in header - delete imagen // create components
-
-run site online
+Analizar Warnings

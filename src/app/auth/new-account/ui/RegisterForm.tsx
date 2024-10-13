@@ -24,7 +24,7 @@ export const RegisterForm = () => {
         setErrorMessage('')
         const { name, lastName, email, password } = data
 
-        const resp = await registerUser({name, lastName, email, password, role: 'admin'})
+        const resp = await registerUser({name, lastName, email, password, role: 'USER'})
 
         if (!resp.ok) {
             setErrorMessage(resp.message)

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Avatar } from '..'
 import { FaHeart, FaRegHeart } from 'react-icons/fa6'
+import Image from 'next/image'
 
 interface Props {
     logo?: string,
@@ -28,10 +29,12 @@ export const CompanyCard = ({ backgroundColor, name, activityType, logo }: Props
 
                         {/* Conditionally render avatar or logo */}
                         {logo ? (
-                            <img
+                            <Image
                                 src={logo}
                                 alt={name}
                                 className="object-cover w-full h-full"
+                                width={0} height={0} sizes="100vw"
+                                style={{ width: '100%', height: '100%' }}
                             />
                         ) : (
                             <Avatar name={name} backgroundColor={backgroundColor} size={'16'} />

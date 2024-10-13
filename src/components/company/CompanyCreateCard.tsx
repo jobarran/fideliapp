@@ -27,7 +27,7 @@ export const CompanyCreateCard = ({
 
     useEffect(() => {
         setSelectedColor(colorOptions[0])
-    }, [])
+    })
 
     // Handle logo change
     const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
