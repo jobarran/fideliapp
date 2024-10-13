@@ -54,8 +54,8 @@ export const ClientDashboardInformation = ({ company }: Props) => {
                                     width: '100%',
                                     height: '100%',
                                     objectFit: 'cover',
-                                    objectPosition: 'center center', // Make sure the image is centered
-                                    aspectRatio: '1/1', // Ensures the container maintains a square aspect ratio
+                                    objectPosition: 'center center', 
+                                    aspectRatio: '1/1',
                                 }}
                             />
                         ) : (
