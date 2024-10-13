@@ -1,65 +1,59 @@
 "use client";
 
 import { formatAddress } from '@/utils'
-import React, { useState } from 'react'
+import React from 'react'
 import { FaMapMarkerAlt } from 'react-icons/fa'
-import { CompanyClientDashboard } from '@/interfaces';
-import { Avatar, CompanyLinkImage } from '@/components';
+import { CompanyClientDashboard, UserProfileData } from '@/interfaces';
+import { ProfileHeaderLogo } from '@/components';
 
 interface Props {
-    company: CompanyClientDashboard
+    company?: CompanyClientDashboard
+    user?: UserProfileData
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const ProfileHeaderData = ({ company, setOpenModal }: Props) => {
+export const ProfileHeaderData = ({ company, user, setOpenModal }: Props) => {
 
     return (
-
         <div className="flex flex-col sm:flex-row items-center justify-between">
+            {/* Render Profile Header Logo if company is provided */}
+            {company && (
+                <ProfileHeaderLogo
+                    company={company}
+                    setOpenModal={setOpenModal}
+                />
+            )}
 
-            {/* Logo */}
-            <div className="flex justify-center px-4">
-                <div className="relative w-20 h-20 sm:w-28 sm:h-28 rounded-full overflow-hidden flex items-center justify-center bg-white my-4">
-                    <button onClick={() => setOpenModal(true)}>
-                        {company.CompanyLogo ? (
-                            <CompanyLinkImage
-                                src={company.CompanyLogo.url}
-                                width={0}
-                                height={0}
-                                alt={company.name}
-                                className="object-cover"
-                                priority
-                                style={{
-                                    borderRadius: '50%',
-                                    width: '100%',
-                                    height: '100%',
-                                    objectFit: 'cover',
-                                    objectPosition: 'center center', 
-                                    aspectRatio: '1/1',
-                                }}
-                            />
-                        ) : (
-                            <Avatar name={company.name} backgroundColor={company.backgroundColor} size={'20'} />
-                        )}
-                    </button>
-                </div>
+            {/* User or Company information */}
+            <div className="flex-1 flex flex-col sm:items-start items-center">
+                {user &&
+                    <>
+                        <h1 className="font-semibold text-lg sm:text-2xl text-center sm:text-left">
+                            {user.name} {user.lastName}
+                        </h1>
+                        <p className="text-gray-600 mb-2 hidden sm:flex">
+                            {user.email}
+                        </p>
+                    </>
+                }
+
+                {
+                    company &&
+                    <>
+                        <h1 className="font-semibold text-lg sm:text-2xl text-center sm:text-left">
+                            {company?.name}
+                        </h1>
+                        <p className="text-gray-600 mb-2 hidden sm:flex">
+                            {company.activityType?.name}
+                        </p>
+                        <p className="text-gray-600 items-center hidden sm:flex">
+                            <FaMapMarkerAlt className="mr-2" />
+                            {formatAddress(company.address)}
+                        </p>
+                    </>
+                }
+
             </div>
-
-            {/* Company information */}
-            <div className="ml-6 flex-1 flex flex-col sm:items-start items-center">
-                <h1 className="font-semibold text-lg sm:text-2xl text-center sm:text-left">
-                    {company.name}
-                </h1>
-                <p className="text-gray-600 mb-2 hidden sm:flex">
-                    {company.activityType?.name}
-                </p>
-                <p className="text-gray-600 items-center hidden sm:flex">
-                    <FaMapMarkerAlt className="mr-2" />
-                    {formatAddress(company.address)}
-                </p>
-            </div>
-
         </div>
-
-    )
-}
+    );
+};

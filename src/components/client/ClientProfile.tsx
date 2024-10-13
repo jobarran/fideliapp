@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CompanyClientDashboard } from "@/interfaces";
 import { ChangeImage, ClientContentInformation, ClientContentProducts, ClientContentTransactions, ProfileContent, ProfileHeader } from "..";
+import { clientNavItems } from "@/config";
 
 
 interface Props {
@@ -12,7 +13,7 @@ interface Props {
 
 export const ClientProfile = ({ company }: Props) => {
 
-    const [selectedTab, setSelectedTab] = useState("productos");
+    const [selectedTab, setSelectedTab] = useState(clientNavItems[0].id);
     const [openModal, setOpenModal] = useState(false)
 
     const handleTabChange = (tab: string) => {

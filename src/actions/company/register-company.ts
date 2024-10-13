@@ -29,13 +29,13 @@ export const registerCompany = async (formData: FormData) => {
     const session = await auth();
     const userId = session?.user.id;
 
-     // Use a Record type to ensure types are correctly asserted
-     const data: Record<string, FormDataEntryValue> = Object.fromEntries(formData);
+    // Use a Record type to ensure types are correctly asserted
+    const data: Record<string, FormDataEntryValue> = Object.fromEntries(formData);
 
-     // Parse openHours from JSON string back to an object if it exists
-     if (data.openHours) {
-         data.openHours = JSON.parse(data.openHours as string);
-     }
+    // Parse openHours from JSON string back to an object if it exists
+    if (data.openHours) {
+        data.openHours = JSON.parse(data.openHours as string);
+    }
 
     const companyParsed = companySchema.safeParse(data);
 
@@ -81,26 +81,34 @@ export const registerCompany = async (formData: FormData) => {
             }
         });
 
+        // Update user role to "CLIENT"
+        await prisma.user.update({
+            where: { id: userId },
+            data: { role: "CLIENT" },
+        });
+
         // Process for uploading and saving images
         const companyLogo = await uploadLogo(formData.get('logo') as File);
 
-        if (!companyLogo) {
-            throw new Error('No se pudo cargar las imágenes, rolling back');
+        if (companyLogo) {
+            await prisma.companyLogo.create({
+                data: {
+                    url: companyLogo,
+                    companyId: company.id,
+                }
+            });
+        } else {
+            console.warn('No logo uploaded. Company created without logo.');
         }
-
-        await prisma.companyLogo.create({
-            data: {
-                url: companyLogo,
-                companyId: company.id,
-            }
-        });
 
         revalidatePath('/admin/companies');
 
         return {
             ok: true,
             company: company,
-            message: 'Company created',
+            message: companyLogo 
+                ? 'Company created with logo.'
+                : 'Company created without logo. Logo was not provided.',
         };
 
     } catch (error) {

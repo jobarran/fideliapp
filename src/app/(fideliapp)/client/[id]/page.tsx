@@ -7,7 +7,7 @@ interface Props {
   };
 }
 
-export default async function CardsByIdPage({ params }: Props) {
+export default async function ClientPage({ params }: Props) {
 
   const { id } = params;
 

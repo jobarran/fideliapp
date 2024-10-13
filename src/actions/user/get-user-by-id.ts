@@ -21,12 +21,29 @@ export const getUserById = async (id: string) => {
                 name: true,
                 lastName: true,
                 email: true,
-                image: true,
                 role: true,
                 Cards: {
-                    include: {
-                        company: true, // Include company details associated with each card
-                        History: true, // Include all transactions (history) related to each card
+                    select: {
+                        id: true,
+                        points: true,
+                        company: {
+                            select: {
+                                name: true,
+                                backgroundColor: true,
+                                slug: true,
+                                activityTypeId: true,
+                            },
+                        },
+                        History: {
+                            select: {
+                                id: true, // Ensure this is selected
+                                points: true, // Ensure this is selected
+                                date: true, // Ensure this is selected
+                                reason: true, // Ensure this is selected
+                                type: true, // Ensure this is selected
+                                cardId: true, // Ensure this is selected
+                            },
+                        },
                     },
                 },
                 createdAt: true,

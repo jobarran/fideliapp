@@ -1,6 +1,7 @@
 import { getUserById } from "@/actions";
 import Link from "next/link";
 import { Card } from '@/interfaces';
+import { UserProfile } from "@/components";
 
 interface Props {
   params: {
@@ -8,19 +9,22 @@ interface Props {
   };
 }
 
-export default async function CardsByIdPage({ params }: Props) {
+export default async function UserPage({ params }: Props) {
+
   const { id } = params;
 
-  const { user } = await getUserById(id)
+  // Get the user data
+  const { user } = await getUserById(id);
+
+  if (!user) {
+    return <div>No user data available</div>; // Fallback for undefined case
+  }
 
   return (
     <div>
-      <Link
-        className="cursor-pointer"
-        href={`/client/${id}`}>
-        <p className="text-sm text-gray-900">Perfil Cliente</p>
-      </Link>
-      <p>{id}</p>
+      <div>
+        <UserProfile user={user} userId={id} />
+      </div>
     </div>
   );
 }

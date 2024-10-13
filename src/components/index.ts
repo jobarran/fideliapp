@@ -77,9 +77,10 @@ export * from './cards/UserCardGrid'
 export * from './cards/UserCardAdd'
 export * from './cards/UserCard'
 
+export * from './user/UserProfile'
+export * from './user/UserContentInformation'
 
-
-
+export * from './ui/profile/ProfileHeaderLogo'
 
 
 

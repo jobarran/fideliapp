@@ -8,11 +8,13 @@ import { useRouter } from 'next/navigation';
 import { User } from '@/interfaces';
 import { getActivityTypes, registerCompany } from '@/actions';
 import clsx from 'clsx';
+import { auth } from '@/auth.config';
+import { useSession } from 'next-auth/react';
 
 interface DayHours {
-  from: string;  
-  to: string;    
-  closed: boolean; 
+  from: string;
+  to: string;
+  closed: boolean;
 }
 
 type FormInputs = {
@@ -34,6 +36,7 @@ interface Props {
 
 export const CreateCompanyForm = ({ user }: Props) => {
   const router = useRouter();
+  const { update } = useSession()
 
   const [slug, setSlug] = useState<string>('');
   const [selectedColor, setSelectedColor] = useState<string>(''); // Default color
@@ -112,8 +115,10 @@ export const CreateCompanyForm = ({ user }: Props) => {
       formData.append('logo', logo[0]);
     }
 
-    await registerCompany(formData);
-    router.replace(`/client/${user?.id}`)
+    const { message, ok } = await registerCompany(formData);
+    if (ok) {
+      router.replace(`/client/${user?.id}`)
+    }
   };
 
   return (
