@@ -17,7 +17,7 @@ interface Props {
     company: CompanyClientDashboard;
 }
 
-export const ClientDashboardContentInformation = ({ company }: Props) => {
+export const ClientContentInformation = ({ company }: Props) => {
 
     const [editedCompany, setEditedCompany] = useState<EditedCompany>({
         ...company,

@@ -1,4 +1,4 @@
-import { Slider, SliderHeader } from '..'
+import { Slider, SliderHeader } from '../..'
 import { Company } from '@/interfaces'
 
 interface Props {

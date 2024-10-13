@@ -1,4 +1,4 @@
-import { UserCardLoading, CompanyLinkLoading } from '..'; // Make sure to import CompanyLinkLoading
+import { UserCardLoading, CompanyLinkLoading } from '../..'; // Make sure to import CompanyLinkLoading
 
 interface Props {
     sliderType: "userCard" | "company",

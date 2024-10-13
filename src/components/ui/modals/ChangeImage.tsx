@@ -13,7 +13,6 @@ interface Props {
     cancelButton: string;
     modalLabel: string;
     content: string;
-    contentAction: () => void;
     openModal: boolean;
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     imgUrl?: string;
@@ -30,7 +29,6 @@ export const ChangeImage = ({
     acceptButton,
     cancelButton,
     content,
-    contentAction,
     openModal,
     setOpenModal,
     imgUrl,
@@ -53,7 +51,6 @@ export const ChangeImage = ({
 
         const response = await updateLogo(formData);
         if (response.ok) {
-            contentAction(); 
             setOpenModal(false)
         } else {
             // Handle error case here (e.g., show a message)

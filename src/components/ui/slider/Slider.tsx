@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 import { FreeMode } from 'swiper/modules';
 
 import { useIsMounted } from '@/hooks';
-import { CompanyLink, SliderLoading, UserCard, UserCardAdd } from '..';
+import { CompanyLink, SliderLoading, UserCard, UserCardAdd } from '../..';
 import { Card, Company } from '@/interfaces';
 import { SwiperOptions } from 'swiper/types';
 

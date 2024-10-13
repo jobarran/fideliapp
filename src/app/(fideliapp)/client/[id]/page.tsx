@@ -1,5 +1,5 @@
 import { getCompanyByUser } from "@/actions";
-import { ClientDashboard } from "@/components";
+import { ClientProfile } from "@/components";
 
 interface Props {
   params: {
@@ -19,7 +19,7 @@ export default async function CardsByIdPage({ params }: Props) {
 
   return (
     <div>
-      <ClientDashboard company={company} userId={id} />
+      <ClientProfile company={company} userId={id} />
     </div>
   );
 }

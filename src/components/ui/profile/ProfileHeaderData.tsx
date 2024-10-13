@@ -4,38 +4,18 @@ import { formatAddress } from '@/utils'
 import React, { useState } from 'react'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 import { CompanyClientDashboard } from '@/interfaces';
-import { CompanyLinkImage } from '../company/CompanyLinkImage';
-import { Avatar, ChangeImage } from '..';
+import { Avatar, CompanyLinkImage } from '@/components';
 
 interface Props {
     company: CompanyClientDashboard
+    setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const ClientDashboardInformation = ({ company }: Props) => {
-
-    const [openModal, setOpenModal] = useState(false)
-
-    const handleChangeImage = () => {
-        console.log('Change image')
-    }
+export const ProfileHeaderData = ({ company, setOpenModal }: Props) => {
 
     return (
 
         <div className="flex flex-col sm:flex-row items-center justify-between">
-
-            <ChangeImage
-                modalLabel='Atención!'
-                content='Editar logo de negocio'
-                acceptButton={'Aceptar'}
-                cancelButton={'Cancelar'}
-                contentAction={handleChangeImage}
-                openModal={openModal}
-                setOpenModal={setOpenModal}
-                imgUrl={company.CompanyLogo?.url}
-                name={company.name}
-                backgroundColor={company.backgroundColor}
-                slug={company.slug}
-            />
 
             {/* Logo */}
             <div className="flex justify-center px-4">

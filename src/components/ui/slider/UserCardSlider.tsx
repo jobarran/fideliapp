@@ -1,5 +1,5 @@
 import { Card } from '@/interfaces';
-import { Slider, SliderHeader } from '..';
+import { Slider, SliderHeader } from '../..';
 
 interface Props {
     userCards: Card[]

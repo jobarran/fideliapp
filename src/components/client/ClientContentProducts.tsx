@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const ClientDashboardContentTransactions = () => {
+export const ClientContentProducts = () => {
     return (
         <div>
-            <h2 className="text-lg font-semibold">Transacciones</h2>
+            <h2 className="text-lg font-semibold">Productos</h2>
             {/* Render transaction content here */}
         </div>
     )

@@ -2,7 +2,7 @@ import { getAllActivityType, getAllCardsByUser, getAllCompanies } from "@/action
 import { HowItWorks, MapComponent, MapProvider, SearchCompanySmallScreen, UserCardSlider } from "@/components";
 import { Card } from "@/interfaces";
 import { companyLocationsMap, sortCards } from "@/utils";
-import { CompanySlider } from '../../components/slider/CompanySlider';
+import { CompanySlider } from '../../components/ui/slider/CompanySlider';
 
 export default async function Home() {
 
