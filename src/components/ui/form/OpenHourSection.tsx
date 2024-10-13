@@ -26,10 +26,11 @@ export const OpenHoursSection = ({
     labelClassName,
     sectionClassName
 }: Props) => {
+    
     return (
         <div className={divClassName}>
             <h3 className={labelClassName}>{label}</h3>
-            {Object.keys(openHours || {}).length > 0 ? (
+            {Object.keys(openHours || {}).length > 0 || isEditing ? (
                 <div className="flex flex-col">
                     {Object.entries(openHours || {}).map(([day, hours]) => (
                         <div key={day} className={sectionClassName}>

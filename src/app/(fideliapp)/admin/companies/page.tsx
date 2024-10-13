@@ -1,6 +1,6 @@
 
 import { getAllCompanies } from "@/actions";
-import { AdminNewCompanyModal, CompanyLogo } from "@/components";
+import { AdminNewCompanyModal, CompanyLinkImage } from "@/components";
 import Link from "next/link";
 
 
@@ -37,12 +37,6 @@ export default async function AdminCompaniesPage() {
                                     scope="col"
                                     className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
                                 >
-                                    Tipo
-                                </th>
-                                <th
-                                    scope="col"
-                                    className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
-                                >
                                     Usuario
                                 </th>
                                 <th
@@ -60,15 +54,17 @@ export default async function AdminCompaniesPage() {
                                     className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100"
                                 >
                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        <Link href={`/company/${company.name}`}>
-                                            <CompanyLogo
-                                                src={ company.CompanyLogo?.url }
-                                                width={60}
-                                                height={60}
+                                        <div className="relative w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-white">
+                                            <CompanyLinkImage
+                                                src={company.CompanyLogo?.url}
+                                                width={0}
+                                                height={0}
                                                 alt={company.name}
-                                                className={`w-15 h-15 rounded-full object-cover`}
-                                                />
-                                        </Link>
+                                                className="object-cover"
+                                                priority
+                                                style={{ width: '100%', height: '100%' }}
+                                            />
+                                        </div>
                                     </td>
                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                         <Link
@@ -77,9 +73,6 @@ export default async function AdminCompaniesPage() {
                                         >
                                             {company.name}
                                         </Link>
-                                    </td>
-                                    <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        {company.activityTypeId}
                                     </td>
 
                                     <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">

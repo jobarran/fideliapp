@@ -19,7 +19,7 @@ export const CompanyGrid = ({ companies, activityTypes, search, companyIdByUserC
   return (
     <>
       <FilterComponent
-        filters={filters}
+        filters={filters} 
         setFilters={setFilters}
         clearFilters={clearFilters}
         activityTypes={activityTypes}

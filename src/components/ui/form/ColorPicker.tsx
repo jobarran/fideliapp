@@ -29,7 +29,7 @@ export const ColorPicker = ({
                 {colors.map((color) => (
                     <div
                         key={color}
-                        className={`cursor-pointer rounded-full w-${size} h-${size} border border-slate-400`}
+                        className={`cursor-pointer rounded-full ${size} border border-slate-400`}
                         style={{
                             backgroundColor: color,
                             opacity: translucentColor(color, selectedColor),

@@ -1,7 +1,7 @@
 import { CreateCompanyForm } from './ui/CreateCompanyForm'
 import { auth } from '@/auth.config';
 import { getCompanyByUser } from '@/actions';
-import { CompanyCreateCardExist } from '@/components';
+import { CompanyExist } from '@/components';
 
 export default async function CreateCompanyPage() {
 
@@ -19,7 +19,7 @@ export default async function CreateCompanyPage() {
     return (
         <div>
             {company ? (
-                <CompanyCreateCardExist company={company} userId={user?.id} />
+                <CompanyExist company={company} userId={user?.id} />
             ) : (
                 <CreateCompanyForm user={user} />
             )}

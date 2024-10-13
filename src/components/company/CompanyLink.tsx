@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { CompanyLinkImage } from '..'
+import { Avatar, CompanyLinkImage } from '..'
 import { Company } from '@/interfaces'
 
 interface Props {
@@ -20,15 +20,19 @@ export const CompanyLink = ({ company }: Props) => {
                 <div className="mt-1 mb-2">
                     <Link href={`/companies/${company.slug}`}>
                         <div className="relative w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-white">
-                            <CompanyLinkImage
-                                src={company.CompanyLogo?.url}
-                                width={0}
-                                height={0}
-                                alt={company.name}
-                                className="object-cover"
-                                priority
-                                style={{ width: '100%', height: '100%' }}
-                            />
+                            {company.CompanyLogo ? (
+                                <CompanyLinkImage
+                                    src={company.CompanyLogo?.url}
+                                    width={0}
+                                    height={0}
+                                    alt={company.name}
+                                    className="object-cover"
+                                    priority
+                                    style={{ width: '100%', height: '100%' }}
+                                />
+                            ) : (
+                                <Avatar name={company.name} backgroundColor={company.backgroundColor} size={'16'} />
+                            )}
                         </div>
                     </Link>
                 </div>

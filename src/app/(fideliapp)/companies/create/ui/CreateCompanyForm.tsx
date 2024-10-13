@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
 import { generateSlug } from '@/utils';
-import { CompanyCreateWorkingHoursSelector, CompanyDetails, CompanyLogoAndColor, CreateCompanyMapContainer } from '@/components';
+import { CompanyCreateCard, CompanyDetails, CreateCompanyMapContainer } from '@/components';
 import { useRouter } from 'next/navigation';
 import { User } from '@/interfaces';
 import { getActivityTypes, registerCompany } from '@/actions';
@@ -138,7 +138,7 @@ export const CreateCompanyForm = ({ user }: Props) => {
         )}
 
         {currentStep === 2 && ( // Second Card
-          <CompanyLogoAndColor
+          <CompanyCreateCard
             register={register}
             selectedColor={selectedColor}
             setSelectedColor={setSelectedColor}

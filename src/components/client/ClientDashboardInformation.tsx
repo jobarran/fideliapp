@@ -1,8 +1,11 @@
+"use client";
+
 import { formatAddress } from '@/utils'
-import React from 'react'
+import React, { useState } from 'react'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 import { CompanyClientDashboard } from '@/interfaces';
 import { CompanyLinkImage } from '../company/CompanyLinkImage';
+import { Avatar, ChangeImage } from '..';
 
 interface Props {
     company: CompanyClientDashboard
@@ -10,22 +13,55 @@ interface Props {
 
 export const ClientDashboardInformation = ({ company }: Props) => {
 
+    const [openModal, setOpenModal] = useState(false)
+
+    const handleChangeImage = () => {
+        console.log('Change image')
+    }
+
     return (
 
         <div className="flex flex-col sm:flex-row items-center justify-between">
 
+            <ChangeImage
+                modalLabel='Atención!'
+                content='Editar logo de negocio'
+                acceptButton={'Aceptar'}
+                cancelButton={'Cancelar'}
+                contentAction={handleChangeImage}
+                openModal={openModal}
+                setOpenModal={setOpenModal}
+                imgUrl={company.CompanyLogo?.url}
+                name={company.name}
+                backgroundColor={company.backgroundColor}
+                slug={company.slug}
+            />
+
             {/* Logo */}
             <div className="flex justify-center px-4">
                 <div className="relative w-20 h-20 sm:w-28 sm:h-28 rounded-full overflow-hidden flex items-center justify-center bg-white my-4">
-                    <CompanyLinkImage
-                        src={company.CompanyLogo?.url}
-                        width={0}
-                        height={0}
-                        alt={company.name}
-                        className="object-cover"
-                        priority
-                        style={{ width: '100%', height: '100%' }}
-                    />
+                    <button onClick={() => setOpenModal(true)}>
+                        {company.CompanyLogo ? (
+                            <CompanyLinkImage
+                                src={company.CompanyLogo.url}
+                                width={0}
+                                height={0}
+                                alt={company.name}
+                                className="object-cover"
+                                priority
+                                style={{
+                                    borderRadius: '50%',
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'cover',
+                                    objectPosition: 'center center', // Make sure the image is centered
+                                    aspectRatio: '1/1', // Ensures the container maintains a square aspect ratio
+                                }}
+                            />
+                        ) : (
+                            <Avatar name={company.name} backgroundColor={company.backgroundColor} size={'20'} />
+                        )}
+                    </button>
                 </div>
             </div>
 

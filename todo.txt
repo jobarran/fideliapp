@@ -75,6 +75,8 @@ src/
 │   └── index.ts
 
 Enviar señal de compra tipo chat (no qr, no nada) y responde señal de venta
-Grid Item = CompanyLink
-useFilter for company.name and card.company.name
-Company Grid == UserCard Grid
+
+
+updateLogo on changeImageModal in header - delete imagen // create components
+
+run site online

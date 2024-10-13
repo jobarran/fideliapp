@@ -1,5 +1,5 @@
 import React from 'react'
-import { ClientDashboardInformation, ClientDashboardNavigation, CompaniesAllImage } from '..'
+import { ClientDashboardInformation, ClientDashboardNavigation } from '..'
 import { CompanyClientDashboard } from '@/interfaces'
 
 interface Props {

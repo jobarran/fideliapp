@@ -1,7 +1,6 @@
 "use client";
 
 import { ActivityType, Card } from '@/interfaces'
-import Link from 'next/link'
 import React from 'react'
 import { FilterComponent, UserCard, UserCardAdd } from '..'
 import { useCompanyNameFilter } from '@/hooks/useCompanyNameFilter';

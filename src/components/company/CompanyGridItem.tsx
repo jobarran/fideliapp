@@ -3,8 +3,8 @@
 import { Company } from '@/interfaces';
 import Link from 'next/link';
 
-import { CompanyGridImage } from './CompanyGridImage';
 import { cropText } from '../../utils/cropText';
+import { CompanyLinkImage } from './CompanyLinkImage';
 
 interface Props {
     company: Company;
@@ -24,7 +24,7 @@ export const CompanyGridItem = ({ company, isInUserCards }: Props) => {
                 <div className="flex flex-col items-center justify-center h-24">
                     <div className="mt-2">
                         <div className="relative w-14 h-14 rounded-full overflow-hidden flex items-center justify-center">
-                            <CompanyGridImage
+                            <CompanyLinkImage
                                 src={company.CompanyLogo?.url}
                                 width={0}
                                 height={0}

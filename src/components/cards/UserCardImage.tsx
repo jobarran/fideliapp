@@ -18,14 +18,14 @@ export const UserCardImage = ({
   style,
   width,
   height,
-  priority
+  priority = false,  // default to false unless explicitly set
 }: Props) => {
 
   const localSrc = (src)
-    ? src.startsWith('http') // https://urlcompletodelaimagen.jpg
+    ? src.startsWith('http') // full image URL
       ? src
-      : `/companies/${src}`
-    : '/imgs/placeholder.jpg';
+      : `/companies/${src}` // relative path for local assets
+    : '/imgs/placeholder.jpg'; // fallback image
 
   return (
     <Image

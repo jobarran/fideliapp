@@ -1,11 +1,13 @@
 "use client";
 
-import { getActivityTypes, updateCompany } from '@/actions';
+import { deleteCompany, getActivityTypes, updateCompany } from '@/actions';
 import { colorOptions, defaultOpenHours } from '@/config';
 import { CompanyClientDashboard, DayHours } from '@/interfaces';
 import { formatAddress } from '@/utils';
 import React, { useCallback, useEffect, useState } from 'react';
-import { CheckboxField, ColorPicker, OpenHoursSection, SelectField, TextField } from '..';
+import { CheckboxField, ColorPicker, DeleteWarningModal, OpenHoursSection, SelectField, TextField } from '..';
+import { useRouter } from 'next/navigation';
+import { FaRegTrashCan } from 'react-icons/fa6';
 
 interface EditedCompany extends CompanyClientDashboard {
     openHours: Record<string, DayHours>;
@@ -21,7 +23,7 @@ export const ClientDashboardContentInformation = ({ company }: Props) => {
         ...company,
         openHours: company.openHours || defaultOpenHours(),
     });
-
+    const router = useRouter();
     const [isEditing, setIsEditing] = useState(false);
     const [activityTypes, setActivityTypes] = useState<Array<{ id: string; name: string }>>([]);
 
@@ -97,6 +99,13 @@ export const ClientDashboardContentInformation = ({ company }: Props) => {
         }));
     }, []);
 
+    const handleDeleteCompany = async () => {
+       console.log("Eliminar Negocio")
+       deleteCompany(company.slug)
+       router.push('/')
+
+    };
+
     return (
         <div>
             <div className="flex justify-between items-center">
@@ -161,7 +170,7 @@ export const ClientDashboardContentInformation = ({ company }: Props) => {
                         selectedColor={editedCompany.backgroundColor}
                         onChange={handleColorChange}
                         isEditing={isEditing}
-                        size='8'
+                        size='w-8 h-8'
                         divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
                         labelClassName='font-medium hidden sm:flex'
                         pickerClassName='flex space-x-2 col-span-2'
@@ -173,7 +182,8 @@ export const ClientDashboardContentInformation = ({ company }: Props) => {
                     openHours={editedCompany.openHours}
                     onHourChange={handleOpenHourChange}
                     onCheckboxChange={handleCheckboxChange}
-                    isEditing={isEditing} label={''}
+                    isEditing={isEditing}
+                    label={''}
                     divClassName={'mb-4'}
                     labelClassName={'font-medium hidden sm:flex'}
                     sectionClassName={'grid grid-cols-3 gap-4 items-center mb-2'}
@@ -181,7 +191,23 @@ export const ClientDashboardContentInformation = ({ company }: Props) => {
 
 
             </div>
+
+            <DeleteWarningModal
+                buttonLabel={'Eliminar negocio'}
+                buttonBgColor={''}
+                buttonTextColor={'text-red-600'}
+                buttonHoverColor={'hover:bg-red-100'}
+                buttonIcon={<FaRegTrashCan />}
+                buttonPossition='justify-end'
+                modalLabel='Atención!'
+                content='Atención! Una vez que elimines tu negocio ya no podrás acceder a toda tu información.'
+                contentAction={handleDeleteCompany}
+                acceptButton={'Eliminar'}
+                cancelButton={'Cancelar'}
+                />
         </div>
+
+
     );
 }
 

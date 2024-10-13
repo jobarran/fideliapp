@@ -2,18 +2,18 @@ import { Card } from '@/interfaces';
 import Link from 'next/link';
 import React from 'react'
 import { FaHeart, FaRegHeart } from 'react-icons/fa6';
-import { UserCardImage } from '..';
+import { Avatar, UserCardImage } from '..';
 
 interface Props {
     card: Card,
 }
 
-export const UserCard = ({card}:Props) => {
+export const UserCard = ({ card }: Props) => {
 
-        // Unified color logic
-        const borderColor = '#slate-900'
-        const backgroundColor = card.company.backgroundColor || '#slate-900';
-        const color = backgroundColor
+    // Unified color logic
+    const borderColor = '#slate-900'
+    const backgroundColor = card.company.backgroundColor || '#slate-900';
+    const color = backgroundColor
 
     return (
         <Link href={`/cards/${card.id}`} >
@@ -25,15 +25,19 @@ export const UserCard = ({card}:Props) => {
                     <div className="mt-1 text-base font-medium" style={{ color: color }}>{card.company.name}</div>
                     <div className="mt-1 mb-2">
                         <div className="relative w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-white">
-                            <UserCardImage
-                                src={card.company.CompanyLogo?.url}
-                                width={0}
-                                height={0}
-                                alt={card.company.name}
-                                className="object-cover"
-                                priority
-                                style={{ width: '100%', height: '100%' }}
-                            />
+                            {card.company.CompanyLogo ? (
+                                <UserCardImage
+                                    src={card.company.CompanyLogo?.url}
+                                    width={0}
+                                    height={0}
+                                    alt={card.company.name}
+                                    className="object-cover"
+                                    priority
+                                    style={{ width: '100%', height: '100%' }}
+                                />
+                            ) : (
+                                <Avatar name={card.company.name} backgroundColor={card.company.backgroundColor} size={'16'} />
+                            )}
                         </div>
                     </div>
                 </div>
