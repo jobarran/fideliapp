@@ -17,7 +17,7 @@ export const TopMenu = ({ user }: Props) => {
   return (
     <nav
       className="bg-white border-b-slate-300 h-12"
-      style={{ borderBottomWidth: 0.25, borderBottomStyle: 'solid' }}
+      style={{ borderBottomWidth: 0.5, borderBottomStyle: 'solid' }}
     >
 
       <LoginModal

@@ -18,7 +18,7 @@ export const CompanyLink = ({ company }: Props) => {
             }}
         >
             <div className="rounded-lg overflow-hidden"
-                style={{ borderColor: backgroundColor, borderWidth: 0.25, borderStyle: 'solid' }}>
+                style={{ borderColor: backgroundColor, borderWidth: 0.5, borderStyle: 'solid' }}>
                 <div className="flex flex-col items-center justify-center h-24 bg-white">
                     {/* <div className="mt-1 text-base font-medium" style={{ color: color }}>{company.name}</div> */}
                     <div className="mt-1 mb-2">

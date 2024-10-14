@@ -120,7 +120,7 @@ export const CreateCompanyForm = ({ user }: Props) => {
   };
 
   return (
-    <div className="bg-white p-8 shadow-lg rounded-lg mx-auto">
+    <div className="bg-white p-8 border rounded-lg mx-auto">
       <form onSubmit={handleSubmit(onSubmit)}>
         {currentStep === 1 && ( // First Card
           <CompanyDetails

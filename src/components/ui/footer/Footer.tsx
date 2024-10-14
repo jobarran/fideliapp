@@ -6,7 +6,7 @@ export const Footer = () => {
     return (
         <footer
             className="bg-white shadow border-t-slate-300 p-4"
-            style={{ borderTopWidth: 0.25, borderTopStyle: 'solid' }}
+            style={{ borderTopWidth: 0.5, borderTopStyle: 'solid' }}
         >
             <div className="w-full mx-auto max-w-screen-xl p-2 flex flex-col items-center md:flex-row md:items-center md:justify-between">
                 <ul className="flex flex-wrap items-center justify-center text-sm font-medium text-gray-500">

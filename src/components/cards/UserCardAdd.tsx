@@ -16,7 +16,7 @@ export const UserCardAdd = ({ color }: Props) => {
             >
                 <div
                     className="w-70 rounded-lg shadow-sm overflow-hidden hover:bg-white"
-                    style={{ borderColor: color, borderWidth: 0.25, borderStyle: 'solid' }}
+                    style={{ borderColor: color, borderWidth: 0.5, borderStyle: 'solid' }}
                 >
                     <div className="flex flex-col items-center justify-center">
                         <div className={`mt-1 text-sm font-medium text-${color}`}>Nueva Tarjeta</div>

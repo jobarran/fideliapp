@@ -79,7 +79,7 @@ export const CreateCompanySearchBox = ({ setMarkerPosition, setMapCenter, setAdd
       />
       <ul
         {...getMenuProps()}
-        className={`absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg ${isOpen ? 'block' : 'hidden'
+        className={`absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg ${isOpen ? 'block' : 'hidden'
           }`}
       >
         {/* If no search results and input is not empty, show the placeholder */}

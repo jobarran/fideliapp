@@ -14,7 +14,7 @@ export const CompanyExist = ({ company, userId }: Props) => {
     const borderColor = company?.backgroundColor! !== '#FFFFFF' ? company?.backgroundColor! : '#4F4F4F';
 
     return (
-        <div className="bg-white p-8 shadow-lg rounded-lg mx-auto">
+        <div className="bg-white p-8 rounded-lg mx-auto border">
             <h2 className="text-xl font-semibold mb-6 flex justify-center">Ya tienes un negocio registrado!</h2>
 
             {/* Add a flex container to center the Link div */}

@@ -44,7 +44,7 @@ export const Avatar = ({ name, backgroundColor, size, className }: Props) => {
 
     return (
         <div
-            className={`w-${size} h-${size} ${className} rounded-full bg-white shadow-sm flex items-center justify-center`}
+            className={`w-${size} h-${size} ${className} rounded-full bg-white flex items-center justify-center`}
             style={{ border: `4px solid ${color}`, fontSize }}
         >
             <span className="font-bold" style={{ color: `${color}` }}

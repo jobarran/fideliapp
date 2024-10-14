@@ -25,7 +25,7 @@ export const UserCard = ({ card }: Props) => {
         >
             <Link href={`/cards/${card.id}`} >
                 <div className="w-70 rounded-lg overflow-hidden"
-                    style={{ borderColor: softColor(backgroundColor, 70), borderWidth: 0.25, borderStyle: 'solid' }}>
+                    style={{ borderColor: softColor(backgroundColor, 70), borderWidth: 0.5, borderStyle: 'solid' }}>
                     <div
                         className="flex flex-col items-center justify-center bg-white"
                     >
