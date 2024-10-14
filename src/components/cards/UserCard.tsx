@@ -28,9 +28,6 @@ export const UserCard = ({ card }: Props) => {
                     style={{ borderColor: softColor(backgroundColor, 70), borderWidth: 0.25, borderStyle: 'solid' }}>
                     <div
                         className="flex flex-col items-center justify-center bg-white"
-                        style={{
-                            borderRadius: '16px', // Ensure this value is consistent
-                        }}
                     >
                         <div className="mt-1 text-base font-medium" style={{ color: color }}>{card.company.name}</div>
                         <div className="mt-1 mb-2">
