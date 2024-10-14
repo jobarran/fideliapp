@@ -15,7 +15,7 @@ export const runSeed = async () => {
         await prisma.companyLogo.deleteMany({});
         await prisma.card.deleteMany({});
         await prisma.company.deleteMany({});
-        // await prisma.user.deleteMany({});
+        await prisma.user.deleteMany({});
         await prisma.activityType.deleteMany({});
         await prisma.subCategory.deleteMany({});
 

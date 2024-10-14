@@ -5,7 +5,6 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/actions';
 import clsx from 'clsx';
 import { IoCloseSharp } from "react-icons/io5";
-import Image from 'next/image';
 
 
 
@@ -24,7 +23,7 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
             setLoginModal();
             window.location.reload();
         }
-    }, [state, setLoginModal]);
+    }, [state]);
     
 
     const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

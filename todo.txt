@@ -76,6 +76,3 @@ src/
 
 Enviar señal de compra tipo chat (no qr, no nada) y responde señal de venta
 
-
-Cargar Seed on deploy
-Run seed button on admin
