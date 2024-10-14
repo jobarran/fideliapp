@@ -1,12 +1,14 @@
+import { UserRole as UserRoleData } from '@/interfaces';
+import prisma from '@/lib/prisma';
+import { initialData } from '@/seed/seed';
+import { generateSlug } from '@/utils';
 import { UserRole } from '@prisma/client';
-import prisma from '../lib/prisma';
-import { initialData } from './seed';
-import { generateSlug } from '../utils/generateSlug';
 
 
-async function main() {
 
-  console.log('Starting seed')
+export const runSeed = async () => {
+
+    console.log('Starting seed')
 
   // Clear existing data
   await prisma.companyLogo.deleteMany({});
@@ -61,7 +63,7 @@ async function main() {
   const usersMap = usersDB.reduce((map, user) => {
     map[user.email.toLowerCase()] = user;
     return map;
-  }, {} as Record<string, { id: string; email: string; role: UserRole }>);
+  }, {} as Record<string, { id: string; email: string; role: UserRoleData }>);
 
   // Track created userIds to avoid duplicates
   const createdUserIds = new Set<string>();
@@ -143,8 +145,3 @@ async function main() {
 
 
 }
-
-(() => {
-  if (process.env.NODE_ENV === 'production') return;
-  main();
-})();

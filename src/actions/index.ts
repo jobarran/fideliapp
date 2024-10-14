@@ -19,3 +19,5 @@ export { createNewCard } from './card/create-new-card'
 export { getAllActivityType } from './activity-type/get-all-activityType'
 
 export { getUserById } from './user/get-user-by-id'
+
+export { runSeed } from './seed/run-seed'
