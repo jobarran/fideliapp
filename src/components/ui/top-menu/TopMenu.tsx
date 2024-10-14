@@ -15,7 +15,7 @@ export const TopMenu = ({ user }: Props) => {
   const [newAccountModal, setNewAccountModal] = useState(false);
 
   return (
-    <nav className="bg-white border-b-2 border-b-gray-200 h-12">
+    <nav className="bg-white border-b-1 border-b-slate-300 h-12">
       <LoginModal
         loginModal={loginModal}
         setLoginModal={() => setLoginModal(!loginModal)}

@@ -1,1 +1,1 @@
-export const backgroundColor = (color: string) => { color || '#slate-900' }
+export const backgroundColor = (color: string) => { color || '#0F172A' }
