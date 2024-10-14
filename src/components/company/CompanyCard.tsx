@@ -17,14 +17,9 @@ export const CompanyCard = ({ backgroundColor, name, activityType, logo }: Props
     const color = '#0F172A'
 
     return (
-        <div
-            style={{
-                backgroundColor: '#F8F8F8',
-            }}
-        >
             <div
                 className="rounded-lg overflow-hidden w-72 mb-6 bg-white"
-                style={{ borderColor: borderColor, borderWidth: 0.5, borderStyle: 'solid' }}
+                style={{ borderColor: borderColor, borderWidth: 0.75, borderStyle: 'solid' }}
             >
                 <div className="flex flex-col items-center justify-center mt-2">
                     <div className="text-base font-medium" style={{ color: color }}>{name}</div>
@@ -66,6 +61,5 @@ export const CompanyCard = ({ backgroundColor, name, activityType, logo }: Props
                     </div>
                 </div>
             </div>
-        </div>
     )
 }

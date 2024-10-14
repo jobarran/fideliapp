@@ -15,7 +15,7 @@ export const CompanyExist = ({ company, userId }: Props) => {
 
     return (
         <div className="bg-white p-8 rounded-lg mx-auto border">
-            <h2 className="text-xl font-semibold mb-6 flex justify-center">Ya tienes un negocio registrado!</h2>
+            <h2 className="text-xl font-semibold mb-6 flex items-center justify-center">Ya tienes un negocio registrado!</h2>
 
             {/* Add a flex container to center the Link div */}
             <div className="flex justify-center items-center">
