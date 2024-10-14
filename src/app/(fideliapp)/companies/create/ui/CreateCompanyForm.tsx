@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { User } from '@/interfaces';
 import { getActivityTypes, registerCompany } from '@/actions';
 import clsx from 'clsx';
-import { useSession } from 'next-auth/react';
+import { colorOptions } from '@/config';
 
 interface DayHours {
   from: string;
@@ -35,10 +35,9 @@ interface Props {
 
 export const CreateCompanyForm = ({ user }: Props) => {
   const router = useRouter();
-  const { update } = useSession()
 
   const [slug, setSlug] = useState<string>('');
-  const [selectedColor, setSelectedColor] = useState<string>(''); // Default color
+  const [selectedColor, setSelectedColor] = useState<string>(colorOptions[0]); // Default color
   const [address, setAddress] = useState<string>('');
   const [lat, setLat] = useState<number>(0);
   const [lng, setLng] = useState<number>(0);

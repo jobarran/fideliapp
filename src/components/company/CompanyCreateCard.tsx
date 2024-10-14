@@ -25,10 +25,6 @@ export const CompanyCreateCard = ({
 
     const [logo, setLogo] = useState<string>(''); // State to store the uploaded logo
 
-    useEffect(() => {
-        setSelectedColor(colorOptions[0])
-    })
-
     // Handle logo change
     const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {

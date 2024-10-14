@@ -35,7 +35,7 @@ export const FilterComponent = ({ filters, setFilters, activityTypes, clearFilte
           id="name"
           value={filters.name}
           onChange={e => handleInputChange('name', e.target.value)}
-          className="w-full rounded-md border bg-gray-50 border-gray-300 text-slate-800 px-2 py-1 text-sm shadow-sm outline-none"
+          className="w-full rounded-md border bg-gray-50 border-gray-300 text-slate-800 px-2 py-1 text-sm outline-none"
         />
       </div>
 

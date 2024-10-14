@@ -29,7 +29,7 @@ export const UserCard = ({ card }: Props) => {
                     <div
                         className="flex flex-col items-center justify-center bg-white"
                     >
-                        <div className="mt-1 text-base font-medium" style={{ color: color }}>{card.company.name}</div>
+                        <div className="mt-1 text-sm font-medium" style={{ color: color }}>{card.company.name}</div>
                         <div className="mt-1 mb-2">
                             <div className="relative w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-white">
                                 {card.company.CompanyLogo ? (

@@ -42,6 +42,7 @@ export default async function CompanyBySlugPage({ params }: Props) {
     <div>
       <MainHeader
         headerClass={userCardForCompany ? "border-green-500" : "border-slate-200"}
+        backgroundColor={company.backgroundColor}
         img={company.CompanyLogo?.url}
         title={company.name}
         subtitle={company.activityType.name}

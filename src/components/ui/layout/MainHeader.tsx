@@ -7,12 +7,13 @@ interface Props {
     headerClass: string
     img?: string
     title: string
+    backgroundColor: string,
     subtitle: string
     checked?: boolean
     actionButtons?: React.ReactNode
 }
 
-export const MainHeader = ({ headerClass, img, title, subtitle, checked, actionButtons }: Props) => {
+export const MainHeader = ({ headerClass, img, title, subtitle, checked, actionButtons, backgroundColor }: Props) => {
 
     return (
 
@@ -31,7 +32,7 @@ export const MainHeader = ({ headerClass, img, title, subtitle, checked, actionB
                             style={{ width: '100%', height: '100%' }}
                         />
                     ) : (
-                        <Avatar name={title} size={'28'} className ={'border-4 border-slate-200'} />
+                        <Avatar name={title} size={'28'} backgroundColor={backgroundColor} className={'border-4'} />
                     )}
                 </div>
                 <div className="flex-1">

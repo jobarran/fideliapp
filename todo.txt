@@ -77,4 +77,6 @@ src/
 Enviar señal de compra tipo chat (no qr, no nada) y responde señal de venta
 
 Letter size
-borders in modal
+modal size in sm LgScreenCards
+filtrar button in modal filter
+logo
