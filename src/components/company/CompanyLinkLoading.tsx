@@ -3,7 +3,7 @@ import { CompanyLinkImage } from './CompanyLinkImage';
 
 export const CompanyLinkLoading = () => {
     return (
-        <div className="rounded-lg overflow-hidden animate-pulse border-1 border-slate-200 bg-white">
+        <div className="rounded-lg overflow-hidden animate-pulse border border-slate-200 bg-white">
             <div className="flex flex-col items-center justify-center h-24 bg-white p-4">
                 {/* Placeholder for company image */}
                 <div className="mt-1 mb-2">

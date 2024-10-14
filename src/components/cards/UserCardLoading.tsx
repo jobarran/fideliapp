@@ -4,7 +4,7 @@ export const UserCardLoading = () => {
 
     return (
         <div
-            className="w-70 rounded-lg overflow-hidden animate-pulse border-1 border-slate-200 bg-white"
+            className="w-70 rounded-lg overflow-hidden animate-pulse border border-slate-200 bg-white"
         >
             <div className="flex flex-col items-center justify-center h-2/3 bg-white">
                 {/* Placeholder for company name */}

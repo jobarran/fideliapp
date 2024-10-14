@@ -117,9 +117,9 @@ export const AdminNewCompanyModal = () => {
                                         id="name"
                                         className={
                                             clsx(
-                                                "px-4 w-full border-1 py-2 rounded-md text-sm outline-none",
+                                                "px-4 w-full border py-2 rounded-md text-sm outline-none",
                                                 {
-                                                    'focus:outline-none focus:border-1 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
+                                                    'focus:outline-none focus:border border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
                                                 }
                                             )
                                         } placeholder="Nombre"
@@ -134,9 +134,9 @@ export const AdminNewCompanyModal = () => {
                                         id="activityType"
                                         className={
                                             clsx(
-                                                "px-4 w-full border-1 py-2 rounded-md text-sm outline-none",
+                                                "px-4 w-full border py-2 rounded-md text-sm outline-none",
                                                 {
-                                                    'focus:outline-none focus:border-1 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.activityType
+                                                    'focus:outline-none focus:border border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.activityType
                                                 }
                                             )
                                         } placeholder="Actividad"
@@ -151,9 +151,9 @@ export const AdminNewCompanyModal = () => {
                                         id="backgroundColor"
                                         className={
                                             clsx(
-                                                "px-4 w-full border-1 py-2 rounded-md text-sm outline-none",
+                                                "px-4 w-full border py-2 rounded-md text-sm outline-none",
                                                 {
-                                                    'focus:outline-none focus:border-1 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.backgroundColor
+                                                    'focus:outline-none focus:border border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.backgroundColor
                                                 }
                                             )
                                         } placeholder="Color de fondo"
@@ -168,9 +168,9 @@ export const AdminNewCompanyModal = () => {
                                         id="address"
                                         className={
                                             clsx(
-                                                "px-4 w-full border-1 py-2 rounded-md text-sm outline-none",
+                                                "px-4 w-full border py-2 rounded-md text-sm outline-none",
                                                 {
-                                                    'focus:outline-none focus:border-1 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.address
+                                                    'focus:outline-none focus:border border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.address
                                                 }
                                             )
                                         } placeholder="Dirección"
@@ -185,9 +185,9 @@ export const AdminNewCompanyModal = () => {
                                         id="openDays"
                                         className={
                                             clsx(
-                                                "px-4 w-full border-1 py-2 rounded-md text-sm outline-none",
+                                                "px-4 w-full border py-2 rounded-md text-sm outline-none",
                                                 {
-                                                    'focus:outline-none focus:border-1 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.openDays
+                                                    'focus:outline-none focus:border border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.openDays
                                                 }
                                             )
                                         } placeholder="Abierto"
@@ -202,9 +202,9 @@ export const AdminNewCompanyModal = () => {
                                         id="openHours"
                                         className={
                                             clsx(
-                                                "px-4 w-full border-1 py-2 rounded-md text-sm outline-none",
+                                                "px-4 w-full border py-2 rounded-md text-sm outline-none",
                                                 {
-                                                    'focus:outline-none focus:border-1 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.openHours
+                                                    'focus:outline-none focus:border border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.openHours
                                                 }
                                             )
                                         } placeholder="Horarios"

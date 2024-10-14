@@ -76,3 +76,5 @@ src/
 
 Enviar señal de compra tipo chat (no qr, no nada) y responde señal de venta
 
+Letter size
+borders in modal

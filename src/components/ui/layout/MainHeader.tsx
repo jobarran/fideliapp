@@ -17,7 +17,7 @@ export const MainHeader = ({ headerClass, img, title, subtitle, checked, actionB
     return (
 
         <header
-            className={`bg-white border-1 shadow-sm rounded-lg p-4 relative ${headerClass}`}
+            className={`bg-white border shadow-sm rounded-lg p-4 relative ${headerClass}`}
         >
             <div className="flex space-x-6">
                 <div className="relative w-28 h-28 rounded-full overflow-hidden flex items-center justify-center bg-white">
@@ -41,7 +41,7 @@ export const MainHeader = ({ headerClass, img, title, subtitle, checked, actionB
             </div>
 
             {checked && (
-                <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-green-600 border-1 border-white rounded-full -top-2 -right-2">
+                <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-green-600 border border-white rounded-full -top-2 -right-2">
                     ✔
                 </div>
             )}

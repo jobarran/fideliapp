@@ -22,7 +22,7 @@ export const UserCardAdd = ({ color }: Props) => {
                         <div className={`mt-2 text-sm font-medium text-${color}`}>Nueva Tarjeta</div>
                         <div className="mt-1 mb-2">
                             {/* Dotted circle with "+" inside */}
-                            <div className="w-16 h-16 rounded-full border-1 border-dotted border-slate-400 flex items-center justify-center">
+                            <div className="w-16 h-16 rounded-full border border-dotted border-slate-400 flex items-center justify-center">
                                 <p className={`text-5xl font-thin text-${color}`}>
                                     +
                                 </p>
