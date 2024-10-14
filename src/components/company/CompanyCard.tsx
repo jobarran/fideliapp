@@ -14,12 +14,12 @@ interface Props {
 export const CompanyCard = ({ backgroundColor, name, activityType, logo }: Props) => {
 
     const borderColor = backgroundColor
-    const color = '#slate-900'
+    const color = '#0F172A'
 
     return (
         <div
             className="rounded-lg shadow-md overflow-hidden w-72 bg-white mb-6"
-            style={{ borderColor: borderColor, borderWidth: 1, borderStyle: 'solid' }}
+            style={{ borderColor: borderColor, borderWidth: 0.25, borderStyle: 'solid' }}
         >
             <div className="flex flex-col items-center justify-center mt-2">
                 <div className="text-base font-medium" style={{ color: color }}>{name}</div>

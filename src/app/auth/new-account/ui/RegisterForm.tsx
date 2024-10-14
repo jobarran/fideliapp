@@ -52,7 +52,7 @@ export const RegisterForm = () => {
                         clsx(
                             "bg-gray-50 border text-gray-900 sm:text-sm rounded-lg block w-full h-10 p-2.5",
                             {
-                                'focus:outline-none focus:border-2 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
+                                'focus:outline-none focus:border-1 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
                             }
                         )
                     }
@@ -77,7 +77,7 @@ export const RegisterForm = () => {
                         clsx(
                             "bg-gray-50 border text-gray-900 sm:text-sm rounded-lg block w-full h-10 p-2.5",
                             {
-                                'focus:outline-none focus:border-2 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
+                                'focus:outline-none focus:border-1 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
                             }
                         )
                     } placeholder="John"
@@ -95,7 +95,7 @@ export const RegisterForm = () => {
                         clsx(
                             "bg-gray-50 border text-gray-900 sm:text-sm rounded-lg block w-full h-10 p-2.5",
                             {
-                                'focus:outline-none focus:border-2 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
+                                'focus:outline-none focus:border-1 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
                             }
                         )
                     } placeholder="Doe"
@@ -114,7 +114,7 @@ export const RegisterForm = () => {
                         clsx(
                             "bg-gray-50 border text-gray-900 sm:text-sm rounded-lg block w-full h-10 p-2.5",
                             {
-                                'focus:outline-none focus:border-2 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
+                                'focus:outline-none focus:border-1 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
                             }
                         )
                     }

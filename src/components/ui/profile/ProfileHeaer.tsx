@@ -18,7 +18,7 @@ export const ProfileHeader = ({ company, user,  handleTabChange, setOpenModal, s
 
     return (
 
-        <div className="p-4 border-2 rounded-lg bg-white">
+        <div className="p-4 border-1 rounded-lg bg-white">
 
             <ProfileHeaderData company={company} user={user} setOpenModal={setOpenModal} />
 

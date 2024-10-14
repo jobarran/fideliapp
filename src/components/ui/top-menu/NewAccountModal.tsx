@@ -86,9 +86,9 @@ export const NewAccountModal = ({ newAccountModal, setNewAccountModal }: Props) 
                                         required
                                         className={
                                             clsx(
-                                                "px-4 w-full border-2 py-2 rounded-md text-sm outline-none",
+                                                "px-4 w-full border-1 py-2 rounded-md text-sm outline-none",
                                                 {
-                                                    'focus:outline-none focus:border-2 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
+                                                    'focus:outline-none focus:border-1 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
                                                 }
                                             )
                                         }
@@ -109,9 +109,9 @@ export const NewAccountModal = ({ newAccountModal, setNewAccountModal }: Props) 
                                         id="new-name"
                                         className={
                                             clsx(
-                                                "px-4 w-full border-2 py-2 rounded-md text-sm outline-none",
+                                                "px-4 w-full border-1 py-2 rounded-md text-sm outline-none",
                                                 {
-                                                    'focus:outline-none focus:border-2 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
+                                                    'focus:outline-none focus:border-1 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
                                                 }
                                             )
                                         } placeholder="John"
@@ -126,9 +126,9 @@ export const NewAccountModal = ({ newAccountModal, setNewAccountModal }: Props) 
                                         id="new-lastName"
                                         className={
                                             clsx(
-                                                "px-4 w-full border-2 py-2 rounded-md text-sm outline-none",
+                                                "px-4 w-full border-1 py-2 rounded-md text-sm outline-none",
                                                 {
-                                                    'focus:outline-none focus:border-2 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
+                                                    'focus:outline-none focus:border-1 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
                                                 }
                                             )
                                         } placeholder="Doe"
@@ -144,9 +144,9 @@ export const NewAccountModal = ({ newAccountModal, setNewAccountModal }: Props) 
                                         placeholder="••••••••"
                                         className={
                                             clsx(
-                                                "px-4 w-full border-2 py-2 rounded-md text-sm outline-none",
+                                                "px-4 w-full border-1 py-2 rounded-md text-sm outline-none",
                                                 {
-                                                    'focus:outline-none focus:border-2 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
+                                                    'focus:outline-none focus:border-1 border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
                                                 }
                                             )
                                         }

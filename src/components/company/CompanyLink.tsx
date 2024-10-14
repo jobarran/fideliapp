@@ -9,12 +9,12 @@ interface Props {
 
 export const CompanyLink = ({ company }: Props) => {
 
-    const backgroundColor = '#slate-900'; // Dark gray as default
+    const backgroundColor = '#CBD5E1'; // Dark gray as default
 
     return (
 
         <div className="rounded-lg overflow-hidden"
-            style={{ borderColor: backgroundColor, borderWidth: 2, borderStyle: 'solid' }}>
+            style={{ borderColor: backgroundColor, borderWidth: 0.25, borderStyle: 'solid' }}>
             <div className="flex flex-col items-center justify-center h-24 bg-white">
                 {/* <div className="mt-1 text-base font-medium" style={{ color: color }}>{company.name}</div> */}
                 <div className="mt-1 mb-2">

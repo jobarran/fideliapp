@@ -27,7 +27,7 @@ export const FilterComponent = ({ filters, setFilters, activityTypes, clearFilte
   };
 
   return (
-    <div className="rounded-xl border-2 border-slate-200 bg-white p-2 flex flex-row items-center justify-between gap-2">
+    <div className="rounded-xl border-1 border-slate-200 bg-white p-2 flex flex-row items-center justify-between gap-2">
 
       <div className="flex flex-row flex-grow">
         <input
