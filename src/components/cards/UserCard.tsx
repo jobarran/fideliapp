@@ -19,7 +19,7 @@ export const UserCard = ({ card }: Props) => {
         <Link href={`/cards/${card.id}`} >
             <div
                 className="w-70 rounded-lg shadow-sm overflow-hidden bg-white"
-                style={{ borderColor: borderColor, borderWidth: 2, borderStyle: 'solid' }}
+                style={{ borderColor: borderColor, borderWidth: 1, borderStyle: 'solid' }}
             >
                 <div className="flex flex-col items-center justify-center">
                     <div className="mt-1 text-base font-medium" style={{ color: color }}>{card.company.name}</div>
