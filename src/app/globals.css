@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 body {
   color: rgb(var(--foreground-rgb));
   background-color: #F8F8F8;
@@ -30,3 +29,4 @@ body {
 input[type="checkbox"]:checked {
   accent-color: #1E293B; /* This is slate-800 */
 }
+

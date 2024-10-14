@@ -16,7 +16,7 @@ export const SearchCompanySmallScreen = () => {
   };
 
   return (
-    <div className="block sm:hidden w-full pt-2 pb-4 bg-gray-100">
+    <div className="block sm:hidden w-full pt-2 pb-4 bg-gray-100" style={{ backgroundColor: '#F8F8F8' }}>
       <form onSubmit={handleSearch} className="flex items-center space-x-2 w-full">
         <input
           type="text"

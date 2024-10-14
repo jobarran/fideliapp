@@ -15,7 +15,11 @@ export const TopMenu = ({ user }: Props) => {
   const [newAccountModal, setNewAccountModal] = useState(false);
 
   return (
-    <nav className="bg-white border-b-1 border-b-slate-300 h-12">
+    <nav
+      className="bg-white border-b-slate-300 h-12"
+      style={{ borderBottomWidth: 0.25, borderBottomStyle: 'solid' }}
+    >
+
       <LoginModal
         loginModal={loginModal}
         setLoginModal={() => setLoginModal(!loginModal)}
@@ -43,7 +47,7 @@ export const TopMenu = ({ user }: Props) => {
         {/* Right Side */}
         <div className="flex items-center space-x-2">
           {user ? (
-            <UserDropdownMenu userName={user.name} userId={user.id}  />
+            <UserDropdownMenu userName={user.name} userId={user.id} />
           ) : (
             <button
               onClick={() => setLoginModal(true)}

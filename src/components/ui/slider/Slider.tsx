@@ -50,7 +50,7 @@ export const Slider = ({ data, sliderType, breakpoints }: Props) => {
 
                 {sliderType === "userCard" && (
                     <SwiperSlide>
-                        <UserCardAdd color={'#CBD5E1'} />
+                        <UserCardAdd color={'#cbd5e1'} />
                     </SwiperSlide>
                 )}
 
