@@ -21,7 +21,7 @@ export default async function CreateCompanyPage() {
             {company ? (
                 <CompanyExist company={company} userId={user?.id} />
             ) : (
-                <CreateCompanyForm user={user} />
+                <CreateCompanyForm userId={user?.id} />
             )}
         </div>
     )

@@ -27,13 +27,14 @@ type FormInputs = {
   openHours: string;
   activityTypeId: string;
   logo?: FileList | undefined;
+  active: true
 };
 
 interface Props {
-  user: User | null
+  userId?: string
 }
 
-export const CreateCompanyForm = ({ user }: Props) => {
+export const CreateCompanyForm = ({ userId }: Props) => {
   const router = useRouter();
 
   const [slug, setSlug] = useState<string>('');
@@ -62,7 +63,8 @@ export const CreateCompanyForm = ({ user }: Props) => {
       lat: 0,
       lng: 0,
       openHours: '',
-      activityTypeId: ''
+      activityTypeId: '',
+      active: true
     }
   });
 
@@ -71,7 +73,7 @@ export const CreateCompanyForm = ({ user }: Props) => {
 
   // Redirect if no session
   useEffect(() => {
-    if (!user) {
+    if (!userId) {
       const callbackUrl = encodeURIComponent(window.location.href);
       router.push(`/auth/login?callbackUrl=${callbackUrl}`);
     }
@@ -87,11 +89,11 @@ export const CreateCompanyForm = ({ user }: Props) => {
   }, []);
 
   useEffect(() => {
-    if (nameValue && user?.id) {
-      const newSlug = generateSlug(nameValue, user.id);
+    if (nameValue && userId) {
+      const newSlug = generateSlug(nameValue, userId);
       setSlug(newSlug);
     }
-  }, [nameValue, user?.id]);
+  }, [nameValue, userId]);
 
   const onSubmit = async (data: FormInputs) => {
     const formData = new FormData();
@@ -115,7 +117,7 @@ export const CreateCompanyForm = ({ user }: Props) => {
 
     const { message, ok } = await registerCompany(formData);
     if (ok) {
-      router.replace(`/client/${user?.id}`)
+      router.replace(`/client/${userId}`)
     }
   };
 
