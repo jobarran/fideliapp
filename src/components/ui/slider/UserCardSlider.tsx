@@ -14,7 +14,7 @@ export const UserCardSlider = ({ userCards }: Props) => {
                 data={userCards}
                 sliderType='userCard'
                 breakpoints={{
-                    320: { slidesPerView: 1.5 },
+                    320: { slidesPerView: 1.75 },
                     480: { slidesPerView: 2.5 },
                     640: { slidesPerView: 3.5 },
                     1024: { slidesPerView: 4.5 },

@@ -9,7 +9,7 @@ interface Props {
 export const SliderHeader = ({ label, href, seeAllLabel }: Props) => {
     return (
         <div className="flex justify-between items-center">
-            <p className="text-lg text-gray-900">{label}</p>
+            <p className="text-sm text-gray-900">{label}</p>
             <Link
                 className="cursor-pointer"
                 href={href}>

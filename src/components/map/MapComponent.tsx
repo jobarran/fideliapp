@@ -5,6 +5,7 @@ import { useRef, useState, useCallback } from "react";
 import CompanyMarker from "./CompanyMarker";
 import useUserLocation from "@/hooks/useUserLocation"; // Import the custom hook
 import { CompanyLocation } from "@/interfaces";
+import { SliderHeader } from "../ui/slider/SliderHeader";
 
 // Map's styling
 export const defaultMapContainerStyle = {
@@ -17,7 +18,7 @@ interface Props {
     companyLocation: CompanyLocation[]
 }
 
-const MapComponent = ({companyLocation}:Props) => {
+const MapComponent = ({ companyLocation }: Props) => {
     const { userLocation, error } = useUserLocation(); // Use the custom hook
     const [selectedPlace, setSelectedPlace] = useState<{ lat: number; lng: number; name: string } | null>(null);
     const [mapInstance, setMapInstance] = useState<google.maps.Map | null>(null);
@@ -52,10 +53,7 @@ const MapComponent = ({companyLocation}:Props) => {
 
     return (
         <div>
-            <div className="flex mt-4 justify-between items-center">
-                <p className="text-lg text-gray-900">Negocios cercanos</p>
-                <p className="text-sm text-gray-900 cursor-pointer">Ver todos</p>
-            </div>
+            <SliderHeader label={'Negocios cercanos'} href={'/companies'} seeAllLabel={'Ver todos'} />
             <div className='w-full mt-2 mb-2'>
                 {error && <p className="text-red-500">{error}</p>}
                 {userLocation && (

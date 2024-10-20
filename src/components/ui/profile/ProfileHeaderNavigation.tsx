@@ -29,7 +29,7 @@ export const ProfileHeaderNavigation = ({ handleTabChange, selectedTab, profileT
                         <span className={`block sm:hidden lg:mr-6 ${selectedTab === item.id ? 'text-slate-900' : 'text-slate-400'}`}>
                             <item.icon />
                         </span>
-                        <span className={`hidden sm:block ${selectedTab === item.id ? 'text-slate-900' : 'text-slate-400'}`}>{item.label}</span>
+                        <span className={`hidden sm:block text-sm ${selectedTab === item.id ? 'text-slate-900' : 'text-slate-400'}`}>{item.label}</span>
                     </a>
                     {/* Add a vertical line separator only on small screens */}
                     {index < navItems.length - 1 && (
@@ -39,12 +39,12 @@ export const ProfileHeaderNavigation = ({ handleTabChange, selectedTab, profileT
             ))}
             <li className="flex ml-auto"> {/* This will push the link button to the right */}
                 <Link
-                    className="flex items-center gap-2 mr-3 lg:mr-6 font-semibold" // Added 'items-center' here
+                    className="flex items-center gap-2 mr-3 lg:mr-6 text-sm font-medium" // Added 'items-center' here
                     href={linkUrl}
                     onClick={()=>handleTabChange(navItems[0].id)}
                 >
                     {linkLabel}
-                    <FaArrowRightToBracket className="h-5 w-5" /> {/* Optional: add size for consistency */}
+                    <FaArrowRightToBracket className="font-normal" /> {/* Optional: add size for consistency */}
                 </Link>
 
             </li>
