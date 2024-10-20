@@ -5,11 +5,12 @@ import { FaArrowRightToBracket } from "react-icons/fa6";
 interface Props {
     handleTabChange: (tab: string) => void;
     selectedTab: string;
-    profileType: 'user' | 'client'
-    userId: string
+    profileType: 'user' | 'client';
+    userId: string;
+    hasCompany: boolean;
 }
 
-export const ProfileHeaderNavigation = ({ handleTabChange, selectedTab, profileType, userId }: Props) => {
+export const ProfileHeaderNavigation = ({ handleTabChange, selectedTab, profileType, userId, hasCompany }: Props) => {
 
     const navItems = profileType === 'user' ? userNavItems : clientNavItems;
     const linkUrl = profileType === 'user' ? `/client/${userId}` : `/user/${userId}`;
@@ -37,17 +38,18 @@ export const ProfileHeaderNavigation = ({ handleTabChange, selectedTab, profileT
                     )}
                 </li>
             ))}
-            <li className="flex ml-auto"> {/* This will push the link button to the right */}
-                <Link
-                    className="flex items-center gap-2 mr-3 lg:mr-6 text-sm font-medium" // Added 'items-center' here
-                    href={linkUrl}
-                    onClick={()=>handleTabChange(navItems[0].id)}
-                >
-                    {linkLabel}
-                    <FaArrowRightToBracket className="font-normal" /> {/* Optional: add size for consistency */}
-                </Link>
-
-            </li>
+            {hasCompany &&
+                <li className="flex ml-auto"> {/* This will push the link button to the right */}
+                    <Link
+                        className="flex items-center gap-2 mr-3 lg:mr-6 text-sm font-medium" // Added 'items-center' here
+                        href={linkUrl}
+                        onClick={() => handleTabChange(navItems[0].id)}
+                    >
+                        {linkLabel}
+                        <FaArrowRightToBracket className="font-normal" /> {/* Optional: add size for consistency */}
+                    </Link>
+                </li>
+            }
         </ul>
     )
 }

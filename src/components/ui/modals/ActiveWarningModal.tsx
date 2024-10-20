@@ -2,7 +2,7 @@
 
 import React, { useRef, useState } from 'react'
 import { IoCloseSharp } from 'react-icons/io5';
-import { PiWarningCircleBold } from 'react-icons/pi';
+import { PiWarningBold, PiWarningCircleBold } from 'react-icons/pi';
 
 interface Props {
     buttonLabel: string,
@@ -15,10 +15,10 @@ interface Props {
     cancelButton: string,
     modalLabel: string
     content: string,
-    contentAction: (actie:boolean) => void
+    contentAction: () => void
 }
 
-export const DeleteWarningModal = ({
+export const ActiveWarningModal = ({
     buttonBgColor,
     buttonTextColor,
     buttonLabel,
@@ -46,7 +46,7 @@ export const DeleteWarningModal = ({
     const blurEffectClasses = `fixed inset-0 bg-black bg-opacity-30 z-40 transition-opacity duration-300 ${openModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`;
 
     const handleAccept = () => {
-        contentAction(false)
+        contentAction()
         setOpenModal(!openModal)
     }
 
@@ -80,12 +80,12 @@ export const DeleteWarningModal = ({
                     </button>
 
                     <div className="p-4 md:p-5 text-center">
-                        
-                        <PiWarningCircleBold className='mx-auto mb-4 w-16 h-16 text-red-600'/>
 
-                        <h3 className="mb-5 text-lg font-semibold text-red-600 dark:text-gray-400">{content}</h3>
+                        <PiWarningBold className='mx-auto mb-4 w-14 h-14 text-slate-600' />
+
+                        <h3 className="mb-5 text-lg font-semibold text-slate-600 dark:text-gray-400">{content}</h3>
                         <button
-                            className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+                            className="text-white bg-slate-600 hover:bg-slate-800 focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
                             onClick={handleAccept}
                         >
                             {acceptButton}

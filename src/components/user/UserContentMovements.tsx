@@ -5,8 +5,8 @@ interface Props {
     user: UserProfileData
 }
 
-export const UserContentInformation = ({user}:Props) => {
+export const UserContentMovements = ({user}:Props) => {
   return (
-    <div>Information</div>
+    <div>Movements</div>
   )
 }

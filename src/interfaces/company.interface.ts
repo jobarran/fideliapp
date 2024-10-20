@@ -7,6 +7,7 @@ export interface Company {
   };
   backgroundColor: string | null;
   acceptReferral: boolean;
+  active: boolean;
   address: string | null;
   slug: string;
   lat: number | null;
@@ -57,6 +58,7 @@ export interface CompanyClientDashboard {
   activityTypeId: string;
   backgroundColor: string;
   acceptReferral: boolean;
+  active: boolean;
   address: string;
   slug: string;
   lat: number | null;
@@ -80,6 +82,7 @@ export interface CompanyClientInformation {
   activityTypeId: string;
   backgroundColor: string;
   acceptReferral: boolean;
+  active: boolean;
   address: string;
   slug: string;
   lat: number | null;
@@ -88,7 +91,7 @@ export interface CompanyClientInformation {
     from: string;
     to: string;
     closed: boolean;
-  }> 
+  }>
   userId: string;
   CompanyLogo: CompanyLogo | null;
 }

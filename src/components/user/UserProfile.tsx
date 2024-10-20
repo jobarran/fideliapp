@@ -1,17 +1,18 @@
 "use client"
 
 import { useState } from "react";
-import { ProfileContent, ProfileHeader, UserContentInformation } from "..";
+import { ProfileContent, ProfileHeader, UserContentCards, UserContentInformation, UserContentMovements } from "..";
 import { UserProfileData } from "@/interfaces";
 import { userNavItems } from "@/config";
 
 
 interface Props {
     user: UserProfileData,
-    userId: string
+    userId: string,
+    hasCompany: boolean
 }
 
-export const UserProfile = ({ user }: Props) => {
+export const UserProfile = ({ user, hasCompany }: Props) => {
 
     const [selectedTab, setSelectedTab] = useState(userNavItems[0].id);
     const [openModal, setOpenModal] = useState(false)
@@ -22,6 +23,10 @@ export const UserProfile = ({ user }: Props) => {
 
     const renderContent = () => {
         switch (selectedTab) {
+            case "tarjetas":
+                return <UserContentCards user={user} />;
+            case "movimientos":
+                return <UserContentMovements user={user} />;
             case "informacion":
                 return <UserContentInformation user={user} />;
             default:
@@ -37,6 +42,7 @@ export const UserProfile = ({ user }: Props) => {
                 handleTabChange={handleTabChange}
                 selectedTab={selectedTab}
                 setOpenModal={setOpenModal}
+                hasCompany={hasCompany}
             />
 
             <ProfileContent

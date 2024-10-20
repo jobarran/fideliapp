@@ -17,6 +17,7 @@ export * from './ui/profile/ProfileContent'
 
 export * from './ui/modals/DeleteWarningModal'
 export * from './ui/modals/ChangeImage'
+export * from './ui/modals/ActiveWarningModal'
 
 export * from './ui/loading/FullWidthLoading'
 
@@ -79,6 +80,8 @@ export * from './cards/UserCard'
 
 export * from './user/UserProfile'
 export * from './user/UserContentInformation'
+export * from './user/UserContentCards'
+export * from './user/UserContentMovements'
 
 export * from './ui/profile/ProfileHeaderLogo'
 

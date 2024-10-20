@@ -15,7 +15,6 @@ export const ClientProfile = ({ company }: Props) => {
 
     const [selectedTab, setSelectedTab] = useState(clientNavItems[0].id);
     const [openModal, setOpenModal] = useState(false)
-
     const handleTabChange = (tab: string) => {
         setSelectedTab(tab);
     };
@@ -54,6 +53,7 @@ export const ClientProfile = ({ company }: Props) => {
                 handleTabChange={handleTabChange}
                 selectedTab={selectedTab}
                 setOpenModal={setOpenModal}
+                hasCompany={true}
             />
 
             <ProfileContent

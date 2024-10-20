@@ -8,7 +8,8 @@ export interface ActivityType {
 export interface Card {
     id: string;
     points: number;
-    favourite: boolean; 
+    favourite: boolean;
+    active: boolean;
     userId: string;
     companyId: string;
     user: {
@@ -17,7 +18,7 @@ export interface Card {
     };
     company: {
         name: string;
-        activityType: ActivityType; 
+        activityType: ActivityType;
         backgroundColor: string | null;
         CompanyLogo: {
             id: string;

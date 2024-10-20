@@ -20,10 +20,12 @@ export default async function UserPage({ params }: Props) {
     return <div>No user data available</div>; // Fallback for undefined case
   }
 
+  const hasCompany = user.Company !== null; // true if Company exists
+
   return (
     <div>
       <div>
-        <UserProfile user={user} userId={id} />
+        <UserProfile user={user} userId={id} hasCompany={hasCompany} />
       </div>
     </div>
   );

@@ -36,6 +36,7 @@ model User {
   lastName String
   email    String   @unique
   password String
+  active   Boolean  @default(true)
   role     UserRole @default(USER)
 
   // Relations - Down
@@ -55,6 +56,7 @@ model Company {
   name            String
   backgroundColor String
   acceptReferral  Boolean @default(false)
+  active          Boolean @default(true)
   address         String
   slug            String  @unique
   lat             Float?
@@ -110,6 +112,7 @@ model Card {
   id        String  @id @default(uuid())
   points    Int     @default(0)
   favourite Boolean @default(false)
+  active    Boolean @default(true)
 
   // Relations - Down
   History PointTransaction[]
@@ -154,11 +157,12 @@ model PointTransactionTemplate {
 }
 
 model Product {
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   name        String
   price       Float
   description String
   image       String
+  active      Boolean @default(true)
 
   // Relations - Down
   templates PointTransactionTemplate[]

@@ -7,12 +7,12 @@ interface Props {
     user?: UserProfileData
     handleTabChange: (tab: string) => void;
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-    selectedTab: string
+    selectedTab: string;
+    hasCompany: boolean
 }
 
-export const ProfileHeader = ({ company, user,  handleTabChange, setOpenModal, selectedTab }: Props) => {
+export const ProfileHeader = ({ company, user, handleTabChange, setOpenModal, selectedTab, hasCompany }: Props) => {
 
-    // Determine which prop is received and set the appropriate value
     const profileType = user ? 'user' : 'client';
     const userId = user ? user.id : company?.userId
 
@@ -29,6 +29,7 @@ export const ProfileHeader = ({ company, user,  handleTabChange, setOpenModal, s
                 selectedTab={selectedTab}
                 profileType={profileType}
                 userId={userId!}
+                hasCompany={hasCompany}
             />
 
         </div>

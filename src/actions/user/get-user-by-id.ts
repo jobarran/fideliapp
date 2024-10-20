@@ -22,6 +22,15 @@ export const getUserById = async (id: string) => {
                 lastName: true,
                 email: true,
                 role: true,
+                active: true,
+                Company: {
+                    select: {
+                        name: true,
+                        backgroundColor: true,
+                        slug: true,
+                        activityTypeId: true,
+                    },
+                },
                 Cards: {
                     select: {
                         id: true,

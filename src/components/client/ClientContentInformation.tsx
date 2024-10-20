@@ -1,13 +1,14 @@
 "use client";
 
-import { deleteCompany, getActivityTypes, updateCompany } from '@/actions';
+import { activeCompany, deleteCompany, getActivityTypes, updateCompany } from '@/actions';
 import { colorOptions, defaultOpenHours } from '@/config';
 import { CompanyClientDashboard, DayHours } from '@/interfaces';
 import { formatAddress } from '@/utils';
 import React, { useCallback, useEffect, useState } from 'react';
 import { CheckboxField, ColorPicker, DeleteWarningModal, OpenHoursSection, SelectField, TextField } from '..';
 import { useRouter } from 'next/navigation';
-import { FaRegTrashCan } from 'react-icons/fa6';
+import { FaBan, FaCheck, FaRegTrashCan } from 'react-icons/fa6';
+import { ActiveWarningModal } from '../ui/modals/ActiveWarningModal';
 
 interface EditedCompany extends CompanyClientDashboard {
     openHours: Record<string, DayHours>;
@@ -26,6 +27,7 @@ export const ClientContentInformation = ({ company }: Props) => {
     const router = useRouter();
     const [isEditing, setIsEditing] = useState(false);
     const [activityTypes, setActivityTypes] = useState<Array<{ id: string; name: string }>>([]);
+    const [isActive, setisActive] = useState(company.active)
 
     useEffect(() => {
         const fetchActivityTypes = async () => {
@@ -100,10 +102,13 @@ export const ClientContentInformation = ({ company }: Props) => {
     }, []);
 
     const handleDeleteCompany = async () => {
-       console.log("Eliminar Negocio")
-       deleteCompany(company.slug)
-       router.push('/')
+        deleteCompany(company.slug,)
+        router.push('/')
+    };
 
+    const handleActiveCompany = async () => {
+        activeCompany(company.slug, !isActive)
+        setisActive(!isActive)
     };
 
     return (
@@ -192,6 +197,24 @@ export const ClientContentInformation = ({ company }: Props) => {
 
             </div>
 
+            <ActiveWarningModal
+                buttonLabel={isActive ? 'Desactivar negocio' : 'Activar negocio'} 
+                buttonBgColor={''}
+                buttonTextColor={'text-slate-500'}
+                buttonHoverColor={'hover:bg-slate-100'}
+                buttonIcon={isActive ? <FaBan /> : <FaCheck />}
+                buttonPossition='justify-end'
+                modalLabel='Atención!'
+                content={
+                    isActive
+                        ? 'Atención! Si desactivás tu negocio, los usuarios no podrán acceder a sus tarjetas hasta que vuelvas a activarlo.'
+                        : 'Atención! Una vez que vuelva a activar su negocio los usuarios volverán a acceder a sus tarjetas'
+                }
+                contentAction={() => handleActiveCompany()}
+                acceptButton={isActive ? 'Desactivar' : 'Activar'} 
+                cancelButton={'Cancelar'}
+            />
+
             <DeleteWarningModal
                 buttonLabel={'Eliminar negocio'}
                 buttonBgColor={''}
@@ -204,7 +227,8 @@ export const ClientContentInformation = ({ company }: Props) => {
                 contentAction={handleDeleteCompany}
                 acceptButton={'Eliminar'}
                 cancelButton={'Cancelar'}
-                />
+            />
+
         </div>
 
 
