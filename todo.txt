@@ -81,4 +81,3 @@ card size in sm LgScreenCards
 filtrar button in modal filter
 logo
 
-Disable card with active:false companies

@@ -42,6 +42,7 @@ export const FilterComponent = ({ filters, setFilters, activityTypes, clearFilte
       <FilterModal
         filters={filters}
         handleInputChange={handleInputChange}
+        handleClearFilters={handleClearFilters}
         activityTypes={activityTypes}
         filterModalData={filterModalData}
         setFilterModalData={setSetFilterModalData}

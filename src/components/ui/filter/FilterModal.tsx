@@ -3,16 +3,18 @@
 import { ActivityType, CompanyFilters } from '@/interfaces';
 import React, { useEffect, useRef, useState } from 'react';
 import { IoCloseSharp } from "react-icons/io5";
+import { ActionButton } from '../buttons/ActionButton';
 
 interface Props {
     filters: CompanyFilters;
     handleInputChange: (name: keyof CompanyFilters, value: string[] | string) => void;
+    handleClearFilters: () => void;
     activityTypes: ActivityType[];
     filterModalData: boolean;
     setFilterModalData: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const FilterModal = ({ filters, activityTypes, handleInputChange, filterModalData, setFilterModalData }: Props) => {
+export const FilterModal = ({ filters, activityTypes, handleInputChange, filterModalData, setFilterModalData, handleClearFilters }: Props) => {
     const modalRef = useRef<HTMLDivElement>(null);
 
     const [selectedActivityTypes, setSelectedActivityTypes] = useState<string[]>([]);
@@ -88,6 +90,24 @@ export const FilterModal = ({ filters, activityTypes, handleInputChange, filterM
                                 </button>
                             ))}
                         </div>
+                    </div>
+                    <div className='flex flex-row justify-end gap-2 m-2'>
+                        <ActionButton
+                            slug={'Aceptar'}
+                            bgColor={'bg-slate-600'}
+                            textColor={'text-white'}
+                            hoverColor={'hover:bg-slate-800'}
+                            icon={undefined}
+                            action={() => setFilterModalData(!filterModalData)}
+                        />
+                        <ActionButton
+                            slug={'Borrar filtros'}
+                            bgColor={'border border-slate-200'}
+                            textColor={'text-slate-800'}
+                            hoverColor={'hover:bg-slate-100'}
+                            icon={undefined}
+                            action={handleClearFilters}
+                        />
                     </div>
 
                 </div>

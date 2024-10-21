@@ -5,6 +5,7 @@ import Link from 'next/link';
 
 import { cropText } from '../../utils/cropText';
 import { CompanyLinkImage } from './CompanyLinkImage';
+import { Avatar } from '..';
 
 interface Props {
     company: Company;
@@ -24,15 +25,24 @@ export const CompanyGridItem = ({ company, isInUserCards }: Props) => {
                 <div className="flex flex-col items-center justify-center h-24">
                     <div className="mt-2">
                         <div className="relative w-14 h-14 rounded-full overflow-hidden flex items-center justify-center">
-                            <CompanyLinkImage
-                                src={company.CompanyLogo?.url}
-                                width={0}
-                                height={0}
-                                alt={company.name}
-                                className="object-cover"
-                                priority
-                                style={{ width: '100%', height: '100%' }}
-                            />
+                            {company.CompanyLogo?.url ?
+                                <CompanyLinkImage
+                                    src={company.CompanyLogo?.url}
+                                    width={0}
+                                    height={0}
+                                    alt={company.name}
+                                    className="object-cover"
+                                    priority
+                                    style={{ width: '100%', height: '100%' }}
+                                />
+                                : <Avatar
+                                    name={company.name}
+                                    size={'14'}
+                                    backgroundColor={company.backgroundColor}
+                                    className={'border-4'}
+                                />
+
+                            }
                         </div>
                         {isInUserCards && (
                             <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-green-600 border border-white rounded-full -top-2 -right-2">

@@ -122,7 +122,7 @@ export const ChangeImage = ({
                                         slug={acceptButton}
                                         bgColor={"bg-slate-600 mx-2"}
                                         textColor={"text-white"}
-                                        hoverColor={"bg-slate-800"}
+                                        hoverColor={"hover:bg-slate-800"}
                                         icon={undefined}
                                         action={handleSubmit(onSubmit)}
                                     />
