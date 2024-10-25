@@ -6,7 +6,7 @@ import prisma from '@/lib/prisma';
 export const getAllCardsByUser = async () => {
 
   const session = await auth();
-
+console.log(session)
   if (!session?.user) {
     return {
       ok: false,

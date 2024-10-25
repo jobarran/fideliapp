@@ -22,3 +22,6 @@ export { getAllActivityType } from './activity-type/get-all-activityType'
 export { getUserById } from './user/get-user-by-id'
 
 export { runSeed } from './seed/run-seed'
+
+export { getProductsByCompanyId } from './product/get-products-by-companyId'
+export { createNewProduct } from './product/create-new-product'

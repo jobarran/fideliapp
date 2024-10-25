@@ -1,3 +1,4 @@
+import { Company } from "@/interfaces";
 import NextAuth, { DefaultSession } from "next-auth";
 
 declare module 'next-auth' {

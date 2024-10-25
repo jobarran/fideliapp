@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import { CompanyClientDashboard } from "@/interfaces";
+import { CompanyClientDashboard, Product } from "@/interfaces";
 import { ChangeImage, ClientContentInformation, ClientContentProducts, ClientContentTransactions, ProfileContent, ProfileHeader } from "..";
 import { clientNavItems } from "@/config";
 
@@ -9,9 +9,12 @@ import { clientNavItems } from "@/config";
 interface Props {
     company: CompanyClientDashboard,
     userId: string
+    products: Product[]
 }
 
-export const ClientProfile = ({ company }: Props) => {
+export const ClientProfile = ({ company, userId, products }: Props) => {
+
+    console.log(products)
 
     const [selectedTab, setSelectedTab] = useState(clientNavItems[0].id);
     const [openModal, setOpenModal] = useState(false)
@@ -22,7 +25,7 @@ export const ClientProfile = ({ company }: Props) => {
     const renderContent = () => {
         switch (selectedTab) {
             case "productos":
-                return <ClientContentProducts />;
+                return <ClientContentProducts userId={userId} companyId={company.id} products={products ?? []} />;
             case "transacciones":
                 return <ClientContentTransactions />;
             case "informacion":

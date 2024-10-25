@@ -22,7 +22,7 @@ export const ProfileHeaderNavigation = ({ handleTabChange, selectedTab, profileT
                 <li className="flex items-center" key={item.id}>
                     <a
                         aria-controls={item.id}
-                        className={`lg:mr-6 transition-colors duration-200 ease-in-out border-b-2 border-transparent 
+                        className={`sm:mr-6 transition-colors duration-200 ease-in-out border-b-2 border-transparent 
                     ${selectedTab === item.id ? "border-slate-700" : "text-muted hover:border-slate-800"} cursor-pointer`}
                         onClick={() => handleTabChange(item.id)}
                     >
