@@ -61,14 +61,18 @@ export const createNewProduct = async (params: unknown) => {
 
         const product = await prisma.product.create({ data: productData });
 
-        // Upload image if provided
-        if (imageFile) {
-            const imageUrl = await uploadImage(imageFile);
-            if (imageUrl) {
-                await prisma.productImage.create({
-                    data: { url: imageUrl, product: { connect: { id: product.id } } },
-                });
-            }
+        // Process for uploading and saving images
+        const imageFile2 = await uploadImage(formData.get('imageFile') as File);
+
+        if (imageFile2) {
+            await prisma.productImage.create({
+                data: {
+                    url: imageFile2,
+                    productId: product.id,
+                }
+            });
+        } else {
+            console.warn('No image uploaded. Product created without image.');
         }
 
         // Handle point transaction templates
@@ -83,7 +87,7 @@ export const createNewProduct = async (params: unknown) => {
             await prisma.pointTransactionTemplate.createMany({ data: transactionTemplates });
         }
 
-        revalidatePath(`/client/${userId}`); 
+        revalidatePath(`/client/${userId}`);
         return { ok: true, product, message: 'Product created successfully' };
 
     } catch (error) {

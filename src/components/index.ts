@@ -71,6 +71,7 @@ export * from './client/ClientProfile'
 export * from './client/ClientContentTransactions'
 export * from './client/ClientContentProducts'
 export * from './client/ClientContentInformation'
+export * from './client/ClientContentProduct'
 
 export * from './cards/UserCardLoading'
 export * from './cards/UserCardImage'

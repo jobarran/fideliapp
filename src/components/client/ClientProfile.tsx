@@ -14,8 +14,6 @@ interface Props {
 
 export const ClientProfile = ({ company, userId, products }: Props) => {
 
-    console.log(products)
-
     const [selectedTab, setSelectedTab] = useState(clientNavItems[0].id);
     const [openModal, setOpenModal] = useState(false)
     const handleTabChange = (tab: string) => {
