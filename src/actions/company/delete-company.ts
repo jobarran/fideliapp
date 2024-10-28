@@ -1,7 +1,6 @@
 'use server';
 
 import { auth } from "@/auth.config";
-import { Company } from "@/interfaces";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 
@@ -21,8 +20,9 @@ export const deleteCompany = async (slug: string) => {
         const existingCompany = await prisma.company.findUnique({
             where: { slug },
             include: {
-                CompanyLogo: true, // Include the associated CompanyLogo
-                Cards: true,       // Include associated Cards
+                CompanyLogo: true, // Include associated CompanyLogo
+                Cards: { include: { History: true } }, // Include associated Cards and PointTransactions
+                Products: { include: { templates: true, ProductImage: true } } // Include associated Products, templates, and ProductImage
             },
         });
 
@@ -34,8 +34,32 @@ export const deleteCompany = async (slug: string) => {
                 });
             }
 
-            // Delete all associated Cards
+            // Delete all PointTransaction records associated with each Card
+            for (const card of existingCompany.Cards) {
+                await prisma.pointTransaction.deleteMany({
+                    where: { cardId: card.id },
+                });
+            }
+
+            // Delete all Cards associated with the company
             await prisma.card.deleteMany({
+                where: { companyId: existingCompany.id },
+            });
+
+            // Delete PointTransactionTemplates and ProductImages for each Product
+            for (const product of existingCompany.Products) {
+                if (product.ProductImage) {
+                    await prisma.productImage.delete({
+                        where: { id: product.ProductImage.id },
+                    });
+                }
+                await prisma.pointTransactionTemplate.deleteMany({
+                    where: { productId: product.id },
+                });
+            }
+
+            // Delete all Products associated with the company
+            await prisma.product.deleteMany({
                 where: { companyId: existingCompany.id },
             });
 
@@ -49,7 +73,7 @@ export const deleteCompany = async (slug: string) => {
 
             return {
                 ok: true,
-                message: 'Company deleted successfully',
+                message: 'Company and all related data deleted successfully',
             };
         } else {
             return {
@@ -61,7 +85,7 @@ export const deleteCompany = async (slug: string) => {
         console.error(error);
         return {
             ok: false,
-            message: 'Cannot delete Company',
+            message: 'Cannot delete Company and related data',
         };
     }
 };

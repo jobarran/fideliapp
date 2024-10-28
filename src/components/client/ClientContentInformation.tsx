@@ -103,7 +103,7 @@ export const ClientContentInformation = ({ company }: Props) => {
 
     const handleDeleteCompany = async () => {
         deleteCompany(company.slug,)
-        router.push('/')
+        router.replace('/')
     };
 
     const handleActiveCompany = async () => {
