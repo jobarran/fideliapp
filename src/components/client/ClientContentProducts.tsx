@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
-import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
 import { createNewProduct } from "@/actions/product/create-new-product";
@@ -23,15 +22,12 @@ interface Props {
     products: Product[]
 }
 
-export const ClientContentProducts = ({ userId, companyId, products }: Props) => {
+export const ClientContentProducts = ({ companyId, products }: Props) => {
 
-    console.log(products[0])
-
-    const router = useRouter();
     const [isCreating, setIsCreating] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
-    const { register, handleSubmit, formState: { isValid } } = useForm<FormInputs>({
+    const { register, handleSubmit, reset, formState: { isValid } } = useForm<FormInputs>({
         mode: 'onChange',
         defaultValues: {
             name: '',
@@ -41,6 +37,18 @@ export const ClientContentProducts = ({ userId, companyId, products }: Props) =>
             rewardPoints: undefined,
         },
     });
+
+    useEffect(() => {
+        if (isCreating) {
+            reset({
+                name: '',
+                description: '',
+                companyId: companyId,
+                buyPoints: undefined,
+                rewardPoints: undefined,
+            });
+        }
+    }, [isCreating, companyId, reset]);
 
     const onSubmit = async (data: FormInputs) => {
         const formData = new FormData();
@@ -95,9 +103,7 @@ export const ClientContentProducts = ({ userId, companyId, products }: Props) =>
                         </div>
                     </form>
                 ) : (
-                    
                     <ClientContentProduct products={products} />
-
                 )}
             </div>
         </div>

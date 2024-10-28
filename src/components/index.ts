@@ -43,6 +43,8 @@ export * from './ui/buttons/ViewCardButton'
 export * from './ui/buttons/CreateNewCardButton'
 export * from './ui/buttons/ActionButton'
 
+export * from './ui/coupon/CouponClientProduct'
+
 export * from './provider/Provider'
 export * from './provider/MapProvider'
 
@@ -78,6 +80,7 @@ export * from './cards/UserCardImage'
 export * from './cards/UserCardGrid'
 export * from './cards/UserCardAdd'
 export * from './cards/UserCard'
+
 export * from './user/UserProfile'
 export * from './user/UserContentInformation'
 export * from './user/UserContentCards'
