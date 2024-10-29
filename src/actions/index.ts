@@ -25,3 +25,4 @@ export { runSeed } from './seed/run-seed'
 
 export { getProductsByCompanyId } from './product/get-products-by-companyId'
 export { createNewProduct } from './product/create-new-product'
+export { getProductsById } from './product/get-products-by-id'
