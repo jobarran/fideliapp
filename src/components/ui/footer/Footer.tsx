@@ -22,11 +22,13 @@ export const Footer = () => {
                     </li>
                     <li>
                         <Link href="/companies/create">
-                            <h1 className="hover:underline me-4 md:me-6">Registrar tu negocio</h1>
+                            <h1 className="hover:underline me-4 md:me-6">
+                                Registrar tu negocio
+                            </h1>
                         </Link>
                     </li>
                     <li>
-                        <Link href="/contact" className="hover:underline">
+                        <Link href="/contact" className="hover:underline me-4 md:me-6">
                             Contáctanos
                         </Link>
                     </li>
