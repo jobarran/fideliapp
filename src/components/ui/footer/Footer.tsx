@@ -29,11 +29,11 @@ export const Footer = () => {
                         <Link href="/contact" className="hover:underline">
                             Contáctanos
                         </Link>
-                        <li>
-                            <Link href="/plans" className="hover:underline">
-                                Planes
-                            </Link>
-                        </li>
+                    </li>
+                    <li>
+                        <Link href="/plans" className="hover:underline">
+                            Planes
+                        </Link>
                     </li>
                 </ul>
                 <div className="border-t border-gray-300 dark:border-gray-700 w-full md:w-auto my-2 md:my-0" />
