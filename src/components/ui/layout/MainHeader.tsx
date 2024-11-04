@@ -2,6 +2,7 @@
 
 import { Avatar, CompanyLinkImage } from '@/components'
 import React from 'react'
+import { FaCheck } from 'react-icons/fa6';
 
 interface Props {
     headerClass: string
@@ -43,7 +44,7 @@ export const MainHeader = ({ headerClass, img, title, subtitle, checked, actionB
 
             {checked && (
                 <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-green-600 border border-white rounded-full -top-2 -right-2">
-                    ✔
+                    <FaCheck />
                 </div>
             )}
 

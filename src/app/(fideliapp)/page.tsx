@@ -3,9 +3,11 @@ import { HowItWorks, MapComponent, MapProvider, SearchCompanySmallScreen, UserCa
 import { Card } from "@/interfaces";
 import { companyLocationsMap, sortCards } from "@/utils";
 import { CompanySlider } from '../../components/ui/slider/CompanySlider';
+import { auth } from "@/auth.config";
 
 export default async function Home() {
 
+  const session = await auth();
 
   const [activities, companies] = await Promise.all([getAllActivityType(), getAllCompanies()]);
 
@@ -20,7 +22,6 @@ export default async function Home() {
   }  
 
   const sortedCards = sortCards(myCompanyCards);
-
   const companyLocs = await companyLocationsMap(companies);
 
   return (
@@ -29,7 +30,7 @@ export default async function Home() {
 
       <SearchCompanySmallScreen/>
 
-      {myCompanyCards.length > 0 && <UserCardSlider userCards={sortedCards} />}
+      {session?.user && <UserCardSlider userCards={sortedCards} />}
 
       {companies.length > 0 ? (
         <CompanySlider companiesAll={companies} />

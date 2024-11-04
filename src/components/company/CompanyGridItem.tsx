@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { cropText } from '../../utils/cropText';
 import { CompanyLinkImage } from './CompanyLinkImage';
 import { Avatar } from '..';
+import { FaCheck } from 'react-icons/fa6';
 
 interface Props {
     company: Company;
@@ -46,7 +47,7 @@ export const CompanyGridItem = ({ company, isInUserCards }: Props) => {
                         </div>
                         {isInUserCards && (
                             <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-green-600 border border-white rounded-full -top-2 -right-2">
-                                ✔
+                                <FaCheck />
                             </div>
                         )}
 

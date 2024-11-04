@@ -31,7 +31,7 @@ export default async function CompanyBySlugPage({ params }: Props) {
   }
 
   const company = await getCompanyBySlug(slug);
-  const { userCardForCompany, cardId } = await checkUserCardForCompany(slug);
+  const { userCardForCompany, cardId, userId } = await checkUserCardForCompany(slug);
 
   if (!company) {
     redirect("/");
@@ -48,16 +48,18 @@ export default async function CompanyBySlugPage({ params }: Props) {
         subtitle={company.activityType.name}
         checked={userCardForCompany}
         actionButtons={
-          <>
-            <CreateNewCardButton
-              show={userCardForCompany}
-              slug={slug}
-            />
-            <ViewCardButton
-              show={!userCardForCompany}
-              cardId={cardId}
-            />
-          </>
+          userId !== null ? ( 
+            <>
+              <CreateNewCardButton
+                show={!userCardForCompany}
+                slug={slug}
+              />
+              <ViewCardButton
+                show={userCardForCompany}
+                cardId={cardId}
+              />
+            </>
+          ) : null
         }
       />
     </div>

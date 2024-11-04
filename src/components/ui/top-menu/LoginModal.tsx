@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/actions';
 import clsx from 'clsx';
@@ -17,6 +17,9 @@ interface Props {
 export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Props) => {
 
     const [state, dispatch] = useFormState(authenticate, undefined);
+    // Refs for the input fields
+    const emailRef = useRef<HTMLInputElement>(null);
+    const passwordRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         if (state === 'Success') {
@@ -24,7 +27,13 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
             window.location.reload();
         }
     }, [state]);
-    
+
+    useEffect(() => {
+        if (loginModal) {
+            if (emailRef.current) emailRef.current.value = '';
+            if (passwordRef.current) passwordRef.current.value = '';
+        }
+    }, [loginModal]);
 
     const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (event.target instanceof HTMLDivElement && event.target.id === 'login-modal') {
@@ -67,11 +76,26 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
                             <form action={dispatch} className="space-y-3">
                                 <div className="my-3">
                                     <label className="block text-md mb-2" htmlFor="email">Email</label>
-                                    <input className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300" type="email" name="email" id='email' placeholder="email" required />
+                                    <input
+                                        ref={emailRef}
+                                        className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300"
+                                        type="email"
+                                        name="email"
+                                        id='email'
+                                        placeholder="email"
+                                        required
+                                    />
                                 </div>
                                 <div className="mt-5">
                                     <label className="block text-md mb-2" htmlFor="password">Contraseña</label>
-                                    <input className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300" type="password" name="password" id='password' placeholder="contraseña" />
+                                    <input
+                                        ref={passwordRef}
+                                        className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300"
+                                        type="password"
+                                        name="password"
+                                        id='password'
+                                        placeholder="contraseña"
+                                    />
                                 </div>
                                 <div
                                     className="flex "

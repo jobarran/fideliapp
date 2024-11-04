@@ -1,10 +1,12 @@
+'use client';
+
 import { Card } from '@/interfaces';
 import Link from 'next/link';
-import React from 'react'
+import React, { useState } from 'react'
 import { FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { Avatar, UserCardImage } from '..';
-import { translucentColor } from '../../utils/translucentColor';
 import { softColor } from '../../utils/softColor';
+import { favouriteCard } from '@/actions';
 
 interface Props {
     card: Card,
@@ -12,10 +14,24 @@ interface Props {
 
 export const UserCard = ({ card }: Props) => {
 
+    const [isFavourite, setIsFavourite] = useState(card.favourite);
+
     // Unified color logic
     const borderColor = '#CBD5E1' //slate-300
     const backgroundColor = card.company.backgroundColor || '#0F172A';
     const color = backgroundColor
+
+    // Function to toggle favorite status
+    const toggleFavourite = async () => {
+        try {
+            // Call the backend function to update the favorite status
+            await favouriteCard(card.id, !isFavourite);
+            // Update the local state after a successful update
+            setIsFavourite(!isFavourite);
+        } catch (error) {
+            console.error("Error updating favorite status:", error);
+        }
+    };
 
     return (
         <div
@@ -55,10 +71,10 @@ export const UserCard = ({ card }: Props) => {
                         </div>
                         {/* Icons section at bottom right */}
                         <div className="flex space-x-2">
-                            {card.favourite ? (
-                                <FaHeart size={16} style={{ color: color }} />
+                            {isFavourite ? (
+                                <FaHeart size={16} style={{ color: color }} onClick={(e) => { e.preventDefault(); toggleFavourite(); }} />
                             ) : (
-                                <FaRegHeart size={16} style={{ color: color }} />
+                                <FaRegHeart size={16} style={{ color: color }} onClick={(e) => { e.preventDefault(); toggleFavourite(); }} />
                             )}
                         </div>
                     </div>

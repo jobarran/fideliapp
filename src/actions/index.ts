@@ -16,6 +16,7 @@ export { getCardById } from './card/get-card-by-id'
 export { getCompanyIdByUserCard } from './card/get-company-id-by-user-card'
 export { checkUserCardForCompany } from './card/check-user-card-for-company'
 export { createNewCard } from './card/create-new-card'
+export { favouriteCard } from './card/favourite-card'
 
 export { getAllActivityType } from './activity-type/get-all-activityType'
 
