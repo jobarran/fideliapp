@@ -92,7 +92,7 @@ const MapComponent = ({ companyLocation }: Props) => {
                             {mapInstance && companyLocation.map((location, index) => (
                                 <CompanyMarker
                                     key={index}
-                                    map={mapInstance} // Pass the map instance here
+                                    map={mapInstance} 
                                     position={{ lat: location.lat, lng: location.lng }}
                                     onClick={() => handleMarkerClick(location)}
                                 />
@@ -130,8 +130,8 @@ const MapComponent = ({ companyLocation }: Props) => {
 
                                         {/* Name Link */}
                                         <Link href={`/companies/${selectedPlace.slug}`}>
-                                            <h3 className="text-lg font-semibold cursor-pointer hover:underline">
-                                                {selectedPlace.name}
+                                        <h3 className="text-lg font-semibold cursor-pointer transition duration-200 ease-in-out transform hover:text-slate-600 hover:scale-105">
+                                        {selectedPlace.name}
                                             </h3>
                                         </Link>
                                         <p className="text-sm text-gray-600">{selectedPlace.activityType}</p>
