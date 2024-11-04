@@ -23,6 +23,7 @@ interface Props {
 }
 
 const MapComponent = ({ companyLocation }: Props) => {
+    const defaultMapZoom = 15; // Declare defaultMapZoom here
     const { userLocation, error } = useUserLocation(); // Use the custom hook
     const [selectedPlace, setSelectedPlace] = useState<{
         lat: number;
@@ -33,10 +34,10 @@ const MapComponent = ({ companyLocation }: Props) => {
         logoUrl: string;
     } | null>(null);
     const [mapInstance, setMapInstance] = useState<google.maps.Map | null>(null);
+    const [mapZoom, setMapZoom] = useState(defaultMapZoom); // Initialize state for zoom level
 
     const mapRef = useRef<google.maps.Map | null>(null); // Create a reference for the map
 
-    const defaultMapZoom = 15;
 
     const defaultMapOptions: google.maps.MapOptions = {
         zoomControl: true,
@@ -67,6 +68,14 @@ const MapComponent = ({ companyLocation }: Props) => {
     const onMapLoad = useCallback((map: google.maps.Map) => {
         mapRef.current = map;
         setMapInstance(map); // Ensure the mapInstance state is updated
+
+        // Add a listener to track zoom changes
+        map.addListener('zoom_changed', () => {
+            const zoom = map.getZoom();
+            if (zoom !== undefined) {
+                setMapZoom(zoom); // Update the zoom level state only if it is defined
+            }
+        });
     }, []);
 
     return (
@@ -90,19 +99,23 @@ const MapComponent = ({ companyLocation }: Props) => {
                             onLoad={onMapLoad} // Use callback here
                         >
                             {mapInstance && companyLocation.map((location, index) => (
-                                <CompanyMarker
-                                    key={index}
-                                    map={mapInstance} 
-                                    position={{ lat: location.lat, lng: location.lng }}
-                                    onClick={() => handleMarkerClick(location)}
-                                />
+                                <div key={index} style={{ position: 'relative' }}>
+                                    <CompanyMarker
+                                        mapZoom={mapZoom}
+                                        map={mapInstance}
+                                        position={{ lat: location.lat, lng: location.lng }}
+                                        onClick={() => handleMarkerClick(location)}
+                                        label={location.name}
+                                    />
+
+                                </div>
                             ))}
                             {selectedPlace && (
                                 <InfoWindowF
                                     position={{ lat: selectedPlace.lat, lng: selectedPlace.lng }}
                                     onCloseClick={() => setSelectedPlace(null)}
                                 >
-                                    <div className="relative flex flex-col items-center min-w-32"> 
+                                    <div className="relative flex flex-col items-center min-w-32">
                                         {/* Custom Close Button */}
                                         <button
                                             onClick={() => setSelectedPlace(null)}
@@ -130,8 +143,8 @@ const MapComponent = ({ companyLocation }: Props) => {
 
                                         {/* Name Link */}
                                         <Link href={`/companies/${selectedPlace.slug}`}>
-                                        <h3 className="text-lg font-semibold cursor-pointer transition duration-200 ease-in-out transform hover:text-slate-600 hover:scale-105">
-                                        {selectedPlace.name}
+                                            <h3 className="text-lg text-slate-600 font-medium cursor-pointer transition duration-200 ease-in-out transform hover:text-slate-800 hover:font-semibold">
+                                                {selectedPlace.name}
                                             </h3>
                                         </Link>
                                         <p className="text-sm text-gray-600">{selectedPlace.activityType}</p>

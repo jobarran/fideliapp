@@ -1,18 +1,35 @@
-const createMarkerContent = (backgroundColor: string): HTMLDivElement => {
-
-    // Create the container for the custom marker content
+const createMarkerContent = (backgroundColor: string, label?: string, showLabel: boolean = false): HTMLDivElement => {
+    // Create the main container for the marker content
     const content = document.createElement('div');
     content.style.position = 'relative';
-    content.style.backgroundColor = backgroundColor;
-    content.style.borderRadius = '50%';
-    content.style.width = '15px';
-    content.style.height = '15px';
     content.style.display = 'flex';
+    content.style.flexDirection = 'column';
     content.style.alignItems = 'center';
-    content.style.justifyContent = 'center';
     content.style.cursor = 'pointer';
-    content.style.boxShadow = '0px 2px 4px rgba(0, 0, 0, 0.15)';
-    content.style.transition = 'transform 0.2s ease-in-out';
+
+    // Create the marker circle (only once)
+    const markerCircle = document.createElement('div');
+    markerCircle.style.backgroundColor = backgroundColor;
+    markerCircle.style.borderRadius = '50%';
+    markerCircle.style.width = '15px';
+    markerCircle.style.height = '15px';
+    markerCircle.style.display = 'flex';
+    markerCircle.style.alignItems = 'center';
+    markerCircle.style.justifyContent = 'center';
+    markerCircle.style.boxShadow = '0px 2px 4px rgba(0, 0, 0, 0.15)';
+    content.appendChild(markerCircle);
+
+    // Create the inner white dot
+    const innerDot = document.createElement('div');
+    innerDot.style.backgroundColor = 'white';
+    innerDot.style.borderRadius = '50%';
+    innerDot.style.width = '6px';
+    innerDot.style.height = '6px';
+    innerDot.style.position = 'absolute'; // This allows it to be centered within the circle
+    innerDot.style.top = '50%';
+    innerDot.style.left = '50%';
+    innerDot.style.transform = 'translate(-50%, -50%)';
+    markerCircle.appendChild(innerDot);
 
     // Create a subtle pulse effect using an additional div
     const pulse = document.createElement('div');
@@ -26,28 +43,19 @@ const createMarkerContent = (backgroundColor: string): HTMLDivElement => {
     pulse.style.opacity = '0.2';
     pulse.style.animation = 'pulse 3s infinite';
     pulse.style.transform = 'translate(-50%, -50%) scale(1.5)';
-    content.appendChild(pulse);
+    markerCircle.appendChild(pulse);
 
-    // Create the inner white dot
-    const innerDot = document.createElement('div');
-    innerDot.style.backgroundColor = 'white';
-    innerDot.style.borderRadius = '50%';
-    innerDot.style.width = '6px'; // Increased size for better visibility
-    innerDot.style.height = '6px';
-    innerDot.style.position = 'absolute';
-    innerDot.style.top = '50%';
-    innerDot.style.left = '50%';
-    innerDot.style.transform = 'translate(-50%, -50%)';
-
-    content.appendChild(innerDot);
-
-    // Handle hover effect
-    content.addEventListener('mouseenter', () => {
-        content.style.transform = 'scale(1.1)';
-    });
-    content.addEventListener('mouseleave', () => {
-        content.style.transform = 'scale(1)';
-    });
+    // Conditionally add the label below the marker if showLabel is true
+    if (label && showLabel) {
+        const markerLabel = document.createElement('div');
+        markerLabel.textContent = label;
+        markerLabel.style.fontSize = '12px';
+        markerLabel.style.textAlign = 'center';
+        markerLabel.style.marginTop = '2px'; // Margin for spacing
+        markerLabel.style.color = '#1E293B';
+        markerLabel.style.whiteSpace = 'nowrap';
+        content.appendChild(markerLabel);
+    }
 
     // Create keyframes for the pulse effect
     const style = document.createElement('style');
