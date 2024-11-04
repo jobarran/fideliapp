@@ -33,6 +33,7 @@ export interface CompanyLocation {
   lat: number;
   lng: number;
   name: string;
+  slug: string;
   address: string;
   openHours: {
     [key: string]: { // Using string index to represent days of the week
@@ -41,6 +42,8 @@ export interface CompanyLocation {
       closed: boolean; // Optional property for closed days
     };
   };
+  activityType: string;  // New property for activity type
+  logoUrl: string;       // New property for company logo URL
 }
 
 export interface CompanyFilters {
