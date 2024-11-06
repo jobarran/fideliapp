@@ -7,10 +7,9 @@ type CustomMarkerProps = {
     position: { lat: number; lng: number };
     map: google.maps.Map | null; // Ensure the map object is passed as a prop
     onClick: () => void;
-    label: string
 };
 
-const CompanyMarker: React.FC<CustomMarkerProps> = ({ position, map, onClick, label }) => {
+const CompanyMarker: React.FC<CustomMarkerProps> = ({ position, map, onClick }) => {
 
     const markerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
 
@@ -37,7 +36,6 @@ const CompanyMarker: React.FC<CustomMarkerProps> = ({ position, map, onClick, la
             const marker = new AdvancedMarkerElement({
                 map,
                 position,
-                title: label,
                 content: content, // Use the content from createMarkerContent
             });
 
