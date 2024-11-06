@@ -101,7 +101,6 @@ const MapComponent = ({ companyLocation }: Props) => {
                             {mapInstance && companyLocation.map((location, index) => (
                                 <div key={index} style={{ position: 'relative' }}>
                                     <CompanyMarker
-                                        mapZoom={mapZoom}
                                         map={mapInstance}
                                         position={{ lat: location.lat, lng: location.lng }}
                                         onClick={() => handleMarkerClick(location)}

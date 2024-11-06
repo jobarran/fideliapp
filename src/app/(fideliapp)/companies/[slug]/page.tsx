@@ -51,11 +51,11 @@ export default async function CompanyBySlugPage({ params }: Props) {
           userId !== null ? ( 
             <>
               <CreateNewCardButton
-                show={!userCardForCompany}
+                show={userCardForCompany}
                 slug={slug}
               />
               <ViewCardButton
-                show={userCardForCompany}
+                show={!userCardForCompany}
                 cardId={cardId}
               />
             </>

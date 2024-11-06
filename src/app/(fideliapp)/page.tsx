@@ -1,8 +1,7 @@
 import { getAllActivityType, getAllCardsByUser, getAllCompanies } from "@/actions";
-import { HowItWorks, MapComponent, MapProvider, SearchCompanySmallScreen, UserCardSlider } from "@/components";
+import { CompanyFavouriteSlider, CompanyRecommendedSlider, HowItWorks, MapComponent, MapProvider, SearchCompanySmallScreen, UserCardSlider } from "@/components";
 import { Card } from "@/interfaces";
 import { companyLocationsMap, sortCards } from "@/utils";
-import { CompanySlider } from '../../components/ui/slider/CompanySlider';
 import { auth } from "@/auth.config";
 
 export default async function Home() {
@@ -14,12 +13,12 @@ export default async function Home() {
   let myCompanyCards: Card[] = [];
 
   const cardsResult = await getAllCardsByUser();
-  
+
   if (cardsResult.ok) {
     myCompanyCards = cardsResult.cards || [];
   } else {
-    console.error(cardsResult.message); 
-  }  
+    console.error(cardsResult.message);
+  }
 
   const sortedCards = sortCards(myCompanyCards);
   const companyLocs = await companyLocationsMap(companies);
@@ -28,12 +27,15 @@ export default async function Home() {
 
     <main className="flex flex-col">
 
-      <SearchCompanySmallScreen/>
+      <SearchCompanySmallScreen />
 
       {session?.user && <UserCardSlider userCards={sortedCards} />}
 
       {companies.length > 0 ? (
-        <CompanySlider companiesAll={companies} />
+        <>
+          <CompanyFavouriteSlider companiesAll={companies} />
+          <CompanyRecommendedSlider companiesAll={companies} />
+        </>
       ) : (
         <p>No hay negocios disponibles.</p>
       )}
@@ -41,7 +43,7 @@ export default async function Home() {
       <MapProvider>
         <MapComponent companyLocation={companyLocs} />
       </MapProvider>
-      
+
       <HowItWorks />
 
     </main>

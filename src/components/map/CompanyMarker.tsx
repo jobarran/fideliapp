@@ -7,39 +7,47 @@ type CustomMarkerProps = {
     position: { lat: number; lng: number };
     map: google.maps.Map | null; // Ensure the map object is passed as a prop
     onClick: () => void;
-    label: string | undefined
+    label: string
 };
 
-const CompanyMarker: React.FC<CustomMarkerProps & { mapZoom: number }> = ({ position, map, onClick, mapZoom, label }) => {
+const CompanyMarker: React.FC<CustomMarkerProps> = ({ position, map, onClick, label }) => {
 
     const markerRef = useRef<google.maps.marker.AdvancedMarkerElement | null>(null);
 
     useEffect(() => {
         async function initializeMarker() {
+            // Ensure the Google Maps API is loaded
             if (typeof google === 'undefined') {
                 console.error("Google Maps API is not loaded.");
                 return;
             }
 
+            // Directly access AdvancedMarkerElement from the google object
             const AdvancedMarkerElement = google.maps.marker.AdvancedMarkerElement;
+
             if (!AdvancedMarkerElement) {
                 console.error("AdvancedMarkerElement is not available.");
                 return;
             }
 
-            // Toggle label based on zoom level
-            const showLabel = mapZoom >= 17;
-            const content = createMarkerContent("#1E293B", label, showLabel);
+            // Use createMarkerContent to generate the content element
+            const content = createMarkerContent("#1E293B");
 
+            // Create a new AdvancedMarkerElement
             const marker = new AdvancedMarkerElement({
                 map,
                 position,
-                content: content,
+                title: label,
+                content: content, // Use the content from createMarkerContent
             });
 
+            // Save the reference to the marker
             markerRef.current = marker;
+
+            // Add click listener
             marker.addListener('click', onClick);
 
+            // Cleanup function
             return () => {
                 if (markerRef.current) {
                     markerRef.current.map = null;
@@ -49,7 +57,7 @@ const CompanyMarker: React.FC<CustomMarkerProps & { mapZoom: number }> = ({ posi
         }
 
         initializeMarker();
-    }, [map, position, onClick, mapZoom]);
+    }, [map, position, onClick]);
 
     return null;
 };
