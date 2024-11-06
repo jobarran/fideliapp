@@ -11,7 +11,6 @@ export const ClientContentProduct = ({ products }: Props) => {
     return (
 
         <div >
-            <h2 className="text-2xl font-semibold text-gray-800 mb-2">My Products</h2>
             <ul className="space-y-2">
                 {products.map((product) => {
                     const buyPoints = product.templates

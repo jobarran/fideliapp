@@ -114,7 +114,7 @@ export const ClientContentInformation = ({ company }: Props) => {
     return (
         <div>
             <div className="flex justify-between items-center">
-                <h2 className="text-xl font-semibold">Información</h2>
+                <h2 className="text-xl font-semibold text-gray-800 mb-2">Información</h2>
                 <button
                     onClick={handleEditClick}
                     className="px-4 py-1 bg-white text-slate-800 border border-slate-800 rounded hover:bg-slate-800 hover:text-white"
@@ -198,7 +198,7 @@ export const ClientContentInformation = ({ company }: Props) => {
             </div>
 
             <ActiveWarningModal
-                buttonLabel={isActive ? 'Desactivar negocio' : 'Activar negocio'} 
+                buttonLabel={isActive ? 'Desactivar negocio' : 'Activar negocio'}
                 buttonBgColor={''}
                 buttonTextColor={'text-slate-500'}
                 buttonHoverColor={'hover:bg-slate-100'}
@@ -211,7 +211,7 @@ export const ClientContentInformation = ({ company }: Props) => {
                         : 'Atención! Una vez que vuelva a activar su negocio los usuarios volverán a acceder a sus tarjetas'
                 }
                 contentAction={() => handleActiveCompany()}
-                acceptButton={isActive ? 'Desactivar' : 'Activar'} 
+                acceptButton={isActive ? 'Desactivar' : 'Activar'}
                 cancelButton={'Cancelar'}
             />
 

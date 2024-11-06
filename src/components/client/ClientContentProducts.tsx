@@ -76,16 +76,18 @@ export const ClientContentProducts = ({ companyId, products }: Props) => {
 
     return (
         <div>
-            <div className="flex justify-between items-center">
-                <h2 className="text-lg font-semibold">Productos</h2>
-                <ActionButton
-                    slug={'Agregar producto'}
-                    bgColor={isCreating ? 'bg-slate-100' : 'border border-slate-200'}
-                    textColor={'text-slate-800'}
-                    hoverColor={'hover:bg-slate-100'}
-                    action={() => setIsCreating(true)}
-                    icon={undefined}
-                />
+            <div className="flex justify-between items-center mt-1 mb-4">
+                <h2 className="text-xl font-semibold text-gray-800">Productos</h2>
+                {!isCreating &&
+                    <ActionButton
+                        slug={'Agregar producto'}
+                        bgColor={isCreating ? 'bg-slate-100' : 'border border-slate-200'}
+                        textColor={'text-slate-800'}
+                        hoverColor={'hover:bg-slate-100'}
+                        action={() => setIsCreating(true)}
+                        icon={undefined}
+                    />
+                }
             </div>
             <div className="mt-4">
                 {isCreating ? (
