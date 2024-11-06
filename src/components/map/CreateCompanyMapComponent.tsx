@@ -64,6 +64,7 @@ const CreateCompanyMapComponent = ({ markerPosition, setMapCenter }: CreateCompa
                                 map={mapInstance}
                                 position={markerPosition.toJSON()}
                                 onClick={() => { }} // Handle marker click if needed
+                                label=''
                             />
                         )}
                     </GoogleMap>
