@@ -5,11 +5,11 @@ interface Props {
     companiesAll: Company[]
 }
 
-export const CompanyFavouriteSlider = ({ companiesAll }: Props) => {
+export const CompanyCloserSlider = ({ companiesAll }: Props) => {
 
     return (
         <div>
-            <SliderHeader label={'Negocios destacados'} href={'/companies'} seeAllLabel={'Ver todos'} />
+            <SliderHeader label={'Cercanos'} href={'/companies'} seeAllLabel={'Ver todos'} />
             <Slider
                 data={companiesAll}
                 sliderType='company'

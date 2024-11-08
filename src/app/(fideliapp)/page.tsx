@@ -1,5 +1,5 @@
 import { getAllActivityType, getAllCardsByUser, getAllCompanies } from "@/actions";
-import { CompanyFavouriteSlider, CompanyRecommendedSlider, HowItWorks, MapComponent, MapProvider, SearchCompanySmallScreen, UserCardSlider } from "@/components";
+import { CompanyCloserSlider, CompanyPopularSlider, HowItWorks, MapComponent, MapProvider, SearchCompanySmallScreen, UserCardSlider } from "@/components";
 import { Card } from "@/interfaces";
 import { companyLocationsMap, sortCards } from "@/utils";
 import { auth } from "@/auth.config";
@@ -8,7 +8,7 @@ export default async function Home() {
 
   const session = await auth();
 
-  const [activities, companies] = await Promise.all([getAllActivityType(), getAllCompanies()]);
+  const companies = await getAllCompanies()
 
   let myCompanyCards: Card[] = [];
 
@@ -21,7 +21,9 @@ export default async function Home() {
   }
 
   const sortedCards = sortCards(myCompanyCards);
-  const companyLocs = await companyLocationsMap(companies);
+  // const companyLocs = await companyLocationsMap(companies);
+
+  //todo: Crear filtro por rubros
 
   return (
 
@@ -31,18 +33,13 @@ export default async function Home() {
 
       {session?.user && <UserCardSlider userCards={sortedCards} />}
 
-      {companies.length > 0 ? (
-        <>
-          <CompanyFavouriteSlider companiesAll={companies} />
-          <CompanyRecommendedSlider companiesAll={companies} />
-        </>
-      ) : (
-        <p>No hay negocios disponibles.</p>
-      )}
+      <CompanyCloserSlider companiesAll={companies} />
+      <CompanyPopularSlider companiesAll={companies} />
 
-      <MapProvider>
+
+      {/* <MapProvider>
         <MapComponent companyLocation={companyLocs} />
-      </MapProvider>
+      </MapProvider> */}
 
       <HowItWorks />
 

@@ -70,13 +70,11 @@ export const UserCard = ({ card }: Props) => {
                             <p className="text-xs font-medium" style={{ color: color }}>{`${card.points} puntos`}</p> {/* Random number */}
                         </div>
                         {/* Icons section at bottom right */}
-                        <div className="flex space-x-2">
-                            {isFavourite ? (
-                                <FaHeart size={16} style={{ color: color }} onClick={(e) => { e.preventDefault(); toggleFavourite(); }} />
-                            ) : (
-                                <FaRegHeart size={16} style={{ color: color }} onClick={(e) => { e.preventDefault(); toggleFavourite(); }} />
-                            )}
-                        </div>
+                        {isFavourite ? (
+                            <FaHeart size={16} style={{ color: color }} onClick={(e) => { e.preventDefault(); toggleFavourite(); }} />
+                        ) : (
+                            <FaRegHeart size={16} style={{ color: color }} onClick={(e) => { e.preventDefault(); toggleFavourite(); }} />
+                        )}
                     </div>
                 </div>
             </Link>

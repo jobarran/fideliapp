@@ -1,26 +1,25 @@
-import Link from 'next/link'
-import React from 'react'
-import { Avatar, CompanyLinkImage } from '..'
-import { Company } from '@/interfaces'
+"use client"
+
+import Link from 'next/link';
+import React from 'react';
+import { Avatar, CompanyLinkImage } from '..';
+import { Company } from '@/interfaces';
+import useUserLocation from '@/hooks/useUserLocation';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 interface Props {
-    company: Company
+    company: Company;
 }
 
 export const CompanyLink = ({ company }: Props) => {
 
-    const backgroundColor = '#CBD5E1'; // Dark gray as default
+    const { userDistance } = useUserLocation({ lat: company.lat, lng: company.lng });
 
     return (
-        <div
-            style={{
-                backgroundColor: '#F8F8F8',
-            }}
-        >
+        <div style={{ backgroundColor: '#F8F8F8' }}>
             <div className="rounded-lg overflow-hidden"
-                style={{ borderColor: backgroundColor, borderWidth: 0.5, borderStyle: 'solid' }}>
+                style={{ borderColor: '#CBD5E1', borderWidth: 0.5, borderStyle: 'solid' }}>
                 <div className="flex flex-col items-center justify-center h-24 bg-white">
-                    {/* <div className="mt-1 text-base font-medium" style={{ color: color }}>{company.name}</div> */}
                     <div className="mt-1 mb-2">
                         <Link href={`/companies/${company.slug}`}>
                             <div className="relative w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-white">
@@ -42,7 +41,12 @@ export const CompanyLink = ({ company }: Props) => {
                     </div>
                 </div>
             </div>
-
-        </div >
-    )
-}
+            {userDistance !== null && (
+                <div className="flex items-center justify-center text-gray-600 mt-2">
+                    <FaMapMarkerAlt className="mr-1 text-xs" />
+                    <p className='text-xs'>{userDistance} metros</p>
+                </div>
+            )}
+        </div>
+    );
+};

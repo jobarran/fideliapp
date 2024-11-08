@@ -80,3 +80,10 @@ favicon black background
 CouponClientProduct - {/* Points Section */} fixed w
 Edit ProductPage
 Add security validation to user and client Page by userId
+
+
+Mis tarjetas
+Categorías (Grid)
+Cercanos (slider) + distance
+Más populares (slider) + stars
+
