@@ -23,7 +23,6 @@ export default async function Home() {
   const sortedCards = sortCards(myCompanyCards);
   // const companyLocs = await companyLocationsMap(companies);
 
-  //todo: Crear filtro por rubros
 
   return (
 

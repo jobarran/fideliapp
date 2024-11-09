@@ -84,6 +84,6 @@ Add security validation to user and client Page by userId
 
 Mis tarjetas
 Categorías (Grid)
-Cercanos (slider) + distance
+Cercanos (slider) + distance -> filtrar (max 15) / (max dist 500 metros)
 Más populares (slider) + stars
 

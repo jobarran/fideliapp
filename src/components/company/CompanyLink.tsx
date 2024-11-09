@@ -4,16 +4,12 @@ import Link from 'next/link';
 import React from 'react';
 import { Avatar, CompanyLinkImage } from '..';
 import { Company } from '@/interfaces';
-import useUserLocation from '@/hooks/useUserLocation';
-import { FaMapMarkerAlt } from 'react-icons/fa';
 
 interface Props {
     company: Company;
 }
 
 export const CompanyLink = ({ company }: Props) => {
-
-    const { userDistance } = useUserLocation({ lat: company.lat, lng: company.lng });
 
     return (
         <div style={{ backgroundColor: '#F8F8F8' }}>
@@ -41,12 +37,6 @@ export const CompanyLink = ({ company }: Props) => {
                     </div>
                 </div>
             </div>
-            {userDistance !== null && (
-                <div className="flex items-center justify-center text-gray-600 mt-2">
-                    <FaMapMarkerAlt className="mr-1 text-xs" />
-                    <p className='text-xs'>{userDistance} metros</p>
-                </div>
-            )}
         </div>
     );
 };
