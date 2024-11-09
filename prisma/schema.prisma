@@ -40,8 +40,9 @@ model User {
   role     UserRole @default(USER)
 
   // Relations - Down
-  Cards   Card[]
-  Company Company?
+  Cards         Card[]
+  Company       Company?
+  CompanyReview CompanyReview[]
 
   // Timestamps
   createdAt DateTime @default(now())
@@ -64,9 +65,10 @@ model Company {
   openHours       Json // Store as JSON
 
   // Relations - Down
-  Products    Product[]
-  Cards       Card[]
-  CompanyLogo CompanyLogo?
+  Products      Product[]
+  Cards         Card[]
+  CompanyLogo   CompanyLogo?
+  CompanyReview CompanyReview[]
 
   // Relations - Up
   user   User   @relation(fields: [userId], references: [id])
@@ -141,7 +143,7 @@ model PointTransaction {
 }
 
 model PointTransactionTemplate {
-  id          String @id @default(uuid())
+  id          String  @id @default(uuid())
   points      Int
   description String?
 
@@ -174,5 +176,25 @@ model ProductImage {
 
   // Relations - Up
   product   Product @relation(fields: [productId], references: [id])
-  productId String   @unique
+  productId String  @unique
 }
+
+model CompanyReview {
+  id        String   @id @default(uuid()) // Unique identifier for the review
+  rating    Int // Rating value, e.g., 1 to 5 stars
+  comment   String? // Optional comment text
+  createdAt DateTime @default(now()) // Timestamp of when the review was created
+  updatedAt DateTime @updatedAt // Timestamp of when the review was last updated
+
+  // Relations - Many-to-One with User
+  user   User   @relation(fields: [userId], references: [id])
+  userId String // Foreign key to User
+
+  // Relations - Many-to-One with Company
+  company   Company @relation(fields: [companyId], references: [id])
+  companyId String // Foreign key to Company
+
+  // Indexes
+  @@index([userId, companyId]) // Optional index for querying reviews by user and company
+}
+

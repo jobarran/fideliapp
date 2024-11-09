@@ -23,6 +23,7 @@ export interface Company {
     name: string;
     lastName: string;
   };
+
 }
 
 export interface CompanyLogo {

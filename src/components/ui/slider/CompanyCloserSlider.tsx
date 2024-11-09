@@ -1,6 +1,6 @@
 'use client';
 
-import useCompaniesDistances from '@/hooks/useCompaniesDistances ';
+import useCompaniesDistances from '@/hooks/useCompaniesDistances';
 import { BaseSlider, CompanyLinkWithDistance, SliderHeader, SliderLoading } from '../..';
 import { Company } from '@/interfaces';
 
@@ -9,7 +9,8 @@ interface Props {
 }
 
 export const CompanyCloserSlider = ({ companiesAll }: Props) => {
-    const { closestCompanies, isLoading } = useCompaniesDistances(companiesAll);  // Get companies with distances
+
+    const { closestCompanies } = useCompaniesDistances(companiesAll);  // Get companies with distances
 
     const breakpoints = {
         320: { slidesPerView: 3.5 },
@@ -17,10 +18,6 @@ export const CompanyCloserSlider = ({ companiesAll }: Props) => {
         640: { slidesPerView: 6.5 },
         1024: { slidesPerView: 8.5 },
     };
-
-    if (isLoading) {
-        return <SliderLoading sliderType="company" />; // Show loading until distances are calculated
-    }
 
     return (
         <div>

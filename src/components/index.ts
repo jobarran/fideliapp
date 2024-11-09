@@ -8,7 +8,6 @@ export * from './ui/top-menu/LoginModal'
 export * from './ui/slider/UserCardSlider'
 export * from './ui/slider/SliderLoading'
 export * from './ui/slider/SliderHeader'
-export * from './ui/slider/CompanyPopularSlider'
 export * from './ui/slider/CompanyCloserSlider'
 export * from './ui/slider/BaseSlider'
 
@@ -37,6 +36,8 @@ export * from './ui/form/CheckboxField'
 
 export * from './ui/footer/Footer'
 
+export * from './ui/icon/FilledMustacheIcon'
+
 export * from './ui/filter/FilterModal'
 export * from './ui/filter/FilterComponent'
 export * from './ui/filter/FilterButtons'
@@ -44,6 +45,9 @@ export * from './ui/filter/FilterButtons'
 export * from './ui/buttons/ViewCardButton'
 export * from './ui/buttons/CreateNewCardButton'
 export * from './ui/buttons/ActionButton'
+export * from './ui/buttons/ActivityTypeButton'
+
+export * from './ui/grid/ActivityTypeGrid'
 
 export * from './ui/coupon/CouponClientProduct'
 
@@ -72,6 +76,7 @@ export * from './company/CompanyCard'
 export * from './company/AdminNewCompanyModal'
 export * from './company/CompanyLinkWithDistance'
 export * from './company/UserDistance'
+export * from './company/CompanyWithRating'
 
 
 export * from './client/ClientProfile'

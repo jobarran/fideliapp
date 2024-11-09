@@ -82,8 +82,26 @@ Edit ProductPage
 Add security validation to user and client Page by userId
 
 
-Mis tarjetas
-Categorías (Grid)
-Cercanos (slider) + distance -> filtrar (max 15) / (max dist 500 metros)
-Más populares (slider) + stars
+My Cards
+English: "My Loyalty Cards" or "My Cards"
+Spanish: "Mis Tarjetas"
 
+Company Activity Types
+English: "Explore by Category" or "Discover Activities" (Cafe, Restaurant, Barber Shop)
+Spanish: "Qué estas buscando?"
+
+Closest Companies
+English: "Nearby Favorites" or "Closest to You"
+Spanish: "Cercanos"
+
+Popular Rewards
+English: "Top Rewards" or "Trending Rewards"
+Spanish: "Recompensas"
+
+Recommended Companies
+English: "Recommended for You" or "Suggested Companies"
+Spanish: "Recomendados"
+
+New Companies
+English: "New Additions" or "Recently Added"
+Spanish: "Nuevos"
