@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CompanyProfileHeader, ProfileContent, ProfileHeader } from "..";
 import { clientNavItems, companyNavItems } from "@/config";
 import { CompanyClientDashboard, Product } from "@/interfaces";
+import { CompanyContentProducts } from './CompanyContentProducts';
 
 interface Props {
     company: CompanyClientDashboard,
@@ -12,7 +13,7 @@ interface Props {
     userCardForCompany: boolean
 }
 
-export const CompanyProfile = ({ company, actionButtons, userCardForCompany }: Props) => {
+export const CompanyProfile = ({ company, actionButtons, userCardForCompany, products }: Props) => {
 
     const [selectedTab, setSelectedTab] = useState(companyNavItems[0].id);
     const [openModal, setOpenModal] = useState(false)
@@ -25,7 +26,7 @@ export const CompanyProfile = ({ company, actionButtons, userCardForCompany }: P
             case "informacion":
                 return <p>Informacion</p>;
             case "productos":
-                return <p>productos</p>;
+                return <CompanyContentProducts companyId={company.id} products={products ?? []}  />;
             default:
                 return null;
         }

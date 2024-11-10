@@ -110,25 +110,3 @@ Spanish: "Nuevos"
 
 Se califica una vez que se realiza una transaccion UNICAMENTE
 Filtrar rewards del home por destacados y no por All
-
-
- <li className="flex ml-auto"> {/* This will push the link button to the right */}
-                {
-                    cardId ?
-                        <Link
-                            className="flex items-center gap-2 mr-3 lg:mr-6 text-sm font-medium" // Added 'items-center' here
-                            href={linkUrl}
-                        >
-                            {linkLabel}
-                        </Link>
-                        :
-                        <button
-                            className="flex items-center gap-2 mr-3 lg:mr-6 text-sm font-medium"
-                            onClick={() => handleLinkClick}
-                        >
-                            {linkLabel}
-                            <FaPlus className="font-normal" /> {/* Optional: add size for consistency */}
-                        </button>
-
-                }
-            </li>

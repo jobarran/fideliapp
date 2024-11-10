@@ -17,7 +17,7 @@ interface Props {
 export const CompanyGrid = ({ companies, activityTypes, search, companyIdByUserCard, activityType }: Props) => {
 
   const { filteredItems, filteredObj, filters, setFilters, clearFilters } = useCompanyNameFilter(companies, search);
-console.log(activityTypes)
+
   const activityTypeId = activityType
     ? activityTypes.find((type) => type.name.toLowerCase() === activityType.toLowerCase())?.id
     : "";
