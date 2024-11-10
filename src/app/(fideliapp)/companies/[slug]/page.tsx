@@ -45,6 +45,7 @@ export default async function CompanyBySlugPage({ params }: Props) {
       <CompanyProfile
         company={company}
         products={products}
+        userCardForCompany={userCardForCompany}
         actionButtons={
           userId !== null ? (
             <>

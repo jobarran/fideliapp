@@ -8,16 +8,20 @@ interface Props {
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     selectedTab: string;
     actionButtons?: React.ReactNode
-
+    userCardForCompany: boolean
 }
 
-export const CompanyProfileHeader = ({ company, handleTabChange, setOpenModal, selectedTab, actionButtons }: Props) => {
+export const CompanyProfileHeader = ({ company, handleTabChange, setOpenModal, selectedTab, actionButtons, userCardForCompany }: Props) => {
 
     return (
 
         <div className="p-4 border rounded-lg bg-white">
 
-            <CompanyProfileHeaderData company={company} setOpenModal={setOpenModal} />
+            <CompanyProfileHeaderData
+                company={company}
+                setOpenModal={setOpenModal}
+                userCardForCompany={userCardForCompany}
+            />
 
             <hr className="w-full h-px border-neutral-200 my-4" />
 

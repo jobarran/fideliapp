@@ -9,9 +9,10 @@ interface Props {
     company: CompanyClientDashboard,
     products: Product[] | null
     actionButtons?: React.ReactNode
+    userCardForCompany: boolean
 }
 
-export const CompanyProfile = ({ company, actionButtons }: Props) => {
+export const CompanyProfile = ({ company, actionButtons, userCardForCompany }: Props) => {
 
     const [selectedTab, setSelectedTab] = useState(companyNavItems[0].id);
     const [openModal, setOpenModal] = useState(false)
@@ -39,6 +40,7 @@ export const CompanyProfile = ({ company, actionButtons }: Props) => {
                 selectedTab={selectedTab}
                 setOpenModal={setOpenModal}
                 actionButtons={actionButtons}
+                userCardForCompany={userCardForCompany}
             />
 
             <ProfileContent
