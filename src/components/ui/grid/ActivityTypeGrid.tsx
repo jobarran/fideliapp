@@ -16,6 +16,7 @@ export const ActivityTypeGrid: FC = () => {
                         color={activity.color}
                         classText={activity.classText}
                         classIcon={activity.classIcon}
+                        activityTypeSlug={activity.activityTypeSlug}
                     />
                 ))}
             </div>

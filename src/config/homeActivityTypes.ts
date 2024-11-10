@@ -3,10 +3,10 @@ import { FaCoffee, FaCut, FaUtensils, FaBreadSlice, FaIceCream } from 'react-ico
 
 
 export const homeActivityTypes = [
-    { name: 'Restaurante', icon: FaUtensils, color: '#6B8E68', classText: 'hidden md:inline', classIcon: 'items-center justify-center'},
-    { name: 'Barbería', icon: FilledMustacheIcon , color: '#4F4F4F', classText: 'hidden md:inline', classIcon: 'items-center justify-center'},
-    { name: 'Heladería', icon: FaIceCream, color: '#B04E5A', classText: 'hidden md:inline', classIcon: 'items-center justify-center'},
-    { name: 'Peluquería', icon: FaCut, color: '#4F4F4F', classText: 'hidden md:inline', classIcon: 'items-center justify-center'},
-    { name: 'Panadería', icon: FaBreadSlice, color: '#C2B784', classText: 'inline', classIcon: 'items-center justify-center'},
-    { name: 'Café', icon: FaCoffee, color: '#B04E5A', classText: 'inline', classIcon: 'items-center justify-center'},
+    { name: 'Restaurante', icon: FaUtensils, activityTypeSlug: 'Restaurante', color: '#6B8E68', classText: 'hidden md:block', classIcon: 'items-center justify-center'},
+    { name: 'Barbería', icon: FilledMustacheIcon , activityTypeSlug: 'Barbería', color: '#4F4F4F', classText: 'hidden md:block', classIcon: 'items-center justify-center'},
+    { name: 'Heladería', icon: FaIceCream, activityTypeSlug: 'Heladería', color: '#B04E5A', classText: 'hidden md:block', classIcon: 'items-center justify-center'},
+    { name: 'Peluquería', icon: FaCut, activityTypeSlug: 'Peluquería', color: '#4F4F4F', classText: 'hidden md:block', classIcon: 'items-center justify-center'},
+    { name: 'Panadería', icon: FaBreadSlice, activityTypeSlug: 'Panadería', color: '#C2B784', classText: 'block', classIcon: 'items-center justify-center'},
+    { name: 'Café', icon: FaCoffee, activityTypeSlug: 'Cafe', color: '#A66E4A', classText: 'block', classIcon: 'items-center justify-center'},
 ];

@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default async function CompaniesPage({ searchParams }: Props) {
-  const { search } = searchParams;
+  const { search, activityType } = searchParams;
   const companies = await getAllCompanies();
   const activityTypes = await getActivityTypes();
   const companyIdByUserCard = await getCompanyIdByUserCard();
@@ -19,6 +19,7 @@ export default async function CompaniesPage({ searchParams }: Props) {
       companies={companies}
       activityTypes={activityTypes}
       search={search || ''}
+      activityType={activityType || ''}
       companyIdByUserCard={companyIdByUserCard}
     />
 

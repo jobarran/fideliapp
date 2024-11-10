@@ -10,6 +10,7 @@ export * from './ui/slider/SliderLoading'
 export * from './ui/slider/SliderHeader'
 export * from './ui/slider/CompanyCloserSlider'
 export * from './ui/slider/BaseSlider'
+export * from './ui/slider/PopularRewardsSlider'
 
 export * from './ui/profile/ProfileHeaer'
 export * from './ui/profile/ProfileHeaderNavigation'
@@ -99,3 +100,4 @@ export * from './user/UserContentMovements'
 export * from './ui/profile/ProfileHeaderLogo'
 
 export * from './products/AddProductForm'
+export * from './products/ProductRewardLink'

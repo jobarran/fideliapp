@@ -4,22 +4,37 @@ import { ActivityType, Company } from "@/interfaces";
 import { CompanyGridItem } from "./CompanyGridItem";
 import { FilterComponent } from '../ui/filter/FilterComponent';
 import { useCompanyNameFilter } from "@/hooks/useCompanyNameFilter";
+import { useEffect } from "react";
 
 interface Props {
   companies: Company[];  // Enforced type for companies
   activityTypes: ActivityType[];
   search: string;
   companyIdByUserCard: string[];
+  activityType: string;
 }
 
-export const CompanyGrid = ({ companies, activityTypes, search, companyIdByUserCard }: Props) => {
+export const CompanyGrid = ({ companies, activityTypes, search, companyIdByUserCard, activityType }: Props) => {
 
   const { filteredItems, filteredObj, filters, setFilters, clearFilters } = useCompanyNameFilter(companies, search);
+console.log(activityTypes)
+  const activityTypeId = activityType
+    ? activityTypes.find((type) => type.name.toLowerCase() === activityType.toLowerCase())?.id
+    : "";
+
+  useEffect(() => {
+    if (activityTypeId) {
+      setFilters(prevFilters => ({
+        ...prevFilters,
+        activityTypeId: [activityTypeId], 
+      }));
+    }
+  }, [activityTypeId, setFilters]);
 
   return (
     <>
       <FilterComponent
-        filters={filters} 
+        filters={filters}
         setFilters={setFilters}
         clearFilters={clearFilters}
         activityTypes={activityTypes}
