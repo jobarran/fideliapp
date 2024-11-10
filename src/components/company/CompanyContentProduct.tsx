@@ -2,7 +2,6 @@ import { CompanyLinkImage } from '@/components/company/CompanyLinkImage';
 import { Product } from '@/interfaces';
 import React from 'react';
 import { FaRegImage } from 'react-icons/fa6';
-import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
 import { IoTicketOutline } from 'react-icons/io5';
 
 interface Props {
@@ -44,7 +43,7 @@ export const CompanyContentProduct = ({ products }: Props) => {
                                     </div>
                                 )}
                                 {/* Product Details */}
-                                <div className="flex-grow min-w-0">
+                                <div className="flex-grow min-w-0 mr-4">
                                     <h3 className="text-sm font-medium text-slate-800 overflow-hidden text-ellipsis whitespace-nowrap">
                                         {product.name}
                                     </h3>
@@ -58,22 +57,20 @@ export const CompanyContentProduct = ({ products }: Props) => {
                                     {/* Buy Points */}
                                     {buyPoints && (
                                         <div className="text-center items-center">
-                                            <p className="text-lg font-semibold text-green-600">+ {buyPoints}</p>
+                                            <p className="text-sm md:text-lg font-semibold text-green-600">+ {buyPoints}</p>
                                             <p className="text-xs text-slate-500">puntos</p>
                                         </div>
                                     )}
                                 </div>
-
                                 {/* Vertical Dotted Line Separator */}
                                 <div className="border-l border-dotted border-gray-300 h-12 mx-2"></div>
-
                                 <div className="flex flex-col items-center flex-shrink-0">
                                     {/* Reward Points */}
                                     {rewardPoints && (
                                         <div className="text-center items-center justify-center min-w-14">
                                             <div className="flex items-center justify-center text-amber-600">
-                                                <IoTicketOutline className='mr-1'/>
-                                                <p className="text-lg font-semibold">{rewardPoints}</p>
+                                                <IoTicketOutline className='mr-1 text-sm md:text-lg'/>
+                                                <p className="text-sm md:text-lg font-semibold">{rewardPoints}</p>
                                             </div>
                                             <p className="text-xs text-slate-500">puntos</p>
                                         </div>

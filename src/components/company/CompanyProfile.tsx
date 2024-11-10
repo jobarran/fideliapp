@@ -27,6 +27,8 @@ export const CompanyProfile = ({ company, actionButtons, userCardForCompany, pro
                 return <p>Informacion</p>;
             case "productos":
                 return <CompanyContentProducts companyId={company.id} products={products ?? []}  />;
+                case "opiniontes":
+                    return <p>Opiniones</p>;
             default:
                 return null;
         }
