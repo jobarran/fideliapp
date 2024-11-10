@@ -23,7 +23,6 @@ export * from './ui/modals/ActiveWarningModal'
 
 export * from './ui/loading/FullWidthLoading'
 
-export * from './ui/layout/MainHeader'
 export * from './ui/layout/Avatar'
 
 export * from './ui/home/HowItWorks'
@@ -79,6 +78,7 @@ export * from './company/AdminNewCompanyModal'
 export * from './company/CompanyLinkWithDistance'
 export * from './company/UserDistance'
 export * from './company/CompanyWithRating'
+export * from './company/CompanyProfile'
 
 
 export * from './client/ClientProfile'
@@ -99,6 +99,9 @@ export * from './user/UserContentCards'
 export * from './user/UserContentMovements'
 
 export * from './ui/profile/ProfileHeaderLogo'
+export * from './ui/profile/CompanyProfileHeader'
+export * from './ui/profile/CompanyProfileHeaderData'
+export * from './ui/profile/CompanyProfileHeaderNavigation'
 
 export * from './products/AddProductForm'
 export * from './products/ProductRewardLink'

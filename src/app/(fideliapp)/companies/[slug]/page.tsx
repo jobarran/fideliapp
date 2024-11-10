@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { Metadata, ResolvingMetadata } from "next";
-import { checkUserCardForCompany, createNewCard, getCompanyBySlug } from "@/actions";
-import { CreateNewCardButton, MainHeader, ViewCardButton } from "@/components";
+import { checkUserCardForCompany, getCompanyBySlug, getProductsByCompanyId } from "@/actions";
+import { CompanyProfile, CreateNewCardButton, ViewCardButton } from "@/components";
 
 interface Props {
   params: {
@@ -17,7 +17,7 @@ export async function generateMetadata(
   const company = await getCompanyBySlug(slug);
 
   return {
-    title: company?.name ?? "Producto no encontrado",
+    title: company?.name ?? "Company not found",
     description: company?.activityType.name ?? "",
   };
 }
@@ -38,17 +38,15 @@ export default async function CompanyBySlugPage({ params }: Props) {
     return null;
   }
 
+  const products = await getProductsByCompanyId(company.id);
+
   return (
     <div>
-      <MainHeader
-        headerClass={userCardForCompany ? "border-green-500" : "border-slate-200"}
-        backgroundColor={company.backgroundColor}
-        img={company.CompanyLogo?.url}
-        title={company.name}
-        subtitle={company.activityType.name}
-        checked={userCardForCompany}
+      <CompanyProfile
+        company={company}
+        products={products}
         actionButtons={
-          userId !== null ? ( 
+          userId !== null ? (
             <>
               <CreateNewCardButton
                 show={userCardForCompany}

@@ -17,15 +17,14 @@ export const ViewCardButton = ({ cardId, show }: Props) => {
     return (
         <Link
             href={`../cards/${cardId}`}
-            className={`bg-slate-700 text-white text-sm py-2 px-2 rounded-lg shadow hover:bg-slate-950`}
+            className="flex items-center gap-2 mr-3 lg:mr-6 text-sm font-medium"
         >
-            <span className="block sm:hidden">
-                <FaArrowRightToBracket  />
+            <span >
+                Ver tarjeta
             </span>
-            <span className="hidden sm:block">
-                Ver
+            <span>
+                <FaArrowRightToBracket />
             </span>
         </Link>
     );
 };
-

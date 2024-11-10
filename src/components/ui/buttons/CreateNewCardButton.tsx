@@ -8,28 +8,27 @@ interface Props {
     show: boolean
 }
 
-export const CreateNewCardButton = ({ slug, show}: Props) => {
+export const CreateNewCardButton = ({ slug, show }: Props) => {
 
     const handleCreateCard = async () => {
         createNewCard(slug)
     };
 
     if (show) {
-        return null; 
+        return null;
     }
 
     return (
         <button
             onClick={handleCreateCard}
-            className={`bg-slate-700 text-white text-sm py-2 px-2 rounded-lg shadow hover:bg-slate-950`}
+            className="flex items-center gap-2 mr-3 lg:mr-6 text-sm font-medium"
         >
-            <span className="block sm:hidden">
-                <FaPlus />
-            </span>
-            <span className="hidden sm:block">
+            <span>
                 Agregar
+            </span>
+            <span>
+                <FaPlus />
             </span>
         </button>
     );
 };
-
