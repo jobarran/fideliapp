@@ -1,8 +1,7 @@
 'use client';
 
-import useCompaniesDistances from '@/hooks/useCompaniesDistances';
-import { BaseSlider, CompanyLinkWithDistance, ProductRewardLink, SliderHeader, SliderLoading } from '../..';
-import { Company, PointTransactionTemplate, Reward } from '@/interfaces';
+import { BaseSlider, ProductRewardLink, SliderHeader, SliderLoading } from '../..';
+import { Reward } from '@/interfaces';
 
 interface Props {
     popularRewards: Reward[];
@@ -21,10 +20,10 @@ export const PopularRewardsSlider = ({ popularRewards }: Props) => {
         <div>
             <SliderHeader label={'Recompensas'} href={''} seeAllLabel={''} />
             <BaseSlider
-                data={popularRewards}  // Use the closest companies with distance
+                data={popularRewards}
                 breakpoints={breakpoints}
                 renderItem={(popularRewards) => (<ProductRewardLink reward={popularRewards} />)}
-                loadingComponent={<SliderLoading sliderType={'company'} />}
+                loadingComponent={<SliderLoading sliderType={'reward'} />}
             />
         </div>
     );

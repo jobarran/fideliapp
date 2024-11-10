@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import { Reward } from '@/interfaces';
 import { CompanyLinkImage } from '../company/CompanyLinkImage';
-import { FaRegImage } from 'react-icons/fa';
+import { Avatar } from '..';
 
 interface Props {
     reward: Reward;
@@ -17,7 +17,7 @@ export const ProductRewardLink = ({ reward }: Props) => {
                 backgroundColor: '#F8F8F8',
             }}
         >
-            <Link href={`/companies/${reward.companyName.toLowerCase().replace(/\s+/g, '-')}`}>
+            <Link href={`/companies/${reward.companySlug}`}>
 
                 <div className="w-full rounded-lg overflow-hidden"
                     style={{ borderColor: '#F8F8F8', borderWidth: 0.5, borderStyle: 'solid' }}>
@@ -25,22 +25,20 @@ export const ProductRewardLink = ({ reward }: Props) => {
                     <div className="flex items-center bg-white p-2">
 
                         {/* Product Image Section */}
-                        {reward.productImageUrl ? (
-                            <div className="w-10 h-10 flex-shrink-0 rounded-full overflow-hidden bg-gray-200 mr-2">
+                        <div className="w-10 h-10 flex-shrink-0 rounded-full overflow-hidden bg-gray-200 mr-2">
+                            {reward.companyLogoUrl ? (
                                 <CompanyLinkImage
-                                    src={reward.productImageUrl}
-                                    alt={reward.productName}
+                                    src={reward.companyLogoUrl}
+                                    alt={reward.companyName}
                                     className="object-cover"
                                     width={0}
                                     height={0}
                                     style={{ width: '100%', height: '100%' }}
                                 />
-                            </div>
-                        ) : (
-                            <div className="w-10 h-10 flex-shrink-0 flex justify-center items-center border border-slate-100 bg-slate-50 rounded-full overflow-hidden mr-4">
-                                <FaRegImage className="text-3xl text-slate-300" />
-                            </div>
-                        )}
+                            ) : (
+                                <Avatar name={reward.companyName} backgroundColor={reward.companyBackgroundColor} size={'10'} />
+                            )}
+                        </div>
 
                         {/* Product Details Section */}
                         <div className="flex-grow min-w-0 mr-2 text-left">

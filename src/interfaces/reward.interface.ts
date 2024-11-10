@@ -1,8 +1,11 @@
 export interface Reward {
     id: string;
     points: number;
-    description: string | null; // `description` is nullable as per your schema
+    description: string | null; 
     productName: string;
-    productImageUrl?: string; // `productImageUrl` is optional as it might not be present
+    productImageUrl?: string; 
     companyName: string;
+    companyLogoUrl?: string;
+    companyBackgroundColor: string;
+    companySlug: string;
   }

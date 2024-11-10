@@ -4,11 +4,10 @@ interface Props {
     name: string;
     backgroundColor?: string | null;
     size: string;
-    className?: string
+    className?: string;
 }
 
 export const Avatar = ({ name, backgroundColor, size, className }: Props) => {
-
     const getInitials = (name: string) => {
         const words = name.split(' ').slice(0, 4);
         return words.map(word => word.charAt(0).toUpperCase()).join('');
@@ -16,23 +15,22 @@ export const Avatar = ({ name, backgroundColor, size, className }: Props) => {
 
     const getFontSize = (name: string, size: string) => {
         const sizeNumber = parseInt(size, 10); // Convert size to a number
-        const isLarge = sizeNumber >= 35; // Check if size is 35 or greater
         const wordsCount = name.split(' ').slice(0, 4).length;
 
         const baseSizes: { [key: string]: string } = {
             1: '2rem',
             2: '1.5rem',
             3: '1.25rem',
-            4: '1rem'
+            4: '1rem',
+            5: '0.75rem', // Added base size for smaller size (10)
         };
 
-        // Get the font size from the baseSizes object or use '1rem' as default
+        // Set the font size based on size and word count
         let fontSize = baseSizes[wordsCount.toString()] || '1rem';
 
-        // If size is greater than or equal to 35, double the font size
-        if (isLarge) {
-            const numericValue = parseFloat(fontSize);
-            fontSize = `${numericValue * 2}rem`;
+        // If size is too small, directly scale down the font
+        if (sizeNumber < 15) {
+            fontSize = '0.75rem'; // Default smaller font size for very small avatars
         }
 
         return fontSize;
@@ -45,10 +43,9 @@ export const Avatar = ({ name, backgroundColor, size, className }: Props) => {
     return (
         <div
             className={`w-${size} h-${size} ${className} rounded-full bg-white flex items-center justify-center`}
-            style={{ border: `4px solid ${color}`, fontSize }}
+            style={{ border: `2px solid ${color}`, fontSize }}
         >
-            <span className="font-bold" style={{ color: `${color}` }}
-            >
+            <span className="font-bold" style={{ color: `${color}` }}>
                 {initials}
             </span>
         </div>

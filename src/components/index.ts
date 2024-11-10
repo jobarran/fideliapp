@@ -66,6 +66,7 @@ export { default as MapInitializer } from './map/MapInitializer';
 export { default as CompanyMarker } from './map/CompanyMarker';
 
 export * from './company/CompanyLinkLoading'
+export * from './company/CompanyLinkWidgetLoeading'
 export * from './company/CompanyLinkImage'
 export * from './company/CompanyLink'
 export * from './company/CompanyGridItem'
@@ -101,3 +102,4 @@ export * from './ui/profile/ProfileHeaderLogo'
 
 export * from './products/AddProductForm'
 export * from './products/ProductRewardLink'
+export * from './products/ProductRewardLinkLoading'
