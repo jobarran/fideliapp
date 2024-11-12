@@ -1,5 +1,5 @@
 import { getCardById } from "@/actions";
-import { UserCard } from "@/components";
+import { CardProfile, UserCard } from "@/components";
 import { redirect } from "next/navigation";
 
 interface Props {
@@ -9,8 +9,8 @@ interface Props {
 }
 
 export default async function CardsByIdPage({ params }: Props) {
-  const { id } = params;
 
+  const { id } = params;
   const { card } = await getCardById(id);
 
   if (!card) {
@@ -19,7 +19,7 @@ export default async function CardsByIdPage({ params }: Props) {
 
   return (
     <div>
-      <UserCard key={card.id} card={card} />
+      <CardProfile card={card} />
     </div>
   );
 }

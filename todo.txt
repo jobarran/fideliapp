@@ -112,4 +112,4 @@ Se califica una vez que se realiza una transaccion UNICAMENTE
 Filtrar rewards del home por destacados y no por All
 
 companies / products:
-- Copiar productos de pedidos ya (leer mas...)
+- ver mas name bug (en celular)
