@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react";
-import { CompanyProfileHeader, ProfileContent, ProfileHeader } from "..";
+import { CompanyContentInformation, CompanyProfileHeader, ProfileContent, ProfileHeader } from "..";
 import { clientNavItems, companyNavItems } from "@/config";
 import { CompanyClientDashboard, Product } from "@/interfaces";
 import { CompanyContentProducts } from './CompanyContentProducts';
@@ -24,11 +24,11 @@ export const CompanyProfile = ({ company, actionButtons, userCardForCompany, pro
     const renderContent = () => {
         switch (selectedTab) {
             case "informacion":
-                return <p>Informacion</p>;
+                return <CompanyContentInformation company={company} />;
             case "productos":
-                return <CompanyContentProducts companyId={company.id} products={products ?? []}  />;
-                case "opiniontes":
-                    return <p>Opiniones</p>;
+                return <CompanyContentProducts companyId={company.id} products={products ?? []} />;
+            case "opiniontes":
+                return <p>Opiniones</p>;
             default:
                 return null;
         }

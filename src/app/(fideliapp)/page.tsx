@@ -1,7 +1,7 @@
 import { getAllCardsByUser, getAllCompanies, getAllRewards } from "@/actions";
-import { ActivityTypeGrid, CompanyCloserSlider, HowItWorks, MapComponent, MapProvider, PopularRewardsSlider, SearchCompanySmallScreen, SliderHeader, UserCardSlider } from '@/components';
+import { ActivityTypeGrid, CompanyCloserSlider, HowItWorks, PopularRewardsSlider, SearchCompanySmallScreen, SliderHeader, UserCardSlider } from '@/components';
 import { Card } from "@/interfaces";
-import { companyLocationsMap, sortCards } from "@/utils";
+import { sortCards } from "@/utils";
 import { auth } from "@/auth.config";
 
 export default async function Home() {
@@ -10,7 +10,6 @@ export default async function Home() {
   const companies = await getAllCompanies()
   let myCompanyCards: Card[] = [];
   const cardsResult = await getAllCardsByUser();
-  //TODO: filter rewards
   const rewards = await getAllRewards()
 
   if (cardsResult.ok) {
@@ -21,7 +20,6 @@ export default async function Home() {
 
   const sortedCards = sortCards(myCompanyCards);
 
-  const companyLocs = await companyLocationsMap(companies);
 
   return (
 
@@ -40,10 +38,6 @@ export default async function Home() {
       <SliderHeader label={'Recomendados'} href={'/'} seeAllLabel={'Ver todos'} />
 
       <SliderHeader label={'Nuevos'} href={'/'} seeAllLabel={'Ver todos'} />
-{/* 
-      <MapProvider>
-        <MapComponent companyLocation={companyLocs} />
-      </MapProvider> */}
 
       <HowItWorks />
 
