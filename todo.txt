@@ -110,3 +110,4 @@ Spanish: "Nuevos"
 
 Se califica una vez que se realiza una transaccion UNICAMENTE
 Filtrar rewards del home por destacados y no por All
+

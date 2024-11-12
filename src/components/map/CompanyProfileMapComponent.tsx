@@ -21,7 +21,7 @@ interface Props {
 }
 
 export const CompanyProfileMapComponent = ({ companyLocation, companyName }: Props) => {
-    const defaultMapZoom = 15;
+    const defaultMapZoom = 17;
     const mapRef = useRef<google.maps.Map | null>(null);
     const [mapZoom, setMapZoom] = useState(defaultMapZoom); // Initialize state for zoom level
     const [mapInstance, setMapInstance] = useState<google.maps.Map | null>(null);
