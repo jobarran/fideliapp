@@ -41,7 +41,12 @@ export const CompanyContentProduct = ({ products }: Props) => {
 
                     return (
                         <li key={product.id}>
-                            <div className={`flex items-center h-24 p-2 border border-slate-100 rounded-lg transition-all duration-300 overflow-hidden ${isExpanded ? 'h-auto py-4' : ''}`}>
+                            <div
+                                className={`flex items-start p-2 border border-slate-100 rounded-lg transition-all duration-300 overflow-hidden ${isExpanded || product.name.length > 20 || (product.description?.length || 0) > 50
+                                        ? 'h-auto py-4'
+                                        : 'h-24'
+                                    }`}
+                            >
                                 {/* Product Image */}
                                 {product.ProductImage ? (
                                     <div className="w-12 h-12 flex-shrink-0 rounded-full overflow-hidden bg-gray-200 mr-4">
@@ -63,12 +68,18 @@ export const CompanyContentProduct = ({ products }: Props) => {
                                 {/* Product Details */}
                                 <div className="flex-grow min-w-0 mr-4">
                                     {/* Product Name */}
-                                    <h3 className={`text-sm font-medium text-slate-800 ${isExpanded ? 'whitespace-normal' : 'overflow-hidden text-ellipsis whitespace-nowrap'}`}>
+                                    <h3
+                                        className={`text-sm font-medium text-slate-800 ${isExpanded ? 'whitespace-normal' : 'overflow-hidden text-ellipsis whitespace-nowrap'
+                                            }`}
+                                    >
                                         {product.name}
                                     </h3>
-                                    
+
                                     {/* Product Description */}
-                                    <p className={`text-slate-400 text-xs ${isExpanded ? 'whitespace-normal' : 'overflow-hidden text-ellipsis whitespace-nowrap'}`}>
+                                    <p
+                                        className={`text-slate-400 text-xs ${isExpanded ? 'whitespace-normal' : 'overflow-hidden text-ellipsis whitespace-nowrap'
+                                            }`}
+                                    >
                                         {product.description}
                                     </p>
 
@@ -108,6 +119,7 @@ export const CompanyContentProduct = ({ products }: Props) => {
                                     )}
                                 </div>
                             </div>
+
                         </li>
                     );
                 })}

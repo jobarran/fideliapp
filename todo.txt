@@ -113,3 +113,5 @@ Filtrar rewards del home por destacados y no por All
 
 companies / products:
 - ver mas name bug (en celular)
+
+no map on creat company BUG
