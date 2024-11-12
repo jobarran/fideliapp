@@ -23,6 +23,8 @@ const CreateCompanyMapComponent = ({ markerPosition, setMapCenter }: CreateCompa
     const mapRef = useRef<google.maps.Map | null>(null);
     const { userLocation, error } = useUserLocation();
 
+    console.log(userLocation)
+
     const defaultMapOptions: google.maps.MapOptions = {
         zoomControl: true,
         tilt: 0,

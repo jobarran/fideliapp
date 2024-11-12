@@ -1,7 +1,7 @@
 import { getAllCardsByUser, getAllCompanies, getAllRewards } from "@/actions";
-import { ActivityTypeGrid, CompanyCloserSlider, HowItWorks, PopularRewardsSlider, SearchCompanySmallScreen, SliderHeader, UserCardSlider } from '@/components';
+import { ActivityTypeGrid, CompanyCloserSlider, HowItWorks, MapComponent, MapProvider, PopularRewardsSlider, SearchCompanySmallScreen, SliderHeader, UserCardSlider } from '@/components';
 import { Card } from "@/interfaces";
-import { sortCards } from "@/utils";
+import { companyLocationsMap, sortCards } from "@/utils";
 import { auth } from "@/auth.config";
 
 export default async function Home() {
@@ -21,6 +21,8 @@ export default async function Home() {
 
   const sortedCards = sortCards(myCompanyCards);
 
+  const companyLocs = await companyLocationsMap(companies);
+
   return (
 
     <main className="flex flex-col">
@@ -38,6 +40,10 @@ export default async function Home() {
       <SliderHeader label={'Recomendados'} href={'/'} seeAllLabel={'Ver todos'} />
 
       <SliderHeader label={'Nuevos'} href={'/'} seeAllLabel={'Ver todos'} />
+{/* 
+      <MapProvider>
+        <MapComponent companyLocation={companyLocs} />
+      </MapProvider> */}
 
       <HowItWorks />
 

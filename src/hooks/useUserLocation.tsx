@@ -11,80 +11,64 @@ type CompanyLocation = {
 };
 
 const useUserLocation = (companyLocation?: CompanyLocation) => {
-    const [userLocation, setUserLocation] = useState<Location | null>(null);
+    const [userLocation, setUserLocation] = useState<Location>({
+        lat: -34.603722, // Buenos Aires latitude
+        lng: -58.381592, // Buenos Aires longitude
+    });
     const [error, setError] = useState<string | null>(null);
     const [userDistance, setUserDistance] = useState<string | number>("-");
 
+    const calculateDistance = (lat1: number, lng1: number, lat2: number, lng2: number) => {
+        const toRadians = (degree: number) => degree * (Math.PI / 180);
+        const R = 6371.0088; // Earth's radius in kilometers
+
+        const dLat = toRadians(lat2 - lat1);
+        const dLng = toRadians(lng2 - lng1);
+
+        const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
+            Math.sin(dLng / 2) * Math.sin(dLng / 2);
+
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const distance = R * c * 1000; // Convert distance to meters
+
+        return distance;
+    };
+
     useEffect(() => {
-        const calculateDistance = (lat1: number, lng1: number, lat2: number, lng2: number) => {
-            const toRadians = (degree: number) => degree * (Math.PI / 180);
-            const R = 6371.0088; // Earth's radius in kilometers
+        const handleLocationUpdate = (location: Location) => {
+            setUserLocation(location);
 
-            // Convert latitude and longitude differences to radians
-            const dLat = toRadians(lat2 - lat1);
-            const dLng = toRadians(lng2 - lng1);
-
-            const a =
-                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *
-                Math.sin(dLng / 2) * Math.sin(dLng / 2);
-
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            let distance = R * c * 1000; // Convert distance to meters
-
-            // If distance is very small (below 1 km), use a planar approximation
-            if (distance < 1000) {
-                const planarDistance = Math.sqrt(
-                    Math.pow((lat2 - lat1) * 111139, 2) +  // Approx. meters per degree latitude
-                    Math.pow((lng2 - lng1) * 111139 * Math.cos(toRadians(lat1)), 2)  // Adjust for latitude
+            if (companyLocation && companyLocation.lat != null && companyLocation.lng != null) {
+                const distance = calculateDistance(
+                    location.lat,
+                    location.lng,
+                    companyLocation.lat,
+                    companyLocation.lng
                 );
-                distance = planarDistance;
+                setUserDistance(distance.toFixed(0));
+            } else {
+                setUserDistance("-");
             }
-
-            return distance;
         };
-
-        if (!companyLocation || companyLocation.lat == null || companyLocation.lng == null) {
-            setUserDistance("-");
-            return;
-        }
-
-        const { lat: companyLat, lng: companyLng } = companyLocation;
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
-                    const newLocation: Location = {
+                    const location = {
                         lat: position.coords.latitude,
                         lng: position.coords.longitude,
                     };
-                    setUserLocation(newLocation);
-
-                    // Calculate distance in meters
-                    const distance = calculateDistance(
-                        newLocation.lat,
-                        newLocation.lng,
-                        companyLat!,
-                        companyLng!
-                    );
-                    setUserDistance(distance.toFixed(0));
+                    handleLocationUpdate(location);
                 },
                 (error) => {
                     console.error("Error getting user location:", error);
                     setError("No se pudo obtener la ubicación. Mostrando ubicación por defecto.");
-                    const fallbackLocation: Location = {
-                        lat: 35.8799866,
-                        lng: 76.5048004,
-                    };
-                    setUserLocation(fallbackLocation);
-
-                    const distance = calculateDistance(
-                        fallbackLocation.lat,
-                        fallbackLocation.lng,
-                        companyLat!,
-                        companyLng!
-                    );
-                    setUserDistance(distance.toFixed(0));
+                    handleLocationUpdate({
+                        lat: -34.603722, // Default fallback (Buenos Aires)
+                        lng: -58.381592,
+                    });
                 },
                 {
                     enableHighAccuracy: true,
@@ -93,21 +77,11 @@ const useUserLocation = (companyLocation?: CompanyLocation) => {
                 }
             );
         } else {
-            console.error("Geolocation is not supported by this browser.");
-            setError("Geolocalización no soportada por el navegador. Mostrando ubicación por defecto.");
-            const fallbackLocation: Location = {
-                lat: 35.8799866,
-                lng: 76.5048004,
-            };
-            setUserLocation(fallbackLocation);
-
-            const distance = calculateDistance(
-                fallbackLocation.lat,
-                fallbackLocation.lng,
-                companyLat!,
-                companyLng!
-            );
-            setUserDistance(distance.toFixed(0));
+            setError("Geolocalización no soportada por el navegador.");
+            handleLocationUpdate({
+                lat: -34.603722, // Default fallback (Buenos Aires)
+                lng: -58.381592,
+            });
         }
     }, [companyLocation]);
 
