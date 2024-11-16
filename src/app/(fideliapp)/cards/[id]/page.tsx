@@ -1,4 +1,4 @@
-import { getCardById } from "@/actions";
+import { generatePin, getCardById } from "@/actions";
 import { CardProfile, UserCard } from "@/components";
 import { redirect } from "next/navigation";
 

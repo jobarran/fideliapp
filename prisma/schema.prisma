@@ -47,6 +47,7 @@ model User {
   // Timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  pin       Pin[]
 
   // Indexes
   @@index([email])
@@ -77,6 +78,7 @@ model Company {
   // Relations - Many-to-One
   activityType   ActivityType @relation(fields: [activityTypeId], references: [id])
   activityTypeId String
+  pin            Pin[]
 }
 
 model ActivityType {
@@ -198,3 +200,18 @@ model CompanyReview {
   @@index([userId, companyId]) // Optional index for querying reviews by user and company
 }
 
+model Pin {
+  id        String   @id @default(uuid())
+  pin       String   @unique
+  expiresAt DateTime
+  used      Boolean  @default(false)
+
+  // Relations Up
+  user      User    @relation(fields: [userId], references: [id])
+  userId    String
+  company   Company @relation(fields: [companyId], references: [id])
+  companyId String
+
+  // Indexes
+  @@index([userId, companyId])
+}

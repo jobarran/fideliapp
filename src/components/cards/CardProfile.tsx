@@ -6,7 +6,7 @@ interface Props {
     card: Card
 }
 
-export const CardProfile = ({ card }: Props) => {
+export const CardProfile = async ({ card }: Props) => {
 
     return (
 
