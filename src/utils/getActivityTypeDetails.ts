@@ -22,9 +22,6 @@ export const getActivityTypeDetails = (activityType: string): ActivityTypeResult
 
     const normalizedActivityType = normalizeString(activityType);
 
-    console.log(normalizedActivityType)
-
-
     // Fallback to allActivityTypes
     const allActivity = allActivityTypes.find(
         (item) => normalizeString(item.name) === normalizedActivityType

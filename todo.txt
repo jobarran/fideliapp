@@ -111,5 +111,9 @@ Spanish: "Nuevos"
 Se califica una vez que se realiza una transaccion UNICAMENTE
 Filtrar rewards del home por destacados y no por All
 
-map marker on company profile
-delet selectin unseen markers on maps
+
+cards/slug
+- TODO
+
+companies/slug
+- Opiniones
