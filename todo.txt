@@ -117,3 +117,7 @@ cards/slug
 
 companies/slug
 - Opiniones
+
+home
+- add recommended Section
+- add new section
