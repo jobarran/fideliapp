@@ -2,7 +2,9 @@
 
 import { GoogleMap, MarkerF } from "@react-google-maps/api";
 import { useCallback, useRef, useState } from "react";
-import { CompanyMarker } from "..";
+import { CompanyMarker, IconMarker } from "..";
+import { FaCoffee } from "react-icons/fa";
+import { getActivityTypeDetails } from "@/utils";
 
 export const defaultProfileMapContainerStyle = {
     width: '100%',
@@ -18,19 +20,25 @@ type Location = {
 interface Props {
     companyLocation: Location;
     companyName: string
+    activityType: string
 }
 
-export const CompanyProfileMapComponent = ({ companyLocation, companyName }: Props) => {
-    const defaultMapZoom = 17;
+export const CompanyProfileMapComponent = ({ companyLocation, companyName, activityType }: Props) => {
+    const defaultMapZoom = 16;
     const mapRef = useRef<google.maps.Map | null>(null);
     const [mapZoom, setMapZoom] = useState(defaultMapZoom); // Initialize state for zoom level
     const [mapInstance, setMapInstance] = useState<google.maps.Map | null>(null);
+
+    const activityDetails = getActivityTypeDetails(activityType);
+
+    const { icon: Icon, color } = activityDetails;
 
     const defaultMapOptions: google.maps.MapOptions = {
         zoomControl: true,
         tilt: 0,
         gestureHandling: 'auto',
         mapTypeId: 'roadmap',
+        clickableIcons: false,
         disableDefaultUI: true,
         zoomControlOptions: {
             position: google.maps.ControlPosition.RIGHT_BOTTOM,
@@ -64,11 +72,12 @@ export const CompanyProfileMapComponent = ({ companyLocation, companyName }: Pro
                 onLoad={onMapLoad} // Use callback here
             >
                 <div style={{ position: 'relative' }}>
-                    <CompanyMarker
+                    <IconMarker
                         map={mapInstance}
-                        position={companyLocation}
-                        onClick={() => { }}
+                        location={companyLocation}
                         label={companyName}
+                        bgColor={color}
+                        icon={Icon} 
                     />
 
                 </div>

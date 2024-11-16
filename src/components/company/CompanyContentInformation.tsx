@@ -6,6 +6,7 @@ interface Props {
 }
 
 export const CompanyContentInformation = ({ company }: Props) => {
+
     const hasLocation = company.lat !== null && company.lng !== null;
 
     return (
@@ -22,6 +23,7 @@ export const CompanyContentInformation = ({ company }: Props) => {
                                 lng: company.lng as number, // Assert as number
                             }}
                             companyName={company.name}
+                            activityType={company.activityType.name}
                         />
                     </MapProvider>
                 ) : (
