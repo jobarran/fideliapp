@@ -27,3 +27,13 @@ export interface Card {
         } | null;
     };
 }
+
+
+export interface CardProfile {
+    id: string;
+    points: number;
+    favourite: boolean;
+    active: boolean;
+    userId: string;
+    companyId: string;
+}

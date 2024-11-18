@@ -9,9 +9,10 @@ interface Props {
     selectedTab: string;
     actionButtons?: React.ReactNode
     userCardForCompany: boolean
+    cardPoints: number | undefined
 }
 
-export const CompanyProfileHeader = ({ company, handleTabChange, setOpenModal, selectedTab, actionButtons, userCardForCompany }: Props) => {
+export const CompanyProfileHeader = ({ company, handleTabChange, setOpenModal, selectedTab, actionButtons, userCardForCompany, cardPoints }: Props) => {
 
     return (
 
@@ -21,6 +22,7 @@ export const CompanyProfileHeader = ({ company, handleTabChange, setOpenModal, s
                 company={company}
                 setOpenModal={setOpenModal}
                 userCardForCompany={userCardForCompany}
+                cardPoints={cardPoints}
             />
 
             <hr className="w-full h-px border-neutral-200 my-4" />

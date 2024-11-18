@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { Metadata, ResolvingMetadata } from "next";
-import { checkUserCardForCompany, getCompanyBySlug, getProductsByCompanyId } from "@/actions";
+import { getCompanyBySlug, getProductsByCompanyId, getUserCardForCompany } from "@/actions";
 import { CompanyProfile, CreateNewCardButton, ViewCardButton } from "@/components";
 
 interface Props {
@@ -31,12 +31,13 @@ export default async function CompanyBySlugPage({ params }: Props) {
   }
 
   const company = await getCompanyBySlug(slug);
-  const { userCardForCompany, cardId, userId } = await checkUserCardForCompany(slug);
+  const { card, userId } = await getUserCardForCompany(slug);
 
   if (!company) {
     redirect("/");
-    return null;
   }
+
+  console.log(!!card)
 
   const products = await getProductsByCompanyId(company.id);
 
@@ -45,21 +46,8 @@ export default async function CompanyBySlugPage({ params }: Props) {
       <CompanyProfile
         company={company}
         products={products}
-        userCardForCompany={userCardForCompany}
-        actionButtons={
-          userId !== null ? (
-            <>
-              <CreateNewCardButton
-                show={userCardForCompany}
-                slug={slug}
-              />
-              <ViewCardButton
-                show={!userCardForCompany}
-                cardId={cardId}
-              />
-            </>
-          ) : null
-        }
+        userCardForCompany={!!card}
+        card={card}
       />
     </div>
   );

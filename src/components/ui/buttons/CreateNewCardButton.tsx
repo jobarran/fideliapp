@@ -21,13 +21,13 @@ export const CreateNewCardButton = ({ slug, show }: Props) => {
     return (
         <button
             onClick={handleCreateCard}
-            className="flex items-center gap-2 mr-3 lg:mr-6 text-sm font-medium"
+            className="flex items-center gap-2 mr-3 lg:mr-6 text-xs sm:text-sm font-medium"
         >
             <span>
-                Agregar
+                Agregar tarjeta
             </span>
             <span>
-                <FaPlus />
+                <FaPlus className="text-xs sm:text-sm"/>
             </span>
         </button>
     );

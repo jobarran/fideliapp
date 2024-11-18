@@ -1,9 +1,9 @@
 "use client"
 
 import { useState } from "react";
-import { CompanyContentInformation, CompanyProfileHeader, ProfileContent, ProfileHeader } from "..";
+import { CompanyContentCard, CompanyContentInformation, CompanyProfileHeader, ProfileContent, ProfileHeader } from "..";
 import { clientNavItems, companyNavItems } from "@/config";
-import { CompanyClientDashboard, Product } from "@/interfaces";
+import { CardProfile, CompanyClientDashboard, Product } from "@/interfaces";
 import { CompanyContentProducts } from './CompanyContentProducts';
 
 interface Props {
@@ -11,22 +11,33 @@ interface Props {
     products: Product[] | null
     actionButtons?: React.ReactNode
     userCardForCompany: boolean
+    card: CardProfile | null
 }
 
-export const CompanyProfile = ({ company, actionButtons, userCardForCompany, products }: Props) => {
+export const CompanyProfile = ({ company, actionButtons, userCardForCompany, products, card }: Props) => {
 
-    const [selectedTab, setSelectedTab] = useState(companyNavItems[0].id);
-    const [openModal, setOpenModal] = useState(false)
+    // Conditionally set the initial state for selectedTab
+    const initialTab = companyNavItems[0].id
+
+    const [selectedTab, setSelectedTab] = useState(initialTab); const [openModal, setOpenModal] = useState(false)
     const handleTabChange = (tab: string) => {
         setSelectedTab(tab);
     };
 
     const renderContent = () => {
         switch (selectedTab) {
-            case "informacion":
-                return <CompanyContentInformation company={company} />;
+            case "tarjeta":
+                return <CompanyContentCard
+                    userCardForCompany={userCardForCompany}
+                    slug={company.slug}
+                    companyName={company.name}
+                    companyColor={company.backgroundColor}
+                    companyLogoUrl={company.CompanyLogo?.url}
+                />;
             case "productos":
                 return <CompanyContentProducts companyId={company.id} products={products ?? []} />;
+            case "informacion":
+                return <CompanyContentInformation company={company} />;
             case "opiniontes":
                 return <p>Opiniones</p>;
             default:
@@ -44,6 +55,7 @@ export const CompanyProfile = ({ company, actionButtons, userCardForCompany, pro
                 setOpenModal={setOpenModal}
                 actionButtons={actionButtons}
                 userCardForCompany={userCardForCompany}
+                cardPoints={card?.points}
             />
 
             <ProfileContent

@@ -121,3 +121,9 @@ companies/slug
 home
 - add recommended Section
 - add new section
+
+
+Changes
+- Delete cards/todo section
+- Add cardOptions to companies/slug as a nav item  
+- Add POINTS to companies/slug on header (if card created)

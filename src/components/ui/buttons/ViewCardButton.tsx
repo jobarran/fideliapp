@@ -1,7 +1,9 @@
 'use client';
 
 import Link from "next/link";
+import { BsPostcardHeartFill } from "react-icons/bs";
 import { FaArrowRightToBracket } from "react-icons/fa6";
+import { MdOutlineCardGiftcard } from "react-icons/md";
 
 interface Props {
     cardId: string | null
@@ -17,14 +19,12 @@ export const ViewCardButton = ({ cardId, show }: Props) => {
     return (
         <Link
             href={`../cards/${cardId}`}
-            className="flex items-center gap-2 mr-3 lg:mr-6 text-sm font-medium"
+            className="mr-2 text-sm font-medium text-slate-900 border rounded-md py-1 px-2 border-slate-900"
         >
-            <span >
+            <p>
                 Ver tarjeta
-            </span>
-            <span>
-                <FaArrowRightToBracket />
-            </span>
+            </p>
+
         </Link>
     );
 };
