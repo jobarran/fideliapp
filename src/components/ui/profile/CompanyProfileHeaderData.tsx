@@ -78,7 +78,7 @@ export const CompanyProfileHeaderData = ({ company, setOpenModal, userCardForCom
                                     <>
                                         <FaHeart className="mr-2 text-rose-600" />
                                         <span className="text-xs sm:text-sm text-gray-600">Favorito</span>
-                                        <span className="mx-2 text-gray-400">-</span>
+                                        <span className="mx-2 text-xs sm:text-sm text-gray-400">-</span>
                                         <button
                                             onClick={toggleFavourite}
                                             className="text-xs sm:text-sm text-gray-900 hover:underline"

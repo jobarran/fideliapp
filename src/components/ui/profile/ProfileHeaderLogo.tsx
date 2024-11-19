@@ -11,7 +11,7 @@ export const ProfileHeaderLogo = ({ company, setOpenModal }: Props) => {
     return (
 
         <div className="flex justify-center px-4" >
-            <div className="relative w-20 h-20 sm:w-28 sm:h-28 rounded-full overflow-hidden flex items-center justify-center bg-white my-4">
+            <div className="relative w-20 h-20 sm:w-28 sm:h-28 rounded-full overflow-hidden flex items-center justify-center bg-white my-4 border-4 border-slate-100">
                 <button onClick={() => setOpenModal(true)}>
                     {company.CompanyLogo ? (
                         <CompanyLinkImage
