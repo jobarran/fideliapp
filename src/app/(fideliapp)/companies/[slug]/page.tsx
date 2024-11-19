@@ -7,6 +7,9 @@ interface Props {
   params: {
     slug: string;
   };
+  searchParams: {
+    nav?: string; // Add searchParams to include query parameters
+  };
 }
 
 export async function generateMetadata(
@@ -22,10 +25,10 @@ export async function generateMetadata(
   };
 }
 
-export default async function CompanyBySlugPage({ params }: Props) {
+export default async function CompanyBySlugPage({ params, searchParams }: Props) {
 
   const { slug } = params;
-
+  const { nav } = searchParams;
   if (!slug) {
     redirect("/");
   }
@@ -37,9 +40,11 @@ export default async function CompanyBySlugPage({ params }: Props) {
     redirect("/");
   }
 
-  console.log(!!card)
-
   const products = await getProductsByCompanyId(company.id);
+
+  const initialTabIndex = nav === "product" ? 1 : 0;
+
+  console.log(nav)
 
   return (
     <div>
@@ -48,6 +53,7 @@ export default async function CompanyBySlugPage({ params }: Props) {
         products={products}
         userCardForCompany={!!card}
         card={card}
+        initialTabIndex={initialTabIndex} 
       />
     </div>
   );

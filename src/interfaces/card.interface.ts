@@ -20,6 +20,7 @@ export interface Card {
         name: string;
         activityType: ActivityType;
         backgroundColor: string | null;
+        slug: string;
         CompanyLogo: {
             id: string;
             url: string;

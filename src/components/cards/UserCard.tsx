@@ -39,7 +39,7 @@ export const UserCard = ({ card }: Props) => {
                 backgroundColor: '#F8F8F8',
             }}
         >
-            <Link href={`/cards/${card.id}`} >
+            <Link href={`companies/${card.company.slug}`} >
                 <div className="rounded-lg overflow-hidden"
                     style={{ borderColor: softColor(backgroundColor, 70), borderWidth: 0.5, borderStyle: 'solid' }}>
                     <div

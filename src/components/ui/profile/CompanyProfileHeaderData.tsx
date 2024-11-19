@@ -1,21 +1,38 @@
 "use client";
 
 import { formatAddress } from '@/utils'
-import React from 'react'
+import React, { useState } from 'react'
 import { FaMapMarkerAlt } from 'react-icons/fa'
 import { CompanyClientDashboard, UserProfileData } from '@/interfaces';
 import { ProfileHeaderLogo } from '@/components';
-import { FaCheck } from 'react-icons/fa6';
+import { FaCheck, FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { IoTicketOutline } from 'react-icons/io5';
+import { favouriteCard } from '@/actions';
 
 interface Props {
     company: CompanyClientDashboard
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     userCardForCompany: boolean
     cardPoints: number | undefined
+    favorite: boolean | undefined
+    cardId: string | undefined
 }
 
-export const CompanyProfileHeaderData = ({ company, setOpenModal, userCardForCompany, cardPoints }: Props) => {
+export const CompanyProfileHeaderData = ({ company, setOpenModal, userCardForCompany, cardPoints, favorite, cardId }: Props) => {
+
+    const [isFavorite, setIsFavorite] = useState(favorite);
+
+    // Function to toggle favorite status
+    const toggleFavourite = async () => {
+        try {
+            // Call the backend function to update the favorite status
+            cardId && await favouriteCard(cardId, !isFavorite);
+            // Update the local state after a successful update
+            setIsFavorite(!isFavorite);
+        } catch (error) {
+            console.error("Error updating favorite status:", error);
+        }
+    };
 
     return (
         <div className="flex flex-col sm:flex-row items-center justify-between">
@@ -48,11 +65,39 @@ export const CompanyProfileHeaderData = ({ company, setOpenModal, userCardForCom
                         {formatAddress(company.address)}
                     </p> */}
                     {userCardForCompany && (
-                        <div className='flex flex-row items-center mt-2 sm:mt-0'>
-                            <IoTicketOutline className="mr-2 text-gray-600" />
-                            <p className='text-sm sm:text-base text-gray-600'>
-                                {cardPoints} puntos
-                            </p>
+                        <div>
+                            <div className='flex flex-row items-center mt-2 sm:mt-0'>
+                                <IoTicketOutline className="mr-2 text-gray-600" />
+                                <p className='text-xs sm:text-sm text-gray-600'>
+                                    {cardPoints} puntos
+                                </p>
+                            </div>
+                            <div className="flex flex-row items-center mt-1">
+                                {/* Conditionally render the favorite icon and text */}
+                                {isFavorite ? (
+                                    <>
+                                        <FaHeart className="mr-2 text-rose-600" />
+                                        <span className="text-xs sm:text-sm text-gray-600">Favorito</span>
+                                        <span className="mx-2 text-gray-400">-</span>
+                                        <button
+                                            onClick={toggleFavourite}
+                                            className="text-xs sm:text-sm text-gray-900 hover:underline"
+                                        >
+                                            Quitar
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <FaRegHeart className="mr-2 text-gray-600" />
+                                        <button
+                                            onClick={toggleFavourite}
+                                            className="text-xs sm:text-sm text-gray-900 hover:underline"
+                                        >
+                                            Agregar a favoritos
+                                        </button>
+                                    </>
+                                )}
+                            </div>
                         </div>
                     )}
                 </div>

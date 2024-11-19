@@ -9,6 +9,8 @@ interface Props {
 
 export const PopularRewardsSlider = ({ popularRewards }: Props) => {
 
+    console.log(popularRewards)
+
     const breakpoints = {
         320: { slidesPerView: 1.5 },
         480: { slidesPerView: 1.5 },

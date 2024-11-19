@@ -18,8 +18,6 @@ export const CompanyContentCard = ({ userCardForCompany, slug, companyName, comp
     const [isCreating, setIsCreating] = useState(false); // State to track loading screen
     const [isCardCreated, setIsCardCreated] = useState(false); // Track if card creation was successful
 
-    console.log(companyLogoUrl)
-
     const handleCreateCard = async () => {
         setIsCreating(true);
 
@@ -55,7 +53,7 @@ export const CompanyContentCard = ({ userCardForCompany, slug, companyName, comp
                         </div>
                     )}
 
-                    <div className="mt-4">
+                    <div className="mt-4 mb-4">
                         {!userCardForCompany ? (
                             <div className="text-center">
                                 <p className="text-gray-600 mb-4">

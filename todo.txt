@@ -125,5 +125,10 @@ home
 
 Changes
 - Delete cards/todo section
-- Add cardOptions to companies/slug as a nav item  
-- Add POINTS to companies/slug on header (if card created)
+- CreateCard border ui bug
+- Link home cards and card/ tp companies/slug
+- link products in home to companies/slug (product section)
+- Add search bar to companies/slug (product section)
+- Check validations sign in
+- COnfig sign in with google
+- CreateCompanyMapComponent -> change icon when activityType si selected

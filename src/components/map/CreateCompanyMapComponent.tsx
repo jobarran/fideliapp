@@ -4,7 +4,8 @@ import { GoogleMap } from "@react-google-maps/api";
 import { useEffect, useState, useRef, useCallback, useContext } from "react";
 import { MapContext } from "./MapInitializer"; // Adjust the path if necessary
 import useUserLocation from "@/hooks/useUserLocation";
-import CompanyMarker from "./CompanyMarker";
+import { IconMarker } from "..";
+import { FaCircleDot } from "react-icons/fa6";
 
 const defaultMapContainerStyle = {
     width: '100%',
@@ -43,7 +44,7 @@ const CreateCompanyMapComponent = ({ markerPosition, setMapCenter }: CreateCompa
     useEffect(() => {
         if (mapInstance && markerPosition) {
             mapInstance.panTo(markerPosition); // Zoom to the new marker position
-            mapInstance.setZoom(15); // Set zoom level
+            mapInstance.setZoom(16); // Set zoom level
             setMapCenter(markerPosition); // Update the center in the parent component
         }
     }, [markerPosition, mapInstance, setMapCenter]);
@@ -60,12 +61,16 @@ const CreateCompanyMapComponent = ({ markerPosition, setMapCenter }: CreateCompa
                         onLoad={onMapLoad}
                     >
                         {markerPosition && (
-                            <CompanyMarker
-                                map={mapInstance}
-                                position={markerPosition.toJSON()}
-                                onClick={() => { }} // Handle marker click if needed
-                                label=''
-                            />
+                            <div style={{ position: 'relative' }}>
+                                <IconMarker
+                                    map={mapInstance}
+                                    location={markerPosition.toJSON()}
+                                    label={''}
+                                    bgColor={'#1E293B'}
+                                    icon={FaCircleDot}
+                                />
+
+                            </div>
                         )}
                     </GoogleMap>
                 )}

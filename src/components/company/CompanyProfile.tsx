@@ -12,14 +12,16 @@ interface Props {
     actionButtons?: React.ReactNode
     userCardForCompany: boolean
     card: CardProfile | null
+    initialTabIndex?: number
 }
 
-export const CompanyProfile = ({ company, actionButtons, userCardForCompany, products, card }: Props) => {
+export const CompanyProfile = ({ company, actionButtons, userCardForCompany, products, card, initialTabIndex }: Props) => {
 
-    // Conditionally set the initial state for selectedTab
-    const initialTab = companyNavItems[0].id
-
-    const [selectedTab, setSelectedTab] = useState(initialTab); const [openModal, setOpenModal] = useState(false)
+    const validIndex = initialTabIndex ?? 0; 
+    const initialTab = companyNavItems[validIndex]?.id ?? companyNavItems[0].id;
+    
+    const [selectedTab, setSelectedTab] = useState(initialTab);
+    const [openModal, setOpenModal] = useState(false)
     const handleTabChange = (tab: string) => {
         setSelectedTab(tab);
     };
@@ -56,6 +58,8 @@ export const CompanyProfile = ({ company, actionButtons, userCardForCompany, pro
                 actionButtons={actionButtons}
                 userCardForCompany={userCardForCompany}
                 cardPoints={card?.points}
+                cardId={card?.id}
+                favorite={card?.favourite}
             />
 
             <ProfileContent

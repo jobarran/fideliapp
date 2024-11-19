@@ -25,6 +25,7 @@ export const getAllCardsByUser = async () => {
             activityType: true,
             backgroundColor: true,
             CompanyLogo: true,
+            slug: true,
           },
         },
         user: {
