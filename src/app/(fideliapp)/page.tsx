@@ -18,16 +18,13 @@ export default async function Home() {
     console.error(cardsResult.message);
   }
 
-  const sortedCards = sortCards(myCompanyCards);
-
-
   return (
 
     <main className="flex flex-col">
 
       <SearchCompanySmallScreen />
 
-      {session?.user && <UserCardSlider userCards={sortedCards} />}
+      {session?.user && <UserCardSlider userCards={myCompanyCards} />}
 
       <ActivityTypeGrid />
 

@@ -130,6 +130,6 @@ Changes
 - CreateCompanyMapComponent -> change icon when activityType si selected
 - companies/slug - Tarjeta // disable for unregister users (register to create card)
 - small screens footer "Generar pin" button
-- home bug when toggle fav on cards
 - Validacion: cliente carga prod - cliente avisa a usuario que puede escanear qr - usuario ve en modal productos cargados - usuario valida - se elimina la instancia del modelo [carrito]
 - Freemium: max prod 10 u
+- Change green color from /companies when already card created

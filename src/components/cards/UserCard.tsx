@@ -24,10 +24,8 @@ export const UserCard = ({ card }: Props) => {
     // Function to toggle favorite status
     const toggleFavourite = async () => {
         try {
-            // Call the backend function to update the favorite status
             await favouriteCard(card.id, !isFavourite);
-            // Update the local state after a successful update
-            setIsFavourite(!isFavourite);
+            setIsFavourite(!isFavourite); // Update local state after successful backend update
         } catch (error) {
             console.error("Error updating favorite status:", error);
         }
