@@ -23,7 +23,7 @@ export const ProfileHeaderNavigation = ({ handleTabChange, selectedTab, profileT
                     <a
                         aria-controls={item.id}
                         className={`sm:mr-6 transition-colors duration-200 ease-in-out border-b-2 border-transparent 
-                    ${selectedTab === item.id ? "border-slate-700" : "text-muted hover:border-slate-800"} cursor-pointer`}
+                    ${selectedTab === item.id ? "border-slate-700" : "text-muted sm:hover:border-slate-800"} cursor-pointer`}
                         onClick={() => handleTabChange(item.id)}
                     >
                         {/* Conditionally render icon or label based on screen size */}

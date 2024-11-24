@@ -1,20 +1,21 @@
 import React from 'react'
-import { CompanyClientDashboard, UserProfileData } from '@/interfaces'
-import { CompanyProfileHeaderData, CompanyProfileHeaderNavigation, ProfileHeaderData, ProfileHeaderNavigation } from '../../';
+import { CompanyClientDashboard, Pin, UserProfileData } from '@/interfaces'
+import { CompanyProfileHeaderData, CompanyProfileHeaderNavigation } from '../../';
 
 interface Props {
     company: CompanyClientDashboard;
     handleTabChange: (tab: string) => void;
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
     selectedTab: string;
-    actionButtons?: React.ReactNode
     userCardForCompany: boolean
     cardPoints: number | undefined
     cardId: string | undefined
     favorite: boolean | undefined
+    userPin: Pin | undefined
+    userId: string | null
 }
 
-export const CompanyProfileHeader = ({ company, handleTabChange, setOpenModal, selectedTab, actionButtons, userCardForCompany, cardPoints, cardId, favorite }: Props) => {
+export const CompanyProfileHeader = ({ company, handleTabChange, setOpenModal, selectedTab, userCardForCompany, cardPoints, cardId, favorite, userPin, userId }: Props) => {
 
     return (
 
@@ -34,7 +35,8 @@ export const CompanyProfileHeader = ({ company, handleTabChange, setOpenModal, s
             <CompanyProfileHeaderNavigation
                 handleTabChange={handleTabChange}
                 selectedTab={selectedTab}
-                actionButtons={actionButtons}
+                userPin={userPin}
+                userId={userId}
             />
 
         </div>

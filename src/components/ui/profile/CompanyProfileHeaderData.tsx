@@ -3,7 +3,7 @@
 import { formatAddress } from '@/utils'
 import React, { useState } from 'react'
 import { FaMapMarkerAlt } from 'react-icons/fa'
-import { CompanyClientDashboard, UserProfileData } from '@/interfaces';
+import { CompanyClientDashboard, Pin, UserProfileData } from '@/interfaces';
 import { ProfileHeaderLogo } from '@/components';
 import { FaCheck, FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { IoTicketOutline } from 'react-icons/io5';

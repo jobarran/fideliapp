@@ -4,7 +4,10 @@ import { homeActivityTypes } from '@/config';
 
 export const ActivityTypeGrid: FC = () => {
     return (
-        <div className="w-full mt-4 mb-6 p-5 rounded-lg border border-gray-300 bg-white shadow-sm">
+        <div
+            className="w-full mt-4 mb-6 p-5 rounded-lg bg-white"
+            style={{ borderColor: '#CBD5E1', borderWidth: 0.5, borderStyle: 'solid' }}
+        >
             <div className="flex flex-row items-center">
                 {/* Main Title */}
                 <p className="text-sm md:text-base font-semibold text-gray-900">¿Qué estás buscando?</p>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { CompanyClientDashboard, Product } from "@/interfaces";
-import { ChangeImage, ClientContentInformation, ClientContentProducts, ClientContentTransactions, ProfileContent, ProfileHeader } from "..";
+import { ChangeImage, ClientContentInformation, ClientContentMovements, ClientContentProducts, ClientContentTransaction, ProfileContent, ProfileHeader } from "..";
 import { clientNavItems } from "@/config";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -33,10 +33,12 @@ export const ClientProfile = ({ company, userId, products }: Props) => {
 
     const renderContent = () => {
         switch (selectedTab) {
+            case "transaccion":
+                return <ClientContentTransaction products={products ?? []} companySlug={company.slug}  />;
+            case "movimientos":
+                return <ClientContentMovements />;
             case "productos":
                 return <ClientContentProducts userId={userId} companyId={company.id} products={products ?? []} />;
-            case "transacciones":
-                return <ClientContentTransactions />;
             case "informacion":
                 return <ClientContentInformation company={company} />;
             default:

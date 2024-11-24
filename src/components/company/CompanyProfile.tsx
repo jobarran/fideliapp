@@ -3,19 +3,20 @@
 import { useState } from "react";
 import { CompanyContentCard, CompanyContentInformation, CompanyProfileHeader, ProfileContent, ProfileHeader } from "..";
 import { clientNavItems, companyNavItems } from "@/config";
-import { CardProfile, CompanyClientDashboard, Product } from "@/interfaces";
+import { CardProfile, CompanyClientDashboard, Pin, Product } from "@/interfaces";
 import { CompanyContentProducts } from './CompanyContentProducts';
 
 interface Props {
     company: CompanyClientDashboard,
     products: Product[] | null
-    actionButtons?: React.ReactNode
     userCardForCompany: boolean
     card: CardProfile | null
     initialTabIndex?: number
+    userPin: Pin | undefined
+    userId: string | null
 }
 
-export const CompanyProfile = ({ company, actionButtons, userCardForCompany, products, card, initialTabIndex }: Props) => {
+export const CompanyProfile = ({ company, userCardForCompany, products, card, initialTabIndex, userPin, userId }: Props) => {
 
     const validIndex = initialTabIndex ?? 0; 
     const initialTab = companyNavItems[validIndex]?.id ?? companyNavItems[0].id;
@@ -55,11 +56,12 @@ export const CompanyProfile = ({ company, actionButtons, userCardForCompany, pro
                 handleTabChange={handleTabChange}
                 selectedTab={selectedTab}
                 setOpenModal={setOpenModal}
-                actionButtons={actionButtons}
                 userCardForCompany={userCardForCompany}
                 cardPoints={card?.points}
                 cardId={card?.id}
                 favorite={card?.favourite}
+                userPin={userPin}
+                userId={userId}
             />
 
             <ProfileContent

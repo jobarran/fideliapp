@@ -26,7 +26,7 @@ export const ActivityTypeButton: FC<ActivityTypeButtonProps> = ({
             className={`flex items-center px-4 py-2 rounded-lg duration-200 flex-1 group`} // Add "group" class
             style={{
                 borderColor: '#CBD5E1',
-                borderWidth: 1,
+                borderWidth: 0.5,
                 borderStyle: 'solid',
                 color: '#4F4F4F', // Default text color
                 background: "#F8F8F8"

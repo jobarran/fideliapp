@@ -30,3 +30,6 @@ export { getProductsById } from './product/get-products-by-id'
 export { getAllRewards } from './product/get-all-rewards'
 
 export { generatePin } from './pin/generate-pin'
+export { pinValidation } from './pin/pin-validation'
+export { deletePin } from './pin/delete-pin'
+export { getUserPin } from './pin/get-user-pin'

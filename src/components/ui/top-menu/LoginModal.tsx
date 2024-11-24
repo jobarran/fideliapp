@@ -26,7 +26,7 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
             setLoginModal();
             window.location.reload();
         }
-    }, [state, setLoginModal]); // Add `setLoginModal` to the dependency array
+    }, [state, setLoginModal, loginModal]);
 
     useEffect(() => {
         if (loginModal) {
