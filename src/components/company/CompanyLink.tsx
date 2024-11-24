@@ -14,7 +14,8 @@ export const CompanyLink = ({ company }: Props) => {
     return (
         <div style={{ backgroundColor: '#F8F8F8' }}>
             <div className="rounded-lg overflow-hidden"
-                style={{ borderColor: '#CBD5E1', borderWidth: 0.5, borderStyle: 'solid' }}>
+                style={{ borderColor: '#CBD5E1', borderWidth: 0.5, borderStyle: 'solid' }}
+            >
                 <div className="flex flex-col items-center justify-center h-24 bg-white">
                     <div className="mt-1 mb-2">
                         <Link href={`/companies/${company.slug}`}>

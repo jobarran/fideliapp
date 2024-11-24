@@ -8,6 +8,7 @@ interface Props {
 }
 
 export const Avatar = ({ name, backgroundColor, size, className }: Props) => {
+    
     const getInitials = (name: string) => {
         const words = name.split(' ').slice(0, 4);
         return words.map(word => word.charAt(0).toUpperCase()).join('');

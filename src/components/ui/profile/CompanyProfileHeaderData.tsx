@@ -72,7 +72,7 @@ export const CompanyProfileHeaderData = ({ company, setOpenModal, userCardForCom
                                     {cardPoints} puntos
                                 </p>
                             </div>
-                            <div className="flex flex-row items-center mt-1">
+                            <div className="flex flex-row items-center mt-2 sm:mt-1">
                                 {/* Conditionally render the favorite icon and text */}
                                 {isFavorite ? (
                                     <>

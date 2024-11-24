@@ -29,3 +29,10 @@ input[type="checkbox"]:checked {
   accent-color: #1E293B; /* This is slate-800 */
 }
 
+/* styles/globals.css or Tailwind config */
+.bg-noise {
+    background-image: url('/textures/noise.png'); /* Add a subtle noise texture */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}

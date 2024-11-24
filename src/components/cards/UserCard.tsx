@@ -19,7 +19,7 @@ export const UserCard = ({ card }: Props) => {
     // Unified color logic
     const borderColor = '#CBD5E1' //slate-300
     const backgroundColor = card.company.backgroundColor || '#0F172A';
-    const color = backgroundColor
+    const color = backgroundColor === '#FFFFFF' ? '#0F172A' : backgroundColor;
 
     // Function to toggle favorite status
     const toggleFavourite = async () => {
@@ -41,7 +41,7 @@ export const UserCard = ({ card }: Props) => {
         >
             <Link href={`companies/${card.company.slug}`} >
                 <div className="rounded-lg overflow-hidden"
-                    style={{ borderColor: softColor(backgroundColor, 70), borderWidth: 0.5, borderStyle: 'solid' }}>
+                    style={{ borderColor: softColor(color, 70), borderWidth: 0.5, borderStyle: 'solid' }}>
                     <div
                         className="flex flex-col items-center justify-center bg-white"
                     >
