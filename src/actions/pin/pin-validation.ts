@@ -4,6 +4,9 @@ import { auth } from '@/auth.config';
 import prisma from '@/lib/prisma';
 
 export const pinValidation = async (pin: string, companySlug: string) => {
+
+    console.log(pin)
+
     // Ensure the user is authenticated
     const session = await auth();
     if (!session?.user) {
@@ -18,7 +21,6 @@ export const pinValidation = async (pin: string, companySlug: string) => {
         const userWithPin = await prisma.pin.findFirst({
             where: {
                 pin: pin,
-                userId: session.user.id,
             },
             include: {
                 user: {
