@@ -4,8 +4,7 @@ import prisma from "@/lib/prisma";
 
 export const generatePin = async (userId: string, companyId: string) => {
   try {
-    console.log('generating');
-
+    
     let pin: string;
     let existingPin: any;
 

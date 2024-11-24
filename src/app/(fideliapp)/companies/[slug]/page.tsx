@@ -44,8 +44,6 @@ export default async function CompanyBySlugPage({ params, searchParams }: Props)
 
   const initialTabIndex = nav === "product" ? 1 : 0;
 
-  console.log(nav)
-
   return (
     <div>
       <CompanyProfile

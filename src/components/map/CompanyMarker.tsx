@@ -57,8 +57,8 @@ const CompanyMarker: React.FC<CustomMarkerProps> = ({ position, map, onClick, la
         }
 
         initializeMarker();
-    }, [map, position, onClick]);
-
+    }, [map, position, onClick, label]); 
+    
     return null;
 };
 

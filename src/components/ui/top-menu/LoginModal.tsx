@@ -22,11 +22,11 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
     const passwordRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
-        if (state === 'Success') {
+        if (loginModal && state === 'Success') {
             setLoginModal();
             window.location.reload();
         }
-    }, [state]);
+    }, [state, setLoginModal]); // Add `setLoginModal` to the dependency array
 
     useEffect(() => {
         if (loginModal) {
