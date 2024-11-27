@@ -81,7 +81,7 @@ export const CompanyProfileHeaderNavigation = ({
             {/* Mobile Fixed PIN Button */}
             <button
                 onClick={handleMobilePinClick}
-                className="sm:hidden fixed bottom-4 right-4 w-12 h-12 flex items-center justify-center bg-slate-800 text-white rounded-full shadow-lg"
+                className="sm:hidden fixed bottom-4 right-4 w-14 h-14 flex items-center justify-center bg-slate-800 text-white rounded-full shadow-lg"
                 disabled={loading} // Disable button while loading
             >
                 {loading ? (
