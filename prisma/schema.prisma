@@ -122,7 +122,7 @@ model Card {
 
   // Relations - Down
   History PointTransaction[]
-  Pin     Pin?
+  Pin     Pin[]
 
   // Relations - Up
   user      User    @relation(fields: [userId], references: [id])
@@ -211,7 +211,7 @@ model Pin {
   state     PinState @default(CREATED) // Default state is CREATED
 
   // Relations Up
-  card   Card   @relation(fields: [cardId], references: [id], onDelete: Cascade) // Associated Card
+  card   Card   @relation(fields: [cardId], references: [id])
   cardId String @unique
 
   // Indexes
