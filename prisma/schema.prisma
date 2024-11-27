@@ -52,7 +52,6 @@ model User {
   // Timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  pin       Pin[]
 
   // Indexes
   @@index([email])
@@ -123,6 +122,7 @@ model Card {
 
   // Relations - Down
   History PointTransaction[]
+  Pin     Pin?
 
   // Relations - Up
   user      User    @relation(fields: [userId], references: [id])
@@ -211,9 +211,9 @@ model Pin {
   state     PinState @default(CREATED) // Default state is CREATED
 
   // Relations Up
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
+  card   Card   @relation(fields: [cardId], references: [id], onDelete: Cascade) // Associated Card
+  cardId String @unique
 
   // Indexes
-  @@index([userId])
+  @@index([cardId])
 }

@@ -1,80 +1,97 @@
 "use client"
 
+import { useState, useEffect } from "react";
 import { companyNavItems } from "@/config";
 import { Pin } from "@/interfaces";
 import PinDisplay from "../buttons/PinDisplay";
 import { generatePin } from "@/actions";
-import { useState } from "react";
+import { GeneratePinButton } from "../buttons/GeneratePinButton";
 
 interface Props {
     handleTabChange: (tab: string) => void;
     selectedTab: string;
-    userPin: Pin | undefined
-    userId: string | null
+    userPin: Pin | undefined;
+    cardId: string | undefined;
 }
 
 export const CompanyProfileHeaderNavigation = ({
     handleTabChange,
     selectedTab,
     userPin,
-    userId
+    cardId,
 }: Props) => {
     const NavItems = companyNavItems;
-
-    const [pin, setPin] = useState(userPin)
+    const [pin, setPin] = useState(userPin);
+    const [loading, setLoading] = useState(false); // For mobile button loading state
 
     // Function to handle PIN generation
     const handleGeneratePin = async (id: string) => {
+        setLoading(true);
         const generatedPin = await generatePin(id);
         if (generatedPin) {
-            // Convert expiresAt to a string
             setPin(generatedPin);
+        }
+        setLoading(false);
+    };
+
+    const handleMobilePinClick = async () => {
+        if (!pin && cardId) {
+            // Generate PIN if it doesn't exist
+            await handleGeneratePin(cardId);
+        } else {
+            // Toggle display if PIN exists
         }
     };
 
     return (
-        <ul className="flex flex-wrap items-stretch w-full list-none">
-            {NavItems.map((item) => (
-                <li
-                    className="flex-grow sm:flex-initial sm:mr-6"
-                    key={item.id}
-                >
-                    <a
-                        aria-controls={item.id}
-                        className={`block w-full text-center transition-colors duration-200 ease-in-out border-b-2 
-                            ${selectedTab === item.id
-                                ? "border-slate-700"
-                                : "border-transparent hover:border-slate-800"
-                            } cursor-pointer`}
-                        onClick={() => handleTabChange(item.id)}
-                    >
-                        <span
-                            className={`text-xs sm:text-sm ${selectedTab === item.id
-                                ? "text-slate-900"
-                                : "text-slate-400"
-                                }`}
+        <div className="relative w-full">
+            <ul className="flex flex-wrap items-stretch w-full list-none">
+                {NavItems.map((item) => (
+                    <li className="flex-grow sm:flex-initial sm:mr-6" key={item.id}>
+                        <a
+                            aria-controls={item.id}
+                            className={`block w-full text-center transition-colors duration-200 ease-in-out border-b-2 
+                                ${selectedTab === item.id
+                                    ? "border-slate-700"
+                                    : "border-transparent hover:border-slate-800"
+                                } cursor-pointer`}
+                            onClick={() => handleTabChange(item.id)}
                         >
-                            {item.label}
-                        </span>
-                    </a>
+                            <span
+                                className={`text-xs sm:text-sm ${selectedTab === item.id
+                                    ? "text-slate-900"
+                                    : "text-slate-400"
+                                    }`}
+                            >
+                                {item.label}
+                            </span>
+                        </a>
+                    </li>
+                ))}
+                {/* Hide PinDisplay/GeneratePinButton on small screens */}
+                <li className="hidden sm:flex ml-auto">
+                    {pin ? (
+                        <PinDisplay pin={pin.pin} expiresAt={pin.expiresAt} setPin={setPin} />
+                    ) : (
+                        cardId && <GeneratePinButton handleGeneratePin={() => handleGeneratePin(cardId)} />
+                    )}
                 </li>
-            ))}
+            </ul>
 
-            <li className="flex ml-auto">
-                {/* This will push the link button to the right */}
-                {pin ? (
-                    <PinDisplay pin={pin.pin} expiresAt={pin.expiresAt} />
+            {/* Mobile Fixed PIN Button */}
+            <button
+                onClick={handleMobilePinClick}
+                className="sm:hidden fixed bottom-4 right-4 w-12 h-12 flex items-center justify-center bg-slate-800 text-white rounded-full shadow-lg"
+                disabled={loading} // Disable button while loading
+            >
+                {loading ? (
+                    <span className="animate-spin">⏳</span>
+                ) : pin ? (
+                    <span className="text-sm">{pin.pin}</span>
                 ) : (
-                    userId &&
-                    <button
-                        onClick={() => handleGeneratePin(userId)}
-                        className="border bg-slate-800 py-1 px-2 rounded-lg hover:bg-slate-950"
-                    >
-                        <p className="text-white text-xs">PIN</p>
-                    </button>
+                    <span className="text-sm">PIN</span>
                 )}
-
-            </li>
-        </ul>
+            </button>
+        </div>
     );
 };

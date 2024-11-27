@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { Metadata, ResolvingMetadata } from "next";
-import { generatePin, getCompanyBySlug, getProductsByCompanyId, getUserCardForCompany, getUserPin } from "@/actions";
+import { getCompanyBySlug, getProductsByCompanyId, getUserCardForCompany, getUserPin } from "@/actions";
 import { CompanyProfile, CreateNewCardButton, ViewCardButton } from "@/components";
 
 interface Props {
@@ -35,7 +35,7 @@ export default async function CompanyBySlugPage({ params, searchParams }: Props)
 
   const company = await getCompanyBySlug(slug);
   const { card, userId } = await getUserCardForCompany(slug);
-  const userPin = await getUserPin(userId)
+  const userPin = await getUserPin(card?.id)
 
   if (!company) {
     redirect("/");

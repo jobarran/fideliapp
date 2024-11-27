@@ -43,7 +43,7 @@ export const ActivityTypeButton: FC<ActivityTypeButtonProps> = ({
             </div>
 
             {/* Text Section */}
-            <span className="text-sm ml-2">{name}</span>
+            <span className="text-xs md:text-sm ml-2">{name}</span>
         </Link>
     );
 };

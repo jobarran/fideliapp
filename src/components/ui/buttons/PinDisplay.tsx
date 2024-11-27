@@ -1,27 +1,29 @@
 'use client';
 
 import { deletePin } from "@/actions";
-import { useEffect, useState } from "react";
+import { Pin } from "@/interfaces";
+import { SetStateAction, useEffect, useState } from "react";
 
 interface PinDisplayProps {
     pin: string;
     expiresAt: Date;
+    setPin: React.Dispatch<SetStateAction<Pin | undefined>>;
 }
 
-const PinDisplay = ({ pin, expiresAt }: PinDisplayProps) => {
+const PinDisplay = ({ pin, expiresAt, setPin }: PinDisplayProps) => {
     const [timeLeft, setTimeLeft] = useState<number>(0);
 
     // Countdown timer logic
     useEffect(() => {
         const interval = setInterval(() => {
             const currentTime = new Date().getTime();
-            const expiryTime = new Date(expiresAt).getTime(); // Convert string back to Date
+            const expiryTime = new Date(expiresAt).getTime();
             const timeRemaining = expiryTime - currentTime;
 
             if (timeRemaining <= 0) {
                 clearInterval(interval);
                 setTimeLeft(0);
-                deletePinHandler(); // Call the function to delete the pin
+                handlePinExpiry(); // Call the function to handle pin expiry
             } else {
                 setTimeLeft(timeRemaining);
             }
@@ -31,12 +33,15 @@ const PinDisplay = ({ pin, expiresAt }: PinDisplayProps) => {
         return () => clearInterval(interval);
     }, [expiresAt]);
 
-    // Function to delete the pin
-    const deletePinHandler = async () => {
+
+    // Function to handle pin expiry
+    const handlePinExpiry = async () => {
         try {
-            await deletePin(pin); // Call your server action or API to delete the pin
+            await deletePin(pin); // Delete the pin
         } catch (error) {
             console.error("Error deleting pin:", error);
+        } finally {
+            setPin(undefined); // Set the parent state to undefined
         }
     };
 
@@ -50,12 +55,12 @@ const PinDisplay = ({ pin, expiresAt }: PinDisplayProps) => {
 
     return (
         <div className="flex items-center space-x-2">
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-slate-400">
                 Expira en: {formatTimeLeft()}
             </span>
-            <span className="bg-slate-800 py-1 px-2 rounded-lg text-white text-xs">
+            <p className="text-xl font-semibold">
                 {pin}
-            </span>
+            </p>
         </div>
     );
 };

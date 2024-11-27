@@ -3,10 +3,11 @@
 import prisma from '@/lib/prisma';
 import { deletePin } from './delete-pin';
 
-export const getUserPin = async (userId: string | null) => {
+export const getUserPin = async (cardId: string | undefined) => {
+
   try {
     // If userId is null, return false immediately
-    if (!userId) {
+    if (!cardId) {
       return {
         ok: false,
         message: 'No se proporcionó un ID de usuario',
@@ -16,7 +17,7 @@ export const getUserPin = async (userId: string | null) => {
     // Check if the PIN exists for the userS
     const userPin = await prisma.pin.findFirst({
       where: {
-        userId,
+        cardId,
       },
     });
 

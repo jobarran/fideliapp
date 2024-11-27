@@ -2,7 +2,7 @@
 
 import prisma from "@/lib/prisma";
 
-export const generatePin = async (userId: string) => {
+export const generatePin = async (cardId: string) => {
   try {
     let pin: string;
     let existingPin: any;
@@ -15,6 +15,7 @@ export const generatePin = async (userId: string) => {
       existingPin = await prisma.pin.findFirst({
         where: {
           pin,
+          cardId: cardId
         },
       });
     } while (existingPin); // Keep generating until a unique PIN is found
@@ -24,20 +25,21 @@ export const generatePin = async (userId: string) => {
       await prisma.pin.delete({
         where: {
           id: existingPin.id,
+          cardId: cardId
         },
       });
     }
 
     // Set expiration time for 10 minutes
     const expiresAt = new Date();
-    expiresAt.setMinutes(expiresAt.getMinutes() + 10);
+    expiresAt.setMinutes(expiresAt.getMinutes() + 1);
 
     // Store the new pin in the database
     const createdPin = await prisma.pin.create({
       data: {
         pin,
         expiresAt,
-        userId,
+        cardId,
       },
     });
 

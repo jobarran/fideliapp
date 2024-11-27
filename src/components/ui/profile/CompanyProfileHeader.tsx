@@ -1,5 +1,5 @@
 import React from 'react'
-import { CompanyClientDashboard, Pin, UserProfileData } from '@/interfaces'
+import { CompanyClientDashboard, Pin } from '@/interfaces'
 import { CompanyProfileHeaderData, CompanyProfileHeaderNavigation } from '../../';
 
 interface Props {
@@ -36,7 +36,7 @@ export const CompanyProfileHeader = ({ company, handleTabChange, setOpenModal, s
                 handleTabChange={handleTabChange}
                 selectedTab={selectedTab}
                 userPin={userPin}
-                userId={userId}
+                cardId={cardId}
             />
 
         </div>

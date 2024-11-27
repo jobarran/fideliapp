@@ -16,7 +16,7 @@ interface Props {
 }
 
 export const ClientContentTransaction = ({ products, companySlug }: Props) => {
-    const [selectedTransactionType, setSelectedTransactionType] = useState<TransactionType | null>(null);
+    const [selectedTransactionType, setSelectedTransactionType] = useState<TransactionType | null>('BUY');
     const [selectedProducts, setSelectedProducts] = useState<Record<string, number>>({});
     const [userInfo, setUserInfo] = useState<any>(null); // Store user info after successful validation
     const [isPinValidated, setIsPinValidated] = useState(false); // Track PIN validation state

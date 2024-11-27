@@ -12,6 +12,7 @@ export default async function CompaniesPage({ searchParams }: Props) {
   const companies = await getAllCompanies();
   const activityTypes = await getActivityTypes();
   const companyIdByUserCard = await getCompanyIdByUserCard();
+  
 
   return (
 

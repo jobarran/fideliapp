@@ -4,8 +4,7 @@ import { auth } from '@/auth.config';
 import prisma from '@/lib/prisma';
 
 export const pinValidation = async (pin: string, companySlug: string) => {
-
-    console.log(pin)
+    console.log(pin);
 
     // Ensure the user is authenticated
     const session = await auth();
@@ -17,34 +16,35 @@ export const pinValidation = async (pin: string, companySlug: string) => {
     }
 
     try {
-        // Check if the PIN exists and is valid for the user
+        // Find the PIN and its associated Card and User
         const userWithPin = await prisma.pin.findFirst({
             where: {
                 pin: pin,
+                card: {
+                    company: {
+                        slug: companySlug, // Ensure the company matches
+                    },
+                    userId: session.user.id, // Ensure the card belongs to the authenticated user
+                },
             },
             include: {
-                user: {
+                card: {
                     select: {
                         id: true,
-                        name: true,
-                        lastName: true,
-                        Cards: {
-                            where: {
-                                company: {
-                                    slug: companySlug, // Filter by companySlug
-                                },
+                        points: true,
+                        favourite: true,
+                        active: true,
+                        company: {
+                            select: {
+                                slug: true,
+                                name: true,
                             },
+                        },
+                        user: {
                             select: {
                                 id: true,
-                                points: true,
-                                favourite: true,
-                                active: true,
-                                company: {
-                                    select: {
-                                        slug: true,
-                                        name: true,
-                                    },
-                                },
+                                name: true,
+                                lastName: true,
                             },
                         },
                     },
@@ -52,39 +52,40 @@ export const pinValidation = async (pin: string, companySlug: string) => {
             },
         });
 
-        // If the PIN does not exist or is invalid
-        if (!userWithPin) {
+        // If the PIN does not exist or is not valid for the user
+        if (!userWithPin || !userWithPin.card) {
             return {
                 ok: false,
-                message: 'PIN inválido', // Message for invalid PIN
+                message: 'PIN inválido o no asociado a esta empresa', // Message for invalid PIN
             };
         }
 
-        // If no cards exist for the given companySlug, return an error
-        if (userWithPin.user.Cards.length === 0) {
-            return {
-                ok: false,
-                message: 'El usuario no tiene esta tarjeta asociada', // Message for no cards found
-            };
-        }
-
-        // Update the PIN state to "IN_USE" instead of deleting it
+        // Update the PIN state to "IN_USE"
         await prisma.pin.update({
             where: { id: userWithPin.id },
             data: {
-                state: 'IN_USE', // Set state to IN_USE
+                state: 'IN_USE',
             },
         });
 
-        // Return user data and filtered cards
+        // Return user data and associated card
         return {
             ok: true,
             message: 'PIN validado correctamente', // Success message
             user: {
-                name: userWithPin.user.name,
-                lastName: userWithPin.user.lastName,
-                userId: userWithPin.user.id,
-                cards: userWithPin.user.Cards,
+                name: userWithPin.card.user.name,
+                lastName: userWithPin.card.user.lastName,
+                userId: userWithPin.card.user.id,
+            },
+            card: {
+                id: userWithPin.card.id,
+                points: userWithPin.card.points,
+                favourite: userWithPin.card.favourite,
+                active: userWithPin.card.active,
+                company: {
+                    slug: userWithPin.card.company.slug,
+                    name: userWithPin.card.company.name,
+                },
             },
         };
     } catch (error) {

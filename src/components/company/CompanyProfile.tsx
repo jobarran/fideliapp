@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react";
-import { CompanyContentCard, CompanyContentInformation, CompanyProfileHeader, ProfileContent, ProfileHeader } from "..";
-import { clientNavItems, companyNavItems } from "@/config";
+import { CompanyContentCard, CompanyContentInformation, CompanyProfileHeader, ProfileContent } from "..";
+import { companyNavItems } from "@/config";
 import { CardProfile, CompanyClientDashboard, Pin, Product } from "@/interfaces";
 import { CompanyContentProducts } from './CompanyContentProducts';
 

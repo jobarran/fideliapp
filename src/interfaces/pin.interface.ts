@@ -4,6 +4,6 @@ export interface Pin {
     pin: string;
     id: string;
     state: PinState
-    userId: string;
+    cardId: string;
     expiresAt: Date;
 }
