@@ -134,3 +134,5 @@ Changes
 - Freemium: max prod 10 u
 - Change green color from /companies when already card created
 - Add search bar to products in transaction section
+
+intentando solucionar el problema de la base de datos, cambie en .env  el database url y mande prisma migrate
