@@ -1,9 +1,7 @@
 "use client";
 
-import { formatAddress } from '@/utils'
-import React, { useState } from 'react'
-import { FaMapMarkerAlt } from 'react-icons/fa'
-import { CompanyClientDashboard, Pin, UserProfileData } from '@/interfaces';
+import React, { SetStateAction, useState } from 'react'
+import { CompanyClientDashboard, Pin } from '@/interfaces';
 import { ProfileHeaderLogo } from '@/components';
 import { FaCheck, FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { IoTicketOutline } from 'react-icons/io5';
@@ -18,7 +16,14 @@ interface Props {
     cardId: string | undefined
 }
 
-export const CompanyProfileHeaderData = ({ company, setOpenModal, userCardForCompany, cardPoints, favorite, cardId }: Props) => {
+export const CompanyProfileHeaderData = ({
+    company,
+    setOpenModal,
+    userCardForCompany,
+    cardPoints,
+    favorite,
+    cardId
+}: Props) => {
 
     const [isFavorite, setIsFavorite] = useState(favorite);
 
@@ -98,6 +103,7 @@ export const CompanyProfileHeaderData = ({ company, setOpenModal, userCardForCom
                                     </>
                                 )}
                             </div>
+                          
                         </div>
                     )}
                 </div>
