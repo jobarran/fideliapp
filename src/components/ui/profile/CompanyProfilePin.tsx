@@ -74,15 +74,15 @@ export const CompanyProfilePin = ({
         >
             {pin ? (
                 <div className="flex items-center space-x-2">
-                    <p className="text-sm text-slate-100">Pin</p>
-                    <p className="text-lg font-bold text-white">{pin.pin}</p>
-                    <p className="text-xs text-slate-100">Expira en: {formatTimeLeft()}</p>
+                    <p className="text-xs sm:text-sm text-slate-100">Pin</p>
+                    <p className="ext-base sm:text-lg font-bold text-white">{pin.pin}</p>
+                    <p className="text-xs sm:text-sm text-slate-100">Expira en: {formatTimeLeft()}</p>
                 </div>
             ) : (
                 <div className="flex items-center space-x-2">
-                    <p className="text-base text-slate-400 group-hover:text-slate-100">Crear</p>
-                    <p className="text-lg font-bold text-slate-800 group-hover:text-white">PIN</p>
-                    <p className="text-base text-slate-400 group-hover:text-slate-100">de validación</p>
+                    <p className="text-xs sm:text-sm text-slate-400 group-hover:text-slate-100">Crear</p>
+                    <p className="text-base sm:text-lg font-bold text-slate-800 group-hover:text-white">PIN</p>
+                    <p className="text-xs sm:text-sm text-slate-400 group-hover:text-slate-100">de validación</p>
                 </div>
             )}
         </button>
