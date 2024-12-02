@@ -37,7 +37,7 @@ export const CompanyProfilePin = ({
             }
         }, 1000);
 
-        return () => clearInterval(interval);
+        return () => clearInterval(interval); // Clean up the interval
     }, [pin, setPin]);
 
     // Format time left in minutes and seconds
@@ -66,12 +66,12 @@ export const CompanyProfilePin = ({
 
     return (
         <button
-            onClick={handleButtonClick}
-            disabled={!!pin || isLoading} // Disable when PIN exists or is loading
-            className={`group flex items-center justify-center w-full p-2 border rounded-lg transition-all duration-300 ${
-                pin ? "bg-slate-800 cursor-default" : "bg-white hover:bg-slate-800"
-            }`}
-        >
+        onClick={handleButtonClick}
+        disabled={!!pin || isLoading} // Disable when PIN exists or is loading
+        className={`group flex items-center justify-center w-full p-2 border rounded-lg transition-all duration-300 ${
+            pin ? "bg-slate-800" : "bg-white hover:bg-slate-800"
+        }`}
+    >
             {pin ? (
                 <div className="flex items-center space-x-2">
                     <p className="text-xs sm:text-sm text-slate-100">Pin</p>

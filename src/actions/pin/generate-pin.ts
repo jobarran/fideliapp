@@ -32,7 +32,7 @@ export const generatePin = async (cardId: string) => {
 
     // Set expiration time for 10 minutes
     const expiresAt = new Date();
-    expiresAt.setMinutes(expiresAt.getMinutes() + 5);
+    expiresAt.setMinutes(expiresAt.getMinutes() + 1);
 
     // Store the new pin in the database
     const createdPin = await prisma.pin.create({

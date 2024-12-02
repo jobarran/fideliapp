@@ -8,6 +8,7 @@ interface Props {
     totalPoints: number;
     selectedProducts: Record<string, number>;
     totalProducts: number;
+    availablePoints: number;
 }
 
 export const ClientContentTransactionInvoice = ({
@@ -16,9 +17,22 @@ export const ClientContentTransactionInvoice = ({
     totalPoints,
     selectedProducts,
     totalProducts,
+    availablePoints,
 }: Props) => {
+    const isRewardTransaction = selectedTransactionType === TransactionType.REWARD;
+
+    const availablePointsClass = availablePoints === 0
+        ? "text-gray-500 cursor-not-allowed"
+        : availablePoints < totalPoints
+            ? "text-red-500"
+            : "text-green-500";
+
+    const pointsDifference = availablePoints < totalPoints
+        ? `(-${totalPoints - availablePoints < 0 ? 0 : totalPoints - availablePoints})`
+        : "";
+
     return (
-        <div className="hidden lg:block lg:w-1/3 border border-gray-200 rounded-lg p-4 bg-white">
+        <div className="hidden md:block md:w-1/3 border border-gray-200 rounded-lg p-4 bg-white">
             <h3 className="text-lg font-semibold text-gray-800 mb-4">Resumen</h3>
             <div className="border-b border-gray-300 mb-2"></div>
             <div className="flex flex-row items-center mb-2">
@@ -66,6 +80,22 @@ export const ClientContentTransactionInvoice = ({
                 </span>
                 <span className="text-sm font-medium text-gray-900">{totalPoints}</span>
             </div>
+
+
+            {/* Show "Puntos disponibles" only if transactionType is REWARD */}
+            {isRewardTransaction && (
+                <>
+                    <div className="border-b border-gray-300 my-2"></div>
+                    <div className="flex justify-between">
+                        <span className="text-sm font-semibold text-gray-800">Puntos disponibles</span>
+                        <span className={`text-sm font-medium ${availablePointsClass}`}>
+                            {availablePoints}
+                            {pointsDifference && <span className="text-red-500 text-xs ml-2">{pointsDifference}</span>}
+                        </span>
+                    </div>
+                </>
+            )}
+
         </div>
     );
 };

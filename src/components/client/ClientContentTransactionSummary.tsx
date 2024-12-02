@@ -6,6 +6,7 @@ interface Props {
     selectedProducts: string[];
     totalPoints: number;
     totalProducts: number;
+    availablePoints: number; 
 }
 
 export const ClientContentTransactionSummary = ({
@@ -13,9 +14,10 @@ export const ClientContentTransactionSummary = ({
     selectedProducts,
     totalPoints,
     totalProducts,
+    availablePoints
 }: Props) => {
     return (
-        <div className="lg:hidden bg-white border border-gray-200 rounded-md p-4 mb-4">
+        <div className="md:hidden bg-white border border-gray-200 rounded-md p-4 mb-4">
             <h3 className="text-lg font-medium text-gray-800 mb-2">Resumen de Transacción</h3>
             <div className="text-sm text-gray-700">
                 <p className="mb-1">

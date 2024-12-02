@@ -134,3 +134,8 @@ Changes
 - Freemium: max prod 10 u
 - Change green color from /companies when already card created
 - Add search bar to products in transaction section
+
+
+client/index
+- manage PIN has expired
+- remove text "pin validado correctamente"

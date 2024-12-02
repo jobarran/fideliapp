@@ -64,6 +64,13 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
         }
     };
 
+    const handleTransactionConfirm = () => {
+        console.log("Transaction Confirmed");
+        console.log("Selected Products:", selectedProducts);
+        console.log("Transaction Type:", selectedTransactionType);
+        console.log("User Info:", userInfo);
+    };
+
     const filteredProducts = products.filter((product) =>
         selectedTransactionType === TransactionType.BUY
             ? product.templates.some((template) => template.type === 'BUY')
@@ -89,59 +96,75 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
 
     const totalProducts = Object.values(selectedProducts).reduce((sum, quantity) => sum + quantity, 0);
 
+    // Pass available points to the components only when `selectedTransactionType` is REWARD
+    const availablePoints = userInfo?.card?.points ?? 0;
+
     return (
-        <div className="lg:flex lg:space-x-4">
-            <div className="lg:w-2/3">
-                <h2 className="text-xl font-semibold text-gray-800 mb-2">Transacción</h2>
+        <div className="md:flex md:space-x-4">
+            <div className="md:w-2/3">
+                <button
+                    onClick={handleTransactionConfirm}
+                    disabled={!isPinValidated || totalProducts === 0}
+                    className={`sm:hidden bg-slate-800 text-white py-2 px-4 w-full rounded mb-4 lg:mb-0 ${!isPinValidated || totalProducts === 0 ? 'opacity-30 cursor-not-allowed' : ''}`}
+                >
+                    CONFIRMAR
+                </button>
+                <div className='flex justify-between'>
+                    <div>
+                        <h2 className="text-xl font-semibold text-gray-800 mb-2">Transacción</h2>
+                        <ClientContentTransactionValidatePin
+                            handleValidatePin={handleValidatePin}
+                            isPinValidated={isPinValidated}
+                            errorMessage={errorMessage}
+                        />
+                    </div>
+                    <button
+                        onClick={handleTransactionConfirm}
+                        disabled={!isPinValidated || totalProducts === 0}
+                        className={`hidden sm:block bg-slate-800 text-white py-2 px-4 rounded ${!isPinValidated || totalProducts === 0 ? 'opacity-30 cursor-not-allowed' : ''}`}
+                    >
+                        CONFIRMAR
+                    </button>
+                </div>
+                <>
+                    <div className="flex flex-col md:flex-row md:items-center md:space-x-4 mt-4">
+                        {/* Transaction Type Buttons */}
+                        <ClientContentTransactionButtons
+                            handleTransactionTypeSelect={handleTransactionTypeSelect}
+                            selectedTransactionType={selectedTransactionType}
+                        />
+                    </div>
 
-                {/* Show PIN validation first */}
-                {!isPinValidated && (
-                    <ClientContentTransactionValidatePin
-                        handleValidatePin={handleValidatePin}
-                        isPinValidated={isPinValidated}
-                        errorMessage={errorMessage}
-                    />
-                )}
-                {/* Once PIN is validated, show transaction buttons and product list */}
-                {isPinValidated && (
-                    <>
-                        <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-4">
-                            {/* Transaction Type Buttons */}
-                            <ClientContentTransactionButtons
-                                handleTransactionTypeSelect={handleTransactionTypeSelect}
-                                selectedTransactionType={selectedTransactionType}
-                            />
-                        </div>
+                    {selectedTransactionType && (
+                        <ClientContentTransactionSummary
+                            selectedTransactionType={selectedTransactionType}
+                            selectedProducts={Object.keys(selectedProducts)}
+                            totalPoints={totalPoints}
+                            totalProducts={totalProducts}
+                            availablePoints={availablePoints} // Pass available points
+                        />
+                    )}
 
-                        {selectedTransactionType && (
-                            <ClientContentTransactionSummary
-                                selectedTransactionType={selectedTransactionType}
-                                selectedProducts={Object.keys(selectedProducts)}
-                                totalPoints={totalPoints}
-                                totalProducts={totalProducts}
-                            />
-                        )}
-
-                        {selectedTransactionType && (
-                            <ClientContentTransactionProductList
-                                filteredProducts={filteredProducts}
-                                selectedProducts={selectedProducts}
-                                handleProductSelect={handleProductSelect}
-                                handleQuantityChange={handleQuantityChange}
-                                selectedTransactionType={selectedTransactionType}
-                            />
-                        )}
-                    </>
-                )}
+                    {selectedTransactionType && (
+                        <ClientContentTransactionProductList
+                            filteredProducts={filteredProducts}
+                            selectedProducts={selectedProducts}
+                            handleProductSelect={handleProductSelect}
+                            handleQuantityChange={handleQuantityChange}
+                            selectedTransactionType={selectedTransactionType}
+                        />
+                    )}
+                </>
             </div>
 
-            {isPinValidated && selectedTransactionType && (
+            {selectedTransactionType && (
                 <ClientContentTransactionInvoice
                     selectedTransactionType={selectedTransactionType}
                     selectedProductDetails={selectedProductDetails}
                     totalPoints={totalPoints}
                     selectedProducts={selectedProducts}
                     totalProducts={totalProducts}
+                    availablePoints={availablePoints} // Pass available points
                 />
             )}
         </div>
