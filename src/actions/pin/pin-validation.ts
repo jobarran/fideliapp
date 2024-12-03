@@ -4,7 +4,6 @@ import { auth } from '@/auth.config';
 import prisma from '@/lib/prisma';
 
 export const pinValidation = async (pin: string, companySlug: string) => {
-    console.log(pin);
 
     // Ensure the user is authenticated
     const session = await auth();
@@ -56,7 +55,7 @@ export const pinValidation = async (pin: string, companySlug: string) => {
         if (!userWithPin || !userWithPin.card) {
             return {
                 ok: false,
-                message: 'PIN inválido o no asociado a esta empresa', // Message for invalid PIN
+                message: 'PIN inválido', // Message for invalid PIN
             };
         }
 
@@ -87,6 +86,7 @@ export const pinValidation = async (pin: string, companySlug: string) => {
                     name: userWithPin.card.company.name,
                 },
             },
+            expiresAt: userWithPin.expiresAt
         };
     } catch (error) {
         console.error('Error during PIN validation:', error);

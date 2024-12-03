@@ -139,3 +139,5 @@ Changes
 client/index
 - manage PIN has expired
 - remove text "pin validado correctamente"
+
+- Add loading to create company

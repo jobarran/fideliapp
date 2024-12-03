@@ -21,6 +21,7 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
     const [userInfo, setUserInfo] = useState<any>(null); // Store user info after successful validation
     const [isPinValidated, setIsPinValidated] = useState(false); // Track PIN validation state
     const [errorMessage, setErrorMessage] = useState<string | null>(null); // Track validation errors
+    const [pinExpiration, setPinExpiration] = useState<Date | undefined>(undefined)
 
     const handleTransactionTypeSelect = (type: TransactionType) => {
         setSelectedTransactionType(type);
@@ -49,11 +50,12 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
     const handleValidatePin = async (pin: string) => {
         try {
             setErrorMessage(null); // Clear previous errors
-            const { ok, message } = await pinValidation(pin, companySlug);
+            const { ok, message, user, expiresAt } = await pinValidation(pin, companySlug);
 
             if (ok) {
                 setIsPinValidated(true);
-                setUserInfo(message); // Store user info
+                setUserInfo(user); // Store user info
+                setPinExpiration(expiresAt)
             } else {
                 setIsPinValidated(false);
                 setErrorMessage(message); // Update error message
@@ -116,6 +118,12 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
                             handleValidatePin={handleValidatePin}
                             isPinValidated={isPinValidated}
                             errorMessage={errorMessage}
+                            userInfo={userInfo}
+                            pinExpiration={pinExpiration}
+                            onPinExpire={() => {
+                                setIsPinValidated(false); // Reset validation state
+                                setPinExpiration(undefined); // Clear expiration
+                            }}
                         />
                     </div>
                     <button
