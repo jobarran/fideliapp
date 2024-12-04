@@ -1,5 +1,6 @@
 "use client";
 
+import { capitalizeFirstLetter } from "@/utils";
 import React, { useState, useEffect } from "react";
 
 interface Props {
@@ -67,6 +68,8 @@ export const ClientContentTransactionValidatePin = ({
             setIsLoading(true);
             await handleValidatePin(fullPin);
             setIsLoading(false);
+            if (isPinValidated)
+                setPin(["", "", "", ""])
         }
     };
 
@@ -74,8 +77,6 @@ export const ClientContentTransactionValidatePin = ({
 
     return (
         <div>
-            <p className="text-sm font-medium text-gray-700 mb-2">Ingrese código PIN del usuario</p>
-
             <div className="flex items-center gap-4">
                 <div className="flex items-center space-x-2">
                     {pin.map((digit, index) => (
@@ -97,11 +98,11 @@ export const ClientContentTransactionValidatePin = ({
                 <button
                     onClick={handleButtonClick}
                     disabled={!isPinComplete || isLoading || isPinValidated}
-                    className={`border py-2 px-2 rounded-lg ${isPinValidated
-                            ? "bg-green-500 text-white cursor-not-allowed"
-                            : isPinComplete && !isLoading
-                                ? "hover:bg-slate-100 border-slate-200"
-                                : "opacity-50 cursor-not-allowed"
+                    className={`border h-8 w-20 rounded-lg ${isPinValidated
+                        ? "bg-green-500 text-white cursor-not-allowed"
+                        : isPinComplete && !isLoading
+                            ? "hover:bg-slate-100 border-slate-200"
+                            : "opacity-50 cursor-not-allowed"
                         }`}
                 >
                     <p className="text-xs">
@@ -109,21 +110,17 @@ export const ClientContentTransactionValidatePin = ({
                             ? "Loading..." // Show "Loading..." when validating
                             : isPinValidated
                                 ? `${formatTime(timeLeft)}` // Show countdown if validated
-                                : "Validar PIN"} 
+                                : "Validar PIN"}
                     </p>
                 </button>
             </div>
 
-            {/* {!isLoading && errorMessage && (
-                <div className="text-red-500 italic text-xs flex items-center mt-2">
-                    {errorMessage}
-                </div>
-            )} */}
-
             {isPinValidated && userInfo && (
                 <div className="mt-4 text-sm text-gray-700">
                     <p>
-                        <strong>Nombre del cliente:</strong> {userInfo.name} {userInfo.lastName}
+                        <strong>Cliente: </strong>
+                        {capitalizeFirstLetter(userInfo.name)} {capitalizeFirstLetter(userInfo.lastName)}
+
                     </p>
                 </div>
             )}

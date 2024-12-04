@@ -129,7 +129,7 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
                     <button
                         onClick={handleTransactionConfirm}
                         disabled={!isPinValidated || totalProducts === 0}
-                        className={`hidden sm:block bg-slate-800 text-white py-2 px-4 rounded ${!isPinValidated || totalProducts === 0 ? 'opacity-30 cursor-not-allowed' : ''}`}
+                        className={`hidden sm:block py-2 px-4 rounded ${!isPinValidated || totalProducts === 0 ? 'bg-white text-slate-800 border border-slate-800 opacity-30 cursor-not-allowed' : 'bg-slate-800 text-white'}`}
                     >
                         CONFIRMAR
                     </button>
