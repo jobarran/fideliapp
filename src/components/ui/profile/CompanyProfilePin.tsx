@@ -64,7 +64,6 @@ export const CompanyProfilePin = ({
                 setExpiredMessage("EL PIN HA EXPIRADO");
                 setTimeout(() => setExpiredMessage(null), 5000);
             } else {
-                console.log(timeRemaining)
                 setTimeLeft(timeRemaining);
             }
         }, 1000);

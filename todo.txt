@@ -28,3 +28,5 @@ transaction confirmation dont take care of expiration if is "IN_USE"
 if pin exists, delete it and create new
 
 REFACTOR client transaction page
+
+review validate pin userId validation

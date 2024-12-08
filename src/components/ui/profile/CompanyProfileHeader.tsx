@@ -35,7 +35,6 @@ export const CompanyProfileHeader = ({
 
     // Function to handle PIN generation
     const handleGeneratePin = async (id: string) => {
-        console.log(id)
         setLoading(true);
         const generatedPin = await generatePin(id);
         if (generatedPin) {

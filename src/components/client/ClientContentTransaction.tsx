@@ -13,10 +13,9 @@ import { createNewTransaction, deletePin, pinValidation } from '@/actions';
 interface Props {
     products: Product[];
     companySlug: string;
-    userId: string
 }
 
-export const ClientContentTransaction = ({ products, companySlug, userId }: Props) => {
+export const ClientContentTransaction = ({ products, companySlug }: Props) => {
     const [selectedTransactionType, setSelectedTransactionType] = useState<TransactionType | null>('BUY');
     const [selectedProducts, setSelectedProducts] = useState<Record<string, number>>({});
     const [userInfo, setUserInfo] = useState<any>(null);
@@ -55,10 +54,9 @@ export const ClientContentTransaction = ({ products, companySlug, userId }: Prop
     const handleValidatePin = async (pin: string) => {
         try {
             setErrorMessage(null); // Clear previous errors
-            const { ok, message, user, card, expiresAt } = await pinValidation(pin, companySlug, userId);
+            const { ok, message, user, card, expiresAt } = await pinValidation(pin, companySlug);
 
             if (ok && card) {
-                console.log(message)
                 setIsPinValidated(true);
                 setUserInfo(user);
                 setPinExpiration(expiresAt)
