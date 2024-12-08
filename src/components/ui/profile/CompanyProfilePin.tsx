@@ -42,7 +42,6 @@ export const CompanyProfilePin = ({
         return () => clearInterval(interval); // Clean up the interval
     }, [pin, setPin]);
 
-    // Handle transaction update with delay
     useEffect(() => {
         const eventSource = new EventSource('/api/stream');
 
@@ -54,7 +53,7 @@ export const CompanyProfilePin = ({
             setTimeout(() => {
                 setTransactionMessage(data.message); // Show transaction message
                 setIsTransactionLoading(false); // End the loading state
-                setPin(undefined)
+                setPin(undefined);
                 // After 3 seconds, clear the transaction message
                 setTimeout(() => {
                     setTransactionMessage(null); // Clear transaction message
@@ -62,10 +61,21 @@ export const CompanyProfilePin = ({
             }, 2000);
         });
 
+        eventSource.onerror = (error) => {
+            console.error("SSE connection error:", error);
+            eventSource.close();
+            // Retry logic
+            setTimeout(() => {
+                console.log("Reconnecting to SSE...");
+                new EventSource('/api/stream'); // Attempt reconnection
+            }, 5000);
+        };
+
         return () => {
             eventSource.close();
         };
     }, []);
+
 
     // Format time left in minutes and seconds
     const formatTimeLeft = () => {
