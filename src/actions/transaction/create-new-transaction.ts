@@ -70,11 +70,11 @@ export async function createNewTransaction(input: CreateTransactionInput) {
         },
     });
 
-    // Notify all clients of the transaction update
-    sendEvent('transactionUpdate', {
-        message: `Transaction of ${points} points created`,
-        transactionId: transaction.id,
-    });
+    // // Notify all clients of the transaction update
+    // sendEvent('transactionUpdate', {
+    //     message: `Transaction of ${points} points created`,
+    //     transactionId: transaction.id,
+    // });
 
 
     revalidatePath(`/companies/${companySlug}`);

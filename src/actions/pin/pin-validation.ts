@@ -23,7 +23,7 @@ export const pinValidation = async (pin: string, companySlug: string) => {
                     company: {
                         slug: companySlug, // Ensure the company matches
                     },
-                    userId: session.user.id, // Ensure the card belongs to the authenticated user
+                    // userId: session.user.id, // Ensure the card belongs to the authenticated user
                 },
             },
             include: {

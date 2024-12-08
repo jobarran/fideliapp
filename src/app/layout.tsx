@@ -18,9 +18,9 @@ export default function RootLayout({
     <html lang="es">
       <body suppressHydrationWarning={true} className={roboto.className}>
         <GoogleMapInitializer>
-          <Provider>
-            {children}
-          </Provider>
+            <Provider>
+              {children}
+            </Provider>
         </GoogleMapInitializer>
       </body>
     </html>

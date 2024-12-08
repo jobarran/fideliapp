@@ -33,6 +33,7 @@ enum ActivityCategory {
 enum PinState {
   CREATED
   IN_USE
+  USED
 }
 
 model User {
