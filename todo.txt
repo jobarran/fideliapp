@@ -24,3 +24,7 @@ Pin en uso text and color button
 pin success when transaction not showing
 validation different users
 transaction confirmation dont take care of expiration if is "IN_USE"
+
+if pin exists, delete it and create new
+
+REFACTOR client transaction page

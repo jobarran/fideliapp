@@ -3,7 +3,7 @@
 import { auth } from '@/auth.config';
 import prisma from '@/lib/prisma';
 
-export const pinValidation = async (pin: string, companySlug: string) => {
+export const pinValidation = async (pin: string, companySlug: string, userId: string) => {
 
     // Ensure the user is authenticated
     const session = await auth();
@@ -23,7 +23,7 @@ export const pinValidation = async (pin: string, companySlug: string) => {
                     company: {
                         slug: companySlug, // Ensure the company matches
                     },
-                    // userId: session.user.id, // Ensure the card belongs to the authenticated user
+                    userId: userId, // Ensure the card belongs to the authenticated user
                 },
             },
             include: {

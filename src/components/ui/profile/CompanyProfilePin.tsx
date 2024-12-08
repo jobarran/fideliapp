@@ -60,9 +60,11 @@ export const CompanyProfilePin = ({
                 clearInterval(interval);
                 setTimeLeft(0);
                 setPin(undefined);
+                setIsPollingActive(false)
                 setExpiredMessage("EL PIN HA EXPIRADO");
                 setTimeout(() => setExpiredMessage(null), 5000);
             } else {
+                console.log(timeRemaining)
                 setTimeLeft(timeRemaining);
             }
         }, 1000);
@@ -87,7 +89,7 @@ export const CompanyProfilePin = ({
 
     if (!pin)
         return (
-            <FullWidhtButton onClick={handleButtonClick} disabled={isLoading} isLoading={isLoading}>
+            <FullWidhtButton onClick={handleButtonClick} disabled={isLoading} isLoading={isLoading} isPollingActive={isPollingActive}>
                 <div className="flex items-center space-x-2">
                     <p className="text-xs sm:text-sm text-slate-400 group-hover:text-slate-100">Crear</p>
                     <p className="text-base sm:text-lg font-bold text-slate-800 group-hover:text-white">PIN</p>
@@ -101,6 +103,7 @@ export const CompanyProfilePin = ({
             onClick={handleButtonClick}
             disabled={isLoading || pin.state === "IN_USE"}
             additionalClasses="bg-slate-800 hover:bg-slate-700"
+            isPollingActive={isPollingActive}
         >
             <div className="flex items-center space-x-2">
                 {pin.state === "IN_USE" ? (
@@ -113,7 +116,7 @@ export const CompanyProfilePin = ({
                     <>
                         <p className="text-xs sm:text-sm text-slate-100">Pin</p>
                         <p className="text-base sm:text-lg font-bold text-white"> {pin.pin} </p>
-                        <p className="text-xs sm:text-sm text-slate-100">  Expira en: {formatTimeLeft(timeLeft)}  </p>
+                        <p className="text-xs sm:text-sm text-slate-100">  Expira en {formatTimeLeft(timeLeft)}  </p>
                     </>
                 )}
             </div>

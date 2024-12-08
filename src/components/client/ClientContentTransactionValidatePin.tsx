@@ -10,9 +10,11 @@ interface Props {
     userInfo?: { name: string; lastName: string; userId: string } | null;
     pinExpiration: Date | undefined;
     onPinExpire: () => void; // Callback for when PIN expires
+    handleResetStates: () => void
 }
 
 export const ClientContentTransactionValidatePin = ({
+    handleResetStates,
     handleValidatePin,
     isPinValidated,
     errorMessage,
@@ -33,6 +35,7 @@ export const ClientContentTransactionValidatePin = ({
                     clearInterval(interval);
                     onPinExpire(); // Notify parent of expiration
                     setPin(["", "", "", ""])
+                    handleResetStates()
                 }
                 setTimeLeft(Math.floor(diff / 1000)); // Convert milliseconds to seconds
             }, 1000);

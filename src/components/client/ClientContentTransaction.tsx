@@ -8,16 +8,15 @@ import { ClientContentTransactionProductList } from './ClientContentTransactionP
 import { ClientContentTransactionButtons } from './ClientContentTransactionButtons';
 import { TransactionType } from '@prisma/client';
 import { ClientContentTransactionValidatePin } from './ClientContentTransactionValidatePin';
-import { createNewCard, createNewTransaction, deletePin, pinValidation } from '@/actions';
-import { Pin } from '../../interfaces/pin.interface';
-import { useRouter } from 'next/navigation';
+import { createNewTransaction, deletePin, pinValidation } from '@/actions';
 
 interface Props {
     products: Product[];
     companySlug: string;
+    userId: string
 }
 
-export const ClientContentTransaction = ({ products, companySlug }: Props) => {
+export const ClientContentTransaction = ({ products, companySlug, userId }: Props) => {
     const [selectedTransactionType, setSelectedTransactionType] = useState<TransactionType | null>('BUY');
     const [selectedProducts, setSelectedProducts] = useState<Record<string, number>>({});
     const [userInfo, setUserInfo] = useState<any>(null);
@@ -27,7 +26,7 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
     const [pinExpiration, setPinExpiration] = useState<Date | undefined>(undefined)
     const [userPin, setUserPin] = useState<string | undefined>(undefined)
     const [transactionSuccess, setTransactionSuccess] = useState(false); // New state for transaction success
-    const router = useRouter(); // For navigation
+    const [availablePoints, setAvailablePoints] = useState<number>(0)
 
     const handleTransactionTypeSelect = (type: TransactionType) => {
         setSelectedTransactionType(type);
@@ -56,13 +55,15 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
     const handleValidatePin = async (pin: string) => {
         try {
             setErrorMessage(null); // Clear previous errors
-            const { ok, message, user, card, expiresAt } = await pinValidation(pin, companySlug);
+            const { ok, message, user, card, expiresAt } = await pinValidation(pin, companySlug, userId);
 
-            if (ok) {
+            if (ok && card) {
+                console.log(message)
                 setIsPinValidated(true);
                 setUserInfo(user);
                 setPinExpiration(expiresAt)
                 setCardInfo(card)
+                setAvailablePoints(card.points)
                 setUserPin(pin)
             } else {
                 setIsPinValidated(false);
@@ -74,12 +75,20 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
         }
     };
 
+    const handleResetStates = () => {
+        setSelectedProducts({})
+        setUserInfo(null)
+        setCardInfo(null)
+        setIsPinValidated(false)
+        setUserPin(undefined)
+        setAvailablePoints(0)
+    }
+
     const handleTransactionConfirm = async () => {
         if (!userInfo || !selectedTransactionType || totalProducts === 0) {
             console.error('Validation failed');
             return;
         }
-
         const transactionPayload = {
             cardId: cardInfo.id,
             points: selectedTransactionType === 'BUY' ? totalPoints : -totalPoints,
@@ -91,8 +100,13 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
         try {
             await createNewTransaction(transactionPayload);
             await deletePin(userPin!);
-            setTransactionSuccess(true); 
+            setTransactionSuccess(true);
             setIsPinValidated(false)
+            setAvailablePoints(0)
+            setSelectedProducts({})
+            setUserInfo(null)
+            setCardInfo(null)
+            setPinExpiration(undefined)
         } catch (error) {
             console.error('Transaction creation failed:', error);
         }
@@ -124,8 +138,6 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
 
     const totalProducts = Object.values(selectedProducts).reduce((sum, quantity) => sum + quantity, 0);
 
-    const availablePoints = cardInfo?.points ?? 0;
-
     if (transactionSuccess) {
         // Render success message and return button
         return (
@@ -146,15 +158,26 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
             <div className="md:w-2/3">
                 <button
                     onClick={handleTransactionConfirm}
-                    disabled={!isPinValidated || totalProducts === 0}
-                    className={`sm:hidden bg-slate-800 text-white py-2 px-4 w-full rounded mb-4 lg:mb-0 ${!isPinValidated || totalProducts === 0 ? 'opacity-30 cursor-not-allowed' : ''}`}
-                >
+                    disabled={
+                        !isPinValidated ||
+                        totalProducts === 0 ||
+                        (selectedTransactionType === 'REWARD' && availablePoints < totalPoints)
+
+                    }
+                    className={`sm:hidden bg-slate-800 text-white py-2 px-4 w-full rounded mb-4 lg:mb-0 
+                        ${!isPinValidated ||
+                            totalProducts === 0 ||
+                            (selectedTransactionType === 'REWARD' && availablePoints < totalPoints)
+                            ? 'bg-white text-slate-800 border border-slate-800 opacity-30'
+                            : 'bg-slate-800 text-white'
+                        }`}               >
                     CONFIRMAR
                 </button>
                 <div className='flex justify-between'>
                     <div>
                         <h2 className="text-xl font-semibold text-gray-800 mb-2">Transacción</h2>
                         <ClientContentTransactionValidatePin
+                            handleResetStates={handleResetStates}
                             handleValidatePin={handleValidatePin}
                             isPinValidated={isPinValidated}
                             errorMessage={errorMessage}
@@ -168,8 +191,18 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
                     </div>
                     <button
                         onClick={handleTransactionConfirm}
-                        disabled={!isPinValidated || totalProducts === 0}
-                        className={`hidden sm:block py-2 px-4 rounded ${!isPinValidated || totalProducts === 0 ? 'bg-white text-slate-800 border border-slate-800 opacity-30 cursor-not-allowed' : 'bg-slate-800 text-white'}`}
+                        disabled={
+                            !isPinValidated ||
+                            totalProducts === 0 ||
+                            (selectedTransactionType === 'REWARD' && availablePoints < totalPoints)
+                        }
+                        className={`hidden sm:block py-2 px-4 rounded 
+                            ${!isPinValidated ||
+                                totalProducts === 0 ||
+                                (selectedTransactionType === 'REWARD' && availablePoints < totalPoints)
+                                ? 'bg-white text-slate-800 border border-slate-800 opacity-30'
+                                : 'bg-slate-800 text-white'
+                            }`}
                     >
                         CONFIRMAR
                     </button>
