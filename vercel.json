@@ -1,6 +1,6 @@
 {
     "functions": {
-        "api/stream/*": {
+        "src/app/api/stream/route.ts": {
             "maxDuration": 60
         }
     }
