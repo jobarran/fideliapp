@@ -8,7 +8,9 @@ import { ClientContentTransactionProductList } from './ClientContentTransactionP
 import { ClientContentTransactionButtons } from './ClientContentTransactionButtons';
 import { TransactionType } from '@prisma/client';
 import { ClientContentTransactionValidatePin } from './ClientContentTransactionValidatePin';
-import { pinValidation } from '@/actions';
+import { createNewCard, createNewTransaction, deletePin, pinValidation } from '@/actions';
+import { Pin } from '../../interfaces/pin.interface';
+import { useRouter } from 'next/navigation';
 
 interface Props {
     products: Product[];
@@ -18,10 +20,14 @@ interface Props {
 export const ClientContentTransaction = ({ products, companySlug }: Props) => {
     const [selectedTransactionType, setSelectedTransactionType] = useState<TransactionType | null>('BUY');
     const [selectedProducts, setSelectedProducts] = useState<Record<string, number>>({});
-    const [userInfo, setUserInfo] = useState<any>(null); // Store user info after successful validation
-    const [isPinValidated, setIsPinValidated] = useState(false); // Track PIN validation state
-    const [errorMessage, setErrorMessage] = useState<string | null>(null); // Track validation errors
+    const [userInfo, setUserInfo] = useState<any>(null);
+    const [cardInfo, setCardInfo] = useState<any>(null)
+    const [isPinValidated, setIsPinValidated] = useState(false);
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [pinExpiration, setPinExpiration] = useState<Date | undefined>(undefined)
+    const [userPin, setUserPin] = useState<string | undefined>(undefined)
+    const [transactionSuccess, setTransactionSuccess] = useState(false); // New state for transaction success
+    const router = useRouter(); // For navigation
 
     const handleTransactionTypeSelect = (type: TransactionType) => {
         setSelectedTransactionType(type);
@@ -50,12 +56,14 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
     const handleValidatePin = async (pin: string) => {
         try {
             setErrorMessage(null); // Clear previous errors
-            const { ok, message, user, expiresAt } = await pinValidation(pin, companySlug);
+            const { ok, message, user, card, expiresAt } = await pinValidation(pin, companySlug);
 
             if (ok) {
                 setIsPinValidated(true);
-                setUserInfo(user); // Store user info
+                setUserInfo(user);
                 setPinExpiration(expiresAt)
+                setCardInfo(card)
+                setUserPin(pin)
             } else {
                 setIsPinValidated(false);
                 setErrorMessage(message); // Update error message
@@ -66,12 +74,30 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
         }
     };
 
-    const handleTransactionConfirm = () => {
-        console.log("Transaction Confirmed");
-        console.log("Selected Products:", selectedProducts);
-        console.log("Transaction Type:", selectedTransactionType);
-        console.log("User Info:", userInfo);
+    const handleTransactionConfirm = async () => {
+        if (!userInfo || !selectedTransactionType || totalProducts === 0) {
+            console.error('Validation failed');
+            return;
+        }
+
+        const transactionPayload = {
+            cardId: cardInfo.id,
+            points: selectedTransactionType === 'BUY' ? totalPoints : -totalPoints,
+            type: selectedTransactionType,
+            productIds: Object.keys(selectedProducts),
+            companySlug: companySlug
+        };
+
+        try {
+            await createNewTransaction(transactionPayload);
+            await deletePin(userPin!);
+            setTransactionSuccess(true); 
+            setIsPinValidated(false)
+        } catch (error) {
+            console.error('Transaction creation failed:', error);
+        }
     };
+
 
     const filteredProducts = products.filter((product) =>
         selectedTransactionType === TransactionType.BUY
@@ -98,8 +124,22 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
 
     const totalProducts = Object.values(selectedProducts).reduce((sum, quantity) => sum + quantity, 0);
 
-    // Pass available points to the components only when `selectedTransactionType` is REWARD
-    const availablePoints = userInfo?.card?.points ?? 0;
+    const availablePoints = cardInfo?.points ?? 0;
+
+    if (transactionSuccess) {
+        // Render success message and return button
+        return (
+            <div className="flex flex-col items-center justify-center h-full">
+                <h2 className="text-2xl font-bold text-green-600">¡Transacción completada!</h2>
+                <button
+                    onClick={() => setTransactionSuccess(false)} // Navigate to the home page
+                    className="mt-4 bg-blue-600 text-white py-2 px-4 rounded"
+                >
+                    Regresar
+                </button>
+            </div>
+        );
+    }
 
     return (
         <div className="md:flex md:space-x-4">

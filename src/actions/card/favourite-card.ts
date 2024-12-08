@@ -1,11 +1,8 @@
 'use server';
 
 import { auth } from "@/auth.config";
-import { CompanyClientDashboard } from "@/interfaces";
 import prisma from "@/lib/prisma";
-import { v2 as cloudinary } from 'cloudinary';
 import { revalidatePath } from "next/cache";
-import { z } from "zod";
 
 
 export const favouriteCard = async (cardId: string, favourite: boolean) => {

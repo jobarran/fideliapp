@@ -33,3 +33,5 @@ export { generatePin } from './pin/generate-pin'
 export { pinValidation } from './pin/pin-validation'
 export { deletePin } from './pin/delete-pin'
 export { getUserPin } from './pin/get-user-pin'
+
+export { createNewTransaction } from './transaction/create-new-transaction'

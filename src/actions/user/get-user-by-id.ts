@@ -48,7 +48,6 @@ export const getUserById = async (id: string) => {
                                 id: true, // Ensure this is selected
                                 points: true, // Ensure this is selected
                                 date: true, // Ensure this is selected
-                                reason: true, // Ensure this is selected
                                 type: true, // Ensure this is selected
                                 cardId: true, // Ensure this is selected
                             },

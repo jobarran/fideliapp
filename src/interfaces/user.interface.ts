@@ -33,7 +33,6 @@ export interface UserProfileData {
             id: string;
             points: number;
             date: Date;
-            reason: string;
             type: 'BUY' | 'REWARD' | 'MANUAL';
             cardId: string;
         }[];

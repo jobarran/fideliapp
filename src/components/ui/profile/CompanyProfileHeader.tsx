@@ -30,7 +30,7 @@ export const CompanyProfileHeader = ({
     userPin,
 }: Props) => {
 
-    const [pin, setPin] = useState(userPin); // Manage pin state here
+    const [pin, setPin] = useState(userPin);
     const [loading, setLoading] = useState(false);
 
     // Function to handle PIN generation

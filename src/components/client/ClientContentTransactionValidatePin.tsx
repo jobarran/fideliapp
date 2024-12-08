@@ -98,11 +98,12 @@ export const ClientContentTransactionValidatePin = ({
                 <button
                     onClick={handleButtonClick}
                     disabled={!isPinComplete || isLoading || isPinValidated}
-                    className={`border h-8 w-20 rounded-lg ${isPinValidated
-                        ? "bg-green-500 text-white cursor-not-allowed"
-                        : isPinComplete && !isLoading
-                            ? "hover:bg-slate-100 border-slate-200"
-                            : "opacity-50 cursor-not-allowed"
+                    className={`border h-8 rounded-lg px-1 sm:w-20 
+                ${isPinValidated
+                            ? "bg-green-500 text-white"
+                            : isPinComplete && !isLoading
+                                ? "hover:bg-slate-100 border-slate-200"
+                                : "opacity-50 cursor-not-allowed"
                         }`}
                 >
                     <p className="text-xs">
@@ -113,6 +114,7 @@ export const ClientContentTransactionValidatePin = ({
                                 : "Validar PIN"}
                     </p>
                 </button>
+
             </div>
 
             {isPinValidated && userInfo && (
