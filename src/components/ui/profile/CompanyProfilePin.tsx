@@ -37,7 +37,7 @@ export const CompanyProfilePin = ({
                     setShowSuccessMessage(false); // Reset success message on new PIN
                     setExpiredMessage(null); // Reset expired message if new pin is fetched
                 } else {
-                    if (data && expiredMessage !== null) {
+                    if (data) {
                         // If previously had a PIN but now it’s gone, assume transaction success
                         setShowSuccessMessage(true);
                         setTimeout(() => setShowSuccessMessage(false), 4000); // Hide after 5 seconds
@@ -53,6 +53,8 @@ export const CompanyProfilePin = ({
     // Handle countdown timer and expiration logic
     useEffect(() => {
         if (!pin || !pin.expiresAt) return;
+
+        if (showSuccessMessage) return;
 
         const interval = setInterval(() => {
             const currentTime = new Date().getTime();
@@ -145,8 +147,8 @@ export const CompanyProfilePin = ({
                 onClick={handleButtonClick}
                 disabled={isLoading || pin.state === "IN_USE"}
                 className={`group flex items-center justify-center w-full h-12 p-2 border rounded-lg transition-all duration-300 ${pin.state === "IN_USE"
-                        ? "bg-red-500"
-                        : "bg-slate-800"
+                    ? "bg-red-500"
+                    : "bg-slate-800"
                     }`}
             >
                 {pin.state === "IN_USE" ? (
