@@ -2,6 +2,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { registerClient, unregisterClient } from '@/lib/sse';
 
+// Prevent static generation and ensure dynamic handling
+export const dynamic = 'force-dynamic';
+
 export async function GET(req: NextRequest) {
 
     const { readable, writable } = new TransformStream();
