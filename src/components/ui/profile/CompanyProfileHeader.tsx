@@ -50,7 +50,6 @@ export const CompanyProfileHeader = ({
                 <CompanyProfilePin
                     cardId={cardId}
                     handleGeneratePin={handleGeneratePin}
-                    pin={pin}
                     setPin={setPin}
                 />
 
