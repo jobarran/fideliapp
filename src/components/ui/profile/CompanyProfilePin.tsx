@@ -43,6 +43,7 @@ export const CompanyProfilePin = ({
     }, [pin, setPin]);
 
     useEffect(() => {
+        
         const eventSource = new EventSource('/api/stream');
 
         eventSource.addEventListener('transactionUpdate', (event) => {
