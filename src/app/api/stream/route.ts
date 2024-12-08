@@ -1,8 +1,9 @@
 // src/app/api/stream/route.ts
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { registerClient, unregisterClient } from '@/lib/sse';
 
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
+
     const { readable, writable } = new TransformStream();
     const writer = writable.getWriter();
 

@@ -15,8 +15,6 @@ interface CreateTransactionInput {
 
 export async function createNewTransaction(input: CreateTransactionInput) {
 
-    console.log(input)
-
     const { cardId, points, type, companySlug, productIds = [] } = input;
 
     // Validate inputs
@@ -78,20 +76,6 @@ export async function createNewTransaction(input: CreateTransactionInput) {
         transactionId: transaction.id,
     });
 
-    // // Notify listeners
-    // triggerEvent('transactionUpdate', {
-    //     message: `Transaction of ${points} points created`,
-    //     transactionId: transaction.id,
-    // });
-
-    // // Emit SSE event for the new transaction
-    // emitEvent('transactionUpdate', {
-    //     transactionId: transaction.id,
-    //     cardId,
-    //     points,
-    //     type,
-    //     companySlug,
-    // });
 
     revalidatePath(`/companies/${companySlug}`);
 
