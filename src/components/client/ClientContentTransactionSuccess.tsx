@@ -16,7 +16,7 @@ export const ClientContentTransactionSuccess = ({
         // Immediately change the background color to green (with no delay)
         const colorTimeout = setTimeout(() => setBgColor("bg-green-500"), 0);
         // Show the message after 2 seconds
-        const messageTimeout = setTimeout(() => setShowMessage(true), 2000);
+        const messageTimeout = setTimeout(() => setShowMessage(true), 500);
         // Hide the message after 5 seconds
         const successTimeout = setTimeout(() => setTransactionSuccess(false), 7000);
 
@@ -29,7 +29,7 @@ export const ClientContentTransactionSuccess = ({
 
     return (
         <div
-            className={`flex items-center justify-center h-full w-full rounded-xl ${bgColor} transition-opacity duration-1000 ease-in-out opacity-0 ${showMessage ? "opacity-100" : ""}`}
+            className={`flex items-center justify-center h-full w-full rounded-lg ${bgColor} transition-opacity duration-1000 ease-in-out opacity-0 ${showMessage ? "opacity-100" : ""}`}
         >
             <h2
                 className={`text-xl font-bold text-white transition-opacity duration-1000 ease-in-out ${showMessage ? "opacity-100" : "opacity-0"}`}

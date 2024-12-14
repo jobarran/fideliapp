@@ -17,7 +17,7 @@ export const ClientContentTransactionButtons = ({
     ];
 
     return (
-        <div>
+        <div className="flex flex-col items-center md:items-start justify-center">
             <p className="text-sm font-medium text-gray-700 mb-2">Seleccione tipo de operación</p>
             <div className="flex space-x-2">
                 {transactionTypes.map(({ type, label }) => (

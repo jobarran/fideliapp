@@ -15,7 +15,7 @@ export const ClientContentTransactionLoading = ({
     }, [setConfirmLoading]);
 
     return (
-        <div className="flex flex-col items-center justify-center h-full w-full rounded-xl bg-white transition-opacity duration-500 ease-in-out opacity-100">
+        <div className="flex flex-col items-center justify-center h-full w-full transition-opacity duration-500 ease-in-out opacity-100">
             <div className="flex items-center justify-center">
                 <div className="w-8 h-8 border-4 border-t-transparent border-slate-600 rounded-full animate-spin"></div>
             </div>

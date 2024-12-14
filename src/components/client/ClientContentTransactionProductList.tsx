@@ -1,6 +1,8 @@
+"use client"
+
 import { Product } from "@/interfaces";
-import React from "react";
-import { FaMinusCircle, FaPlusCircle } from "react-icons/fa";
+import React, { useState } from "react";
+import { FaMinusCircle, FaPlusCircle, FaTimes } from "react-icons/fa";
 
 interface Props {
     filteredProducts: Product[];
@@ -17,9 +19,41 @@ export const ClientContentTransactionProductList = ({
     handleQuantityChange,
     selectedTransactionType,
 }: Props) => {
+
+    const [searchQuery, setSearchQuery] = useState<string>("");
+
+    const filteredAndSearchedProducts = filteredProducts.filter((product) =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
+
         <div className="max-h-64 overflow-y-auto border border-gray-200 rounded-lg p-4">
-            {filteredProducts.map((product) => {
+
+            {/* Search Input */}
+            {selectedTransactionType !== "MANUAL" && (
+
+                <div className="relative mb-4">
+                    <input
+                        type="text"
+                        placeholder="Buscar productos..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full p-2 border border-gray-300 rounded-lg text-xs"
+                    />
+                    {/* "X" Button */}
+                    {searchQuery && (
+                        <button
+                            onClick={() => setSearchQuery("")}
+                            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                        >
+                            <FaTimes />
+                        </button>
+                    )}
+                </div>
+            )}
+
+            {filteredAndSearchedProducts.map((product) => {
                 const isChecked = Boolean(selectedProducts[product.id]);
 
                 return (

@@ -9,6 +9,8 @@ interface Props {
     selectedProducts: Record<string, number>;
     totalProducts: number;
     availablePoints: number;
+    manualPoints: number;
+    manualTransactionType: 'Otorgar' | 'Quitar';
 }
 
 export const ClientContentTransactionInvoice = ({
@@ -18,18 +20,28 @@ export const ClientContentTransactionInvoice = ({
     selectedProducts,
     totalProducts,
     availablePoints,
+    manualPoints,
+    manualTransactionType
 }: Props) => {
+
     const isRewardTransaction = selectedTransactionType === TransactionType.REWARD;
+    const isBuyTransaction = selectedTransactionType === TransactionType.BUY;
+    const isManualTransaction = selectedTransactionType === TransactionType.MANUAL;
 
     const availablePointsClass = availablePoints === 0
         ? "text-gray-500 cursor-not-allowed"
-        : availablePoints < totalPoints
+        : availablePoints < totalPoints || availablePoints < manualPoints
             ? "text-red-500"
             : "text-green-500";
 
-    const pointsDifference = availablePoints < totalPoints
-        ? `(-${totalPoints - availablePoints < 0 ? 0 : totalPoints - availablePoints})`
-        : "";
+    const calculatePointsDifference = () => {
+        const points = isRewardTransaction ? totalPoints : manualPoints
+        if (availablePoints < points) {
+            const difference = points - availablePoints;
+            return `(-${difference < 0 ? 0 : difference})`;
+        }
+        return "";
+    };
 
     return (
         <div className="hidden md:block md:w-1/3 border border-gray-200 rounded-lg p-4 bg-white">
@@ -76,21 +88,29 @@ export const ClientContentTransactionInvoice = ({
             </div>
             <div className="flex justify-between mt-1">
                 <span className="text-sm font-semibold text-gray-800">
-                    Total puntos {selectedTransactionType === TransactionType.BUY ? "otorgados" : "necesarios"}
+                    Total puntos {isBuyTransaction || (isManualTransaction && manualTransactionType === 'Otorgar') ? "otorgados" : "necesarios"}
                 </span>
-                <span className="text-sm font-medium text-gray-900">{totalPoints}</span>
+                <span className="text-sm font-medium text-gray-900">
+                    {
+                        isManualTransaction
+                            ? manualPoints
+                            : totalPoints
+                    }
+                </span>
             </div>
 
 
             {/* Show "Puntos disponibles" only if transactionType is REWARD */}
-            {isRewardTransaction && (
+            {(isRewardTransaction || (isManualTransaction && manualTransactionType === "Quitar")) && (
                 <>
                     <div className="border-b border-gray-300 my-2"></div>
                     <div className="flex justify-between">
                         <span className="text-sm font-semibold text-gray-800">Puntos disponibles</span>
                         <span className={`text-sm font-medium ${availablePointsClass}`}>
                             {availablePoints}
-                            {pointsDifference && <span className="text-red-500 text-xs ml-2">{pointsDifference}</span>}
+                            <span className="text-red-500 text-xs">
+                                {calculatePointsDifference()}
+                            </span>
                         </span>
                     </div>
                 </>
