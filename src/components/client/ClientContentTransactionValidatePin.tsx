@@ -1,61 +1,36 @@
 "use client";
 
-import { capitalizeFirstLetter } from "@/utils";
-import React, { useState, useEffect } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 
 interface Props {
     handleValidatePin: (pin: string) => Promise<void>;
     isPinValidated: boolean;
     errorMessage: string | null;
-    userInfo?: { name: string; lastName: string; userId: string } | null;
-    pinExpiration: Date | undefined;
-    onPinExpire: () => void; // Callback for when PIN expires
-    handleResetStates: () => void
+    setErrorMessage: Dispatch<SetStateAction<string | null>>
+    setIsPinLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 export const ClientContentTransactionValidatePin = ({
-    handleResetStates,
     handleValidatePin,
     isPinValidated,
     errorMessage,
-    userInfo,
-    pinExpiration,
-    onPinExpire,
+    setErrorMessage,
+    setIsPinLoading,
 }: Props) => {
     const [pin, setPin] = useState(["", "", "", ""]);
-    const [isLoading, setIsLoading] = useState(false); // Loading state
-    const [timeLeft, setTimeLeft] = useState<number | null>(null); // Countdown timer in seconds
-
-    useEffect(() => {
-        if (isPinValidated && pinExpiration) {
-            const interval = setInterval(() => {
-                const now = new Date();
-                const diff = Math.max(0, pinExpiration.getTime() - now.getTime());
-                if (diff === 0) {
-                    clearInterval(interval);
-                    onPinExpire(); // Notify parent of expiration
-                    setPin(["", "", "", ""])
-                    handleResetStates()
-                }
-                setTimeLeft(Math.floor(diff / 1000)); // Convert milliseconds to seconds
-            }, 1000);
-
-            return () => clearInterval(interval); // Cleanup on unmount
-        }
-    }, [isPinValidated, pinExpiration, onPinExpire]);
-
-    const formatTime = (seconds: number | null) => {
-        if (seconds === null) return "";
-        const minutes = Math.floor(seconds / 60);
-        const secs = seconds % 60;
-        return `${minutes}:${secs < 10 ? `0${secs}` : secs}`;
-    };
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleInputChange = (value: string, index: number) => {
         if (/^\d?$/.test(value)) {
+            setErrorMessage(null)
             const newPin = [...pin];
             newPin[index] = value;
             setPin(newPin);
+
+            // Hide error message when the user starts editing
+            if (errorMessage) {
+                setIsLoading(false);
+            }
 
             // Automatically move focus to the next input
             if (value && index < 3) {
@@ -68,11 +43,19 @@ export const ClientContentTransactionValidatePin = ({
     const handleButtonClick = async () => {
         const fullPin = pin.join("");
         if (fullPin.length === 4) {
+            setIsPinLoading(true);
             setIsLoading(true);
+
+            // Simulate a minimum 2-second validation
+            await new Promise((resolve) => setTimeout(resolve, 2000));
             await handleValidatePin(fullPin);
+
+            setIsPinLoading(false);
             setIsLoading(false);
-            if (isPinValidated)
-                setPin(["", "", "", ""])
+
+            if (isPinValidated) {
+                setPin(["", "", "", ""]);
+            }
         }
     };
 
@@ -92,43 +75,33 @@ export const ClientContentTransactionValidatePin = ({
                                 onChange={(e) => handleInputChange(e.target.value, index)}
                                 className={`w-7 h-7 text-center text-sm font-medium border rounded-md focus:outline-none ${errorMessage ? "border-red-500" : "border-gray-300"
                                     }`}
-                                disabled={isLoading || isPinValidated}
                             />
                             {index < 3 && <span className="text-gray-500 font-bold">-</span>}
                         </React.Fragment>
                     ))}
                 </div>
-                <button
-                    onClick={handleButtonClick}
-                    disabled={!isPinComplete || isLoading || isPinValidated}
-                    className={`border h-8 rounded-lg px-1 sm:w-20 
-                ${isPinValidated
-                            ? "bg-green-500 text-white"
-                            : isPinComplete && !isLoading
-                                ? "hover:bg-slate-100 border-slate-200"
-                                : "opacity-50 cursor-not-allowed"
-                        }`}
-                >
-                    <p className="text-xs">
-                        {isLoading
-                            ? "Loading..." // Show "Loading..." when validating
-                            : isPinValidated
-                                ? `${formatTime(timeLeft)}` // Show countdown if validated
-                                : "Validar PIN"}
-                    </p>
-                </button>
 
+                {/* Show button or spinner/error message */}
+                {isLoading ? (
+                    <div className="h-8 flex items-center justify-center">
+                        <div className="w-5 h-5 border-2 border-gray-300 border-t-slate-800 rounded-full animate-spin"></div>
+                    </div>
+                ) : errorMessage ? (
+                    <p className="text-xs text-red-600">{errorMessage}</p>
+                ) : (
+                    <button
+                        onClick={handleButtonClick}
+                        disabled={!isPinComplete}
+                        className={`h-8 rounded-lg px-1 sm:w-20 
+                        ${isPinComplete
+                                ? "bg-white text-slate-800 border border-slate-800 hover:bg-slate-800 hover:text-white"
+                                : "bg-gray-100 text-slate-800 opacity-50 cursor-normal"
+                            }`}
+                    >
+                        <p className="text-xs">Validar PIN</p>
+                    </button>
+                )}
             </div>
-
-            {isPinValidated && userInfo && (
-                <div className="mt-4 text-sm text-gray-700">
-                    <p>
-                        <strong>Cliente: </strong>
-                        {capitalizeFirstLetter(userInfo.name)} {capitalizeFirstLetter(userInfo.lastName)}
-
-                    </p>
-                </div>
-            )}
         </div>
     );
 };

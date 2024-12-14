@@ -46,7 +46,7 @@ export const CompanyGridItem = ({ company, isInUserCards }: Props) => {
                             }
                         </div>
                         {isInUserCards && (
-                            <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-green-600 border border-white rounded-full -top-2 -right-2">
+                            <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-green-500 border border-white rounded-full -top-2 -right-2">
                                 <FaCheck />
                             </div>
                         )}

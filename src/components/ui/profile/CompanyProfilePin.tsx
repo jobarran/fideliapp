@@ -1,7 +1,7 @@
 "use client";
 
 import useSWR from "swr";
-import React, { useEffect, useState, SetStateAction } from "react";
+import React, { useEffect, useState, SetStateAction, Dispatch } from "react";
 import { Pin } from "@/interfaces";
 import { getUserPin } from "@/actions";
 import { formatTimeLeft } from "@/utils";
@@ -11,12 +11,16 @@ interface Props {
     cardId: string | undefined;
     handleGeneratePin: (id: string) => Promise<void>;
     setPin: React.Dispatch<React.SetStateAction<Pin | undefined>>;
+    handleUpdatePoints: () => void
+    pin?: Pin; 
 }
 
 export const CompanyProfilePin = ({
     cardId,
     handleGeneratePin,
     setPin,
+    pin: initialPin,
+    handleUpdatePoints
 }: Props) => {
 
     const [isLoading, setIsLoading] = useState(false);
@@ -41,12 +45,21 @@ export const CompanyProfilePin = ({
                 } else if (pin) {
                     setIsPollingActive(false);
                     setShowSuccessMessage(true);
+                    handleUpdatePoints()
                     setTimeout(() => setShowSuccessMessage(false), 5000);
                     setPin(undefined);
                 }
             },
         }
     );
+
+    // Sync initial `pin` prop with SWR state on mount
+    useEffect(() => {
+        if (initialPin) {
+            setPin(initialPin);
+            setIsPollingActive(true);
+        }
+    }, [initialPin, setPin]);
 
     useEffect(() => {
         if (!pin?.expiresAt || showSuccessMessage) return;

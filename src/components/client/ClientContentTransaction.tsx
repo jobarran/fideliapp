@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import { Product } from '@/interfaces';
 import { ClientContentTransactionInvoice } from './ClientContentTransactionInvoice';
 import { ClientContentTransactionSummary } from './ClientContentTransactionSummary';
@@ -9,6 +9,7 @@ import { ClientContentTransactionButtons } from './ClientContentTransactionButto
 import { TransactionType } from '@prisma/client';
 import { ClientContentTransactionValidatePin } from './ClientContentTransactionValidatePin';
 import { createNewTransaction, deletePin, pinValidation } from '@/actions';
+import { ClientContentTransactionLoading, ClientContentTransactionSuccess, ClientContentTransactionValidPin } from '..';
 
 interface Props {
     products: Product[];
@@ -26,6 +27,8 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
     const [userPin, setUserPin] = useState<string | undefined>(undefined)
     const [transactionSuccess, setTransactionSuccess] = useState(false); // New state for transaction success
     const [availablePoints, setAvailablePoints] = useState<number>(0)
+    const [isPinLoading, setIsPinLoading] = useState(false)
+    const [confirmLoading, setConfirmLoading] = useState(false)
 
     const handleTransactionTypeSelect = (type: TransactionType) => {
         setSelectedTransactionType(type);
@@ -83,6 +86,9 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
     }
 
     const handleTransactionConfirm = async () => {
+
+        setConfirmLoading(true)
+
         if (!userInfo || !selectedTransactionType || totalProducts === 0) {
             console.error('Validation failed');
             return;
@@ -110,6 +116,15 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
         }
     };
 
+    const handletransactionCancel = () => {
+        setIsPinValidated(false)
+        setAvailablePoints(0)
+        setSelectedProducts({})
+        setUserInfo(null)
+        setCardInfo(null)
+        setPinExpiration(undefined)
+    }
+
 
     const filteredProducts = products.filter((product) =>
         selectedTransactionType === TransactionType.BUY
@@ -136,57 +151,49 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
 
     const totalProducts = Object.values(selectedProducts).reduce((sum, quantity) => sum + quantity, 0);
 
-    if (transactionSuccess) {
-        // Render success message and return button
-        return (
-            <div className="flex flex-col items-center justify-center h-full">
-                <h2 className="text-2xl font-bold text-green-600">¡Transacción completada!</h2>
-                <button
-                    onClick={() => setTransactionSuccess(false)} // Navigate to the home page
-                    className="mt-4 bg-blue-600 text-white py-2 px-4 rounded"
-                >
-                    Regresar
-                </button>
-            </div>
-        );
-    }
-
     return (
         <div className="md:flex md:space-x-4">
             <div className="md:w-2/3">
-                <button
-                    onClick={handleTransactionConfirm}
-                    disabled={
-                        !isPinValidated ||
-                        totalProducts === 0 ||
-                        (selectedTransactionType === 'REWARD' && availablePoints < totalPoints)
 
-                    }
-                    className={`sm:hidden bg-slate-800 text-white py-2 px-4 w-full rounded mb-4 lg:mb-0 
-                        ${!isPinValidated ||
-                            totalProducts === 0 ||
-                            (selectedTransactionType === 'REWARD' && availablePoints < totalPoints)
-                            ? 'bg-white text-slate-800 border border-slate-800 opacity-30'
-                            : 'bg-slate-800 text-white'
-                        }`}               >
-                    CONFIRMAR
-                </button>
-                <div className='flex justify-between'>
-                    <div>
-                        <h2 className="text-xl font-semibold text-gray-800 mb-2">Transacción</h2>
-                        <ClientContentTransactionValidatePin
-                            handleResetStates={handleResetStates}
-                            handleValidatePin={handleValidatePin}
-                            isPinValidated={isPinValidated}
-                            errorMessage={errorMessage}
-                            userInfo={userInfo}
-                            pinExpiration={pinExpiration}
-                            onPinExpire={() => {
-                                setIsPinValidated(false); // Reset validation state
-                                setPinExpiration(undefined); // Clear expiration
-                            }}
-                        />
+                <div>
+                    {/* Conditional rendering based on pin validation */}
+                    <div className="rounded-lg border h-16 w-full flex items-center justify-center">
+                        {!transactionSuccess && !isPinValidated &&
+                            <ClientContentTransactionValidatePin
+                                handleValidatePin={handleValidatePin}
+                                isPinValidated={isPinValidated}
+                                errorMessage={errorMessage}
+                                setErrorMessage={setErrorMessage}
+                                setIsPinLoading={setIsPinLoading}
+                            />
+                        }
+                        {!transactionSuccess && isPinValidated &&
+                            < ClientContentTransactionValidPin
+                                pinExpiration={pinExpiration}
+                                userInfo={userInfo}
+                                userPin={userPin}
+                                onPinExpire={() => {
+                                    setIsPinValidated(false); // Reset validation state
+                                    setPinExpiration(undefined); // Clear expiration
+                                }}
+                                handleResetStates={handleResetStates}
+                            />
+                        }
+                        {transactionSuccess && confirmLoading &&
+                            <ClientContentTransactionLoading
+                                setConfirmLoading={setConfirmLoading}
+                            />
+                        }
+                        {transactionSuccess && !confirmLoading &&
+                            <ClientContentTransactionSuccess
+                                setTransactionSuccess={setTransactionSuccess}
+                            />
+                        }
+
                     </div>
+                </div>
+
+                <div className='flex space-x-2 py-2 text-xs'>
                     <button
                         onClick={handleTransactionConfirm}
                         disabled={
@@ -194,46 +201,59 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
                             totalProducts === 0 ||
                             (selectedTransactionType === 'REWARD' && availablePoints < totalPoints)
                         }
-                        className={`hidden sm:block py-2 px-4 rounded 
+                        className={`py-2 px-2 rounded w-full 
                             ${!isPinValidated ||
                                 totalProducts === 0 ||
                                 (selectedTransactionType === 'REWARD' && availablePoints < totalPoints)
-                                ? 'bg-white text-slate-800 border border-slate-800 opacity-30'
-                                : 'bg-slate-800 text-white'
+                                ? 'bg-gray-100 text-slate-800 opacity-50'
+                                : 'bg-green-600 text-white hover:bg-green-500'
                             }`}
                     >
                         CONFIRMAR
                     </button>
+                    <button
+                        onClick={handletransactionCancel}
+                        disabled={
+                            !isPinValidated
+                        }
+                        className={`py-2 px-2 rounded w-full 
+                            ${!isPinValidated
+                                ? 'bg-gray-100 text-slate-800 opacity-50'
+                                : 'bg-red-600 text-white hover:bg-red-800'
+                            }`}
+                    >
+                        CANCELAR
+                    </button>
                 </div>
-                <>
-                    <div className="flex flex-col md:flex-row md:items-center md:space-x-4 mt-4">
-                        {/* Transaction Type Buttons */}
-                        <ClientContentTransactionButtons
-                            handleTransactionTypeSelect={handleTransactionTypeSelect}
-                            selectedTransactionType={selectedTransactionType}
-                        />
-                    </div>
 
-                    {selectedTransactionType && (
-                        <ClientContentTransactionSummary
-                            selectedTransactionType={selectedTransactionType}
-                            selectedProducts={Object.keys(selectedProducts)}
-                            totalPoints={totalPoints}
-                            totalProducts={totalProducts}
-                            availablePoints={availablePoints} // Pass available points
-                        />
-                    )}
+                <div className="flex flex-col md:flex-row md:items-center md:space-x-4 mt-2">
+                    {/* Transaction Type Buttons */}
+                    <ClientContentTransactionButtons
+                        handleTransactionTypeSelect={handleTransactionTypeSelect}
+                        selectedTransactionType={selectedTransactionType}
+                    />
+                </div>
 
-                    {selectedTransactionType && (
-                        <ClientContentTransactionProductList
-                            filteredProducts={filteredProducts}
-                            selectedProducts={selectedProducts}
-                            handleProductSelect={handleProductSelect}
-                            handleQuantityChange={handleQuantityChange}
-                            selectedTransactionType={selectedTransactionType}
-                        />
-                    )}
-                </>
+                {selectedTransactionType && (
+                    <ClientContentTransactionSummary
+                        selectedTransactionType={selectedTransactionType}
+                        selectedProducts={Object.keys(selectedProducts)}
+                        totalPoints={totalPoints}
+                        totalProducts={totalProducts}
+                        availablePoints={availablePoints} // Pass available points
+                    />
+                )}
+
+                {selectedTransactionType && (
+                    <ClientContentTransactionProductList
+                        filteredProducts={filteredProducts}
+                        selectedProducts={selectedProducts}
+                        handleProductSelect={handleProductSelect}
+                        handleQuantityChange={handleQuantityChange}
+                        selectedTransactionType={selectedTransactionType}
+                    />
+                )}
+
             </div>
 
             {selectedTransactionType && (

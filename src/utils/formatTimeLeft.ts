@@ -6,3 +6,10 @@ export const formatTimeLeft = (timeLeft: number) => {
         .toString()
         .padStart(2, "0")}`;
 };
+
+export const formatTime = (seconds: number | null) => {
+    if (seconds === null) return "";
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes}:${secs < 10 ? `0${secs}` : secs}`;
+};

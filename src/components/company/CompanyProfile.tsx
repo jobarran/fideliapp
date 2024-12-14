@@ -23,6 +23,7 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
     
     const [selectedTab, setSelectedTab] = useState(initialTab);
     const [openModal, setOpenModal] = useState(false)
+    const [cardPoints, setCardPoints] = useState(card?.points); // Initialize with card points
     const handleTabChange = (tab: string) => {
         setSelectedTab(tab);
     };
@@ -57,7 +58,8 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
                 selectedTab={selectedTab}
                 setOpenModal={setOpenModal}
                 userCardForCompany={userCardForCompany}
-                cardPoints={card?.points}
+                cardPoints={cardPoints}
+                setCardPoints={setCardPoints}
                 cardId={card?.id}
                 favorite={card?.favourite}
                 userPin={userPin}

@@ -14,6 +14,7 @@ interface Props {
     cardPoints: number | undefined
     favorite: boolean | undefined
     cardId: string | undefined
+    isUpdatingPoints: boolean
 }
 
 export const CompanyProfileHeaderData = ({
@@ -22,9 +23,9 @@ export const CompanyProfileHeaderData = ({
     userCardForCompany,
     cardPoints,
     favorite,
-    cardId
+    cardId,
+    isUpdatingPoints,
 }: Props) => {
-
     const [isFavorite, setIsFavorite] = useState(favorite);
 
     // Function to toggle favorite status
@@ -57,7 +58,7 @@ export const CompanyProfileHeaderData = ({
                     <h1 className="sm:font-semibold text-lg sm:text-2xl text-center sm:text-left flex items-center">
                         {company?.name}
                         {userCardForCompany && (
-                            <span className="ml-2 inline-flex items-center justify-center w-5 h-5 bg-green-600 rounded-full">
+                            <span className="ml-2 inline-flex items-center justify-center w-5 h-5 bg-green-500 rounded-full">
                                 <FaCheck className="text-white text-xs" />
                             </span>
                         )}
@@ -71,11 +72,15 @@ export const CompanyProfileHeaderData = ({
                     </p> */}
                     {userCardForCompany && (
                         <div>
-                            <div className='flex flex-row items-center mt-2 sm:mt-0'>
+                            <div className="flex flex-row items-center mt-2 sm:mt-0">
                                 <IoTicketOutline className="mr-2 text-gray-600" />
-                                <p className='text-xs sm:text-sm text-gray-600'>
-                                    {cardPoints} puntos
-                                </p>
+                                {isUpdatingPoints ? (
+                                    <div className="rounded-lg overflow-hidden animate-pulse">
+                                        <div className="flex flex-col items-center justify-center h-5 w-16 bg-gray-200"></div>
+                                    </div>
+                                ) : (
+                                    <p className="text-xs sm:text-sm text-gray-600">{cardPoints} puntos</p>
+                                )}
                             </div>
                             <div className="flex flex-row items-center mt-2 sm:mt-1">
                                 {/* Conditionally render the favorite icon and text */}
@@ -103,7 +108,7 @@ export const CompanyProfileHeaderData = ({
                                     </>
                                 )}
                             </div>
-                          
+
                         </div>
                     )}
                 </div>

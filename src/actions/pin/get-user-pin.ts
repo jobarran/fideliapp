@@ -17,7 +17,7 @@ export const getUserPin = async (cardId: string | undefined) => {
     // Check if the PIN exists for the userS
     const userPin = await prisma.pin.findFirst({
       where: {
-        cardId,
+        cardId: cardId,
       },
     });
 

@@ -30,3 +30,8 @@ if pin exists, delete it and create new
 REFACTOR client transaction page
 
 review validate pin userId validation
+
+clientClientContentTransaction pushing to home
+
+error page
+
