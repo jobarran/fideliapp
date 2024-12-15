@@ -1,9 +1,13 @@
-"use client"
+"use client";
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { formatDate } from '../../utils/formatDate';
 import { formattedTime } from '@/utils';
 import { Transaction } from '@/interfaces/transacrion.interface';
+import { FaBan, FaRegEye } from 'react-icons/fa6';
+import { updateTransactionStateById } from '@/actions';
 
 interface Props {
     transactions: Transaction[];
@@ -26,7 +30,6 @@ const getPointsColor = (points: number): string => {
     return points < 0 ? 'text-red-500' : 'text-green-500';
 };
 
-// Capitalize the first letter of each name
 const capitalizeFirstLetter = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
@@ -34,25 +37,30 @@ const capitalizeFirstLetter = (str: string) => {
 export const ClientContentMovements = ({ transactions }: Props) => {
     const [filteredTransactions, setFilteredTransactions] = useState<Transaction[]>(transactions);
     const [searchTerm, setSearchTerm] = useState('');
-    const [transactionType, setTransactionType] = useState<'BUY' | 'REWARD' | 'MANUAL' | ''>('');
+    const [transactionType, setTransactionType] = useState<'BUY' | 'REWARD' | 'MANUAL' | ''>(''); 
+    const [transactionState, setTransactionState] = useState<'ALL' | 'CONFIRMED' | 'CANCELLED'>('ALL'); // New state filter
     const [visibleTransactions, setVisibleTransactions] = useState<Transaction[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
-    
-    // Filter transactions based on name and type
+    const [cancellingTransactionId, setCancellingTransactionId] = useState<string | null>(null); // State for confirmation
+    const [isCancelled, setIsCancelled] = useState(false); // To track if the transaction was cancelled
+
+    const router = useRouter();  // To handle navigation for Edit button
+
     useEffect(() => {
         const filtered = transactions.filter((transaction) => {
             const matchesName =
                 transaction.clientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 transaction.clientLastName.toLowerCase().includes(searchTerm.toLowerCase());
             const matchesType = transactionType ? transaction.type === transactionType : true;
-            return matchesName && matchesType;
+            const matchesState = transactionState === 'ALL' || transaction.state === transactionState;
+
+            return matchesName && matchesType && matchesState;
         });
 
         setFilteredTransactions(filtered);
         setCurrentPage(1);
-    }, [searchTerm, transactionType, transactions]);
+    }, [searchTerm, transactionType, transactionState, transactions]);
 
-    // Lazy loading: show next 20 transactions
     useEffect(() => {
         setVisibleTransactions(filteredTransactions.slice(0, currentPage * 20));
     }, [currentPage, filteredTransactions]);
@@ -61,10 +69,27 @@ export const ClientContentMovements = ({ transactions }: Props) => {
         setCurrentPage((prevPage) => prevPage + 1);
     };
 
+    const handleCancelTransaction = (transactionId: string) => {
+        setCancellingTransactionId(transactionId); // Show confirmation
+    };
+
+    const cancelTransactionById = async () => {
+        await updateTransactionStateById({
+            transactionId: cancellingTransactionId || '',
+            newState: 'CANCELLED'
+        });
+        setIsCancelled(true);
+        setCancellingTransactionId(null); // Reset cancellation state
+    };
+
+    const revertTransactionState = () => {
+        setCancellingTransactionId(null); // Revert the cancellation state
+    };
+
     return (
         <div>
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">Movimientos</h2>
-            
+
             {/* Filters */}
             <div className="mb-4">
                 <div className="flex space-x-4 mb-4">
@@ -88,6 +113,17 @@ export const ClientContentMovements = ({ transactions }: Props) => {
                         <option value="REWARD">REWARD</option>
                         <option value="MANUAL">MANUAL</option>
                     </select>
+
+                    {/* Dropdown for Transaction State */}
+                    <select
+                        className="border px-4 py-2 rounded-md text-sm"
+                        value={transactionState}
+                        onChange={(e) => setTransactionState(e.target.value as 'ALL' | 'CONFIRMED' | 'CANCELLED')}
+                    >
+                        <option value="ALL">Todos los estados</option>
+                        <option value="CONFIRMED">CONFIRMADOS</option>
+                        <option value="CANCELLED">CANCELADOS</option>
+                    </select>
                 </div>
             </div>
 
@@ -96,12 +132,36 @@ export const ClientContentMovements = ({ transactions }: Props) => {
                 {visibleTransactions.map((transaction) => (
                     <div
                         key={transaction.id}
-                        className="flex items-center justify-between p-3 mb-2 rounded-lg border border-gray-200"
+                        className={`flex items-center justify-between p-3 mb-2 rounded-lg border transition-all duration-500 h-16 ${
+                            cancellingTransactionId === transaction.id
+                                ? 'bg-red-500 text-white'
+                                : transaction.state === 'CANCELLED'
+                                ? 'bg-gray-200 text-gray-500 cursor-not-allowed' // Disabled style for cancelled
+                                : 'bg-white text-gray-800'
+                        } relative`}
                     >
-                        <div className="flex flex-col space-y-2 w-full">
-                            {/* Small Section: Type | Separator | Points */}
-                            <div className="flex items-center space-x-4">
-
+                        {/* If cancelling, show confirmation message */}
+                        {cancellingTransactionId === transaction.id ? (
+                            <div className="absolute inset-0 flex justify-center items-center">
+                                <p className="text-lg font-semibold text-center">¿Seguro que quieres cancelar?</p>
+                                <div className="flex space-x-2 ml-4">
+                                    <button
+                                        className="bg-red-500 text-white border border-white py-1 px-2 rounded-lg text-sm hover:bg-white hover:text-red-500"
+                                        onClick={cancelTransactionById}
+                                    >
+                                        Sí
+                                    </button>
+                                    <button
+                                        className="bg-red-500 text-white border border-white py-1 px-2 rounded-lg text-sm hover:bg-white hover:text-red-500"
+                                        onClick={revertTransactionState}
+                                    >
+                                        No
+                                    </button>
+                                </div>
+                            </div>
+                        ) : (
+                            // Transaction details displayed when not in cancel state
+                            <div className="flex flex-grow space-x-4">
                                 {/* Type Label */}
                                 <div className="flex flex-col items-center w-16">
                                     <p className="text-xs text-slate-500">Tipo</p>
@@ -116,7 +176,7 @@ export const ClientContentMovements = ({ transactions }: Props) => {
                                 {/* Points Label */}
                                 <div className="flex flex-col items-center">
                                     <p className="text-xs text-slate-500">Puntos</p>
-                                    <p className={`font-semibold ${getPointsColor(transaction.points)} text-base mt-1`}>
+                                    <p className={`font-semibold ${getPointsColor(transaction.points)} text-sm mt-1`}>
                                         {transaction.points}
                                     </p>
                                 </div>
@@ -151,7 +211,24 @@ export const ClientContentMovements = ({ transactions }: Props) => {
                                     <p className='text-sm text-slate-800 mt-1' >{formattedTime(transaction.date)}</p>
                                 </div>
                             </div>
-                        </div>
+                        )}
+
+                        {/* Only show buttons when not in cancel state */}
+                        {cancellingTransactionId !== transaction.id && transaction.state !== 'CANCELLED' && (
+                            <div className="flex space-x-1">
+                                <Link href={`/client/${transaction.id}/${transaction.id}`}>
+                                    <button className="text-slate-800 text-base py-2 px-2 rounded-lg hover:bg-slate-800 hover:text-white">
+                                        <FaRegEye />
+                                    </button>
+                                </Link>
+                                <button
+                                    className="text-red-600 text-base py-1 px-2 rounded-lg hover:bg-red-600 hover:text-white"
+                                    onClick={() => handleCancelTransaction(transaction.id)}
+                                >
+                                    <FaBan />
+                                </button>
+                            </div>
+                        )}
                     </div>
                 ))}
             </div>

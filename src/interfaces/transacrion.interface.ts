@@ -1,3 +1,4 @@
+import { TransactionState } from "@prisma/client";
 import { Product } from "./product.interface";
 
 export interface Transaction {
@@ -9,5 +10,6 @@ export interface Transaction {
     companyId: string;
     clientName: string;
     clientLastName: string;
+    state: TransactionState
     products: Product[];
 }

@@ -36,6 +36,11 @@ enum PinState {
   USED
 }
 
+enum TransactionState {
+  CONFIRMED
+  CANCELLED
+}
+
 model User {
   id       String   @id @default(uuid())
   name     String
@@ -136,9 +141,10 @@ model Card {
 }
 
 model PointTransaction {
-  id     String   @id @default(uuid())
+  id     String           @id @default(uuid())
   points Int
-  date   DateTime @default(now())
+  date   DateTime         @default(now())
+  state  TransactionState @default(CONFIRMED) 
 
   // Relations - Many-to-Many with Product
   products Product[] @relation("TransactionProducts")

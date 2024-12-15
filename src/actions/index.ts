@@ -37,3 +37,4 @@ export { deletePin } from './pin/delete-pin'
 export { getUserPin } from './pin/get-user-pin'
 
 export { createNewTransaction } from './transaction/create-new-transaction'
+export { updateTransactionStateById } from './transaction/update-transaction-state-by-id'
