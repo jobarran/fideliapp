@@ -37,7 +37,7 @@ export const ClientProfile = ({ company, userId, products, transactions }: Props
             case "transaccion":
                 return <ClientContentTransaction products={products ?? []} companySlug={company.slug} />;
             case "movimientos":
-                return <ClientContentMovements transactions={transactions} />;
+                return <ClientContentMovements transactions={transactions} userId={userId} />;
             case "productos":
                 return <ClientContentProducts userId={userId} companyId={company.id} products={products ?? []} />;
             case "informacion":

@@ -11,6 +11,7 @@ import { updateTransactionStateById } from '@/actions';
 
 interface Props {
     transactions: Transaction[];
+    userId: string
 }
 
 const getTransactionTypeColor = (type: 'BUY' | 'REWARD' | 'MANUAL'): string => {
@@ -34,7 +35,7 @@ const capitalizeFirstLetter = (str: string) => {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
-export const ClientContentMovements = ({ transactions }: Props) => {
+export const ClientContentMovements = ({ transactions, userId }: Props) => {
     const [filteredTransactions, setFilteredTransactions] = useState<Transaction[]>(transactions);
     const [searchTerm, setSearchTerm] = useState('');
     const [transactionType, setTransactionType] = useState<'BUY' | 'REWARD' | 'MANUAL' | ''>(''); 
@@ -216,7 +217,7 @@ export const ClientContentMovements = ({ transactions }: Props) => {
                         {/* Only show buttons when not in cancel state */}
                         {cancellingTransactionId !== transaction.id && transaction.state !== 'CANCELLED' && (
                             <div className="flex space-x-1">
-                                <Link href={`/client/${transaction.id}/${transaction.id}`}>
+                                <Link href={`/client/${userId}/transaction/${transaction.id}`}>
                                     <button className="text-slate-800 text-base py-2 px-2 rounded-lg hover:bg-slate-800 hover:text-white">
                                         <FaRegEye />
                                     </button>
