@@ -19,15 +19,6 @@ export const UserProfile = ({ user, hasCompany, userId }: Props) => {
     const [selectedTab, setSelectedTab] = useState(userNavItems[0].id);
     const [openModal, setOpenModal] = useState(false)
 
-    const { data } = useSession();
-    const router = useRouter();
-
-    useEffect(() => {
-        if (data?.user.id !== userId) {
-            router.push('/');
-        }
-    }, [data?.user.id, userId, router]);
-
     const handleTabChange = (tab: string) => {
         setSelectedTab(tab);
     };

@@ -1,5 +1,6 @@
 import { getUserById } from "@/actions";
 import { UserProfile } from "@/components";
+import { redirect } from "next/navigation";
 
 interface Props {
   params: {
@@ -14,10 +15,12 @@ export default async function UserPage({ params }: Props) {
   // Get the user data
   const { user } = await getUserById(id);
 
-  console.log(user)
-
   if (!user) {
     return <div>No user data available</div>; // Fallback for undefined case
+  }
+
+  if (user?.id !== id) {
+    redirect("/");
   }
 
   const hasCompany = user.Company !== null; // true if Company exists
