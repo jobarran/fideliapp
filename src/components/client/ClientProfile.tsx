@@ -1,11 +1,9 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { CompanyClientDashboard, Product } from "@/interfaces";
 import { ChangeImage, ClientContentInformation, ClientContentMovements, ClientContentProducts, ClientContentTransaction, ProfileContent, ProfileHeader } from "..";
 import { clientNavItems } from "@/config";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 
 interface Props {
@@ -19,18 +17,10 @@ export const ClientProfile = ({ company, userId, products, transactions }: Props
 
     const [selectedTab, setSelectedTab] = useState(clientNavItems[0].id);
     const [openModal, setOpenModal] = useState(false)
+
     const handleTabChange = (tab: string) => {
         setSelectedTab(tab);
     };
-
-    const { data } = useSession();
-    const router = useRouter();
-
-    useEffect(() => {
-        if (data?.user.id !== userId) {
-            router.push('/');
-        }
-    }, [data?.user.id, userId, router]);
 
     const renderContent = () => {
         switch (selectedTab) {

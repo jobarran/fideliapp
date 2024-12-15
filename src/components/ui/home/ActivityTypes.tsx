@@ -1,7 +1,5 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import { getAllActivityType } from '@/actions'
 import { ActivityType } from '@/interfaces'
 
 interface Props {
