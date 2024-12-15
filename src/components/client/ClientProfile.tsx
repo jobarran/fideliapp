@@ -12,9 +12,10 @@ interface Props {
     company: CompanyClientDashboard,
     userId: string
     products: Product[]
+    transactions: any
 }
 
-export const ClientProfile = ({ company, userId, products }: Props) => {
+export const ClientProfile = ({ company, userId, products, transactions }: Props) => {
 
     const [selectedTab, setSelectedTab] = useState(clientNavItems[0].id);
     const [openModal, setOpenModal] = useState(false)
@@ -36,7 +37,7 @@ export const ClientProfile = ({ company, userId, products }: Props) => {
             case "transaccion":
                 return <ClientContentTransaction products={products ?? []} companySlug={company.slug} />;
             case "movimientos":
-                return <ClientContentMovements />;
+                return <ClientContentMovements transactions={transactions} />;
             case "productos":
                 return <ClientContentProducts userId={userId} companyId={company.id} products={products ?? []} />;
             case "informacion":
