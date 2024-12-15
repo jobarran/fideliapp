@@ -11,33 +11,8 @@ Add loading to validate Pin in ClientContentTransaction
 - companies/slug - Tarjeta // disable for unregister users (register to create card)
 - Freemium: max prod 10 u
 
-- Add search bar to products in transaction section
-
-
-
-El pin ha expirado timmer (5 secs)
-remove pinter from pin button when PIN
-avoid always being swr (just when pin is created)
-success and expired button size
-pin creating loading UI
-Pin en uso text and color button
-pin success when transaction not showing
-validation different users
-transaction confirmation dont take care of expiration if is "IN_USE"
-
-if pin exists, delete it and create new
-
-REFACTOR client transaction page
-
 review validate pin userId validation
-
 clientClientContentTransaction pushing to home
-
 error page
-
 soft delete
-
-sort transactions
-refactor transaction
-responsive movements
 breadcrumb

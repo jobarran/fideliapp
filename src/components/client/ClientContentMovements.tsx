@@ -24,20 +24,29 @@ export const ClientContentMovements = ({ transactions, userId }: Props) => {
         transactionState
     );
 
-    const handleCancelTransaction = async (transactionId: string) => {
-        setCancellingTransactionId(transactionId);
-        await updateTransactionStateById({ transactionId, newState: "CANCELLED" });
-        setCancellingTransactionId(null);
+    const handleCancelTransaction = (transactionId: string) => {
+        setCancellingTransactionId(transactionId); // Set the transaction ID to show the confirmation
+    };
+
+    const cancelTransactionById = async () => {
+        if (!cancellingTransactionId) return;
+        console.log(`Transaction with ID: ${cancellingTransactionId} cancelled.`);
+        await updateTransactionStateById({
+            transactionId: cancellingTransactionId || '',
+            newState: 'CANCELLED'
+        });
+        setCancellingTransactionId(null); // Reset cancellation state
+    };
+
+    const revertTransactionState = () => {
+        setCancellingTransactionId(null); // Revert the cancellation state
     };
 
     return (
         <div>
-
-            {/* Filters */}
             {/* Filters */}
             <div className="mb-4">
                 <div className="flex flex-col gap-2 md:flex-row">
-                    {/* Search Input for Name */}
                     <input
                         type="text"
                         placeholder="Buscar por cliente"
@@ -45,9 +54,7 @@ export const ClientContentMovements = ({ transactions, userId }: Props) => {
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
-
                     <div className="flex gap-2">
-                        {/* Dropdown for Transaction Type */}
                         <select
                             className="flex border px-3 py-1 rounded-md text-sm w-full md:w-auto"
                             value={transactionType}
@@ -58,8 +65,6 @@ export const ClientContentMovements = ({ transactions, userId }: Props) => {
                             <option value="REWARD">Recompensa</option>
                             <option value="MANUAL">Manual</option>
                         </select>
-
-                        {/* Dropdown for Transaction State */}
                         <select
                             className="flex border px-3 py-1 rounded-md text-sm w-full md:w-auto"
                             value={transactionState}
@@ -73,7 +78,6 @@ export const ClientContentMovements = ({ transactions, userId }: Props) => {
                 </div>
             </div>
 
-
             {/* Transactions */}
             <div>
                 {visibleTransactions.map((transaction) => (
@@ -81,9 +85,10 @@ export const ClientContentMovements = ({ transactions, userId }: Props) => {
                         key={transaction.id}
                         transaction={transaction}
                         onCancel={handleCancelTransaction}
-                        onRevert={() => setCancellingTransactionId(null)}
+                        onRevert={revertTransactionState}
                         isCancelling={cancellingTransactionId === transaction.id}
                         userId={userId}
+                        cancelTransactionById={cancelTransactionById}
                     />
                 ))}
             </div>
