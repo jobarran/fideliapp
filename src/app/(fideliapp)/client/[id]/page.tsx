@@ -1,6 +1,8 @@
 import { getCompanyByUser, getCompanyTransactionsByUser, getProductsByCompanyId } from "@/actions";
 import { auth } from "@/auth.config";
 import { ClientProfile } from "@/components";
+import { CompanyTransaction } from "@/interfaces/transacrion.interface";
+import { sortTransactionsByDate } from "@/utils";
 import { redirect } from "next/navigation";
 
 interface Props {
@@ -18,6 +20,7 @@ export default async function ClientPage({ params }: Props) {
   const session = await auth();
   const user = session?.user || null;
 
+
   if (!company) {
     return <p>Company not found</p>;
   }
@@ -27,6 +30,8 @@ export default async function ClientPage({ params }: Props) {
   // Ensure that products is always an array
   const companyProducts = products ?? []; // If products is null, default to an empty array
   const companyTransactions = transactions ?? []
+
+  const sortedTransactions = sortTransactionsByDate(companyTransactions);
 
   if (user?.id !== id) {
     redirect("/");
@@ -38,7 +43,7 @@ export default async function ClientPage({ params }: Props) {
         company={company}
         userId={id}
         products={companyProducts}
-        transactions={companyTransactions ?? []}
+        transactions={sortedTransactions}
       />
     </div>
   );

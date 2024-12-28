@@ -19,7 +19,7 @@ export interface CompanyTransaction {
     points: number;
     date: string;
     state: TransactionState;
-    type: TransactionType;
+    type: 'BUY' | 'REWARD' | 'MANUAL';
     cardId: string;
     companyId: string;
     clientName: string;
