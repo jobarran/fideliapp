@@ -1,13 +1,13 @@
 "use client"
 
 import React, { useState } from "react";
-import { Transaction } from "@/interfaces/transacrion.interface";
+import { CompanyTransaction, Transaction } from "@/interfaces/transacrion.interface";
 import { updateTransactionStateById } from "@/actions";
 import { useMovementsFilter } from "@/hooks";
 import { ClientContentMovementsRow } from "./ClientContentMovementsRow";
 
 interface Props {
-    transactions: Transaction[];
+    transactions: CompanyTransaction[];
     userId: string;
 }
 

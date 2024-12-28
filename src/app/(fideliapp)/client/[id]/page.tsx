@@ -26,9 +26,10 @@ export default async function ClientPage({ params }: Props) {
 
   // Ensure that products is always an array
   const companyProducts = products ?? []; // If products is null, default to an empty array
+  const companyTransactions = transactions ?? []
 
   if (user?.id !== id) {
-    redirect("/"); 
+    redirect("/");
   }
 
   return (
@@ -37,7 +38,7 @@ export default async function ClientPage({ params }: Props) {
         company={company}
         userId={id}
         products={companyProducts}
-        transactions={transactions}
+        transactions={companyTransactions ?? []}
       />
     </div>
   );

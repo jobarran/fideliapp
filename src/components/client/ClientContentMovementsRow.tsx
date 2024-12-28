@@ -3,12 +3,11 @@ import Link from "next/link";
 import { FaBan } from "react-icons/fa6";
 import { formatDate } from "../../utils/formatDate";
 import { capitalizeFirstLetter, formattedTime, getPointsColor, getTransactionTypeColor } from "@/utils";
-import { Transaction } from "@/interfaces/transacrion.interface";
+import { CompanyTransaction, Transaction } from "@/interfaces/transacrion.interface";
 import { ClientContentMovementsCancelConfirm } from "./ClientContentMovementsCancelConfirm";
 import { ClientContentMovementsDetail } from "./ClientContentMovementsDetail";
 
-// Transaction Row Component
-// Transaction Row Component
+
 export const ClientContentMovementsRow = ({
   transaction,
   onCancel,
@@ -17,7 +16,7 @@ export const ClientContentMovementsRow = ({
   userId,
   cancelTransactionById,
 }: {
-  transaction: Transaction;
+  transaction: CompanyTransaction;
   onCancel: (id: string) => void;
   onRevert: () => void;
   isCancelling: boolean;

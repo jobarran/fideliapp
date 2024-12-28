@@ -4,13 +4,14 @@ import { useState } from "react";
 import { CompanyClientDashboard, Product } from "@/interfaces";
 import { ChangeImage, ClientContentInformation, ClientContentMovements, ClientContentProducts, ClientContentTransaction, ProfileContent, ProfileHeader } from "..";
 import { clientNavItems } from "@/config";
+import { CompanyTransaction } from "@/interfaces/transacrion.interface";
 
 
 interface Props {
     company: CompanyClientDashboard,
     userId: string
     products: Product[]
-    transactions: any
+    transactions: CompanyTransaction[]
 }
 
 export const ClientProfile = ({ company, userId, products, transactions }: Props) => {
@@ -27,7 +28,7 @@ export const ClientProfile = ({ company, userId, products, transactions }: Props
             case "transaccion":
                 return <ClientContentTransaction products={products ?? []} companySlug={company.slug} />;
             case "movimientos":
-                return <ClientContentMovements transactions={transactions} userId={userId} />;
+                return <ClientContentMovements transactions={transactions ?? []} userId={userId} />;
             case "productos":
                 return <ClientContentProducts userId={userId} companyId={company.id} products={products ?? []} />;
             case "informacion":

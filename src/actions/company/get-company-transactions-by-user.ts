@@ -12,11 +12,16 @@ export const getCompanyTransactionsByUser = async (userId: string) => {
       include: {
         Cards: {
           include: {
+            user: { select: { name: true, lastName: true, id: true } },
             History: {
+              include: {
+                products: true, // Include associated products
+              },
               orderBy: {
                 date: 'desc',
               },
             },
+
           },
         },
         user: {
@@ -31,7 +36,6 @@ export const getCompanyTransactionsByUser = async (userId: string) => {
 
     if (!companyWithTransactions) return null;
 
-    // Flatten the result to return only transactions
     const transactions = companyWithTransactions.Cards.flatMap((card) =>
       card.History.map((transaction) => ({
         ...transaction,
@@ -39,8 +43,14 @@ export const getCompanyTransactionsByUser = async (userId: string) => {
         companyId: companyWithTransactions.id,
         clientName: companyWithTransactions.user.name,
         clientLastName: companyWithTransactions.user.lastName,
+        userName: card.user.name || '',
+        userLastName: card.user.lastName || '',
+        userId: card.user.id || '',
+        products: transaction.products || [], // Ensure products is included
+        date: transaction.date.toISOString(), // Convert Date to string
       }))
     );
+
 
     return transactions; // Return the transactions
   } catch (error) {

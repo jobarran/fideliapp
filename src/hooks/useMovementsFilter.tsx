@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import { Transaction } from "@/interfaces/transacrion.interface";
+import { CompanyTransaction, Transaction } from "@/interfaces/transacrion.interface";
 
 export const useMovementsFilter = (
-    transactions: Transaction[],
+    transactions: CompanyTransaction[],
     searchTerm: string,
     transactionType: "BUY" | "REWARD" | "MANUAL" | "",
     transactionState: "ALL" | "CONFIRMED" | "CANCELLED"
 ) => {
-    const [filteredTransactions, setFilteredTransactions] = useState<Transaction[]>([]);
-    const [visibleTransactions, setVisibleTransactions] = useState<Transaction[]>([]);
+    const [filteredTransactions, setFilteredTransactions] = useState<CompanyTransaction[]>([]);
+    const [visibleTransactions, setVisibleTransactions] = useState<CompanyTransaction[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
