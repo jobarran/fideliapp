@@ -17,7 +17,18 @@ error page
 soft delete
 breadcrumb
 
-sort movements
-client name bug in movements (should be user)
+client/id   - improve product row / add search bar / add pagination
+            - plan -> add tag
+            - /transaction/id create
+            - /product/id create
 
-SORT TRANSITIONS
+[user] companies/slug tarjeta -> add some stats and history?
+                      Opiniontes -> add fomr
+                      Productos -> improve row style / add search bar / add pagination
+
+user/id - remove terjetas
+        - movimientos -> add rows
+        - inofrmacion -> add editable inputs
+        - plan -> add tag
+
+navbar - sections: Inicio / Mis favoritos / Mis movimientos / Mi Perfil (add icons)

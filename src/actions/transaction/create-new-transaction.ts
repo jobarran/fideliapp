@@ -1,7 +1,6 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import { sendEvent } from '@/lib/sse';
 import { TransactionType } from "@prisma/client";
 import { revalidatePath } from 'next/cache';
 

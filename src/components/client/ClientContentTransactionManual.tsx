@@ -32,7 +32,7 @@ export const ClientContentTransactionManual = ({
                     <label className="text-xs font-medium text-slate-800">Puntos:</label>
                     <input
                         type="number"
-                        className={`mt-1 text-xs w-full border rounded-lg shadow-sm px-3 py-2 ${isExceedingPoints ? 'border-red-500' : 'border-gray-200'
+                        className={`mt-1 text-xs w-full border rounded-lg px-3 py-2 ${isExceedingPoints ? 'border-red-500' : 'border-gray-200'
                             }`}
                         value={manualPoints}
                         onChange={handlePointsChange}
@@ -42,7 +42,7 @@ export const ClientContentTransactionManual = ({
                 <div className="flex flex-col w-full">
                     <label className="text-xs font-medium text-slate-800">Tipo de Transacción:</label>
                     <select
-                        className="mt-1 text-xs w-full border border-gray-200 rounded-lg shadow-sm px-3 py-2"
+                        className="mt-1 text-xs w-full border border-gray-200 rounded-lg px-3 py-2"
                         value={manualTransactionType}
                         onChange={(e) =>
                             setManualTransactionType(e.target.value as 'Otorgar' | 'Quitar')
