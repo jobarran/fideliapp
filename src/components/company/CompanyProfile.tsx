@@ -18,9 +18,9 @@ interface Props {
 
 export const CompanyProfile = ({ company, userCardForCompany, products, card, initialTabIndex, userPin, userId }: Props) => {
 
-    const validIndex = initialTabIndex ?? 0; 
+    const validIndex = initialTabIndex ?? 0;
     const initialTab = companyNavItems[validIndex]?.id ?? companyNavItems[0].id;
-    
+
     const [selectedTab, setSelectedTab] = useState(initialTab);
     const [openModal, setOpenModal] = useState(false)
     const [cardPoints, setCardPoints] = useState(card?.points); // Initialize with card points

@@ -55,7 +55,7 @@ export const UserContentFavourites = ({ user, companies }: Props) => {
       )}
 
       {/* If no cards or companies */}
-      {sortedCards.length === 0 && companies.length === 0 && <p>No tienes tarjetas activas</p>}
+      {sortedCards.length === 0 && companies.length === 0 && <p className='text-xs italic text-gray-600'>No tienes tarjetas activas</p>}
 
       {/* Render closest companies */}
 
@@ -74,7 +74,7 @@ export const UserContentFavourites = ({ user, companies }: Props) => {
       </div>
 
       {/* If no cards or companies */}
-      {closestCompanies.length === 0 && <p>No tienes negocios cercanos</p>}
+      {closestCompanies.length === 0 && <p className='text-xs italic text-gray-600'>No tienes negocios cercanos</p>}
 
 
 

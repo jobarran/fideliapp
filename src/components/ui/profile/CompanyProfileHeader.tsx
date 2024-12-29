@@ -2,8 +2,9 @@
 
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { CompanyClientDashboard, Pin } from "@/interfaces";
-import { generatePin, getCardPointsById } from "@/actions";
-import { CompanyProfileHeaderData, CompanyProfileHeaderNavigation, CompanyProfilePin } from "../../";
+import { createNewCard, generatePin, getCardPointsById } from "@/actions";
+import { CompanyProfileHeaderData, CompanyProfileHeaderNavigation, CompanyProfilePin, FullWidhtButton } from "../../";
+import { CreatingCardModal } from "../modals/CreatingCardModal";
 
 interface Props {
     company: CompanyClientDashboard;
@@ -34,6 +35,8 @@ export const CompanyProfileHeader = ({
     const [pin, setPin] = useState(userPin);
     const [loading, setLoading] = useState(false);
     const [isUpdatingPoints, setIsUpdatingPoints] = useState(false); // New state
+    const [isCreating, setIsCreating] = useState(false); // State for create new card
+    const [isCardCreated, setIsCardCreated] = useState(false); // State to track card creation status
 
     // Function to handle PIN generation
     const handleGeneratePin = async (id: string) => {
@@ -68,18 +71,50 @@ export const CompanyProfileHeader = ({
         }
     };
 
+    const handleCreateCard = async () => {
+        setIsCreating(true);
+
+        // Simulate API call delay
+        await createNewCard(company.slug);
+
+        // Simulate a delay of 2-3 seconds to show the "creating card" message
+        setTimeout(() => {
+            setIsCreating(false);
+            setIsCardCreated(true); // Set card creation status to true
+        }, 3000); // 3 seconds delay
+    };
+
 
     return (
         <div>
+
+            <CreatingCardModal
+                userCardForCompany={userCardForCompany}
+                slug={company.slug}
+                companyName={company.name}
+                companyColor={company.backgroundColor}
+                isCreating={isCreating}
+                companyLogoUrl={company.CompanyLogo?.url}
+            />
+
             <div className="mb-4">
 
-                <CompanyProfilePin
-                    cardId={cardId}
-                    handleGeneratePin={handleGeneratePin}
-                    setPin={setPin}
-                    handleUpdatePoints={handleUpdatePoints}
-                    pin={pin}
-                />
+                {cardId ? (
+                    <CompanyProfilePin
+                        cardId={cardId}
+                        handleGeneratePin={handleGeneratePin}
+                        setPin={setPin}
+                        handleUpdatePoints={handleUpdatePoints}
+                        pin={pin}
+                    />
+                ) : (
+                    <FullWidhtButton onClick={handleCreateCard} disabled={isCreating} isLoading={false} isPollingActive={false}>
+                        <div className="flex items-center space-x-2">
+                            <p className="text-xs sm:text-sm text-slate-400 group-hover:text-slate-100">Crear</p>
+                            <p className="text-base sm:text-lg font-bold text-slate-800 group-hover:text-white">Tarjeta</p>
+                        </div>
+                    </FullWidhtButton>
+                )}
 
             </div>
 
