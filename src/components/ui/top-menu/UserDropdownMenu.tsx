@@ -116,7 +116,7 @@ export const UserDropdownMenu = ({ userName, userId }: Props) => {
                 className="flex px-4 py-1 text-xs text-gray-700 hover:bg-gray-100 items-center"
               >
                 <FaUser className="text-xs mr-1" />
-                Perfil
+                Mi Perfil
               </Link>
             </li>
             <li>

@@ -8,7 +8,7 @@ import Link from "next/link";
 
 interface Props {
   user: User | null;
-  company: CompanyClientDashboard | null
+  company?: CompanyClientDashboard | null
 }
 
 export const TopMenu = ({ user, company }: Props) => {
