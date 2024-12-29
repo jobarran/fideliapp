@@ -6,7 +6,7 @@ import { Avatar, CompanyLinkImage } from '..';
 import { Company, CompanyShort } from '@/interfaces';
 
 interface Props {
-    company: CompanyShort;
+    company: Company;
 }
 
 export const CompanyLink = ({ company }: Props) => {
