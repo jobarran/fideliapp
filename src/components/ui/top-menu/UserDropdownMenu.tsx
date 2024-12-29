@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect, useRef } from "react";
-import { FaAngleDown } from "react-icons/fa";
+import { FaAngleDown, FaHome } from "react-icons/fa";
 import { logout as serverLogout } from "@/actions/auth/logout"; // Update import path
 import Link from "next/link";
+import { FaArrowRightArrowLeft, FaArrowRightToBracket, FaHeart, FaUser } from "react-icons/fa6";
 
 interface Props {
   userName: string;
@@ -75,23 +76,55 @@ export const UserDropdownMenu = ({ userName, userId }: Props) => {
       {dropdownOpen && (
         <div
           ref={dropdownRef}
-          className="absolute right-0 mt-2 w-32 bg-white border border-gray-200 rounded z-10"
+          className="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded z-10"
         >
           <ul>
             <li>
               <Link
                 onClick={toggleDropdown}
-                href={`/user/${userId}`}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                href={`/`}
+                className="flex px-4 pt-2 pb-1 text-xs text-gray-700 hover:bg-gray-100 items-center"
               >
+                <FaHome className="text-xs mr-1" />
+                Inicio
+              </Link>
+            </li>
+            <li>
+              <Link
+                onClick={toggleDropdown}
+                href={`/user/${userId}?tab=favoritos`}
+                className="flex px-4 py-1 text-xs text-gray-700 hover:bg-gray-100 items-center"
+              >
+                <FaHeart className="text-xs mr-1" />
+                Mis favoritos
+              </Link>
+            </li>
+            <li>
+              <Link
+                onClick={toggleDropdown}
+                href={`/user/${userId}?tab=movimientos`}
+                className="flex px-4 py-1 text-xs text-gray-700 hover:bg-gray-100 items-center"
+              >
+                <FaArrowRightArrowLeft className="text-xs mr-1" />
+                Mis movimientos
+              </Link>
+            </li>
+            <li>
+              <Link
+                onClick={toggleDropdown}
+                href={`/user/${userId}`}
+                className="flex px-4 py-1 text-xs text-gray-700 hover:bg-gray-100 items-center"
+              >
+                <FaUser className="text-xs mr-1" />
                 Perfil
               </Link>
             </li>
             <li>
               <button
                 onClick={handleLogout}
-                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                className="flex w-full text-left px-4 pt-1 pb-2 text-xs text-gray-700 hover:bg-gray-100 items-center"
               >
+                <FaArrowRightToBracket className="text-xs mr-1" />
                 Cerrar sesión
               </button>
             </li>

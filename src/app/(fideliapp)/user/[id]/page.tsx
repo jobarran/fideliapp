@@ -6,9 +6,12 @@ interface Props {
   params: {
     id: string;
   };
+  searchParams: {
+    tab?: string;
+  };
 }
 
-export default async function UserPage({ params }: Props) {
+export default async function UserPage({ params, searchParams }: Props) {
 
   const { id } = params;
 
@@ -24,11 +27,12 @@ export default async function UserPage({ params }: Props) {
   }
 
   const hasCompany = user.Company !== null; // true if Company exists
+  const selectedTab = searchParams.tab || "tarjetas"; // Default to "tarjetas" if no tab is provided
 
   return (
     <div>
       <div>
-        <UserProfile user={user} userId={id} hasCompany={hasCompany} />
+        <UserProfile user={user} userId={id} hasCompany={hasCompany} selectedTab={selectedTab} />
       </div>
     </div>
   );

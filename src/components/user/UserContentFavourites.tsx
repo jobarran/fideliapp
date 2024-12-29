@@ -5,8 +5,8 @@ interface Props {
     user: UserProfileData
 }
 
-export const UserContentCards = ({user}:Props) => {
+export const UserContentFavourites = ({user}:Props) => {
   return (
-    <div>Cards</div>
+    <div>Fav</div>
   )
 }

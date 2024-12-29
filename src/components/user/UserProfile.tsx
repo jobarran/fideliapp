@@ -1,44 +1,57 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react";
-import { ProfileContent, ProfileHeader, UserContentCards, UserContentInformation, UserContentMovements } from "..";
+import { useState, useEffect } from "react";
+import { ProfileContent, ProfileHeader, UserContentFavourites, UserContentMovements, UserContentInformation, UserContentPlans } from "..";
 import { UserProfileData } from "@/interfaces";
 import { userNavItems } from "@/config";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-
 
 interface Props {
-    user: UserProfileData,
-    userId: string,
-    hasCompany: boolean
+    user: UserProfileData;
+    userId: string;
+    hasCompany: boolean;
+    selectedTab: string;
 }
 
-export const UserProfile = ({ user, hasCompany, userId }: Props) => {
+export const UserProfile = ({ user, hasCompany, userId, selectedTab: initialTab }: Props) => {
+    console.log(initialTab)
 
-    const [selectedTab, setSelectedTab] = useState(userNavItems[0].id);
-    const [openModal, setOpenModal] = useState(false)
+    const [selectedTab, setSelectedTab] = useState(
+        userNavItems.find((item) => item.id === initialTab)?.id || userNavItems[0].id
+    );
+    const [openModal, setOpenModal] = useState(false);
+
 
     const handleTabChange = (tab: string) => {
         setSelectedTab(tab);
+        window.history.pushState(null, "", `?tab=${tab}`);
     };
 
+    // Synchronize `selectedTab` with `initialTab`
+    useEffect(() => {
+        const validTab = userNavItems.find((item) => item.id === initialTab)?.id || userNavItems[0].id;
+        setSelectedTab(validTab);
+    }, [initialTab]);
+
+
     const renderContent = () => {
-        switch (selectedTab) {
-            case "tarjetas":
-                return <UserContentCards user={user} />;
+        const tabItem = userNavItems.find((item) => item.id === selectedTab);
+
+        switch (tabItem?.id) {
+            case "favoritos":
+                return <UserContentFavourites user={user} />;
             case "movimientos":
                 return <UserContentMovements user={user} />;
             case "informacion":
                 return <UserContentInformation user={user} />;
+            case "planes":
+                return <UserContentPlans user={user} />;
             default:
-                return null;
+                return <UserContentFavourites user={user} />; // Fallback to the first tab content
         }
     };
 
     return (
         <div className="flex flex-col">
-
             <ProfileHeader
                 user={user}
                 handleTabChange={handleTabChange}
@@ -46,11 +59,7 @@ export const UserProfile = ({ user, hasCompany, userId }: Props) => {
                 setOpenModal={setOpenModal}
                 hasCompany={hasCompany}
             />
-
-            <ProfileContent
-                content={renderContent()}
-            />
-
-        </div >
+            <ProfileContent content={renderContent()} />
+        </div>
     );
 };

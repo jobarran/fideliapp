@@ -27,6 +27,7 @@ client/id   - improve product row / add search bar / add pagination
                       Productos -> improve row style / add search bar / add pagination
 
 user/id - remove terjetas
+        - add favoritos
         - movimientos -> add rows
         - inofrmacion -> add editable inputs
         - plan -> add tag

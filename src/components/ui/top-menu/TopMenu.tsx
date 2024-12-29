@@ -1,16 +1,18 @@
 'use client';
 
-import { User } from "@/interfaces";
+import { CompanyClientDashboard, User } from "@/interfaces";
 import { useState } from "react";
 import { LoginModal } from "./LoginModal";
-import { NewAccountModal, SearchCompany, UserDropdownMenu } from "@/components";
+import { NewAccountModal, SearchCompany, TopMenuCompanyLink, UserDropdownMenu } from "@/components";
 import Link from "next/link";
 
 interface Props {
   user: User | null;
+  company: CompanyClientDashboard | null
 }
 
-export const TopMenu = ({ user }: Props) => {
+export const TopMenu = ({ user, company }: Props) => {
+
   const [loginModal, setLoginModal] = useState(false);
   const [newAccountModal, setNewAccountModal] = useState(false);
 
@@ -46,6 +48,7 @@ export const TopMenu = ({ user }: Props) => {
 
         {/* Right Side */}
         <div className="flex items-center space-x-2">
+          {company && <TopMenuCompanyLink company={company} />}
           {user ? (
             <UserDropdownMenu userName={user.name} userId={user.id} />
           ) : (

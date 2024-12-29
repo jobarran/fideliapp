@@ -2,6 +2,7 @@ import { Footer, MapProvider, TopMenu } from "@/components";
 import { auth } from "@/auth.config";
 import React from "react";
 import { User } from "@/interfaces";
+import { getCompanyByUser } from "@/actions";
 
 export default async function BaseLayout({
     children
@@ -22,10 +23,12 @@ export default async function BaseLayout({
         });
     };
 
+    const company = await getCompanyByUser(user ? user.id : '')
+
     return (
         <div className="flex flex-col min-h-screen">
             <div className="flex-grow">
-                <TopMenu user={user} />
+                <TopMenu user={user} company={company} />
                 <div className="flex flex-col items-center justify-center">
                     <div className="container px-4 py-4">
                         <div className="max-w-4xl w-full mx-auto">
