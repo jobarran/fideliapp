@@ -10,6 +10,8 @@ export const authConfig: NextAuthConfig = {
     newUser: 'auth/new-account',
   },
 
+  secret: process.env.AUTH_SECRET, // Use an environment variable for the secret
+
   callbacks: {
 
     // authorized({ auth, request: { nextUrl } }) {

@@ -23,6 +23,7 @@ export { getCardPointsById } from './card/get-card-points-by-id'
 export { getAllActivityType } from './activity-type/get-all-activityType'
 
 export { getUserById } from './user/get-user-by-id'
+export { updateUser } from './user/update-user'
 
 export { runSeed } from './seed/run-seed'
 
