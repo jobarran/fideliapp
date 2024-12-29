@@ -1,3 +1,5 @@
+import { CompanyLogo } from ".";
+
 export interface ActivityType {
     id: string;
     name: string;
@@ -37,4 +39,24 @@ export interface CardProfile {
     active: boolean;
     userId: string;
     companyId: string;
+}
+
+export interface UserCard {
+    id: string;
+    points: number;
+    favourite: boolean; // Change this to boolean
+    company: {
+        name: string;
+        backgroundColor: string;
+        slug: string;
+        activityTypeId: string;
+        CompanyLogo: CompanyLogo | null;
+    };
+    History: {
+        id: string;
+        points: number;
+        date: Date;
+        type: 'BUY' | 'REWARD' | 'MANUAL';
+        cardId: string;
+    }[];
 }

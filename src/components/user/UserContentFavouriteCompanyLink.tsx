@@ -1,15 +1,13 @@
-"use client"
-
 import Link from 'next/link';
-import React from 'react';
+import React from 'react'
 import { Avatar, CompanyLinkImage } from '..';
-import { Company, CompanyShort } from '@/interfaces';
+import { Company, CompanyShort, UserCard } from '@/interfaces';
 
 interface Props {
-    company: CompanyShort;
+    company: CompanyShort
 }
 
-export const CompanyLink = ({ company }: Props) => {
+export const UserContentFavouriteCompanyLink = ({ company }: Props) => {
 
     return (
         <div style={{ backgroundColor: '#F8F8F8' }}>

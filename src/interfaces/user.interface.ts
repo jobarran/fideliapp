@@ -1,3 +1,5 @@
+import { CompanyLogo } from ".";
+
 export interface User {
     id: string;
     name: string;
@@ -23,11 +25,13 @@ export interface UserProfileData {
     Cards: {
         id: string;
         points: number;
+        favourite: boolean; // Change this to boolean here as well
         company: {
             name: string;
             backgroundColor: string;
             slug: string;
             activityTypeId: string;
+            CompanyLogo: CompanyLogo | null;
         };
         History: {
             id: string;

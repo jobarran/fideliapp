@@ -13,7 +13,6 @@ interface Props {
 }
 
 export const UserProfile = ({ user, hasCompany, userId, selectedTab: initialTab }: Props) => {
-    console.log(initialTab)
 
     const [selectedTab, setSelectedTab] = useState(
         userNavItems.find((item) => item.id === initialTab)?.id || userNavItems[0].id
@@ -38,7 +37,7 @@ export const UserProfile = ({ user, hasCompany, userId, selectedTab: initialTab 
 
         switch (tabItem?.id) {
             case "favoritos":
-                return <UserContentFavourites user={user} />;
+                return <UserContentFavourites user={user} companies={[]} />;
             case "movimientos":
                 return <UserContentMovements user={user} />;
             case "informacion":
@@ -46,7 +45,7 @@ export const UserProfile = ({ user, hasCompany, userId, selectedTab: initialTab 
             case "planes":
                 return <UserContentPlans user={user} />;
             default:
-                return <UserContentFavourites user={user} />; // Fallback to the first tab content
+                return <UserContentFavourites user={user} companies={[]}/>; // Fallback to the first tab content
         }
     };
 

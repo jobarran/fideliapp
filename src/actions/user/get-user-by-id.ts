@@ -35,21 +35,23 @@ export const getUserById = async (id: string) => {
                     select: {
                         id: true,
                         points: true,
+                        favourite: true,
                         company: {
                             select: {
                                 name: true,
                                 backgroundColor: true,
                                 slug: true,
                                 activityTypeId: true,
+                                CompanyLogo: true
                             },
                         },
                         History: {
                             select: {
-                                id: true, // Ensure this is selected
-                                points: true, // Ensure this is selected
-                                date: true, // Ensure this is selected
-                                type: true, // Ensure this is selected
-                                cardId: true, // Ensure this is selected
+                                id: true, 
+                                points: true, 
+                                date: true, 
+                                type: true, 
+                                cardId: true, 
                             },
                         },
                     },

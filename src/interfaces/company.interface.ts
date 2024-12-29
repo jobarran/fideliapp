@@ -105,3 +105,11 @@ export interface DayHours {
   from: string;
   to: string;
 }
+
+export interface CompanyShort {
+  name: string;
+  backgroundColor: string;
+  slug: string;
+  activityTypeId: string;
+  CompanyLogo?: CompanyLogo | null;  // Make CompanyLogo optional
+}
