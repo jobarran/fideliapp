@@ -4,7 +4,7 @@ import { Avatar, CompanyLinkImage } from '..';
 import { Company, CompanyShort, UserCard } from '@/interfaces';
 
 interface Props {
-    company: CompanyShort
+    company: CompanyShort | Company
 }
 
 export const UserContentFavouriteCompanyLink = ({ company }: Props) => {

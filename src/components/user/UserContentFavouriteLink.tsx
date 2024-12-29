@@ -8,40 +8,27 @@ import { FaRegHeart } from 'react-icons/fa6';
 
 interface Props {
     company: CompanyShort;
-    state: 'favourite' | 'noFavourite';
+    favourite: boolean;
     onAddToFavourite: (companySlug: string) => void;
 }
 
-export const UserContentFavouriteLink = ({ company, state, onAddToFavourite }: Props) => {
-    // State for hover effect
-    const [isHovered, setIsHovered] = useState(false);
+export const UserContentFavouriteLink = ({ company, favourite, onAddToFavourite }: Props) => {
+
+    const color = company.backgroundColor === '#FFFFFF' ? '#878787' : company.backgroundColor;
 
     return (
-        <div className="relative rounded-lg">
+        <div
+        className="relative rounded-lg"
+        >
             <UserContentFavouriteCompanyLink company={company} />
-            <div className="flex justify-center items-center">
-                {state === 'noFavourite' && (
-                    <button
-                        onClick={() => onAddToFavourite(company.slug)}
-                        onMouseEnter={() => setIsHovered(true)} // Set hover state to true
-                        onMouseLeave={() => setIsHovered(false)} // Set hover state to false
-                        className="flex p-1 items-center justify-center text-gray-500 text-xs sm:text-sm space-x-2"
-                    >
-                        <p className={`transition-colors ${isHovered ? 'text-gray-900' : 'text-gray-500'}`}>
-                            Agregar
-                        </p>
-                        {isHovered ? <FaHeart className="text-gray-900" /> : <FaRegHeart />}
-                    </button>
-                )}
-                {state === 'favourite' && (
-                    <button
-                        className="absolute top-2 right-2 text-red-500"
-                        onClick={() => onAddToFavourite(company.slug)}
-                    >
-                        <FaHeart />
-                    </button>
-                )}
-            </div>
+            <button
+                className={`absolute bottom-2 right-2`}
+                style={{ color }}
+                onClick={() => onAddToFavourite(company.slug)}
+            >
+                {favourite ? <FaHeart /> : <FaRegHeart />}
+            </button>
+
         </div>
     );
 };

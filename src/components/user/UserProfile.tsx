@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { ProfileContent, ProfileHeader, UserContentFavourites, UserContentMovements, UserContentInformation, UserContentPlans } from "..";
-import { UserProfileData } from "@/interfaces";
+import { Company, UserProfileData } from "@/interfaces";
 import { userNavItems } from "@/config";
 
 interface Props {
@@ -10,9 +10,10 @@ interface Props {
     userId: string;
     hasCompany: boolean;
     selectedTab: string;
+    companies: Company[]
 }
 
-export const UserProfile = ({ user, hasCompany, userId, selectedTab: initialTab }: Props) => {
+export const UserProfile = ({ user, hasCompany, userId, selectedTab: initialTab, companies }: Props) => {
 
     const [selectedTab, setSelectedTab] = useState(
         userNavItems.find((item) => item.id === initialTab)?.id || userNavItems[0].id
@@ -37,7 +38,7 @@ export const UserProfile = ({ user, hasCompany, userId, selectedTab: initialTab 
 
         switch (tabItem?.id) {
             case "favoritos":
-                return <UserContentFavourites user={user} companies={[]} />;
+                return <UserContentFavourites user={user} companies={companies} />;
             case "movimientos":
                 return <UserContentMovements user={user} />;
             case "informacion":
@@ -45,7 +46,7 @@ export const UserProfile = ({ user, hasCompany, userId, selectedTab: initialTab 
             case "planes":
                 return <UserContentPlans user={user} />;
             default:
-                return <UserContentFavourites user={user} companies={[]}/>; // Fallback to the first tab content
+                return <UserContentFavourites user={user} companies={companies}/>; // Fallback to the first tab content
         }
     };
 

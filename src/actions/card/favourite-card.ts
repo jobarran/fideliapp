@@ -33,6 +33,7 @@ export const favouriteCard = async (cardId: string, favourite: boolean) => {
             });
 
             revalidatePath(`/cards/${cardId}`);
+            revalidatePath(`/user/${userId}`);
 
             return {
                 ok: true,
