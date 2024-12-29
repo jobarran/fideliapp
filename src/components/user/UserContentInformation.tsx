@@ -4,19 +4,20 @@ import React, { useCallback, useState } from 'react';
 import { TextField, PasswordField, DeleteWarningModal } from '..'; // Import custom fields
 import { FaCheck, FaRegTrashCan } from 'react-icons/fa6';
 import { updateUser } from '@/actions';
+import { UserProfileData } from '@/interfaces';
 
 interface EditedUser {
   id: string;
   name: string;
   lastName: string;
   email: string;
-  password: string;
+  password?: string;
   active: boolean;
   role?: string; 
 }
 
 interface Props {
-  user: EditedUser;
+  user: UserProfileData;
 }
 
 export const UserContentInformation = ({ user }: Props) => {
