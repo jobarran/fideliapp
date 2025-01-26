@@ -12,11 +12,11 @@ import { CompanyContentNoCard } from '..';
 interface Props {
   transactions: UserTransaction[];
   loading: boolean
-  userCardForCompany: boolean;
-  slug: string;
-  companyName: string;
-  companyColor: string
-  companyLogoUrl?: string
+  userCardForCompany?: boolean;  // Optional
+  slug?: string;  // Optional
+  companyName?: string;  // Optional
+  companyColor?: string;  // Optional
+  companyLogoUrl?: string;  // Optional
 }
 
 export const UserContentMovements = ({ transactions, loading, userCardForCompany, slug, companyColor, companyName, companyLogoUrl }: Props) => {
@@ -45,7 +45,7 @@ export const UserContentMovements = ({ transactions, loading, userCardForCompany
   return (
 
     <div className="mt-4 mb-4">
-      {!userCardForCompany ? (
+      {!userCardForCompany && userCardForCompany && slug && companyColor && companyName ? (
         <CompanyContentNoCard
           userCardForCompany={userCardForCompany}
           slug={slug}

@@ -15,7 +15,6 @@ soft delete
 breadcrumb
 
 - add products to movementRow component
--
 
 client/id   - plan -> add tag
             - /transaction/id create
