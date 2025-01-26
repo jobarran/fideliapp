@@ -52,6 +52,7 @@ export const CompanyContentNoCard = ({
                 loginModal={loginModal}
                 setLoginModal={toggleLoginModal}
                 setNewAccountModal={toggleNewAccountModal}
+                uniqueId={"no-card"}
             />
             <NewAccountModal
                 newAccountModal={newAccountModal}

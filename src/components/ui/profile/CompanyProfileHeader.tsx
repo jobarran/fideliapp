@@ -102,6 +102,7 @@ export const CompanyProfileHeader = ({
                 loginModal={loginModal}
                 setLoginModal={toggleLoginModal}
                 setNewAccountModal={toggleNewAccountModal}
+                uniqueId={"profile-header"}
             />
             <NewAccountModal
                 newAccountModal={newAccountModal}

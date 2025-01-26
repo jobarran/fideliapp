@@ -15,23 +15,22 @@ export const CompanyContentCard = ({ userCardForCompany, slug, companyName, comp
 
     return (
         <div>
+            <div className="mt-4 mb-4">
+                <CompanyContentNoCard
+                    userCardForCompany={userCardForCompany}
+                    slug={slug}
+                    companyName={companyName}
+                    companyColor={companyColor}
+                    companyLogoUrl={companyLogoUrl}
+                />
+            </div>
+
             {userCardForCompany && (
                 <div className="flex justify-between items-center mt-1 mb-4">
                     <h2 className="text-xl font-semibold text-gray-800">Tarjeta</h2>
+                    <p>Tarjeta de beneficios activa</p>
                 </div>
             )}
-
-            <div className="mt-4 mb-4">
-                    <CompanyContentNoCard
-                        userCardForCompany={userCardForCompany}
-                        slug={slug}
-                        companyName={companyName}
-                        companyColor={companyColor}
-                        companyLogoUrl={companyLogoUrl}
-                    />
-                    <p>Tarjeta de beneficios activa</p>
-                
-            </div>
         </div>
     );
 };

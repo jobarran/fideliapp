@@ -20,8 +20,9 @@ export const TopMenu = ({ user, company }: Props) => {
       <LoginModal
         loginModal={loginModal}
         setLoginModal={toggleLoginModal}
-        setNewAccountModal={toggleNewAccountModal}
-      />
+        setNewAccountModal={toggleNewAccountModal} 
+        uniqueId={"top-menu"}
+        />
       <NewAccountModal
         newAccountModal={newAccountModal}
         setNewAccountModal={toggleNewAccountModal}

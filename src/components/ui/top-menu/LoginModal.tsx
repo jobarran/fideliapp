@@ -1,23 +1,40 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/actions';
 import clsx from 'clsx';
 import { IoCloseSharp } from "react-icons/io5";
+import { useSession } from 'next-auth/react';
 
+// Assuming you have a unique id prop passed or generate one
 interface Props {
     loginModal: boolean;
     setLoginModal: () => void;
     setNewAccountModal: () => void;
+    uniqueId: string; // added this prop for unique id generation
 }
 
-export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Props) => {
+export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal, uniqueId }: Props) => {
 
     const [state, dispatch] = useFormState(authenticate, undefined);
-    // Refs for the input fields
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const { data } = useSession();
+
+    useEffect(() => {
+        if (state === 'Success') {
+            setIsLoggedIn(true);
+        }
+    }, [state]);
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            setLoginModal();
+        }
+    }, [isLoggedIn, setLoginModal]);
 
     useEffect(() => {
         if (loginModal && state === 'Success') {
@@ -34,7 +51,7 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
     }, [loginModal]);
 
     const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        if (event.target instanceof HTMLDivElement && event.target.id === 'login-modal') {
+        if (event.target instanceof HTMLDivElement && event.target.id === `login-modal-${uniqueId}`) {
             setLoginModal();
         }
     };
@@ -52,7 +69,7 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
         <div>
             <div className={blurEffectClasses}></div>
             <div
-                id="login-modal"
+                id={`login-modal-${uniqueId}`}
                 tabIndex={-1}
                 aria-hidden={loginModal}
                 className={modalClasses}
@@ -73,10 +90,10 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
                         <div className="overflow-auto max-h-[70vh]">
                             <form action={dispatch} className="space-y-3">
                                 <div className="my-3">
-                                    <label htmlFor="email" className="block text-md mb-2">Email</label>
+                                    <label htmlFor={`email-${uniqueId}`} className="block text-md mb-2">Email</label>
                                     <input
                                         ref={emailRef}
-                                        id="email"
+                                        id={`email-${uniqueId}`}
                                         name="email"
                                         type="email"
                                         placeholder="email"
@@ -86,10 +103,10 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
                                     />
                                 </div>
                                 <div className="mt-5">
-                                    <label htmlFor="password" className="block text-md mb-2">Contraseña</label>
+                                    <label htmlFor={`password-${uniqueId}`} className="block text-md mb-2">Contraseña</label>
                                     <input
                                         ref={passwordRef}
-                                        id="password"
+                                        id={`password-${uniqueId}`}
                                         name="password"
                                         type="password"
                                         placeholder="contraseña"
@@ -122,7 +139,6 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
                                 <div className="">
                                     <LoginButton />
                                     <div className="flex space-x-2 justify-center items-end bg-white hover:bg-slate-100 text-slate-800 py-2 border rounded-md transition duration-100">
-                                        {/* <Image className="cursor-pointer" src="https://i.imgur.com/arC60SB.png" alt="" width={5} height={5} /> */}
                                         <button>Iniciar sesión con Google</button>
                                     </div>
                                 </div>
