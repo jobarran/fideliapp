@@ -1,11 +1,10 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/actions';
 import clsx from 'clsx';
 import { IoCloseSharp } from "react-icons/io5";
-import { useSession } from 'next-auth/react';
 
 // Assuming you have a unique id prop passed or generate one
 interface Props {
@@ -20,22 +19,8 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal, uniq
     const [state, dispatch] = useFormState(authenticate, undefined);
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const { data } = useSession();
-
-    useEffect(() => {
-        if (state === 'Success') {
-            setIsLoggedIn(true);
-        }
-    }, [state]);
-
-    useEffect(() => {
-        if (isLoggedIn) {
-            setLoginModal();
-        }
-    }, [isLoggedIn, setLoginModal]);
-
+    
     useEffect(() => {
         if (loginModal && state === 'Success') {
             setLoginModal();
@@ -98,7 +83,7 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal, uniq
                                         type="email"
                                         placeholder="email"
                                         required
-                                        autoComplete="email"
+                                        autoComplete="off"
                                         className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300"
                                     />
                                 </div>
@@ -111,7 +96,7 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal, uniq
                                         type="password"
                                         placeholder="contraseña"
                                         required
-                                        autoComplete="current-password"
+                                        autoComplete="off"
                                         className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300"
                                     />
                                 </div>
