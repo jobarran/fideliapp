@@ -1,12 +1,10 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react';
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/actions';
 import clsx from 'clsx';
 import { IoCloseSharp } from "react-icons/io5";
-
-
 
 interface Props {
     loginModal: boolean;
@@ -75,28 +73,33 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
                         <div className="overflow-auto max-h-[70vh]">
                             <form action={dispatch} className="space-y-3">
                                 <div className="my-3">
-                                    <label className="block text-md mb-2" htmlFor="email">Email</label>
+                                    <label htmlFor="email" className="block text-md mb-2">Email</label>
                                     <input
                                         ref={emailRef}
-                                        className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300"
-                                        type="email"
+                                        id="email"
                                         name="email"
+                                        type="email"
                                         placeholder="email"
                                         required
+                                        autoComplete="email"
+                                        className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300"
                                     />
                                 </div>
                                 <div className="mt-5">
-                                    <label className="block text-md mb-2" htmlFor="password">Contraseña</label>
+                                    <label htmlFor="password" className="block text-md mb-2">Contraseña</label>
                                     <input
                                         ref={passwordRef}
-                                        className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300"
-                                        type="password"
+                                        id="password"
                                         name="password"
+                                        type="password"
                                         placeholder="contraseña"
+                                        required
+                                        autoComplete="current-password"
+                                        className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300"
                                     />
                                 </div>
                                 <div
-                                    className="flex "
+                                    className="flex"
                                     aria-live="polite"
                                     aria-atomic="true"
                                 >
@@ -118,9 +121,9 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
                                 </div>
                                 <div className="">
                                     <LoginButton />
-                                    <div className="flex  space-x-2 justify-center items-end bg-white hover:bg-slate-100 text-slate-800 py-2 border rounded-md transition duration-100">
+                                    <div className="flex space-x-2 justify-center items-end bg-white hover:bg-slate-100 text-slate-800 py-2 border rounded-md transition duration-100">
                                         {/* <Image className="cursor-pointer" src="https://i.imgur.com/arC60SB.png" alt="" width={5} height={5} /> */}
-                                        <button >Iniciar sesión con Google</button>
+                                        <button>Iniciar sesión con Google</button>
                                     </div>
                                 </div>
                             </form>
@@ -128,7 +131,7 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
 
@@ -151,4 +154,3 @@ function LoginButton() {
         </button>
     );
 }
-

@@ -78,76 +78,86 @@ export const NewAccountModal = ({ newAccountModal, setNewAccountModal }: Props) 
                             <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
 
                                 <div className="my-3">
-                                    <label className="block text-md mb-2" htmlFor="new-email">Email</label>
-                                    <input
-                                        type="email"
-                                        placeholder="email"
-                                        required
-                                        className={
-                                            clsx(
+                                    <label className="block text-md mb-2">
+                                        Email
+                                        <input
+                                            type="email"
+                                            placeholder="email"
+                                            required
+                                            autoComplete="email"
+                                            className={clsx(
                                                 "px-4 w-full border py-2 rounded-md text-sm outline-none",
                                                 {
                                                     'focus:outline-none focus:border border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
                                                 }
-                                            )
-                                        }
-                                        {...register('email', {
-                                            required: true,
-                                            pattern: {
-                                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                                                message: "invalid email address"
-                                            }
-                                        })
-                                        }
-                                    />
-                                </div>
-                                <div className="my-3">
-                                    <label className="block text-md mb-2" htmlFor="new-name">Nombre</label>
-                                    <input
-                                        type="name"
-                                        className={
-                                            clsx(
-                                                "px-4 w-full border py-2 rounded-md text-sm outline-none",
-                                                {
-                                                    'focus:outline-none focus:border border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
+                                            )}
+                                            {...register('email', {
+                                                required: true,
+                                                pattern: {
+                                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                                    message: "invalid email address"
                                                 }
-                                            )
-                                        } placeholder="John"
-                                        {...register('name', { required: true })}
-                                    />
+                                            })}
+                                        />
+                                    </label>
                                 </div>
-                                <div className="my-3">
-                                    <label className="block text-md mb-2" htmlFor="new-lastName">Apellido</label>
 
-                                    <input
-                                        type="lastName"
-                                        className={
-                                            clsx(
-                                                "px-4 w-full border py-2 rounded-md text-sm outline-none",
-                                                {
-                                                    'focus:outline-none focus:border border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
-                                                }
-                                            )
-                                        } placeholder="Doe"
-                                        {...register('lastName', { required: true })}
-                                    />
-                                </div>
                                 <div className="my-3">
-                                    <label className="block text-md mb-2" htmlFor="new-password">Contraseña</label>
-
-                                    <input
-                                        type="password"
-                                        placeholder="••••••••"
-                                        className={
-                                            clsx(
+                                    <label className="block text-md mb-2">
+                                        Nombre
+                                        <input
+                                            type="text"
+                                            placeholder="John"
+                                            autoComplete="given-name"
+                                            required
+                                            className={clsx(
                                                 "px-4 w-full border py-2 rounded-md text-sm outline-none",
                                                 {
                                                     'focus:outline-none focus:border border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
                                                 }
-                                            )
-                                        }
-                                        {...register('password', { required: true, minLength: 6 })}
-                                    />
+                                            )}
+                                            {...register('name', { required: true })}
+                                        />
+                                    </label>
+                                </div>
+
+                                <div className="my-3">
+                                    <label className="block text-md mb-2">
+                                        Apellido
+                                        <input
+                                            type="text"
+                                            placeholder="Doe"
+                                            autoComplete="family-name"
+                                            required
+                                            className={clsx(
+                                                "px-4 w-full border py-2 rounded-md text-sm outline-none",
+                                                {
+                                                    'focus:outline-none focus:border border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
+                                                }
+                                            )}
+                                            {...register('lastName', { required: true })}
+                                        />
+                                    </label>
+                                </div>
+
+                                <div className="my-3">
+                                    <label className="block text-md mb-2">
+                                        Contraseña
+                                        <input
+                                            type="password"
+                                            placeholder="••••••••"
+                                            autoComplete="new-password"
+                                            required
+                                            minLength={6}
+                                            className={clsx(
+                                                "px-4 w-full border py-2 rounded-md text-sm outline-none",
+                                                {
+                                                    'focus:outline-none focus:border border-pink-500 text-pink-600 focus:border-pink-500 focus:ring-pink-500': !!errors.name
+                                                }
+                                            )}
+                                            {...register('password', { required: true, minLength: 6 })}
+                                        />
+                                    </label>
                                 </div>
 
                                 <div className="">
@@ -166,7 +176,7 @@ export const NewAccountModal = ({ newAccountModal, setNewAccountModal }: Props) 
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     )
 }
 
@@ -187,4 +197,3 @@ function SignUpButton() {
         </button>
     );
 }
-

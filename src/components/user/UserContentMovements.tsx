@@ -11,15 +11,23 @@ import { CompanyContentNoCard } from '..';
 
 interface Props {
   transactions: UserTransaction[];
-  loading: boolean
-  userCardForCompany?: boolean;  // Optional
-  slug?: string;  // Optional
-  companyName?: string;  // Optional
-  companyColor?: string;  // Optional
-  companyLogoUrl?: string;  // Optional
+  loading: boolean;
+  userCardForCompany?: boolean;
+  slug?: string;
+  companyName?: string;
+  companyColor?: string;
+  companyLogoUrl?: string;
 }
 
-export const UserContentMovements = ({ transactions, loading, userCardForCompany, slug, companyColor, companyName, companyLogoUrl }: Props) => {
+export const UserContentMovements = ({
+  transactions,
+  loading,
+  userCardForCompany,
+  slug,
+  companyColor,
+  companyName,
+  companyLogoUrl,
+}: Props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [transactionType, setTransactionType] = useState<'BUY' | 'REWARD' | 'MANUAL' | ''>('');
   const [transactionState, setTransactionState] = useState<'ALL' | 'CONFIRMED' | 'CANCELLED'>('ALL');
@@ -43,17 +51,17 @@ export const UserContentMovements = ({ transactions, loading, userCardForCompany
   const shouldShowMoreButton = visibleTransactions.length < filteredTransactions.length;
 
   return (
-
     <div className="mt-4 mb-4">
-      {!userCardForCompany && userCardForCompany && slug && companyColor && companyName ? (
-        <CompanyContentNoCard
-          userCardForCompany={userCardForCompany}
-          slug={slug}
-          companyName={companyName}
-          companyColor={companyColor}
-          companyLogoUrl={companyLogoUrl}
-        />
-      ) : (
+      <CompanyContentNoCard
+        userCardForCompany={userCardForCompany}
+        slug={slug}
+        companyName={companyName}
+        companyColor={companyColor}
+        companyLogoUrl={companyLogoUrl}
+      />
+
+      {/* Only render the following if userCardForCompany is true */}
+      {userCardForCompany && (
         <div>
           <UserContentMovementsFilter
             searchTerm={searchTerm}
@@ -66,8 +74,7 @@ export const UserContentMovements = ({ transactions, loading, userCardForCompany
 
           {/* Loading state */}
           <div
-            className={`transition-opacity duration-300 ease-in-out ${loading ? 'opacity-100' : 'opacity-0'
-              }`}
+            className={`transition-opacity duration-300 ease-in-out ${loading ? 'opacity-100' : 'opacity-0'}`}
           >
             {loading && (
               <div className="flex justify-center items-center">
@@ -80,9 +87,13 @@ export const UserContentMovements = ({ transactions, loading, userCardForCompany
           {!loading && (
             <>
               <div>
-                {visibleTransactions.map((transaction) => (
-                  <UserContentMovementsRow key={transaction.id} transaction={transaction} />
-                ))}
+                {visibleTransactions.length === 0 ? (
+                  <p className="text-center text-gray-600">Todavía no se han registrado movimientos</p>
+                ) : (
+                  visibleTransactions.map((transaction) => (
+                    <UserContentMovementsRow key={transaction.id} transaction={transaction} />
+                  ))
+                )}
               </div>
 
               {/* Show More Button */}

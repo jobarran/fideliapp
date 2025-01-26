@@ -2,11 +2,10 @@ import React from 'react'
 import { CreatingCard } from './CreatingCard';
 
 interface Props {
-    userCardForCompany: boolean;
-    slug: string;
-    companyName: string;
-    companyColor: string
-    companyLogoUrl?: string
+    slug?: string;
+    companyName?: string;
+    companyColor?: string;
+    companyLogoUrl?: string;
     isCreating: boolean
 }
 
@@ -16,7 +15,7 @@ export const CreatingCardModal = ({ isCreating, companyName, companyColor, compa
         <>
             {/* Loading Screen */}
             {
-                isCreating && (
+                isCreating && companyName && companyColor && (
                     <div
                         className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50 transition-opacity duration-300 ease-in-out opacity-100 w-full h-full sm:w-auto sm:h-auto"
                         style={{ transition: 'opacity 0.3s ease-in-out' }}

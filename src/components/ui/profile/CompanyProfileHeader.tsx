@@ -108,7 +108,6 @@ export const CompanyProfileHeader = ({
                 setNewAccountModal={toggleNewAccountModal}
             />
             <CreatingCardModal
-                userCardForCompany={userCardForCompany}
                 slug={company.slug}
                 companyName={company.name}
                 companyColor={company.backgroundColor}

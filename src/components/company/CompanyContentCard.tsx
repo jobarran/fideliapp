@@ -22,16 +22,15 @@ export const CompanyContentCard = ({ userCardForCompany, slug, companyName, comp
             )}
 
             <div className="mt-4 mb-4">
-                {!userCardForCompany ? (
                     <CompanyContentNoCard
                         userCardForCompany={userCardForCompany}
                         slug={slug}
                         companyName={companyName}
                         companyColor={companyColor}
                         companyLogoUrl={companyLogoUrl}
-                    />) : (
+                    />
                     <p>Tarjeta de beneficios activa</p>
-                )}
+                
             </div>
         </div>
     );

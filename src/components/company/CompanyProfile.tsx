@@ -28,7 +28,6 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
     const [cardPoints, setCardPoints] = useState(card?.points); // Initialize with card points
     const [loading, setLoading] = useState(true); // Track loading state
     const [transactions, setTransactions] = useState<UserTransaction[]>([]);
-    const { loginModal, toggleLoginModal, newAccountModal, toggleNewAccountModal } = useLoginModal();
 
     useEffect(() => {
         setLoading(true); // Start loading process
@@ -56,13 +55,6 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
 
     const handleTabChange = (tab: string) => {
         setSelectedTab(tab);
-    };
-
-    const handleCreateCard = async () => {
-        if (!userId) {
-            toggleLoginModal();
-            return;
-        }
     };
 
     const renderContent = () => {
