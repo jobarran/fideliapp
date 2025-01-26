@@ -52,6 +52,7 @@ export const getUserById = async (id: string) => {
                                 date: true, 
                                 type: true, 
                                 cardId: true, 
+                                state: true,
                             },
                         },
                     },

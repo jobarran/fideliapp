@@ -1,23 +1,34 @@
 import { useState, useEffect } from "react";
-import { CompanyTransaction, Transaction } from "@/interfaces/transacrion.interface";
+import { CompanyTransaction, UserTransaction } from "@/interfaces/transacrion.interface";
 
-export const useMovementsFilter = (
-    transactions: CompanyTransaction[],
+type Transaction = CompanyTransaction | UserTransaction;
+
+export const useMovementsFilter = <T extends Transaction>(
+    transactions: T[],
     searchTerm: string,
     transactionType: "BUY" | "REWARD" | "MANUAL" | "",
     transactionState: "ALL" | "CONFIRMED" | "CANCELLED"
 ) => {
-    const [filteredTransactions, setFilteredTransactions] = useState<CompanyTransaction[]>([]);
-    const [visibleTransactions, setVisibleTransactions] = useState<CompanyTransaction[]>([]);
+    const [filteredTransactions, setFilteredTransactions] = useState<T[]>([]);
+    const [visibleTransactions, setVisibleTransactions] = useState<T[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         const filtered = transactions.filter((transaction) => {
             const matchesName =
-                transaction.clientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                transaction.clientLastName.toLowerCase().includes(searchTerm.toLowerCase());
+                "clientName" in transaction // Check if `clientName` exists (CompanyTransaction type)
+                    ? transaction.clientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    transaction.clientLastName.toLowerCase().includes(searchTerm.toLowerCase())
+                    : "companyName" in transaction // Check if `companyName` exists (UserTransaction type)
+                        ? transaction.companyName.toLowerCase().includes(searchTerm.toLowerCase())
+                        : true;
+
             const matchesType = transactionType ? transaction.type === transactionType : true;
-            const matchesState = transactionState === "ALL" || transaction.state === transactionState;
+            const matchesState =
+                "state" in transaction // Check if `state` exists (CompanyTransaction type)
+                    ? transactionState === "ALL" || transaction.state === transactionState
+                    : true; // UserTransaction doesn't have `state`
+
             return matchesName && matchesType && matchesState;
         });
         setFilteredTransactions(filtered);

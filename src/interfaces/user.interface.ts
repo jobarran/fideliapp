@@ -1,3 +1,4 @@
+import { TransactionState } from "@prisma/client";
 import { CompanyLogo } from ".";
 
 export interface User {
@@ -39,6 +40,7 @@ export interface UserProfileData {
             date: Date;
             type: 'BUY' | 'REWARD' | 'MANUAL';
             cardId: string;
+            state: TransactionState;
         }[];
     }[]
     createdAt: Date;

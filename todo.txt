@@ -1,4 +1,6 @@
-socket.io - Alert user transaction has being done and update PIN (DELETED)
+Roadmap
+Web->App(react native)->Testing->Security
+
 client/ update movements Page
 user/ update movements Page
 Refactor client transaction page ClientContentTransaction
@@ -21,13 +23,14 @@ client/id   - improve product row / add search bar / add pagination
             - plan -> add tag
             - /transaction/id create
             - /product/id create
+            - /product change row item style
+            - /movement/id create
 
 [user] companies/slug tarjeta -> add some stats and history?
                       Opiniontes -> add fomr
                       Productos -> improve row style / add search bar / add pagination
 
-user/id - remove terjetas
-        - add favoritos
+user/id 
         - movimientos -> add rows
         - inofrmacion -> add editable inputs
         - plan -> add tag
