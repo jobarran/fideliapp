@@ -81,7 +81,6 @@ export const NewAccountModal = ({ newAccountModal, setNewAccountModal }: Props) 
                                     <label className="block text-md mb-2" htmlFor="new-email">Email</label>
                                     <input
                                         type="email"
-                                        id='new-email'
                                         placeholder="email"
                                         required
                                         className={
@@ -106,7 +105,6 @@ export const NewAccountModal = ({ newAccountModal, setNewAccountModal }: Props) 
                                     <label className="block text-md mb-2" htmlFor="new-name">Nombre</label>
                                     <input
                                         type="name"
-                                        id="new-name"
                                         className={
                                             clsx(
                                                 "px-4 w-full border py-2 rounded-md text-sm outline-none",
@@ -123,7 +121,6 @@ export const NewAccountModal = ({ newAccountModal, setNewAccountModal }: Props) 
 
                                     <input
                                         type="lastName"
-                                        id="new-lastName"
                                         className={
                                             clsx(
                                                 "px-4 w-full border py-2 rounded-md text-sm outline-none",
@@ -140,7 +137,6 @@ export const NewAccountModal = ({ newAccountModal, setNewAccountModal }: Props) 
 
                                     <input
                                         type="password"
-                                        id="new-password"
                                         placeholder="••••••••"
                                         className={
                                             clsx(

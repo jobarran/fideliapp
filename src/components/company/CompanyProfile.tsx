@@ -1,11 +1,12 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { CompanyContentCard, CompanyContentInformation, CompanyProfileHeader, ProfileContent, UserContentMovements } from "..";
+import { CompanyContentCard, CompanyContentInformation, CompanyContentNoCard, CompanyProfileHeader, ProfileContent, UserContentMovements } from "..";
 import { companyNavItems } from "@/config";
 import { CardProfile, CompanyClientDashboard, Pin, Product } from "@/interfaces";
 import { CompanyContentProducts } from './CompanyContentProducts';
 import { UserTransaction } from "@/interfaces/transacrion.interface";
+import { useLoginModal } from "@/hooks/useLoginModal";
 
 interface Props {
     company: CompanyClientDashboard,
@@ -27,6 +28,7 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
     const [cardPoints, setCardPoints] = useState(card?.points); // Initialize with card points
     const [loading, setLoading] = useState(true); // Track loading state
     const [transactions, setTransactions] = useState<UserTransaction[]>([]);
+    const { loginModal, toggleLoginModal, newAccountModal, toggleNewAccountModal } = useLoginModal();
 
     useEffect(() => {
         setLoading(true); // Start loading process
@@ -56,6 +58,13 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
         setSelectedTab(tab);
     };
 
+    const handleCreateCard = async () => {
+        if (!userId) {
+            toggleLoginModal();
+            return;
+        }
+    };
+
     const renderContent = () => {
         switch (selectedTab) {
             case "tarjeta":
@@ -69,7 +78,15 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
             case "productos":
                 return <CompanyContentProducts companyId={company.id} products={products ?? []} />;
             case "movimientos":
-                return <UserContentMovements transactions={transactions} loading={loading} />;
+                return <UserContentMovements
+                    userCardForCompany={userCardForCompany}
+                    slug={company.slug}
+                    companyName={company.name}
+                    companyColor={company.backgroundColor}
+                    companyLogoUrl={company.CompanyLogo?.url}
+                    transactions={transactions}
+                    loading={loading}
+                />;
             case "opiniones":
                 return <p>Opiniones</p>;
             case "informacion":

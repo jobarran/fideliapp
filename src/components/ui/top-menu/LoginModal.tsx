@@ -81,7 +81,6 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
                                         className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300"
                                         type="email"
                                         name="email"
-                                        id='email'
                                         placeholder="email"
                                         required
                                     />
@@ -93,7 +92,6 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal }: Pr
                                         className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300"
                                         type="password"
                                         name="password"
-                                        id='password'
                                         placeholder="contraseña"
                                     />
                                 </div>

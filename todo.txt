@@ -1,17 +1,12 @@
 Roadmap
 Web->App(react native)->Testing->Security
 
-client/ update movements Page
-user/ update movements Page
-Refactor client transaction page ClientContentTransaction
-Add loading to validate Pin in ClientContentTransaction
+var
+        - Check validations sign in 
+        - COnfig sign in with google
 
-- Add search bar to companies/slug (product section)
-- Check validations sign in
-- COnfig sign in with google
-- CreateCompanyMapComponent -> change icon when activityType si selected
-- companies/slug - Tarjeta // disable for unregister users (register to create card)
-- Freemium: max prod 10 u
+
+Freemium/Premium
 
 review validate pin userId validation
 clientClientContentTransaction pushing to home
@@ -19,7 +14,8 @@ error page
 soft delete
 breadcrumb
 
-- add products to movementrow component
+- add products to movementRow component
+-
 
 client/id   - plan -> add tag
             - /transaction/id create
@@ -30,6 +26,9 @@ client/id   - plan -> add tag
         - add some stats and history?
         - Opiniontes -> add fomr
         - add opinion an valoration by transaction
+        - /movements/ if no card, "create card" 
+        - /movements/ add products to movementrow component + see row in small screens
+        - 
 
 user/id 
         - inofrmacion -> add editable inputs
@@ -37,3 +36,8 @@ user/id
         - /movement/id create
 
 
+home
+        - add recomendados and nuevos sliders
+
+
+Check if removing id from login and create account modal is a bug

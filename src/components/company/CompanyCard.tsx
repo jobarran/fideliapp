@@ -1,6 +1,6 @@
 import React from 'react'
 import { Avatar } from '..'
-import { FaHeart, FaRegHeart } from 'react-icons/fa6'
+import { FaHeart } from 'react-icons/fa6'
 import Image from 'next/image'
 
 interface Props {
