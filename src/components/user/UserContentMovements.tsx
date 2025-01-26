@@ -6,32 +6,18 @@ import React, { useEffect, useState } from 'react';
 import { UserContentMovementsRow } from './UserContentMovementsRow';
 import { UserTransaction } from '@/interfaces/transacrion.interface';
 import { LoadingSpinnerDark } from '../ui/buttons/LoadingSpinnerDark';
+import { UserContentMovementsFilter } from './UserContentMovementsFilter';
 
 interface Props {
-  user: UserProfileData;
+  transactions: UserTransaction[];
+  loading: boolean
 }
 
-export const UserContentMovements = ({ user }: Props) => {
-  const [loading, setLoading] = useState(true); // Track loading state
+export const UserContentMovements = ({ transactions, loading }: Props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [transactionType, setTransactionType] = useState<'BUY' | 'REWARD' | 'MANUAL' | ''>('');
   const [transactionState, setTransactionState] = useState<'ALL' | 'CONFIRMED' | 'CANCELLED'>('ALL');
-  const [transactions, setTransactions] = useState<UserTransaction[]>([]);
   const [showMoreLoading, setShowMoreLoading] = useState(false); // Track loading state for "Mostrar más"
-
-  useEffect(() => {
-    setLoading(true); // Start loading process
-    const processedTransactions = user.Cards.flatMap((card) =>
-      card.History.map((history) => ({
-        ...history,
-        companyName: card.company.name,
-        userId: user.id,
-        date: new Date(history.date).toISOString(),
-      }))
-    );
-    setTransactions(processedTransactions);
-    setLoading(false);
-  }, [user]);
 
   const { visibleTransactions, loadMore, filteredTransactions } = useMovementsFilter(
     transactions,
@@ -52,43 +38,15 @@ export const UserContentMovements = ({ user }: Props) => {
 
   return (
     <div>
-      {/* Filters */}
-      <div className="mb-4">
-        <div className="flex flex-col gap-2 md:flex-row">
-          <input
-            type="text"
-            placeholder="Buscar por cliente"
-            className="flex-1 border px-3 py-1 rounded-md text-sm w-full"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <div className="flex gap-2">
-            <select
-              className="flex border px-3 py-1 rounded-md text-sm w-full md:w-auto"
-              value={transactionType}
-              onChange={(e) =>
-                setTransactionType(e.target.value as 'BUY' | 'REWARD' | 'MANUAL' | '')
-              }
-            >
-              <option value="">Todos los tipos</option>
-              <option value="BUY">Compra</option>
-              <option value="REWARD">Recompensa</option>
-              <option value="MANUAL">Manual</option>
-            </select>
-            <select
-              className="flex border px-3 py-1 rounded-md text-sm w-full md:w-auto"
-              value={transactionState}
-              onChange={(e) =>
-                setTransactionState(e.target.value as 'ALL' | 'CONFIRMED' | 'CANCELLED')
-              }
-            >
-              <option value="ALL">Todos los estados</option>
-              <option value="CONFIRMED">Confirmados</option>
-              <option value="CANCELLED">Cancelados</option>
-            </select>
-          </div>
-        </div>
-      </div>
+
+      <UserContentMovementsFilter
+        searchTerm={searchTerm}
+        transactionType={transactionType}
+        transactionState={transactionState}
+        setSearchTerm={setSearchTerm}
+        setTransactionType={setTransactionType}
+        setTransactionState={setTransactionState}
+      />
 
       {/* Loading state */}
       <div

@@ -1,3 +1,4 @@
+import { TransactionState } from "@prisma/client";
 import { CompanyLogo } from ".";
 
 export interface ActivityType {
@@ -39,6 +40,14 @@ export interface CardProfile {
     active: boolean;
     userId: string;
     companyId: string;
+    History: {
+        id: string;
+        points: number;
+        date: Date;
+        type: 'BUY' | 'REWARD' | 'MANUAL';
+        cardId: string;
+        state: TransactionState;
+    }[];
 }
 
 export interface UserCard {

@@ -22,11 +22,30 @@ export const getUserCardForCompany = async (slug: string): Promise<{
                     slug: slug,
                 },
             },
+            select: {
+                id: true,
+                points: true,
+                favourite: true,
+                active: true,
+                userId: true,
+                companyId: true,
+                History: {
+                    select: {
+                        id: true,
+                        points: true,
+                        date: true,
+                        type: true,
+                        cardId: true,
+                        state: true,
+                    },
+                },
+            },
         });
+
 
         // Return the existence of the card and its ID
         return {
-            card, 
+            card,
             userId: session.user.id
         };
     } catch (error) {

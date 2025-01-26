@@ -19,20 +19,21 @@ error page
 soft delete
 breadcrumb
 
-client/id   - improve product row / add search bar / add pagination
-            - plan -> add tag
+- add products to movementrow component
+
+client/id   - plan -> add tag
             - /transaction/id create
             - /product/id create
-            - /product change row item style
             - /movement/id create
 
-[user] companies/slug tarjeta -> add some stats and history?
-                      Opiniontes -> add fomr
-                      Productos -> improve row style / add search bar / add pagination
+[user] companies/slug tarjeta -> 
+        - add some stats and history?
+        - Opiniontes -> add fomr
+        - add opinion an valoration by transaction
 
 user/id 
-        - movimientos -> add rows
         - inofrmacion -> add editable inputs
         - plan -> add tag
+        - /movement/id create
 
-navbar - sections: Inicio / Mis favoritos / Mis movimientos / Mi Perfil (add icons)
+

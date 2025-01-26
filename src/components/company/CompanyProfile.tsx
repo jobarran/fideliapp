@@ -1,10 +1,11 @@
 "use client"
 
-import { useState } from "react";
-import { CompanyContentCard, CompanyContentInformation, CompanyProfileHeader, ProfileContent } from "..";
+import { useEffect, useState } from "react";
+import { CompanyContentCard, CompanyContentInformation, CompanyProfileHeader, ProfileContent, UserContentMovements } from "..";
 import { companyNavItems } from "@/config";
 import { CardProfile, CompanyClientDashboard, Pin, Product } from "@/interfaces";
 import { CompanyContentProducts } from './CompanyContentProducts';
+import { UserTransaction } from "@/interfaces/transacrion.interface";
 
 interface Props {
     company: CompanyClientDashboard,
@@ -24,6 +25,33 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
     const [selectedTab, setSelectedTab] = useState(initialTab);
     const [openModal, setOpenModal] = useState(false)
     const [cardPoints, setCardPoints] = useState(card?.points); // Initialize with card points
+    const [loading, setLoading] = useState(true); // Track loading state
+    const [transactions, setTransactions] = useState<UserTransaction[]>([]);
+
+    useEffect(() => {
+        setLoading(true); // Start loading process
+
+        // Ensure card?.History is not undefined
+        const processedTransactions = card?.History?.map((history) => ({
+            ...history,
+            companyName: company.name,
+            userId: userId as string,
+            date: new Date(history.date).toISOString(), // Convert date to ISO string
+            state: history.state, // Add the missing 'state' property here
+        })) ?? []; // Fallback to an empty array if History is undefined
+
+        const sortedTransactions = processedTransactions.sort((a, b) => {
+            const dateA = new Date(a.date).getTime();
+            const dateB = new Date(b.date).getTime();
+            return dateB - dateA; // For descending order (most recent first)
+        });
+
+        setTransactions(sortedTransactions);
+        setLoading(false);
+    }, [card, company, userId]); // Added dependencies to ensure it triggers correctly
+
+
+
     const handleTabChange = (tab: string) => {
         setSelectedTab(tab);
     };
@@ -40,10 +68,12 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
                 />;
             case "productos":
                 return <CompanyContentProducts companyId={company.id} products={products ?? []} />;
+            case "movimientos":
+                return <UserContentMovements transactions={transactions} loading={loading} />;
+            case "opiniones":
+                return <p>Opiniones</p>;
             case "informacion":
                 return <CompanyContentInformation company={company} />;
-            case "opiniontes":
-                return <p>Opiniones</p>;
             default:
                 return null;
         }

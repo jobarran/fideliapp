@@ -36,7 +36,7 @@ export const UserContentMovementsRow = ({
 
                         <div className="flex flex-1 min-w-0">
                             <ClientContentMovementsDetail
-                                label="Cliente"
+                                label="Negocio"
                                 value={`${capitalizeFirstLetter(transaction.companyName)}`}
                                 className="flex-1 truncate" // Truncate if space is limited
                                 smScreenValue={`${transaction.companyName.substring(0, 1).toUpperCase()}`}

@@ -36,7 +36,7 @@ export const useMovementsFilter = <T extends Transaction>(
     }, [searchTerm, transactionType, transactionState, transactions]);
 
     useEffect(() => {
-        setVisibleTransactions(filteredTransactions.slice(0, currentPage * 20));
+        setVisibleTransactions(filteredTransactions.slice(0, currentPage * 10));
     }, [currentPage, filteredTransactions]);
 
     const loadMore = () => setCurrentPage((prevPage) => prevPage + 1);
