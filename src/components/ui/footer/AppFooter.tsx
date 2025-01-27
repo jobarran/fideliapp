@@ -2,9 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
-import { appFooterNavItems } from "@/config";
 import { LoginModal, NewAccountModal } from "@/components";
 import { useLoginModal } from "@/hooks/useLoginModal";
+import { appFooterNavitems } from "@/config";
 
 interface Props {
     userId?: string;
@@ -13,7 +13,7 @@ interface Props {
 export const AppFooter = ({ userId }: Props) => {
     const { loginModal, toggleLoginModal, newAccountModal, toggleNewAccountModal } = useLoginModal();
 
-    const navItems = appFooterNavItems({ userId });
+    const navItems = appFooterNavitems({ userId });
 
     const handleProtectedClick = () => {
         console.log('open modal')
