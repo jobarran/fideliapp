@@ -30,7 +30,7 @@ export default async function BaseLayout({
             <div className="flex-grow">
                 <TopMenu user={user} company={company} />
                 <div className="flex flex-col items-center justify-center">
-                    <div className="container px-4 py-4">
+                    <div className="container px-4 py-4 mb-20 sm:mb-0">
                         <div className="max-w-4xl w-full mx-auto">
                             {passUserToChildren(children)}
                         </div>

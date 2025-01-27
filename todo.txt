@@ -11,6 +11,9 @@ Freemium/Premium
 error page
 soft delete
 breadcrumb
+revise and unify all ICONS
+
+handle pin button logic when no transaction is submitted
 
 - add products to movementRow component
 
