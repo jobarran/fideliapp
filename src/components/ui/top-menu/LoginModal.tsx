@@ -15,25 +15,16 @@ interface Props {
 }
 
 export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal, uniqueId }: Props) => {
-
     const [state, dispatch] = useFormState(authenticate, undefined);
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
 
-    
     useEffect(() => {
         if (loginModal && state === 'Success') {
             setLoginModal();
             window.location.reload();
         }
     }, [state, setLoginModal, loginModal]);
-
-    useEffect(() => {
-        if (loginModal) {
-            if (emailRef.current) emailRef.current.value = '';
-            if (passwordRef.current) passwordRef.current.value = '';
-        }
-    }, [loginModal]);
 
     const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         if (event.target instanceof HTMLDivElement && event.target.id === `login-modal-${uniqueId}`) {
@@ -46,21 +37,19 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal, uniq
         setNewAccountModal();
     };
 
-    const modalClasses = `fixed inset-0 flex justify-center items-center bg-opacity-50 z-50 transition-opacity duration-300 ${loginModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`;
-    const modalContentClasses = `relative bg-white rounded-lg overflow-hidden h-full w-full sm:max-w-xs md:max-w-sm xl:max-w-lg sm:h-auto transition-opacity duration-300 ${loginModal ? 'opacity-100' : 'opacity-0'}`;
-    const blurEffectClasses = `fixed inset-0 bg-black bg-opacity-30 z-40 transition-opacity duration-300 ${loginModal ? 'opacity-100' : 'opacity-0 pointer-events-none'}`;
+    if (!loginModal) return null; // Prevent rendering when modal is hidden
 
     return (
         <div>
-            <div className={blurEffectClasses}></div>
+            <div className="fixed inset-0 bg-black bg-opacity-30 z-40"></div>
             <div
                 id={`login-modal-${uniqueId}`}
                 tabIndex={-1}
-                aria-hidden={loginModal}
-                className={modalClasses}
+                aria-hidden={!loginModal}
+                className="fixed inset-0 flex justify-center items-center bg-opacity-50 z-50"
                 onClick={handleOverlayClick}
             >
-                <div className={modalContentClasses}>
+                <div className="relative bg-white rounded-lg overflow-hidden h-full w-full sm:max-w-xs md:max-w-sm xl:max-w-lg sm:h-auto">
                     <button
                         className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
                         onClick={setLoginModal}
@@ -100,26 +89,23 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal, uniq
                                         className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300"
                                     />
                                 </div>
-                                <div
-                                    className="flex"
-                                    aria-live="polite"
-                                    aria-atomic="true"
-                                >
-                                    {
-                                        state === "CredentialsSignin" && (
-                                            <div className='flex flex-row mb- mt-1'>
-                                                <p className="text-sm text-red-500">Sorry, something went wrong. Please double-check your credentials.</p>
-                                            </div>
-                                        )
-                                    }
-                                </div>
+                                {state === "CredentialsSignin" && (
+                                    <div className="flex flex-row mb-1 mt-1">
+                                        <p className="text-sm text-red-500">
+                                            Sorry, something went wrong. Please double-check your credentials.
+                                        </p>
+                                    </div>
+                                )}
                                 <div className="flex justify-between">
-                                    <span className="text-sm text-blue-700 hover:underline cursor-pointer">Olvide mi contraseña</span>
-
+                                    <span className="text-sm text-blue-700 hover:underline cursor-pointer">
+                                        Olvide mi contraseña
+                                    </span>
                                     <span
                                         className="text-sm text-blue-700 hover:underline cursor-pointer"
                                         onClick={handleCreateAccountClick}
-                                    >Crear cuenta</span>
+                                    >
+                                        Crear cuenta
+                                    </span>
                                 </div>
                                 <div className="">
                                     <LoginButton />
@@ -133,8 +119,9 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal, uniq
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
+
 
 function LoginButton() {
     const { pending } = useFormStatus();

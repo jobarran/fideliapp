@@ -38,5 +38,17 @@ user/id
 home
         - add recomendados and nuevos sliders
 
+resonsive
+        - app format in sm screens (footer with options)
 
 Check if removing id from login and create account modal is a bug
+autocmoplete off
+
+----------------------------------------
+
+Bubble or FlutterFlow for no-code simple projects
+Aqcuire for selling projects
+
+NextJs to react native -> Capacitor, Apache Cordova, Tauri, PWA builder, Solito
+
+PWA (manifest) + Native Shell (Capacitor, Apache Cordova, Tauri)
