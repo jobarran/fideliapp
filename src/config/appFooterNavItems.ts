@@ -6,7 +6,7 @@ interface Props {
     userId?: string
 }
 
-export const appFooterNavItems = ({ userId }: Props) => [
+export const appFooterNavitems = ({ userId }: Props) => [
     { label: "Inicio", requiresAuth: false, icon: FiHome, route: "/" },
     { label: "Tarjetas", requiresAuth: true, icon: FiCreditCard, route: "/cards" },
     { label: "Favoritos", requiresAuth: true, icon: FaRegHeart, route: `/user/${userId}?tab=favoritos` },
