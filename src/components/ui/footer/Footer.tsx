@@ -5,7 +5,7 @@ import React from 'react';
 export const Footer = () => {
     return (
         <footer
-            className="bg-white shadow border-t-slate-300 p-4"
+            className="bg-white shadow border-t-slate-300 p-4 hidden sm:block"
             style={{ borderTopWidth: 0.5, borderTopStyle: 'solid' }}
         >
             <div className="w-full mx-auto max-w-screen-xl p-2 flex flex-col items-center md:flex-row md:items-center md:justify-between">

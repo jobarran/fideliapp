@@ -5,7 +5,7 @@ import { FaGift } from 'react-icons/fa6';
 
 export const HowItWorks = () => {
     return (
-        <div>
+        <div className="mb-16 sm:mb-0">
             <div className="flex mt-4 mb-6 justify-center items-center">
                 <h3 className="text-lg font-semibold text-slate-900">¿Cómo funciona?</h3>
             </div>

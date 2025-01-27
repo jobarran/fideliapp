@@ -6,12 +6,11 @@ import { authenticate } from '@/actions';
 import clsx from 'clsx';
 import { IoCloseSharp } from "react-icons/io5";
 
-// Assuming you have a unique id prop passed or generate one
 interface Props {
     loginModal: boolean;
     setLoginModal: () => void;
     setNewAccountModal: () => void;
-    uniqueId: string; // added this prop for unique id generation
+    uniqueId: string; 
 }
 
 export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal, uniqueId }: Props) => {

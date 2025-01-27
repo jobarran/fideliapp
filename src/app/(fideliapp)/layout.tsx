@@ -1,4 +1,4 @@
-import { Footer, MapProvider, TopMenu } from "@/components";
+import { AppFooter, Footer, MapProvider, TopMenu } from "@/components";
 import { auth } from "@/auth.config";
 import React from "react";
 import { User } from "@/interfaces";
@@ -38,6 +38,7 @@ export default async function BaseLayout({
                 </div>
             </div>
             <Footer />
+            <AppFooter userId={user?.id}/>
         </div>
     );
 }

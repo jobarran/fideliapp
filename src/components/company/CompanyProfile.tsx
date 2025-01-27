@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { CompanyContentCard, CompanyContentInformation, CompanyContentNoCard, CompanyProfileHeader, ProfileContent, UserContentMovements } from "..";
+import { CompanyContentCard, CompanyContentInformation, CompanyContentMovements, CompanyContentNoCard, CompanyProfileHeader, ProfileContent, UserContentMovements } from "..";
 import { companyNavItems } from "@/config";
 import { CardProfile, CompanyClientDashboard, Pin, Product } from "@/interfaces";
 import { CompanyContentProducts } from './CompanyContentProducts';
@@ -70,7 +70,7 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
             case "productos":
                 return <CompanyContentProducts companyId={company.id} products={products ?? []} />;
             case "movimientos":
-                return <UserContentMovements
+                return <CompanyContentMovements
                     userCardForCompany={userCardForCompany}
                     slug={company.slug}
                     companyName={company.name}

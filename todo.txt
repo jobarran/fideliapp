@@ -8,8 +8,6 @@ var
 
 Freemium/Premium
 
-review validate pin userId validation
-clientClientContentTransaction pushing to home
 error page
 soft delete
 breadcrumb
@@ -40,9 +38,6 @@ home
 
 resonsive
         - app format in sm screens (footer with options)
-
-Check if removing id from login and create account modal is a bug
-autocmoplete off
 
 ----------------------------------------
 
