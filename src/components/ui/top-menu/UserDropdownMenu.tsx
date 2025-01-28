@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
 import { useState, useEffect, useRef } from "react";
-import { FaAngleDown, FaHome } from "react-icons/fa";
-import { logout as serverLogout } from "@/actions/auth/logout"; // Update import path
+import { FaAngleDown, FaArrowRightToBracket } from "react-icons/fa6";
+import { logout as serverLogout } from "@/actions/auth/logout";
 import Link from "next/link";
-import { FaArrowRightArrowLeft, FaArrowRightToBracket, FaHeart, FaUser } from "react-icons/fa6";
+import { userDropdownNavItems } from "@/config/userDropdownNavItems";
 
 interface Props {
   userName: string;
-  userId: string
+  userId: string;
 }
 
 export const UserDropdownMenu = ({ userName, userId }: Props) => {
@@ -41,24 +41,13 @@ export const UserDropdownMenu = ({ userName, userId }: Props) => {
     };
   }, [dropdownOpen]);
 
-  useEffect(() => {
-    if (dropdownOpen && dropdownRef.current) {
-      const dropdownRect = dropdownRef.current.getBoundingClientRect();
-      const isOutOfViewport = dropdownRect.bottom > window.innerHeight;
-
-      if (isOutOfViewport) {
-        dropdownRef.current.style.top = `-${dropdownRect.height}px`;
-      } else {
-        dropdownRef.current.style.top = "100%";
-      }
-    }
-  }, [dropdownOpen]);
-
   const handleLogout = async () => {
     await serverLogout();
-    window.location.href = '/'; // Redirect to home page after logout
-    setDropdownOpen(false)
+    window.location.href = "/"; // Redirect to home page after logout
+    setDropdownOpen(false);
   };
+
+  const navItems = userDropdownNavItems(userId);
 
   return (
     <div className="relative">
@@ -79,46 +68,18 @@ export const UserDropdownMenu = ({ userName, userId }: Props) => {
           className="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded z-10"
         >
           <ul>
-            <li>
-              <Link
-                onClick={toggleDropdown}
-                href={`/`}
-                className="flex px-4 pt-2 pb-1 text-xs text-gray-700 hover:bg-gray-100 items-center"
-              >
-                <FaHome className="text-xs mr-1" />
-                Inicio
-              </Link>
-            </li>
-            <li>
-              <Link
-                onClick={toggleDropdown}
-                href={`/user/${userId}?tab=favoritos`}
-                className="flex px-4 py-1 text-xs text-gray-700 hover:bg-gray-100 items-center"
-              >
-                <FaHeart className="text-xs mr-1" />
-                Mis favoritos
-              </Link>
-            </li>
-            <li>
-              <Link
-                onClick={toggleDropdown}
-                href={`/user/${userId}?tab=movimientos`}
-                className="flex px-4 py-1 text-xs text-gray-700 hover:bg-gray-100 items-center"
-              >
-                <FaArrowRightArrowLeft className="text-xs mr-1" />
-                Mis movimientos
-              </Link>
-            </li>
-            <li>
-              <Link
-                onClick={toggleDropdown}
-                href={`/user/${userId}?tab=informacion`}
-                className="flex px-4 py-1 text-xs text-gray-700 hover:bg-gray-100 items-center"
-              >
-                <FaUser className="text-xs mr-1" />
-                Mi Perfil
-              </Link>
-            </li>
+            {navItems.map((item) => (
+              <li key={item.label}>
+                <Link
+                  onClick={toggleDropdown}
+                  href={item.href}
+                  className="flex px-4 py-1 text-xs text-gray-700 hover:bg-gray-100 items-center"
+                >
+                  <item.icon className="text-xs mr-1" />
+                  {item.label}
+                </Link>
+              </li>
+            ))}
             <li>
               <button
                 onClick={handleLogout}

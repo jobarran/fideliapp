@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { LoginModal, NewAccountModal } from "@/components";
 import { useLoginModal } from "@/hooks/useLoginModal";
-import { appFooterNavitems } from "@/config";
+import { appFooterNavItems } from "@/config";
 
 interface Props {
     userId?: string;
@@ -13,7 +13,7 @@ interface Props {
 export const AppFooter = ({ userId }: Props) => {
     const { loginModal, toggleLoginModal, newAccountModal, toggleNewAccountModal } = useLoginModal();
 
-    const navItems = appFooterNavitems({ userId });
+    const navItems = appFooterNavItems({ userId });
 
     const handleProtectedClick = () => {
         console.log('open modal')
@@ -42,7 +42,7 @@ export const AppFooter = ({ userId }: Props) => {
                                 <button
                                     key={item.label}
                                     onClick={handleProtectedClick}
-                                    className="flex flex-col items-center text-slate-800 hover:text-slate-900"
+                                    className="flex flex-col items-center text-slate-600 hover:text-slate-800"
                                 >
                                     <item.icon className="text-2xl mb-1" />
                                     <span className="text-xs font-medium">{item.label}</span>
@@ -51,7 +51,7 @@ export const AppFooter = ({ userId }: Props) => {
                                 <Link
                                     key={item.label}
                                     href={item.route}
-                                    className="flex flex-col items-center text-slate-800 hover:text-slate-900"
+                                    className="flex flex-col items-center text-slate-600 hover:text-slate-800"
                                 >
                                     <item.icon className="text-2xl mb-1" />
                                     <span className="text-xs font-medium">{item.label}</span>

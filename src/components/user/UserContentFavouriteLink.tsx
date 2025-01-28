@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React from 'react';
 import { FaHeart } from 'react-icons/fa';
 import { UserContentFavouriteCompanyLink } from '..';
 import { CompanyShort } from '@/interfaces';

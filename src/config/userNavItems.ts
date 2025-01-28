@@ -1,11 +1,8 @@
-import { BsFillPostcardHeartFill } from "react-icons/bs";
-import { FaArrowRightArrowLeft, FaCircleInfo, FaRegHeart } from "react-icons/fa6";
-import { FiUser } from "react-icons/fi";
+import { FiHeart, FiUser, FiList, FiRepeat } from "react-icons/fi";
 
 export const userNavItems = [
-    { id: 'favoritos', label: 'Favoritos', icon:FaRegHeart},
-    { id: 'movimientos', label: 'Movimientos', icon:FaArrowRightArrowLeft},
-    { id: 'informacion', label: 'Información', icon:FiUser},
-    { id: 'planes', label: 'Planes', icon:BsFillPostcardHeartFill},
-
+    { id: 'favoritos', label: 'Favoritos', icon: FiHeart },
+    { id: 'movimientos', label: 'Movimientos', icon: FiRepeat },
+    { id: 'informacion', label: 'Información', icon: FiUser },
+    { id: 'planes', label: 'Planes', icon: FiList },
 ];

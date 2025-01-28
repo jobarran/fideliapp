@@ -12,6 +12,15 @@ error page
 soft delete
 breadcrumb
 revise and unify all ICONS
+- FAVORITOS
+- MOVIMIENTOS
+- INICIO
+- TARJETAS
+- PERFIL
+- TRANSACCION
+- INFORMACION 
+- PRODUCTOS
+- PLANES 
 
 handle pin button logic when no transaction is submitted
 
@@ -50,3 +59,9 @@ Aqcuire for selling projects
 NextJs to react native -> Capacitor, Apache Cordova, Tauri, PWA builder, Solito
 
 PWA (manifest) + Native Shell (Capacitor, Apache Cordova, Tauri)
+
+----------------------------------------
+
+IDEAS:
+
+* CONSTRUCTION: Simple sheets to PDF construction. A table that is linked to a PDF (or image) and mark down the (avance) of the project. Date, state, type, resources, etc... with colors by month
