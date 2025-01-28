@@ -2,7 +2,7 @@
 
 import React, { useCallback, useState } from 'react';
 import { TextField, PasswordField, DeleteWarningModal } from '..'; // Import custom fields
-import { FaCheck, FaRegTrashCan } from 'react-icons/fa6';
+import { FaRegTrashCan } from 'react-icons/fa6';
 import { updateUser } from '@/actions';
 import { UserProfileData } from '@/interfaces';
 
@@ -13,7 +13,7 @@ interface EditedUser {
   email: string;
   password?: string;
   active: boolean;
-  role?: string; 
+  role?: string;
 }
 
 interface Props {
@@ -26,7 +26,6 @@ export const UserContentInformation = ({ user }: Props) => {
   const [oldPassword, setOldPassword] = useState<string | undefined>(undefined); // Set as undefined
   const [newPassword, setNewPassword] = useState<string | undefined>(undefined); // Set as undefined
   const [confirmPassword, setConfirmPassword] = useState<string | undefined>(undefined); // Set as undefined
-  const [disabled, setDisabled] = useState(false);
   const [errors, setErrors] = useState<string[]>([]); // Track errors for validation
 
   // Handle changes in editable fields
@@ -95,9 +94,9 @@ export const UserContentInformation = ({ user }: Props) => {
         setErrors(["Hubo un error al actualizar el usuario."]);
       }
     }
-    
+
     setIsEditing((prev) => !prev);
-  }, [isEditing, editedUser, user, newPassword, confirmPassword]);
+  }, [isEditing, editedUser, user, newPassword, confirmPassword, oldPassword]);
 
   return (
     <div>
