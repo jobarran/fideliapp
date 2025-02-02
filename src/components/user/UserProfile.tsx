@@ -26,12 +26,15 @@ export const UserProfile = ({ user, hasCompany, userId, selectedTab: initialTab,
 
     useEffect(() => {
         setLoading(true); // Start loading process
+
+        // Ensure user.Cards and card.History are not undefined
         const processedTransactions = user.Cards.flatMap((card) =>
             card.History.map((history) => ({
                 ...history,
                 companyName: card.company.name,
                 userId: user.id,
                 date: new Date(history.date).toISOString(), // Convert date to ISO string
+                products: history.products?.map((product) => ({ name: product.name })) || [],
             }))
         );
 

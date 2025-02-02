@@ -41,6 +41,7 @@ export interface UserProfileData {
             type: 'BUY' | 'REWARD' | 'MANUAL';
             cardId: string;
             state: TransactionState;
+            products: { name: string }[]; // This is the 'products' property
         }[];
     }[]
     createdAt: Date;
