@@ -45,9 +45,8 @@ export interface UserTransaction {
   cardId: string;
   state: TransactionState;
   userId: string;
-  products: {
-    name: string;
-  }[]; 
+  products: { name: string }[];  // This must be an array of objects
+
 }
 
 

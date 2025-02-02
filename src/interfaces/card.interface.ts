@@ -56,6 +56,7 @@ export interface CardProfile {
         type: 'BUY' | 'REWARD' | 'MANUAL';
         cardId: string;
         state: TransactionState;
+        products: { name: string }[]; 
     }[];
 }
 
