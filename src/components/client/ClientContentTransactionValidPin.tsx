@@ -36,7 +36,7 @@ export const ClientContentTransactionValidPin = ({
 
             return () => clearInterval(interval); // Cleanup on unmount
         }
-    }, [pinExpiration, onPinExpire]);
+    }, [pinExpiration, onPinExpire, handleResetStates]);
 
     return (
         <div>

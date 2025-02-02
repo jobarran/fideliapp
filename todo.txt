@@ -1,27 +1,14 @@
 Roadmap
 Web->App(react native)->Testing->Security
 
-var
-        - Check validations sign in 
-        - COnfig sign in with google
+----------------------------------------
 
-
+COnfig sign in with google
 Freemium/Premium
-
 error page
 soft delete
 breadcrumb
-revise and unify all ICONS
-- FAVORITOS
-- MOVIMIENTOS
-- INICIO
-- TARJETAS
-- PERFIL
-- TRANSACCION
-- INFORMACION 
-- PRODUCTOS
-- PLANES 
-
+Delete tarjetas section and move it to user/tarjetas (ex favoritos)
 handle pin button logic when no transaction is submitted
 
 - add products to movementRow component
@@ -59,6 +46,12 @@ Aqcuire for selling projects
 NextJs to react native -> Capacitor, Apache Cordova, Tauri, PWA builder, Solito
 
 PWA (manifest) + Native Shell (Capacitor, Apache Cordova, Tauri)
+
+deployment fees on stores + should bypass payments inside to avoid % for users (send payments outside the app)
+
+1st - Capacitor
+2nd - PWA
+3rd - React Native Webview
 
 ----------------------------------------
 

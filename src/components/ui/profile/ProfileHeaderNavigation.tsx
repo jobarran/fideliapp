@@ -33,7 +33,7 @@ export const ProfileHeaderNavigation = ({ handleTabChange, selectedTab, profileT
 
                         >
                             <item.icon className="text-xl mb-2" />
-                            <span className="text-xs font-medium">{item.label}</span>
+                            <span className="text-xs font-medium">{item.shortLabel}</span>
                         </span>
                         <span className={`hidden sm:block text-sm ${selectedTab === item.id ? 'text-slate-900' : 'text-slate-400'}`}>{item.label}</span>
                     </a>

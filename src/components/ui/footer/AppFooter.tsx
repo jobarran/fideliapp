@@ -16,7 +16,7 @@ export const AppFooter = ({ userId }: Props) => {
     const navItems = appFooterNavItems({ userId });
 
     const handleProtectedClick = () => {
-        console.log('open modal')
+        console.log("open modal");
         toggleLoginModal();
     };
 
@@ -36,28 +36,28 @@ export const AppFooter = ({ userId }: Props) => {
             />
             {shouldShowFooter && (
                 <div className="fixed bottom-0 inset-x-0 bg-white shadow border-t border-slate-300 z-50 sm:hidden">
-                    <div className="flex justify-around items-center py-4">
-                        {navItems.map((item) =>
-                            item.requiresAuth && !userId ? (
-                                <button
-                                    key={item.label}
-                                    onClick={handleProtectedClick}
-                                    className="flex flex-col items-center text-slate-600 hover:text-slate-800"
-                                >
-                                    <item.icon className="text-2xl mb-1" />
-                                    <span className="text-xs font-medium">{item.label}</span>
-                                </button>
-                            ) : (
-                                <Link
-                                    key={item.label}
-                                    href={item.route}
-                                    className="flex flex-col items-center text-slate-600 hover:text-slate-800"
-                                >
-                                    <item.icon className="text-2xl mb-1" />
-                                    <span className="text-xs font-medium">{item.label}</span>
-                                </Link>
-                            )
-                        )}
+                    <div className="flex justify-between items-center py-4">
+                        {navItems.map((item) => (
+                            <div key={item.label} className="flex-1 text-center">
+                                {item.requiresAuth && !userId ? (
+                                    <button
+                                        onClick={handleProtectedClick}
+                                        className="flex flex-col items-center text-slate-600 hover:text-slate-800"
+                                    >
+                                        <item.icon className="text-2xl mb-1" />
+                                        <span className="text-xs font-medium">{item.label}</span>
+                                    </button>
+                                ) : (
+                                    <Link
+                                        href={item.route}
+                                        className="flex flex-col items-center text-slate-600 hover:text-slate-800"
+                                    >
+                                        <item.icon className="text-2xl mb-1" />
+                                        <span className="text-xs font-medium">{item.label}</span>
+                                    </Link>
+                                )}
+                            </div>
+                        ))}
                     </div>
                 </div>
             )}

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { ProfileContent, ProfileHeader, UserContentFavourites, UserContentMovements, UserContentInformation, UserContentPlans } from "..";
-import { Company, UserProfileData } from "@/interfaces";
+import { ActivityType, Company, UserProfileData } from "@/interfaces";
 import { userNavItems } from "@/config";
 import { UserTransaction } from "@/interfaces/transacrion.interface";
 
@@ -12,9 +12,10 @@ interface Props {
     hasCompany: boolean;
     selectedTab: string;
     companies: Company[]
+    activityTypes: ActivityType[];
 }
 
-export const UserProfile = ({ user, hasCompany, userId, selectedTab: initialTab, companies }: Props) => {
+export const UserProfile = ({ user, hasCompany, userId, selectedTab: initialTab, companies, activityTypes }: Props) => {
 
     const [selectedTab, setSelectedTab] = useState(
         userNavItems.find((item) => item.id === initialTab)?.id || userNavItems[0].id
@@ -62,7 +63,7 @@ export const UserProfile = ({ user, hasCompany, userId, selectedTab: initialTab,
 
         switch (tabItem?.id) {
             case "favoritos":
-                return <UserContentFavourites user={user} companies={companies} />;
+                return <UserContentFavourites user={user} companies={companies} activityTypes={activityTypes} />;
             case "movimientos":
                 return <UserContentMovements transactions={transactions} loading={loading} />;
             case "informacion":
@@ -70,7 +71,7 @@ export const UserProfile = ({ user, hasCompany, userId, selectedTab: initialTab,
             case "planes":
                 return <UserContentPlans user={user} />;
             default:
-                return <UserContentFavourites user={user} companies={companies} />; // Fallback to the first tab content
+                return <UserContentFavourites user={user} companies={companies} activityTypes={activityTypes} />; // Fallback to the first tab content
         }
     };
 

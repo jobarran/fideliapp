@@ -26,7 +26,7 @@ export interface UserProfileData {
     Cards: {
         id: string;
         points: number;
-        favourite: boolean; // Change this to boolean here as well
+        favourite: boolean;
         company: {
             name: string;
             backgroundColor: string;

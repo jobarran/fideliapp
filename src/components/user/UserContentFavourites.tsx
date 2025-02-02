@@ -1,18 +1,20 @@
 "use client";
 
-import { UserCard, UserProfileData, Company } from '@/interfaces';
+import { UserCard, UserProfileData, Company, ActivityType } from '@/interfaces';
 import React, { useEffect, useMemo, useState } from 'react';
 import { UserContentFavouriteLink } from './UserContentFavouriteLink';
 import { favouriteCard } from '@/actions';
-import { CompanyLinkLoading, CompanyLinkWithDistance, SliderHeader, UserContentFavouriteCompanyLink } from '..';
+import { CompanyLinkLoading, CompanyLinkWithDistance, SliderHeader, UserCardGrid, UserContentFavouriteCompanyLink } from '..';
 import useClosestCompanies from '@/hooks/useCompaniesDistances';
 
 interface Props {
   user: UserProfileData;
   companies: Company[];
+  activityTypes: ActivityType[];
+
 }
 
-export const UserContentFavourites = ({ user, companies }: Props) => {
+export const UserContentFavourites = ({ user, companies, activityTypes }: Props) => {
 
   const filteredCompanies = useMemo(
     () => companies.filter(
@@ -40,19 +42,14 @@ export const UserContentFavourites = ({ user, companies }: Props) => {
 
   return (
     <div className='space-y-2'>
-      <SliderHeader label={'Mis tarjetas favoritas'} href={''} seeAllLabel={''} />      {/* Render sorted cards */}
-      {sortedCards.length > 0 && (
-        <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-8 gap-4">
-          {sortedCards.map((card: UserCard) => (
-            <UserContentFavouriteLink
-              key={card.company.slug}
-              company={card.company}
-              favourite={card.favourite}
-              onAddToFavourite={handleAddToFavourite}
-            />
-          ))}
-        </div>
-      )}
+
+      <UserCardGrid
+        userCards={sortedCards}
+        gridClass="w-full mt-4 mb-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2"
+        activityTypes={activityTypes}
+        search={''}
+      />
+
 
       {/* If no cards or companies */}
       {sortedCards.length === 0 && companies.length === 0 && <p className='text-xs italic text-gray-600'>No tienes tarjetas activas</p>}
