@@ -21,7 +21,7 @@ export interface Card {
     };
     company: {
         name: string;
-        activityType: ActivityType;
+        activityTypeId: string;
         backgroundColor: string | null;
         slug: string;
         CompanyLogo: {
@@ -30,7 +30,16 @@ export interface Card {
             companyId: string;
         } | null;
     };
+    History: {
+        id: string;
+        points: number;
+        date: Date;
+        type: 'BUY' | 'REWARD' | 'MANUAL';
+        cardId: string;
+        state: TransactionState;
+    }[];
 }
+
 
 
 export interface CardProfile {

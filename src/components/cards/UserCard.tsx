@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, UserCard as UserCardProp } from '@/interfaces';
+import { Card } from '@/interfaces';
 import Link from 'next/link';
 import React, { useState } from 'react'
 import { FaHeart, FaRegHeart } from 'react-icons/fa6';
@@ -9,7 +9,7 @@ import { softColor } from '../../utils/softColor';
 import { favouriteCard } from '@/actions';
 
 interface Props {
-    card: UserCardProp,
+    card: Card,
 }
 
 export const UserCard = ({ card }: Props) => {

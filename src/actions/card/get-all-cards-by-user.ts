@@ -14,6 +14,7 @@ export const getAllCardsByUser = async () => {
   }
 
   try {
+
     const cards = await prisma.card.findMany({
       where: {
         userId: session.user.id,
@@ -22,7 +23,7 @@ export const getAllCardsByUser = async () => {
         company: {
           select: {
             name: true,
-            activityType: true,
+            activityTypeId: true, // Ensure this field is selected
             backgroundColor: true,
             CompanyLogo: true,
             slug: true,
@@ -32,6 +33,16 @@ export const getAllCardsByUser = async () => {
           select: {
             name: true,
             lastName: true,
+          },
+        },
+        History: { // Include the History relation
+          select: {
+            id: true,
+            points: true,
+            date: true,
+            type: true,
+            cardId: true,
+            state: true,
           },
         },
       },
@@ -48,7 +59,7 @@ export const getAllCardsByUser = async () => {
     };
   } catch (error) {
     console.log(error);
-    return  {
+    return {
       ok: false,
       message: 'Error fetching cards',
       error: (error as Error).message,
