@@ -1,11 +1,12 @@
 'use client';
 
 import { useMovementsFilter } from '@/hooks';
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import { UserContentMovementsRow } from './UserContentMovementsRow';
-import { UserTransaction } from '@/interfaces/transacrion.interface';
 import { LoadingSpinnerDark } from '../ui/buttons/LoadingSpinnerDark';
 import { UserContentMovementsFilter } from './UserContentMovementsFilter';
+import { MovementModal } from '../ui/modals/MovementModal';
+import { UserTransaction } from '@/interfaces/transacrion.interface';
 
 interface Props {
   transactions: UserTransaction[];
@@ -24,7 +25,9 @@ export const UserContentMovements = ({
   const [searchTerm, setSearchTerm] = useState('');
   const [transactionType, setTransactionType] = useState<'BUY' | 'REWARD' | 'MANUAL' | ''>('');
   const [transactionState, setTransactionState] = useState<'ALL' | 'CONFIRMED' | 'CANCELLED'>('ALL');
-  const [showMoreLoading, setShowMoreLoading] = useState(false); // Track loading state for "Mostrar más"
+  const [showMoreLoading, setShowMoreLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState<UserTransaction | null>(null);
 
   const { visibleTransactions, loadMore, filteredTransactions } = useMovementsFilter(
     transactions,
@@ -32,6 +35,16 @@ export const UserContentMovements = ({
     transactionType,
     transactionState
   );
+
+  const handleRowClick = (transaction: UserTransaction) => {
+    setSelectedTransaction(transaction);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedTransaction(null);
+  };
 
   const handleShowMore = async () => {
     setShowMoreLoading(true);
@@ -45,7 +58,6 @@ export const UserContentMovements = ({
 
   return (
     <div>
-
       <div>
         <UserContentMovementsFilter
           searchTerm={searchTerm}
@@ -55,11 +67,8 @@ export const UserContentMovements = ({
           setTransactionType={setTransactionType}
           setTransactionState={setTransactionState}
         />
-
         {/* Loading state */}
-        <div
-          className={`transition-opacity duration-300 ease-in-out ${loading ? 'opacity-100' : 'opacity-0'}`}
-        >
+        <div className={`transition-opacity duration-300 ease-in-out ${loading ? 'opacity-100' : 'opacity-0'}`}>
           {loading && (
             <div className="flex justify-center items-center">
               <LoadingSpinnerDark />
@@ -75,7 +84,11 @@ export const UserContentMovements = ({
                 <p className="text-center text-gray-600">Todavía no se han registrado movimientos</p>
               ) : (
                 visibleTransactions.map((transaction) => (
-                  <UserContentMovementsRow key={transaction.id} transaction={transaction} />
+                  <UserContentMovementsRow
+                    key={transaction.id}
+                    transaction={transaction}
+                    onClick={() => handleRowClick(transaction)} // Open modal on row click
+                  />
                 ))
               )}
             </div>
@@ -100,6 +113,15 @@ export const UserContentMovements = ({
           </>
         )}
       </div>
+
+      {/* Transaction Modal */}
+      {isModalOpen && selectedTransaction && (
+        <MovementModal
+          setOpenMovementModal={setIsModalOpen}
+          openMovementModal={isModalOpen}
+          transaction={selectedTransaction}
+        />
+      )}
     </div>
   );
 };

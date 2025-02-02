@@ -7,8 +7,11 @@ import { ClientContentMovementsDetail } from "..";
 
 export const UserContentMovementsRow = ({
     transaction,
+    onClick
 }: {
     transaction: UserTransaction;
+    onClick: () => void
+
 }) => {
     const typeColor = getTransactionTypeColor(transaction.type);
     const pointsColor = getPointsColor(transaction.points);
@@ -23,7 +26,7 @@ export const UserContentMovementsRow = ({
             }`}
         >
 
-            <Link key={transaction.id} href={`/user/${transaction.userId}/transaction/${transaction.id}`} className="hover:bg-slate-50 w-full">
+            <div key={transaction.id} className="hover:bg-slate-50 w-full" onClick={onClick}>
                 <div
                     className={`flex items-center grow w-full p-3 sm:p-3 sm:justify-between rounded-lg transition-all duration-500 h-16 relative overflow-hidden`}
                 >
@@ -59,7 +62,7 @@ export const UserContentMovementsRow = ({
                     </div>
 
                 </div>
-            </Link>
+            </div>
         </div>
     );
 };
