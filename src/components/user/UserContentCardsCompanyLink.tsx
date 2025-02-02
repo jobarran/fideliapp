@@ -7,7 +7,7 @@ interface Props {
     company: CompanyShort | Company
 }
 
-export const UserContentFavouriteCompanyLink = ({ company }: Props) => {
+export const UserContentCardsCompanyLink = ({ company }: Props) => {
 
     return (
         <div style={{ backgroundColor: '#F8F8F8' }}>

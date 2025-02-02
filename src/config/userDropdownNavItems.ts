@@ -1,6 +1,6 @@
 // config/userDropdownNavItems.ts
 
-import { FiHeart, FiHome, FiRepeat, FiUser } from "react-icons/fi";
+import { FiCreditCard, FiHeart, FiHome, FiRepeat, FiUser } from "react-icons/fi";
 
 export const userDropdownNavItems = (userId: string) => [
   {
@@ -9,9 +9,9 @@ export const userDropdownNavItems = (userId: string) => [
     icon: FiHome,
   },
   {
-    label: "Mis favoritos",
-    href: `/user/${userId}?tab=favoritos`,
-    icon: FiHeart,
+    label: "Mis taerjetas",
+    href: `/user/${userId}?tab=taerjetas`,
+    icon: FiCreditCard,
   },
   {
     label: "Mis movimientos",

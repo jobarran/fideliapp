@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { FaHeart } from 'react-icons/fa';
-import { UserContentFavouriteCompanyLink } from '..';
 import { CompanyShort } from '@/interfaces';
 import { FaRegHeart } from 'react-icons/fa6';
+import { UserContentCardsCompanyLink } from '..';
 
 interface Props {
     company: CompanyShort;
@@ -20,7 +20,7 @@ export const UserContentFavouriteLink = ({ company, favourite, onAddToFavourite 
         <div
         className="relative rounded-lg"
         >
-            <UserContentFavouriteCompanyLink company={company} />
+            <UserContentCardsCompanyLink company={company} />
             <button
                 className={`absolute bottom-2 right-2`}
                 style={{ color }}

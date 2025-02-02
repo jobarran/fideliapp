@@ -2,7 +2,7 @@
 
 import { UserProfileData, Company, ActivityType } from '@/interfaces';
 import React, { useMemo } from 'react';
-import { CompanyLinkLoading, SliderHeader, UserCardGrid, UserContentFavouriteCompanyLink } from '..';
+import { CompanyLinkLoading, SliderHeader, UserCardGrid, UserContentCardsCompanyLink } from '..';
 import useClosestCompanies from '@/hooks/useCompaniesDistances';
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 
 }
 
-export const UserContentFavourites = ({ user, companies, activityTypes }: Props) => {
+export const UserContentCards = ({ user, companies, activityTypes }: Props) => {
 
   const filteredCompanies = useMemo(
     () => companies.filter(
@@ -53,7 +53,7 @@ export const UserContentFavourites = ({ user, companies, activityTypes }: Props)
               <CompanyLinkLoading key={`loading-${index}`} />
             ))
             : closestCompanies.slice(0, 8).map(({ company }) => (
-              <UserContentFavouriteCompanyLink key={company.id} company={company} />
+              <UserContentCardsCompanyLink key={company.id} company={company} />
             ))
           }
         </div>

@@ -28,7 +28,7 @@ export const UserCardSlider = ({ userCards, userId, showHeader }: UserCardSlider
 
     return (
         <>
-            {showHeader && <SliderHeader href={`/user/${userId}?tab=favoritos`} label={'Mis tarjetas'} seeAllLabel={'Ver todas'} />}
+            {showHeader && <SliderHeader href={`/user/${userId}?tab=tarjetas`} label={'Mis tarjetas'} seeAllLabel={'Ver todas'} />}
             <BaseSlider
                 data={sortedCards} 
                 breakpoints={breakpoints}
