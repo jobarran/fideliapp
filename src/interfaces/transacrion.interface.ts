@@ -45,6 +45,9 @@ export interface UserTransaction {
   cardId: string;
   state: TransactionState;
   userId: string;
+  products: {
+    name: string;
+  }[]; 
 }
 
 

@@ -47,12 +47,13 @@ export const getUserById = async (id: string) => {
                         },
                         History: {
                             select: {
-                                id: true, 
-                                points: true, 
-                                date: true, 
-                                type: true, 
-                                cardId: true, 
+                                id: true,
+                                points: true,
+                                date: true,
+                                type: true,
+                                cardId: true,
                                 state: true,
+                                products: { select: { name: true } }
                             },
                         },
                     },

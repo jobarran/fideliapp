@@ -27,6 +27,8 @@ export const ClientContentMovementsRow = ({
   const pointsColor = getPointsColor(transaction.points);
   const isCancelled = transaction.state === "CANCELLED";
 
+  const productNames = transaction.products.map(item => item.name).join(', ');
+
   return (
     <div className={`flex flex-row border rounded-lg mb-2 w-full transition-colors duration-300 ease-in-out ${isCancelling
       ? "bg-red-600"
@@ -49,6 +51,14 @@ export const ClientContentMovementsRow = ({
               <ClientContentMovementsDetail label="Puntos" value={transaction.points} color={pointsColor} className="min-w-8 sm:w-auto" />
               <div className="hidden sm:flex h-8 w-px bg-gray-200" />
 
+              <div className="hidden sm:flex flex-1 min-w-0">
+                <ClientContentMovementsDetail
+                  label="Productos"
+                  value={productNames}
+                  className="flex-1 truncate" // Truncate if space is limited
+                />
+              </div>
+
               <div className="flex flex-1 min-w-0">
                 <ClientContentMovementsDetail
                   label="Cliente"
@@ -57,6 +67,7 @@ export const ClientContentMovementsRow = ({
                   smScreenValue={`${transaction.clientName.substring(0, 1).toUpperCase()}. ${capitalizeFirstLetter(transaction.clientLastName)}`}
                 />
               </div>
+
               <div className="hidden sm:flex h-8 w-px bg-gray-200" />
               <ClientContentMovementsDetail label="Fecha" value={formatDate(transaction.date)} />
               <div className="h-8 w-px bg-gray-200 hidden sm:flex" />

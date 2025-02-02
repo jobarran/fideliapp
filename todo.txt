@@ -9,7 +9,6 @@ error page
 soft delete
 breadcrumb
 handle pin button logic when no transaction is submitted
-Change favourites with explorar in footer
 
 - add products to movementRow component
 
