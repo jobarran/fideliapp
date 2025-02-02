@@ -19,20 +19,32 @@ export const getAllCardsByUser = async () => {
       where: {
         userId: session.user.id,
       },
-      include: {
-        company: {
-          select: {
-            name: true,
-            activityTypeId: true, 
-            backgroundColor: true,
-            CompanyLogo: true,
-            slug: true,
-          },
-        },
+      select: {
+        id: true,
+        points: true,
+        favourite: true,
+        active: true,
+        userId: true,
+        companyId: true,
         user: {
           select: {
             name: true,
             lastName: true,
+          },
+        },
+        company: {
+          select: {
+            name: true,
+            backgroundColor: true,
+            slug: true,
+            activityTypeId: true,
+            CompanyLogo: {
+              select: {
+                id: true,
+                url: true,
+                companyId: true,
+              },
+            },
           },
         },
         History: {
