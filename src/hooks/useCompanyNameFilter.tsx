@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Company, Card, UserCard } from '@/interfaces';
+import { Company, UserCard } from '@/interfaces';
 
 // Define a type guard for Company
 const isCompany = (item: Company | UserCard): item is Company => {

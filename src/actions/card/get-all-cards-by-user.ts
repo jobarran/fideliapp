@@ -23,7 +23,7 @@ export const getAllCardsByUser = async () => {
         company: {
           select: {
             name: true,
-            activityTypeId: true, // Ensure this field is selected
+            activityTypeId: true, 
             backgroundColor: true,
             CompanyLogo: true,
             slug: true,
@@ -35,7 +35,7 @@ export const getAllCardsByUser = async () => {
             lastName: true,
           },
         },
-        History: { // Include the History relation
+        History: {
           select: {
             id: true,
             points: true,

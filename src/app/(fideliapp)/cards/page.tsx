@@ -17,7 +17,7 @@ export default async function CardsPage() {
     //     console.error(cardsResult.message);
     // }
 
-    const sortedCards = sortCards(myCompanyCards);
+    // const sortedCards = sortCards(myCompanyCards);
 
     return (
 

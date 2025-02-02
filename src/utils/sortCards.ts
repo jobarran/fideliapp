@@ -1,6 +1,6 @@
-import { Card } from "@/interfaces";
+import { Card, UserCard } from "@/interfaces";
 
-export function sortCards(cards: Card[]): Card[] {
+export function sortCards(cards: UserCard[]): UserCard[] {
 
   return cards.sort((a, b) => {
     if (a.favourite === b.favourite) {

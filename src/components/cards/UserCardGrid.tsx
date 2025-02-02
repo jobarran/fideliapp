@@ -1,6 +1,6 @@
 "use client";
 
-import { ActivityType, Card, UserCard as UserCardProp } from '@/interfaces'
+import { ActivityType, UserCard as UserCardProp } from '@/interfaces'
 import React from 'react'
 import { FilterComponent, UserCard, UserCardAdd } from '..'
 import { useCompanyNameFilter } from '@/hooks/useCompanyNameFilter';

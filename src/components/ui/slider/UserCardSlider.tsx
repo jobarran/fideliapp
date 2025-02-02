@@ -1,17 +1,17 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { Card } from '@/interfaces';
+import { Card, UserCard as UserCardProp } from '@/interfaces';
 import { BaseSlider, SliderHeader, SliderLoading, UserCard, UserCardAdd } from '../..';
 import { SwiperSlide } from 'swiper/react';
 import { sortCards } from '@/utils';
 
 interface UserCardSliderProps {
-    userCards: Card[];
+    userCards: UserCardProp[];
 }
 
 export const UserCardSlider = ({ userCards }: UserCardSliderProps) => {
-    const [sortedCards, setSortedCards] = useState<Card[]>([]);
+    const [sortedCards, setSortedCards] = useState<UserCardProp[]>([]);
     const hasSorted = useRef(false);  // Track whether sorting has been done
 
     useEffect(() => {
