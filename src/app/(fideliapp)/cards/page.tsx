@@ -21,12 +21,17 @@ export default async function CardsPage() {
 
     return (
 
-        <UserCardGrid
-            userCards={sortedCards}
-            gridClass="w-full mt-4 mb-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2"
-            activityTypes={activityTypes}
-            search={''}
-        />
+
+        <>
+        asd
+        </>
+        
+        // <UserCardGrid
+        //     userCards={sortedCards}
+        //     gridClass="w-full mt-4 mb-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2"
+        //     activityTypes={activityTypes}
+        //     search={''}
+        // />
 
     )
 }

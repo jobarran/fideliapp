@@ -10,6 +10,7 @@ soft delete
 breadcrumb
 Delete tarjetas section and move it to user/tarjetas (ex favoritos)
 handle pin button logic when no transaction is submitted
+Change favourites with explorar in footer
 
 - add products to movementRow component
 
