@@ -44,7 +44,7 @@ export const UserContentMovements = ({
   const shouldShowMoreButton = visibleTransactions.length < filteredTransactions.length;
 
   return (
-    <div className="mt-4 mb-4">
+    <div>
 
       <div>
         <UserContentMovementsFilter

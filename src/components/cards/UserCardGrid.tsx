@@ -2,7 +2,7 @@
 
 import { ActivityType, UserCard as UserCardProp } from '@/interfaces'
 import React from 'react'
-import { FilterComponent, UserCard, UserCardAdd } from '..'
+import { FilterComponent, UserCard, UserCardAdd, UserCardSlider } from '..'
 import { useCompanyNameFilter } from '@/hooks/useCompanyNameFilter';
 
 interface Props {
@@ -10,9 +10,10 @@ interface Props {
     gridClass: string,
     activityTypes: ActivityType[];
     search: string;
+    userId: string
 }
 
-export const UserCardGrid = ({ userCards, gridClass, activityTypes, search }: Props) => {
+export const UserCardGrid = ({ userCards, gridClass, activityTypes, search, userId }: Props) => {
 
     const { filteredItems, filteredObj, filters, setFilters, clearFilters } = useCompanyNameFilter(userCards, search);
 
@@ -25,8 +26,11 @@ export const UserCardGrid = ({ userCards, gridClass, activityTypes, search }: Pr
                 setFilters={setFilters}
                 clearFilters={clearFilters}
                 activityTypes={activityTypes}
+                customClassName="flex flex-row items-center justify-between pb-2"
             />
             <div>
+
+                <div className='sm:hidden'><UserCardSlider userCards={filteredItems as UserCardProp[]} userId={userId} showHeader={false} /></div>
 
                 <div>
                     {filteredObj === "card" ? (

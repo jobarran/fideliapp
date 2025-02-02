@@ -16,7 +16,7 @@ export const UserContentMovementsFilter = ({ searchTerm, setSearchTerm, transact
                 <input
                     type="text"
                     placeholder="Buscar"
-                    className="flex-1 border px-3 py-1 rounded-md text-sm w-full"
+                    className="w-full rounded-md border bg-gray-50 border-gray-300 text-slate-800 px-2 py-1 text-sm outline-none"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />

@@ -1,10 +1,8 @@
 "use client";
 
-import { UserCard, UserProfileData, Company, ActivityType } from '@/interfaces';
-import React, { useEffect, useMemo, useState } from 'react';
-import { UserContentFavouriteLink } from './UserContentFavouriteLink';
-import { favouriteCard } from '@/actions';
-import { CompanyLinkLoading, CompanyLinkWithDistance, SliderHeader, UserCardGrid, UserContentFavouriteCompanyLink } from '..';
+import { UserProfileData, Company, ActivityType } from '@/interfaces';
+import React, { useMemo } from 'react';
+import { CompanyLinkLoading, SliderHeader, UserCardGrid, UserContentFavouriteCompanyLink } from '..';
 import useClosestCompanies from '@/hooks/useCompaniesDistances';
 
 interface Props {
@@ -23,18 +21,8 @@ export const UserContentFavourites = ({ user, companies, activityTypes }: Props)
     [companies, user.Cards]
   );
 
-  // Pass stable filteredCompanies to useClosestCompanies
   const { closestCompanies, isLoading } = useClosestCompanies(filteredCompanies);
 
-  const handleAddToFavourite = async (companySlug: string) => {
-    const cardToToggle = user.Cards.find((card) => card.company.slug === companySlug);
-
-    if (!cardToToggle) return;
-
-    await favouriteCard(cardToToggle.id, !cardToToggle.favourite);
-  };
-
-  // Sort cards so that favourites are rendered first
   const sortedCards = useMemo(
     () => [...user.Cards].sort((a, b) => (a.favourite === b.favourite ? 0 : a.favourite ? -1 : 1)),
     [user.Cards]
@@ -45,9 +33,10 @@ export const UserContentFavourites = ({ user, companies, activityTypes }: Props)
 
       <UserCardGrid
         userCards={sortedCards}
-        gridClass="w-full mt-4 mb-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2"
+        gridClass="w-full hidden sm:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
         activityTypes={activityTypes}
         search={''}
+        userId={user.id}
       />
 
 

@@ -24,7 +24,7 @@ export default async function Home() {
 
       <SearchCompanySmallScreen />
 
-      {session?.user && <UserCardSlider userCards={myCompanyCards} />}
+      {session?.user && <UserCardSlider userCards={myCompanyCards} userId={session?.user.id} showHeader={true} />}
 
       <ActivityTypeGrid />
 

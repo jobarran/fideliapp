@@ -9,9 +9,10 @@ interface Props {
   setFilters: React.Dispatch<React.SetStateAction<CompanyFilters>>;
   activityTypes: ActivityType[];
   clearFilters: () => void
+  customClassName: string
 }
 
-export const FilterComponent = ({ filters, setFilters, activityTypes, clearFilters }: Props) => {
+export const FilterComponent = ({ filters, setFilters, activityTypes, clearFilters, customClassName }: Props) => {
 
   const [filterModalData, setSetFilterModalData] = useState(false);
 
@@ -26,13 +27,15 @@ export const FilterComponent = ({ filters, setFilters, activityTypes, clearFilte
     clearFilters(); 
   };
 
-  return (
-    <div className="rounded-xl border border-slate-200 bg-white p-2 flex flex-row items-center justify-between gap-2">
 
-      <div className="flex flex-row flex-grow">
+  return (
+    <div className={`${customClassName}`}>
+
+      <div className="flex flex-row flex-grow mr-2">
         <input
           type="text"
           id="name"
+          placeholder="Buscar"
           value={filters.name}
           onChange={e => handleInputChange('name', e.target.value)}
           className="w-full rounded-md border bg-gray-50 border-gray-300 text-slate-800 px-2 py-1 text-sm outline-none"

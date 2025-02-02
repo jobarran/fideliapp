@@ -16,7 +16,6 @@ export const AppFooter = ({ userId }: Props) => {
     const navItems = appFooterNavItems({ userId });
 
     const handleProtectedClick = () => {
-        console.log("open modal");
         toggleLoginModal();
     };
 

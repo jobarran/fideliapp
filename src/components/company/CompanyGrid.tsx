@@ -38,6 +38,7 @@ export const CompanyGrid = ({ companies, activityTypes, search, companyIdByUserC
         setFilters={setFilters}
         clearFilters={clearFilters}
         activityTypes={activityTypes}
+        customClassName="rounded-xl border border-slate-200 bg-white p-2 flex flex-row items-center justify-between gap-2"
       />
 
       <div>

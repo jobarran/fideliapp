@@ -16,7 +16,7 @@ export const FilterButtons = ({ filters, handleClearFilters, setFilterModalData 
     <div className="flex justify-center gap-2">
       <div className="relative inline-flex w-fit">
         <button
-          className="flex items-center p-1 rounded-lg border hover:bg-gray-200 focus:outline-none"
+          className="flex items-center px-3 py-1 rounded-lg border hover:bg-gray-200 focus:outline-none"
           onClick={() => setFilterModalData(true)}
         >
           <p className='text-sm text-slate-800 hidden sm:block'>Filtros</p>
@@ -27,7 +27,7 @@ export const FilterButtons = ({ filters, handleClearFilters, setFilterModalData 
         )}
       </div>
       <button
-        className="flex items-center p-1 rounded-lg border hover:bg-gray-200 focus:outline-none"
+        className="flex items-center px-3 py-1 rounded-lg border hover:bg-gray-200 focus:outline-none"
         onClick={handleClearFilters}
       >
         <p className='text-sm text-slate-800 hidden sm:block'>Borrar filtros</p>
