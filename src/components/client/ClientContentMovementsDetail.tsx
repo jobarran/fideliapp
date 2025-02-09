@@ -2,6 +2,7 @@ interface Props {
     label: string;
     value: string | number;
     smScreenValue?: string;
+    xsScreenValue?: string;
     color?: string;
     width?: string;
     className?: string; // Add className as an optional prop
@@ -11,22 +12,19 @@ export const ClientContentMovementsDetail = ({
     label,
     value,
     smScreenValue,
+    xsScreenValue,
     width = '',
     color = '',
-    className = '', // Default to an empty string if no className is passed
+    className = '',
 }: Props) => (
     <div className={`flex flex-col items-center justify-center ${width} ${className}`}>
-        {/* For larger screens, show the label */}
+        {/* Label for larger screens */}
         <p className="hidden sm:flex text-xs text-slate-400">{label}</p>
-
-        {/* For larger screens, show the full value with truncation if needed */}
-        <p className={`hidden sm:flex text-sm font-medium sm:mt-1 ${color} truncate`}>
-            {value}
-        </p>
-
-        {/* For small screens, display smScreenValue or the regular value */}
-        <p className={`flex sm:hidden text-sm font-medium sm:mt-1 ${color} truncate`}>
-            {smScreenValue || value}
+        {/* Full value for large screens */}
+        <p className={`flex text-sm font-medium sm:mt-1 ${color} w-full items-center justify-center text-center`}>
+            <span className="inline-block max-w-full overflow-hidden whitespace-nowrap text-ellipsis text-left">
+                {value}
+            </span>
         </p>
     </div>
 );

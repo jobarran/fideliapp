@@ -21,6 +21,7 @@ export interface Transaction {
   points: number;
   date: string;
   type: "BUY" | "REWARD" | "MANUAL";
+  description?: string;
   cardId: string;
   companyId: string;
   clientName: string;
@@ -35,6 +36,7 @@ export interface CompanyTransaction {
   date: string;
   state: TransactionState;
   type: "BUY" | "REWARD" | "MANUAL";
+  description?: string;
   cardId: string;
   companyId: string;
   clientName: string;
@@ -54,6 +56,7 @@ export interface UserTransaction {
   points: number;
   date: string;
   type: "BUY" | "REWARD" | "MANUAL";
+  description?: string;
   cardId: string;
   state: TransactionState;
   userId: string;

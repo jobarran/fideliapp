@@ -26,6 +26,7 @@ export const ClientContentProducts = ({ companyId, products }: Props) => {
 
     const [isCreating, setIsCreating] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [loading, setLoading] = useState(false); // State to track form submission
 
     const { register, handleSubmit, reset, formState: { isValid } } = useForm<FormInputs>({
         mode: 'onChange',
@@ -51,6 +52,8 @@ export const ClientContentProducts = ({ companyId, products }: Props) => {
     }, [isCreating, companyId, reset]);
 
     const onSubmit = async (data: FormInputs) => {
+        setLoading(true);
+
         const formData = new FormData();
         const { image, ...productToSave } = data;
 
@@ -72,6 +75,8 @@ export const ClientContentProducts = ({ companyId, products }: Props) => {
             // Handle error (e.g., show a notification)
             console.error(message);
         }
+        setLoading(false)
+
     };
 
     return (
@@ -100,7 +105,13 @@ export const ClientContentProducts = ({ companyId, products }: Props) => {
                                 className={clsx('mt-4 py-2 px-4 w-full rounded font-semibold text-white',
                                     isValid ? 'bg-slate-800 hover:bg-slate-950' : 'bg-gray-400 cursor-not-allowed')}
                             >
-                                Crear
+                                {loading ? (
+                                    <div className="flex items-center justify-center">
+                                        <div className="w-6 h-6 border-2 border-gray-300 border-t-slate-800 rounded-full animate-spin"></div>
+                                    </div>
+                                ) : (
+                                    "Crear"
+                                )}
                             </button>
                         </div>
                     </form>

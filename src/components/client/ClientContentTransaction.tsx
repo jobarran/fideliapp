@@ -30,6 +30,7 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
     const [isPinLoading, setIsPinLoading] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
     const [manualPoints, setManualPoints] = useState<number>(0); // New state for manual points input
+    const [manualDescription, setManualDescription] = useState<string>(''); // New state for manual points input
     const [manualTransactionType, setManualTransactionType] = useState<'Otorgar' | 'Quitar'>('Otorgar'); // New state for manual transaction type
 
     const handleTransactionTypeSelect = (type: TransactionType) => {
@@ -103,7 +104,8 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
                     cardId: cardInfo.id,
                     type: selectedTransactionType,
                     companySlug: companySlug,
-                    points: manualPoints,
+                    points: manualTransactionType === 'Otorgar' ? manualPoints : -manualPoints,
+                    description: manualDescription
                 }
                 : {
                     cardId: cardInfo.id,
@@ -123,7 +125,7 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
                                 productId: product.id,
                                 quantity,
                                 productName: product.name,
-                                productPoints,
+                                productPoints: selectedTransactionType === 'BUY' ? productPoints : -productPoints,
                             };
                         })
                         .filter((item): item is { productId: string; quantity: number; productName: string; productPoints: number } => item !== null)
@@ -179,6 +181,20 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
 
     const totalProducts = Object.values(selectedProducts).reduce((sum, quantity) => sum + quantity, 0);
 
+    const isManualTransaction = selectedTransactionType === 'MANUAL';
+    const isRewardTransaction = selectedTransactionType === 'REWARD';
+    const isBuyTransaction = selectedTransactionType === 'BUY';
+
+    // Conditions for disabling CONFIRMAR
+    const disableConfirm =
+        !isPinValidated || // PIN must be validated
+        (isManualTransaction && manualTransactionType === 'Quitar' && manualPoints > availablePoints) || // Can't remove more points than available
+        (isManualTransaction && manualTransactionType === 'Quitar' && manualPoints <= 0) || // Can't remove zero or negative points
+        (!isManualTransaction && totalProducts === 0) || // Must have selected products unless it's manual
+        (isRewardTransaction && availablePoints < totalPoints); // Can't redeem more points than available
+
+
+
     return (
         <div className="md:flex md:space-x-4">
             <div className="md:w-2/3">
@@ -223,22 +239,14 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
                 <div className='flex space-x-2 py-2 text-xs'>
                     <button
                         onClick={handleTransactionConfirm}
-                        disabled={
-                            !isPinValidated ||
-                            manualPoints > availablePoints ||
-                            (selectedTransactionType === 'MANUAL' ? manualPoints <= 0 : totalProducts === 0 || (selectedTransactionType === 'REWARD' && availablePoints < totalPoints))
+                        disabled={disableConfirm}
+                        className={
+                            `py-2 px-2 rounded w-full ${disableConfirm ? 'bg-gray-100 text-slate-800 opacity-50' : 'bg-green-600 text-white hover:bg-green-500'}`
                         }
-                        className={`py-2 px-2 rounded w-full 
-                            ${!isPinValidated ||
-                                manualPoints > availablePoints ||
-                                (selectedTransactionType === 'MANUAL' ? manualPoints <= 0 : totalProducts === 0 ||
-                                    (selectedTransactionType === 'REWARD' && availablePoints < totalPoints))
-                                ? 'bg-gray-100 text-slate-800 opacity-50'
-                                : 'bg-green-600 text-white hover:bg-green-500'
-                            }`}
                     >
                         CONFIRMAR
                     </button>
+
                     <button
                         onClick={handletransactionCancel}
                         disabled={!isPinValidated}
@@ -279,6 +287,9 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
                             manualTransactionType={manualTransactionType}
                             setManualTransactionType={setManualTransactionType}
                             availablePoints={availablePoints}
+                            manualDescription={manualDescription}
+                            setManualDescription={setManualDescription}
+
                         />
                         : <ClientContentTransactionProductList
                             filteredProducts={filteredProducts}

@@ -63,33 +63,44 @@ export const MovementModal = ({
                         </div>
                         <div className="border-b border-gray-300 mb-2"></div>
 
-                        <div className="flex justify-between border-b border-gray-300 pb-2 mb-2">
-                            <span className="text-sm font-semibold text-gray-600 flex-grow">Producto/s</span>
-                            <span className="text-sm font-semibold text-gray-600 w-1/5 text-right">Cant.</span>
-                            <span className="text-sm font-semibold text-gray-600 w-1/5 text-right">Puntos</span>
-                            <span className="text-sm font-semibold text-gray-600 w-1/5 text-right">Total</span>
-                        </div>
-                        <ul className="text-sm text-gray-700 space-y-2 mb-4">
-                            {transaction.transactionProducts.map((product) => {
-                                const total = product.quantity * product.productPoints;
-                                return (
-                                    <li key={product.id} className="flex">
-                                        <span className="text-gray-800 flex-grow truncate">
-                                            {product.productName}
-                                        </span>
-                                        <span className="text-gray-800 w-1/5 text-right">
-                                            {product.quantity}
-                                        </span>
-                                        <span className="text-gray-900 font-medium w-1/5 text-right">
-                                            {product.productPoints}
-                                        </span>
-                                        <span className="text-gray-900 font-medium w-1/5 text-right">
-                                            {total}
-                                        </span>
-                                    </li>
-                                );
-                            })}
-                        </ul>
+                        {transaction.type === 'MANUAL'
+                            ?
+                            <div className="flex flex-row items-center mb-2">
+                                <p className="text-sm font-semibold text-gray-800 mr-2">Detalle:</p>
+                                <p className="text-sm text-gray-700">{transaction.description}</p>
+                            </div>
+                            :
+                            <>
+                                <div className="flex justify-between border-b border-gray-300 pb-2 mb-2">
+                                    <span className="text-sm font-semibold text-gray-600 flex-grow">Producto/s</span>
+                                    <span className="text-sm font-semibold text-gray-600 w-1/5 text-right">Cant.</span>
+                                    <span className="text-sm font-semibold text-gray-600 w-1/5 text-right">Puntos</span>
+                                    <span className="text-sm font-semibold text-gray-600 w-1/5 text-right">Total</span>
+                                </div>
+                                <ul className="text-sm text-gray-700 space-y-2 mb-4">
+                                    {transaction.transactionProducts.map((product) => {
+                                        const total = product.quantity * product.productPoints;
+                                        return (
+                                            <li key={product.id} className="flex">
+                                                <span className="text-gray-800 flex-grow truncate">
+                                                    {product.productName}
+                                                </span>
+                                                <span className="text-gray-800 w-1/5 text-right">
+                                                    {product.quantity}
+                                                </span>
+                                                <span className="text-gray-900 font-medium w-1/5 text-right">
+                                                    {product.productPoints}
+                                                </span>
+                                                <span className="text-gray-900 font-medium w-1/5 text-right">
+                                                    {total}
+                                                </span>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </>
+                        }
+
 
 
 

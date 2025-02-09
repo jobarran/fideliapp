@@ -9,6 +9,7 @@ import { User } from '@/interfaces';
 import { getActivityTypes, registerCompany } from '@/actions';
 import clsx from 'clsx';
 import { colorOptions } from '@/config';
+import { FaSpinner } from 'react-icons/fa';
 
 interface DayHours {
   from: string;
@@ -46,6 +47,7 @@ export const CreateCompanyForm = ({ userId }: Props) => {
   const [activityTypes, setActivityTypes] = useState<Array<{ id: string, name: string }>>([]);
   const [activityType, setActivityType] = useState<string>('')
   const [currentStep, setCurrentStep] = useState<number>(1); // Step state for rendering cards
+  const [loading, setLoading] = useState(false); // State to track form submission
 
   const {
     handleSubmit,
@@ -96,6 +98,8 @@ export const CreateCompanyForm = ({ userId }: Props) => {
   }, [nameValue, userId]);
 
   const onSubmit = async (data: FormInputs) => {
+    setLoading(true);
+
     const formData = new FormData();
 
     const { logo, ...companyToSave } = data;
@@ -119,6 +123,8 @@ export const CreateCompanyForm = ({ userId }: Props) => {
     if (ok) {
       router.replace(`/client/${userId}`)
     }
+    setLoading(false)
+
   };
 
   return (
@@ -160,7 +166,7 @@ export const CreateCompanyForm = ({ userId }: Props) => {
               onClick={() => setCurrentStep(2)}
               disabled={!isValid || Object.keys(openHours).length === 0 || address.trim() === ''}
               className={clsx(
-                'mt-4 py-2 px-4 w-full rounded font-semibold text-white',
+                'h-10 mt-4 py-2 px-4 w-full rounded font-semibold text-white',
                 !isValid || Object.keys(openHours).length === 0 || address.trim() === ''
                   ? 'bg-gray-400 cursor-not-allowed'
                   : 'bg-slate-800 hover:bg-slate-950'
@@ -170,18 +176,24 @@ export const CreateCompanyForm = ({ userId }: Props) => {
             </button>
           )}
 
-          {currentStep === 2 && ( // Show "Crear" button on second step
+          {currentStep === 2 && (
             <button
-              disabled={!isValid}
+              disabled={!isValid || loading}
               type="submit"
               className={clsx(
-                'mt-4 py-2 px-4 w-full rounded font-semibold text-white',
+                'h-10 mt-4 py-2 px-4 w-full rounded font-semibold text-white flex items-center justify-center',
                 isValid
                   ? 'bg-slate-800 hover:bg-slate-950'
                   : 'bg-gray-400 cursor-not-allowed'
               )}
             >
-              Crear
+              {loading ? (
+                <div className="flex items-center justify-center">
+                  <div className="w-5 h-5 border-2 border-gray-300 border-t-slate-800 rounded-full animate-spin"></div>
+                </div>
+              ) : (
+                "Crear"
+              )}
             </button>
           )}
         </div>

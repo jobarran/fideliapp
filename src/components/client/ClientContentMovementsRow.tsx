@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { FaBan } from "react-icons/fa6";
 import { formatDate } from "../../utils/formatDate";
-import { capitalizeFirstLetter, formattedTime, getPointsColor, getTransactionTypeColor } from "@/utils";
+import { capitalizeFirstLetter, cropText, formattedTime, getPointsColor, getTransactionTypeColor } from "@/utils";
 import { CompanyTransaction, Transaction } from "@/interfaces/transacrion.interface";
 import { ClientContentMovementsCancelConfirm } from "./ClientContentMovementsCancelConfirm";
 import { ClientContentMovementsDetail } from "./ClientContentMovementsDetail";
@@ -30,9 +30,9 @@ export const ClientContentMovementsRow = ({
   const isCancelled = transaction.state === "CANCELLED";
 
   const productNames = transaction.transactionProducts
-  ?.map(item => item.productName) // Add optional chaining for safety
-  .filter(name => name !== undefined) // Filter out any undefined names
-  .join(', ') || ''; // If no products are found, default to an empty string
+    ?.map(item => item.productName) // Add optional chaining for safety
+    .filter(name => name !== undefined) // Filter out any undefined names
+    .join(', ') || ''; // If no products are found, default to an empty string
 
 
 
@@ -49,10 +49,10 @@ export const ClientContentMovementsRow = ({
       ) : (
         <div key={transaction.id} className="hover:bg-slate-50 w-full cursor-pointer" onClick={onClick}>
           <div
-            className={`flex items-center grow w-full p-3 sm:p-3 sm:justify-between rounded-lg transition-all duration-500 h-16 relative overflow-hidden`}
+            className={`flex items-center grow w-full p-3 rounded-lg transition-all duration-500 h-16 relative overflow-hidden`}
           >
 
-            <div className="flex flex-wrap sm:flex-nowrap w-full space-x-4"> {/* Allow wrapping for small screens */}
+            <div className="flex flex-wrap w-full space-x-4"> {/* Allow wrapping for small screens */}
               <ClientContentMovementsDetail label="Tipo" value={transaction.type} color={typeColor} width="sm:min-w-14" smScreenValue={transaction.type.substring(0, 1)} />
               <div className="hidden sm:flex h-8 w-px bg-gray-200" />
               <ClientContentMovementsDetail label="Puntos" value={transaction.points} color={pointsColor} className="min-w-8 sm:w-auto" />
@@ -61,8 +61,15 @@ export const ClientContentMovementsRow = ({
               <div className="hidden sm:flex flex-1 min-w-0">
                 <ClientContentMovementsDetail
                   label="Productos"
-                  value={productNames}
-                  className="flex-1 truncate" // Truncate if space is limited
+                  value={transaction.type === 'MANUAL'
+                    ? transaction.description || ''
+                    : productNames
+                  }
+                  className="flex-1 truncate"
+                  smScreenValue={transaction.type === 'MANUAL'
+                    ? transaction.description || ''
+                    : productNames
+                  }
                 />
               </div>
 
@@ -70,8 +77,9 @@ export const ClientContentMovementsRow = ({
                 <ClientContentMovementsDetail
                   label="Cliente"
                   value={`${capitalizeFirstLetter(transaction.userName)} ${capitalizeFirstLetter(transaction.userLastName)}`}
-                  className="flex-1 truncate" // Truncate if space is limited
+                  className="flex-1 truncate"
                   smScreenValue={`${transaction.clientName.substring(0, 1).toUpperCase()}. ${capitalizeFirstLetter(transaction.clientLastName)}`}
+                  xsScreenValue={`${transaction.clientName.substring(0, 1).toUpperCase()}. ${capitalizeFirstLetter(transaction.clientLastName)}`}
                 />
               </div>
 

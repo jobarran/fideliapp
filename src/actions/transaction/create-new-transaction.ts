@@ -9,6 +9,7 @@ interface CreateManualTransactionInput {
     type: TransactionType; // expected to be MANUAL
     companySlug: string;
     points: number;
+    description: string;
 }
 
 interface CreateProductTransactionInput {
@@ -31,8 +32,6 @@ export async function createNewTransaction(input: CreateTransactionInput) {
 
     const { cardId, type, companySlug } = input;
 
-    console.log(companySlug)
-
     // Ensure the card exists and is active.
     const card = await prisma.card.findUnique({
         where: { id: cardId },
@@ -50,13 +49,14 @@ export async function createNewTransaction(input: CreateTransactionInput) {
             return { success: false, message: "Points are required for manual transactions." };
         }
         const manualPoints = manualInput.points;
-
+        const manualDescription = manualInput.description
         // Create the point transaction without transactionProducts.
         const transaction = await prisma.pointTransaction.create({
             data: {
                 cardId,
                 points: manualPoints,
                 type,
+                description: manualDescription
             },
         });
 

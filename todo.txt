@@ -7,6 +7,7 @@ Config sign in with google
 Freemium/Premium
 error page
 soft delete
+register company from phone
 
 client/id   - plan -> add tag
             - /transaction/id create

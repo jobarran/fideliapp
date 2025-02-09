@@ -145,6 +145,7 @@ model PointTransaction {
   points Int
   date   DateTime         @default(now())
   state  TransactionState @default(CONFIRMED)
+  description String?
 
   // Relations - Down
   type                TransactionType

@@ -17,10 +17,10 @@ export const UserContentMovementsRow = ({
     const pointsColor = getPointsColor(transaction.points);
     const isCancelled = transaction.state === "CANCELLED";
     const productNames = transaction.transactionProducts
-    .map(item => item.productName) // Extracting the 'name' property of each product
-    .join(', '); // Joining the names into a single string, separated by commas
+        .map(item => item.productName) // Extracting the 'name' property of each product
+        .join(', '); // Joining the names into a single string, separated by commas
 
-    
+
     return (
         <div className={`flex flex-row border rounded-lg mb-2 w-full transition-colors duration-300 ease-in-out ${isCancelled
             ? "bg-red-50 text-slate-500"
@@ -33,17 +33,21 @@ export const UserContentMovementsRow = ({
                     className={`flex items-center grow w-full p-3 sm:p-3 sm:justify-between rounded-lg transition-all duration-500 h-16 relative overflow-hidden`}
                 >
 
-                    <div className="flex flex-wrap sm:flex-nowrap w-full space-x-4"> {/* Allow wrapping for small screens */}
+                    <div className="flex flex-wrap w-full space-x-4"> {/* Allow wrapping for small screens */}
                         <ClientContentMovementsDetail label="Tipo" value={transaction.type} color={typeColor} width="sm:min-w-14" smScreenValue={transaction.type.substring(0, 1)} />
                         <div className="hidden sm:flex h-8 w-px bg-gray-200" />
+
                         <ClientContentMovementsDetail label="Puntos" value={transaction.points} color={pointsColor} className="min-w-8 sm:w-auto" />
                         <div className="hidden sm:flex h-8 w-px bg-gray-200" />
 
                         <div className="hidden sm:flex flex-1 min-w-0">
                             <ClientContentMovementsDetail
                                 label="Productos"
-                                value={productNames}
-                                className="flex-1 truncate" // Truncate if space is limited
+                                value={transaction.type === 'MANUAL'
+                                    ? transaction.description || ''
+                                    : productNames
+                                }
+                                className="flex-1 truncate" 
                             />
                         </div>
 
@@ -51,8 +55,7 @@ export const UserContentMovementsRow = ({
                             <ClientContentMovementsDetail
                                 label="Cliente"
                                 value={transaction.companyName}
-                                className="flex-1 truncate" // Truncate if space is limited
-                                smScreenValue={`${cropText(transaction.companyName, 15)}`}
+                                className="flex-1 truncate" 
                             />
                         </div>
 

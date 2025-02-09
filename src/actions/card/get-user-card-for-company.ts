@@ -37,6 +37,7 @@ export const getUserCardForCompany = async (slug: string): Promise<{
                         type: true,
                         cardId: true,
                         state: true,
+                        description: true,
                         transactionProducts: {
                             select: {
                                 id: true,
