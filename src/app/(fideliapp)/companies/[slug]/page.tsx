@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { Metadata, ResolvingMetadata } from "next";
 import { getCompanyBySlug, getProductsByCompanyId, getUserCardForCompany, getUserPin } from "@/actions";
-import { CompanyProfile, CreateNewCardButton, ViewCardButton } from "@/components";
+import { CompanyProfile } from "@/components";
 
 interface Props {
   params: {

@@ -28,7 +28,6 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
     const [loading, setLoading] = useState(true); // Track loading state
     const [transactions, setTransactions] = useState<UserTransaction[]>([]);
 
-
     useEffect(() => {
         setLoading(true); // Start loading process
 
@@ -39,7 +38,15 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
             userId: userId as string,
             date: new Date(history.date).toISOString(), // Convert date to ISO string
             state: history.state, // Add the missing 'state' property here
-            products: history.products.map(product => ({ name: product.name })), // Map each product to an array of names
+            transactionProducts: history.transactionProducts
+                .filter(item => item.productName !== null) // Filter out items with null products
+                .map(item => ({
+                    productPoints: item.productPoints, // Include points
+                    quantity: item.quantity, // Include quantity
+                    productName: item.productName, // Access the 'name' property directly
+                    productId: item.productId,
+                    id: item.id
+                }))
         })) ?? []; // Fallback to an empty array if History is undefined
 
         const sortedTransactions = processedTransactions.sort((a, b) => {

@@ -1,14 +1,13 @@
 'use client';
 
-import { UserTransaction } from '@/interfaces/transacrion.interface';
-import { TransactionType } from '@prisma/client';
+import { CompanyTransaction, UserTransaction } from '@/interfaces/transacrion.interface';
 import React, { useRef } from 'react';
 import { IoCloseSharp } from 'react-icons/io5';
 
 interface Props {
     setOpenMovementModal: (open: boolean) => void;
     openMovementModal: boolean;
-    transaction: UserTransaction;
+    transaction: UserTransaction | CompanyTransaction;
 }
 
 export const MovementModal = ({
@@ -16,7 +15,6 @@ export const MovementModal = ({
     openMovementModal,
     transaction
 }: Props) => {
-
     const modalRef = useRef<HTMLDivElement>(null);
 
     const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -64,28 +62,42 @@ export const MovementModal = ({
                             <p className="text-sm text-gray-700">{transaction.type}</p>
                         </div>
                         <div className="border-b border-gray-300 mb-2"></div>
+
                         <div className="flex justify-between border-b border-gray-300 pb-2 mb-2">
-                            <span className="text-sm font-semibold text-gray-600">Producto/s</span>
-                            <span className="text-sm font-semibold text-gray-600">Puntos</span>
+                            <span className="text-sm font-semibold text-gray-600 flex-grow">Producto/s</span>
+                            <span className="text-sm font-semibold text-gray-600 w-1/5 text-right">Cant.</span>
+                            <span className="text-sm font-semibold text-gray-600 w-1/5 text-right">Puntos</span>
+                            <span className="text-sm font-semibold text-gray-600 w-1/5 text-right">Total</span>
                         </div>
                         <ul className="text-sm text-gray-700 space-y-2 mb-4">
-                            {transaction.products.map((product) => (
-                                <li key={product.name} className="flex justify-between">
-                                    <span className="text-gray-800 w-2/3 truncate">
-                                        {product.name}
-                                    </span>
-                                </li>
-                            ))}
+                            {transaction.transactionProducts.map((product) => {
+                                const total = product.quantity * product.productPoints;
+                                return (
+                                    <li key={product.id} className="flex">
+                                        <span className="text-gray-800 flex-grow truncate">
+                                            {product.productName}
+                                        </span>
+                                        <span className="text-gray-800 w-1/5 text-right">
+                                            {product.quantity}
+                                        </span>
+                                        <span className="text-gray-900 font-medium w-1/5 text-right">
+                                            {product.productPoints}
+                                        </span>
+                                        <span className="text-gray-900 font-medium w-1/5 text-right">
+                                            {total}
+                                        </span>
+                                    </li>
+                                );
+                            })}
                         </ul>
+
+
+
+
                         <div className="border-t border-gray-300 pt-2"></div>
                         <div className="flex justify-between">
-                        </div>
-                        <div className="flex justify-between mt-1">
-                            <span className="text-sm font-semibold text-gray-800">
+                            <span className="text-sm font-semibold text-gray-800 justify-end text-right w-full">
                                 Total puntos {transaction.points}
-                            </span>
-                            <span className="text-sm font-medium text-gray-900">
-                                {transaction.type}
                             </span>
                         </div>
 

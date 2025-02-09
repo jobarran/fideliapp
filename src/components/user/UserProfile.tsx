@@ -8,14 +8,13 @@ import { UserTransaction } from "@/interfaces/transacrion.interface";
 
 interface Props {
     user: UserProfileData;
-    userId: string;
     hasCompany: boolean;
     selectedTab: string;
     companies: Company[]
     activityTypes: ActivityType[];
 }
 
-export const UserProfile = ({ user, hasCompany, userId, selectedTab: initialTab, companies, activityTypes }: Props) => {
+export const UserProfile = ({ user, hasCompany, selectedTab: initialTab, companies, activityTypes }: Props) => {
 
     const [selectedTab, setSelectedTab] = useState(
         userNavItems.find((item) => item.id === initialTab)?.id || userNavItems[0].id
@@ -34,7 +33,7 @@ export const UserProfile = ({ user, hasCompany, userId, selectedTab: initialTab,
                 companyName: card.company.name,
                 userId: user.id,
                 date: new Date(history.date).toISOString(), // Convert date to ISO string
-                products: history.products?.map((product) => ({ name: product.name })) || [],
+                products: history.transactionProducts?.map((product) => ({ name: product.productName })) || [],
             }))
         );
 

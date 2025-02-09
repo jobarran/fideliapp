@@ -15,7 +15,7 @@ export const getCompanyTransactionsByUser = async (userId: string) => {
             user: { select: { name: true, lastName: true, id: true } },
             History: {
               include: {
-                products: true, // Include associated products
+                transactionProducts: true, // Include associated products
               },
               orderBy: {
                 date: 'desc',
@@ -46,7 +46,7 @@ export const getCompanyTransactionsByUser = async (userId: string) => {
         userName: card.user.name || '',
         userLastName: card.user.lastName || '',
         userId: card.user.id || '',
-        products: transaction.products || [], // Ensure products is included
+        transactionProducts: transaction.transactionProducts || [], // Ensure products is included
         date: transaction.date.toISOString(), // Convert Date to string
       }))
     );

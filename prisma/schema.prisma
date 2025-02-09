@@ -144,30 +144,29 @@ model PointTransaction {
   id     String           @id @default(uuid())
   points Int
   date   DateTime         @default(now())
-  state  TransactionState @default(CONFIRMED) 
-
-  // Relations - Many-to-Many with Product
-  products Product[] @relation("TransactionProducts")
+  state  TransactionState @default(CONFIRMED)
 
   // Relations - Down
-  type TransactionType
+  type                TransactionType
+  transactionProducts TransactionProduct[]
 
   // Relations - Up
-  card               Card                 @relation(fields: [cardId], references: [id])
-  cardId             String
-  TransactionProduct TransactionProduct[]
+  card   Card   @relation(fields: [cardId], references: [id])
+  cardId String
 }
 
-// Relation table for PointTransaction and Product
 model TransactionProduct {
-  id                 String           @id @default(uuid())
+  id             String             @id @default(cuid())
+  quantity       Int
+  productName    String
+  productPoints  Int
+  productId      String         
+
+  // Relations - Up
   pointTransaction   PointTransaction @relation(fields: [pointTransactionId], references: [id])
   pointTransactionId String
-  product            Product          @relation(fields: [productId], references: [id])
-  productId          String
-
-  @@unique([pointTransactionId, productId]) // Ensure a unique combination
 }
+
 
 model PointTransactionTemplate {
   id          String  @id @default(uuid())
@@ -189,7 +188,7 @@ model Product {
   active      Boolean @default(true)
 
   // Relations - Many-to-Many with PointTransaction
-  transactions PointTransaction[] @relation("TransactionProducts")
+  // transactions PointTransaction[] @relation("TransactionProducts")
 
   // Relations - Down
   templates    PointTransactionTemplate[]
@@ -198,7 +197,6 @@ model Product {
   // Relations - Up
   company            Company              @relation(fields: [companyId], references: [id])
   companyId          String
-  TransactionProduct TransactionProduct[]
 }
 
 model ProductImage {

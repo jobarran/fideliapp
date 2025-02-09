@@ -1,11 +1,10 @@
 'use client';
 
 import { useMovementsFilter } from '@/hooks';
-import { UserProfileData } from '@/interfaces';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { UserTransaction } from '@/interfaces/transacrion.interface';
 import { LoadingSpinnerDark } from '../ui/buttons/LoadingSpinnerDark';
-import { CompanyContentNoCard, UserContentMovementsFilter, UserContentMovementsRow } from '..';
+import { CompanyContentNoCard, MovementModal, UserContentMovementsFilter, UserContentMovementsRow } from '..';
 
 interface Props {
   transactions: UserTransaction[];
@@ -30,6 +29,8 @@ export const CompanyContentMovements = ({
   const [transactionType, setTransactionType] = useState<'BUY' | 'REWARD' | 'MANUAL' | ''>('');
   const [transactionState, setTransactionState] = useState<'ALL' | 'CONFIRMED' | 'CANCELLED'>('ALL');
   const [showMoreLoading, setShowMoreLoading] = useState(false); // Track loading state for "Mostrar más"
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState<UserTransaction | null>(null);
 
   const { visibleTransactions, loadMore, filteredTransactions } = useMovementsFilter(
     transactions,
@@ -44,6 +45,11 @@ export const CompanyContentMovements = ({
       setShowMoreLoading(false);
       loadMore();
     }, 500);
+  };
+
+  const handleRowClick = (transaction: UserTransaction) => {
+    setSelectedTransaction(transaction);
+    setIsModalOpen(true);
   };
 
   const shouldShowMoreButton = visibleTransactions.length < filteredTransactions.length;
@@ -89,8 +95,11 @@ export const CompanyContentMovements = ({
                   <p className="text-center text-gray-600">Todavía no se han registrado movimientos</p>
                 ) : (
                   visibleTransactions.map((transaction) => (
-                    <UserContentMovementsRow key={transaction.id} transaction={transaction} />
-                  ))
+                    <UserContentMovementsRow
+                      key={transaction.id}
+                      transaction={transaction}
+                      onClick={() => handleRowClick(transaction)} 
+                    />))
                 )}
               </div>
 
@@ -115,6 +124,16 @@ export const CompanyContentMovements = ({
           )}
         </div>
       )}
+
+      {/* Transaction Modal */}
+      {isModalOpen && selectedTransaction && (
+        <MovementModal
+          setOpenMovementModal={setIsModalOpen}
+          openMovementModal={isModalOpen}
+          transaction={selectedTransaction}
+        />
+      )}
+
     </div>
   );
 };

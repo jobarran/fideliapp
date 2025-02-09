@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { formatDate } from "../../utils/formatDate";
-import { capitalizeFirstLetter, cropText, formattedTime, getPointsColor, getTransactionTypeColor } from "@/utils";
+import { cropText, formattedTime, getPointsColor, getTransactionTypeColor } from "@/utils";
 import { UserTransaction } from "@/interfaces/transacrion.interface";
 import { ClientContentMovementsDetail } from "..";
 
@@ -16,9 +16,11 @@ export const UserContentMovementsRow = ({
     const typeColor = getTransactionTypeColor(transaction.type);
     const pointsColor = getPointsColor(transaction.points);
     const isCancelled = transaction.state === "CANCELLED";
+    const productNames = transaction.transactionProducts
+    .map(item => item.productName) // Extracting the 'name' property of each product
+    .join(', '); // Joining the names into a single string, separated by commas
 
-    const productNames = transaction.products.map(item => item.name).join(', ');
-
+    
     return (
         <div className={`flex flex-row border rounded-lg mb-2 w-full transition-colors duration-300 ease-in-out ${isCancelled
             ? "bg-red-50 text-slate-500"
@@ -26,7 +28,7 @@ export const UserContentMovementsRow = ({
             }`}
         >
 
-            <div key={transaction.id} className="hover:bg-slate-50 w-full" onClick={onClick}>
+            <div key={transaction.id} className="hover:bg-slate-50 w-full cursor-pointer" onClick={onClick}>
                 <div
                     className={`flex items-center grow w-full p-3 sm:p-3 sm:justify-between rounded-lg transition-all duration-500 h-16 relative overflow-hidden`}
                 >

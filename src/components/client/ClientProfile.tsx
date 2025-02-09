@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { CompanyClientDashboard, Product } from "@/interfaces";
-import { ChangeImage, ClientContentInformation, ClientContentMovements, ClientContentProducts, ClientContentTransaction, ProfileContent, ProfileHeader } from "..";
+import { ChangeImage, ClientContentInformation, ClientContentMovements, ClientContentProducts, ProfileContent, ProfileHeader, ClientContentTransaction } from '..';
 import { clientNavItems } from "@/config";
 import { CompanyTransaction } from "@/interfaces/transacrion.interface";
 

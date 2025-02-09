@@ -1,5 +1,6 @@
 import { TransactionState } from "@prisma/client";
 import { CompanyLogo } from ".";
+import { TransactionProductSnapshot } from "./transacrion.interface";
 
 export interface User {
     id: string;
@@ -41,7 +42,7 @@ export interface UserProfileData {
             type: 'BUY' | 'REWARD' | 'MANUAL';
             cardId: string;
             state: TransactionState;
-            products: { name: string }[]; // This is the 'products' property
+            transactionProducts: TransactionProductSnapshot[];
         }[];
     }[]
     createdAt: Date;

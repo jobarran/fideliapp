@@ -3,12 +3,10 @@ Web->App(react native)->Testing->Security
 
 ----------------------------------------
 
-COnfig sign in with google
+Config sign in with google
 Freemium/Premium
 error page
 soft delete
-handle pin button logic when no transaction is submitted
-customize MovementModal (now just in user/)
 
 client/id   - plan -> add tag
             - /transaction/id create

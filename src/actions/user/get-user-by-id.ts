@@ -53,7 +53,15 @@ export const getUserById = async (id: string) => {
                                 type: true,
                                 cardId: true,
                                 state: true,
-                                products: { select: { name: true } }
+                                transactionProducts: {
+                                    select: {
+                                        id: true,
+                                        productPoints: true,
+                                        productName: true,
+                                        quantity: true,
+                                        productId: true,
+                                    },
+                                },
                             },
                         },
                     },

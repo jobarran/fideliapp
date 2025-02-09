@@ -41,11 +41,6 @@ export const UserContentMovements = ({
     setIsModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedTransaction(null);
-  };
-
   const handleShowMore = async () => {
     setShowMoreLoading(true);
     setTimeout(() => {
@@ -122,6 +117,7 @@ export const UserContentMovements = ({
           transaction={selectedTransaction}
         />
       )}
+      
     </div>
   );
 };

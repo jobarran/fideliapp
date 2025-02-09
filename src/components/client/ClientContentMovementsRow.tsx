@@ -13,8 +13,8 @@ export const ClientContentMovementsRow = ({
   onCancel,
   onRevert,
   isCancelling,
-  userId,
   cancelTransactionById,
+  onClick
 }: {
   transaction: CompanyTransaction;
   onCancel: (id: string) => void;
@@ -22,12 +22,19 @@ export const ClientContentMovementsRow = ({
   isCancelling: boolean;
   userId: string;
   cancelTransactionById: () => void;
+  onClick: () => void
+
 }) => {
   const typeColor = getTransactionTypeColor(transaction.type);
   const pointsColor = getPointsColor(transaction.points);
   const isCancelled = transaction.state === "CANCELLED";
 
-  const productNames = transaction.products.map(item => item.name).join(', ');
+  const productNames = transaction.transactionProducts
+  ?.map(item => item.productName) // Add optional chaining for safety
+  .filter(name => name !== undefined) // Filter out any undefined names
+  .join(', ') || ''; // If no products are found, default to an empty string
+
+
 
   return (
     <div className={`flex flex-row border rounded-lg mb-2 w-full transition-colors duration-300 ease-in-out ${isCancelling
@@ -40,7 +47,7 @@ export const ClientContentMovementsRow = ({
       {isCancelling ? (
         <ClientContentMovementsCancelConfirm onConfirm={() => cancelTransactionById()} onRevert={onRevert} />
       ) : (
-        <Link key={transaction.id} href={`/client/${userId}/transaction/${transaction.id}`} className="hover:bg-slate-50 w-full">
+        <div key={transaction.id} className="hover:bg-slate-50 w-full cursor-pointer" onClick={onClick}>
           <div
             className={`flex items-center grow w-full p-3 sm:p-3 sm:justify-between rounded-lg transition-all duration-500 h-16 relative overflow-hidden`}
           >
@@ -76,7 +83,7 @@ export const ClientContentMovementsRow = ({
             </div>
 
           </div>
-        </Link>
+        </div>
       )}
       {
         isCancelled

@@ -7,6 +7,7 @@ import { CompanyProfileHeaderData, CompanyProfileHeaderNavigation, CompanyProfil
 import { CreatingCardModal } from "../modals/CreatingCardModal";
 import { useLoginModal } from "@/hooks/useLoginModal";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation"; // Import useRouter
 
 interface Props {
     company: CompanyClientDashboard;
@@ -36,6 +37,7 @@ export const CompanyProfileHeader = ({
 }: Props) => {
 
     const { data } = useSession();
+    const router = useRouter(); // Initialize the router
 
     const [pin, setPin] = useState(userPin);
     const [loading, setLoading] = useState(false);
@@ -69,6 +71,7 @@ export const CompanyProfileHeader = ({
             if (updatedCardPoints?.cardPoints != null) {
                 // Safely update the points, handling potential undefined values
                 setCardPoints(updatedCardPoints.cardPoints);
+                router.refresh();
             }
         } catch (error) {
             console.error("Failed to update card points:", error);

@@ -80,7 +80,6 @@ export const UserContentInformation = ({ user }: Props) => {
       try {
         // Call the updateUser action and handle the response
         const response = await updateUser(userToUpdate);
-        console.log(response)
         if (!response.ok) {
           setErrors([response.message]); // Set server error message if any
         } else {

@@ -13,6 +13,7 @@ export const runSeed = async () => {
     try {
         // Clear existing data
         await prisma.companyLogo.deleteMany({});
+        await prisma.pin.deleteMany({});
         await prisma.card.deleteMany({});
         await prisma.company.deleteMany({});
         await prisma.user.deleteMany({});

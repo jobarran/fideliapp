@@ -4,72 +4,130 @@ import prisma from '@/lib/prisma';
 import { TransactionType } from "@prisma/client";
 import { revalidatePath } from 'next/cache';
 
-interface CreateTransactionInput {
+interface CreateManualTransactionInput {
     cardId: string;
+    type: TransactionType; // expected to be MANUAL
+    companySlug: string;
     points: number;
-    type: TransactionType;
-    productIds?: string[]; // Optional product IDs for the transaction
-    companySlug: string
 }
+
+interface CreateProductTransactionInput {
+    cardId: string;
+    type: TransactionType; // expected to be BUY or REWARD
+    companySlug: string;
+    transactionProduct: {
+        quantity: number;
+        productPoints: number;
+        productName: string;
+        productId: string;
+    }[];
+}
+
+export type CreateTransactionInput =
+    | CreateManualTransactionInput
+    | CreateProductTransactionInput;
 
 export async function createNewTransaction(input: CreateTransactionInput) {
 
-    const { cardId, points, type, companySlug, productIds = [] } = input;
+    const { cardId, type, companySlug } = input;
 
-    // Validate inputs
-    if (!cardId || points === undefined || !type) {
-        throw new Error("All fields are required: cardId, points, and type.");
-    }
+    console.log(companySlug)
 
-    if (type !== "MANUAL" && productIds.length === 0) {
-        throw new Error("Product IDs are required for non-manual transactions.");
-    }
-
-    // Ensure the card exists and is active
+    // Ensure the card exists and is active.
     const card = await prisma.card.findUnique({
         where: { id: cardId },
         include: { user: true, company: true },
     });
 
     if (!card || !card.active) {
-        throw new Error("The specified card does not exist or is inactive.");
+        return { success: false, message: "The specified card does not exist or is inactive." };
     }
 
-    // Ensure all products exist
-    if (productIds.length > 0) {
-        const products = await prisma.product.findMany({
+    if (type === TransactionType.MANUAL) {
+        // Branch for MANUAL transactions.
+        const manualInput = input as CreateManualTransactionInput;
+        if (typeof manualInput.points !== 'number') {
+            return { success: false, message: "Points are required for manual transactions." };
+        }
+        const manualPoints = manualInput.points;
+
+        // Create the point transaction without transactionProducts.
+        const transaction = await prisma.pointTransaction.create({
+            data: {
+                cardId,
+                points: manualPoints,
+                type,
+            },
+        });
+
+        // Update the card's points balance.
+        await prisma.card.update({
+            where: { id: cardId },
+            data: { points: card.points + manualPoints },
+        });
+
+        // Revalidate the company's path.
+        revalidatePath(`/companies/${companySlug}`);
+
+        return {
+            success: true,
+            message: "Transaction created successfully.",
+            transaction,
+        };
+
+    } else {
+        // Branch for product-based transactions (BUY or REWARD).
+        const productInput = input as CreateProductTransactionInput;
+        if (!productInput.transactionProduct || productInput.transactionProduct.length === 0) {
+            return { success: false, message: "At least one product is required for this transaction." };
+        }
+
+        // Validate that all provided product IDs exist.
+        const productIds = productInput.transactionProduct.map((p) => p.productId);
+        const existingProducts = await prisma.product.findMany({
             where: { id: { in: productIds } },
         });
 
-        if (products.length !== productIds.length) {
-            throw new Error("One or more products do not exist.");
+        if (existingProducts.length !== productInput.transactionProduct.length) {
+            return { success: false, message: "One or more products do not exist." };
         }
+
+        // Calculate the total points.
+        const totalPoints = productInput.transactionProduct.reduce(
+            (sum, p) => sum + p.quantity * p.productPoints,
+            0
+        );
+
+        // Create the point transaction with the related transactionProducts.
+        const transaction = await prisma.pointTransaction.create({
+            data: {
+                cardId,
+                points: totalPoints,
+                type,
+                transactionProducts: {
+                    create: productInput.transactionProduct.map(({ productId, quantity, productName, productPoints }) => ({
+                        quantity,
+                        productName,
+                        productPoints,
+                        productId,
+                    })),
+                },
+            },
+        });
+
+        // Update the card's points balance.
+        await prisma.card.update({
+            where: { id: cardId },
+            data: { points: card.points + totalPoints },
+        });
+
+        // Revalidate the company's path.
+        revalidatePath(`/companies/${companySlug}`);
+
+        return {
+            success: true,
+            message: "Transaction created successfully.",
+            transaction,
+        };
     }
-
-    // Create the transaction
-    const transaction = await prisma.pointTransaction.create({
-        data: {
-            cardId,
-            points,
-            type,
-            products: productIds.length > 0
-                ? {
-                    connect: productIds.map((id) => ({ id })),
-                }
-                : undefined, // No products for manual transactions
-        },
-    });
-
-
-    // Update the card's points balance
-    await prisma.card.update({
-        where: { id: cardId },
-        data: {
-            points: card.points + points,
-        },
-    });
-
-    revalidatePath(`/companies/${companySlug}`);
-
-    return transaction;
 }

@@ -34,7 +34,7 @@ export default async function UserPage({ params, searchParams }: Props) {
   return (
     <div>
       <div>
-        <UserProfile user={user} userId={id} hasCompany={hasCompany} selectedTab={selectedTab} companies={companies} activityTypes={activityTypes} />
+        <UserProfile user={user} hasCompany={hasCompany} selectedTab={selectedTab} companies={companies} activityTypes={activityTypes} />
       </div>
     </div>
   );

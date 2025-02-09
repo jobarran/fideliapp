@@ -1,12 +1,12 @@
 "use client"
 
 import React, { useState, useEffect } from "react";
-import { CompanyTransaction } from "@/interfaces/transacrion.interface";
+import { CompanyTransaction, UserTransaction } from "@/interfaces/transacrion.interface";
 import { updateTransactionStateById } from "@/actions";
 import { useMovementsFilter } from "@/hooks";
 import { ClientContentMovementsRow } from "./ClientContentMovementsRow";
 import { LoadingSpinnerDark } from "../ui/buttons/LoadingSpinnerDark";
-import { UserContentMovementsFilter } from "..";
+import { MovementModal, UserContentMovementsFilter } from "..";
 
 interface Props {
     transactions: CompanyTransaction[];
@@ -20,6 +20,8 @@ export const ClientContentMovements = ({ transactions, userId }: Props) => {
     const [cancellingTransactionId, setCancellingTransactionId] = useState<string | null>(null);
     const [showMoreLoading, setShowMoreLoading] = useState(false); // Track loading state for "Mostrar más"
     const [loading, setLoading] = useState(true); // Track loading state for initial transactions
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedTransaction, setSelectedTransaction] = useState<CompanyTransaction | null>(null);
 
     const { visibleTransactions, loadMore, filteredTransactions } = useMovementsFilter(
         transactions,
@@ -51,6 +53,11 @@ export const ClientContentMovements = ({ transactions, userId }: Props) => {
 
     const revertTransactionState = () => {
         setCancellingTransactionId(null);
+    };
+
+    const handleRowClick = (transaction: CompanyTransaction) => {
+        setSelectedTransaction(transaction);
+        setIsModalOpen(true);
     };
 
     const handleShowMore = async () => {
@@ -88,6 +95,7 @@ export const ClientContentMovements = ({ transactions, userId }: Props) => {
                                 isCancelling={cancellingTransactionId === transaction.id}
                                 userId={userId}
                                 cancelTransactionById={cancelTransactionById}
+                                onClick={() => handleRowClick(transaction)} // Open modal on row click
                             />
                         ))}
                     </div>
@@ -111,6 +119,16 @@ export const ClientContentMovements = ({ transactions, userId }: Props) => {
                     )}
                 </>
             )}
+
+            {/* Transaction Modal */}
+            {isModalOpen && selectedTransaction && (
+                <MovementModal
+                    setOpenMovementModal={setIsModalOpen}
+                    openMovementModal={isModalOpen}
+                    transaction={selectedTransaction}
+                />
+            )}
+
         </div>
     );
 };

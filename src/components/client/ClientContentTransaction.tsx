@@ -97,29 +97,47 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
             return;
         }
 
-        const transactionPayload = selectedTransactionType === 'MANUAL' ? {
-            cardId: cardInfo.id,
-            points: manualTransactionType === 'Otorgar' ? manualPoints : -manualPoints,
-            type: selectedTransactionType,
-            companySlug: companySlug
-        } : {
-            cardId: cardInfo.id,
-            points: selectedTransactionType === 'BUY' ? totalPoints : -totalPoints,
-            type: selectedTransactionType,
-            productIds: Object.keys(selectedProducts),
-            companySlug: companySlug
-        };
+        const transactionPayload =
+            selectedTransactionType === 'MANUAL'
+                ? {
+                    cardId: cardInfo.id,
+                    type: selectedTransactionType,
+                    companySlug: companySlug,
+                    points: manualPoints,
+                }
+                : {
+                    cardId: cardInfo.id,
+                    type: selectedTransactionType,
+                    companySlug: companySlug,
+                    transactionProduct: Object.entries(selectedProducts)
+                        .map(([productId, quantity]) => {
+                            const product = products.find((p) => p.id === productId);
+                            if (!product) return null;
+                            // Calculate the individual product point value (not multiplied by quantity).
+                            const productPoints = product.templates
+                                .filter((template) =>
+                                    selectedTransactionType === 'BUY' ? template.type === 'BUY' : template.type === 'REWARD'
+                                )
+                                .reduce((sum, template) => sum + template.points, 0);
+                            return {
+                                productId: product.id,
+                                quantity,
+                                productName: product.name,
+                                productPoints,
+                            };
+                        })
+                        .filter((item) => item !== null),
+                };
 
         try {
-            await createNewTransaction(transactionPayload);
-            await deletePin(userPin!);
-            setTransactionSuccess(true);
-            setIsPinValidated(false);
-            setAvailablePoints(0);
-            setSelectedProducts({});
-            setUserInfo(null);
-            setCardInfo(null);
-            setPinExpiration(undefined);
+            const response = await createNewTransaction(transactionPayload);
+            if (response.success) {
+                setTransactionSuccess(true);
+                setIsPinValidated(false);
+                userPin && deletePin(userPin)
+            } else {
+                console.error('Transaction failed:', response.message);
+            }
         } catch (error) {
             console.error('Transaction creation failed:', error);
         } finally {
