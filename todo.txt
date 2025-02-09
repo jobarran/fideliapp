@@ -11,27 +11,18 @@ soft delete
 client/id   - plan -> add tag
             - /transaction/id create
             - /product/id create
-            - /movement/id create
 
 [user] companies/slug tarjeta -> 
         - add some stats and history?
         - Opiniontes -> add fomr
         - add opinion an valoration by transaction
-        - /movements/ if no card, "create card" 
-        - /movements/ add products to movementrow component + see row in small screens
-        - 
 
 user/id 
         - inofrmacion -> add editable inputs
         - plan -> add tag
-        - /movement/id create
-
 
 home
         - add recomendados and nuevos sliders
-
-resonsive
-        - app format in sm screens (footer with options)
 
 ----------------------------------------
 

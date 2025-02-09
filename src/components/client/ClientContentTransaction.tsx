@@ -126,7 +126,7 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
                                 productPoints,
                             };
                         })
-                        .filter((item) => item !== null),
+                        .filter((item): item is { productId: string; quantity: number; productName: string; productPoints: number } => item !== null)
                 };
 
         try {
