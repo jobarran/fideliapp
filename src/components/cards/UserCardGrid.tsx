@@ -41,7 +41,7 @@ export const UserCardGrid = ({ userCards, gridClass, activityTypes, search, user
                             <UserCardAdd color={'slate-400'} />
                         </div>
                     ) : (
-                        <div className="w-full text-center italic mt-10">Sin resultados</div>
+                        <div className="w-full text-center italic mt-10 text-xs text-slate-400 mb-4 ">No tenés tarjetas disponibles, explorá los negocios y creá tu primer tarjeta</div>
                     )}
                 </div>
             </div>

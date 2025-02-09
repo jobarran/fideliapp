@@ -3,6 +3,7 @@
 import { UserCard as UserCardProp } from '@/interfaces';
 import { BaseSlider, SliderHeader, SliderLoading, UserCard } from '../..';
 import { useMemo } from 'react';
+import Link from 'next/link';
 
 
 interface UserCardSliderProps {
@@ -21,20 +22,30 @@ export const UserCardSlider = ({ userCards, userId, showHeader }: UserCardSlider
         1024: { slidesPerView: 4.5 },
     };
 
-      const sortedCards = useMemo(
+    const sortedCards = useMemo(
         () => [...userCards].sort((a, b) => (a.favourite === b.favourite ? 0 : a.favourite ? -1 : 1)),
         [userCards]
-      );
+    );
 
     return (
         <>
             {showHeader && <SliderHeader href={`/user/${userId}?tab=tarjetas`} label={'Mis tarjetas'} seeAllLabel={'Ver todas'} />}
-            <BaseSlider
-                data={sortedCards} 
-                breakpoints={breakpoints}
-                renderItem={(card) => <UserCard card={card} />}
-                loadingComponent={<SliderLoading sliderType={'userCard'} />}
-            />
+            {sortedCards.length > 0 ? (
+                <BaseSlider
+                    data={sortedCards}
+                    breakpoints={breakpoints}
+                    renderItem={(card) => <UserCard card={card} />}
+                    loadingComponent={<SliderLoading sliderType={'userCard'} />}
+                />
+            ) : (
+                <p className="text-center text-xs text-slate-400 mt-2 mb-4 italic">
+                    No tenés tarjetas disponibles, explorá los negocios y creá tu primer tarjeta.{' '}
+                    <Link href="/companies" className="not-italic font-medium text-slate-700 hover:text-slate-900">
+                        Ver negocios
+                    </Link>
+                </p>
+            )}
         </>
     );
+
 };

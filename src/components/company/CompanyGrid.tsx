@@ -53,7 +53,7 @@ export const CompanyGrid = ({ companies, activityTypes, search, companyIdByUserC
             ))}
           </div>
         ) : (
-          <div className="w-full text-center italic mt-10">Sin resultados</div>
+          <div className="w-full text-center italic mt-10 text-xs text-slate-400 mb-4 ">No hay resultados disponibles</div>
         )}
       </div>
     </>

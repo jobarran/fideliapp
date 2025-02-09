@@ -14,7 +14,7 @@ interface Props {
 export default async function UserPage({ params, searchParams }: Props) {
 
   const { id } = params;
-
+  console.log(id)
   // Get the user data
   const { user } = await getUserById(id);
   const companies = await getAllCompanies()
