@@ -47,6 +47,7 @@ export const getCompanyTransactionsByUser = async (userId: string) => {
         userLastName: card.user.lastName || '',
         userId: card.user.id || '',
         transactionProducts: transaction.transactionProducts || [], // Ensure products is included
+        description: transaction.description || '',
         date: transaction.date.toISOString(), // Convert Date to string
       }))
     );
