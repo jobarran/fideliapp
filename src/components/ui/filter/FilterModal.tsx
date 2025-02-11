@@ -83,7 +83,7 @@ export const FilterModal = ({ filters, activityTypes, handleInputChange, filterM
                             {activityTypes.map(type => (
                                 <button
                                     key={type.id}
-                                    className={`px-3 py-1 text-sm rounded-full ${selectedActivityTypes.includes(type.id) ? 'bg-slate-800 text-white' : 'bg-gray-200 text-slate-800'}`}
+                                    className={`px-3 py-2 text-sm rounded-full ${selectedActivityTypes.includes(type.id) ? 'bg-slate-800 text-white' : 'bg-gray-200 text-slate-800'}`}
                                     onClick={() => handleTagClick(type.id)}
                                 >
                                     {type.name}

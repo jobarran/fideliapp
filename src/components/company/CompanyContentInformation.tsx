@@ -12,10 +12,7 @@ export const CompanyContentInformation = ({ company }: Props) => {
 
     return (
         <div>
-            <div className="flex justify-between items-center mt-1 mb-4">
-                <h2 className="text-xl font-semibold text-gray-800">Información</h2>
-            </div>
-            <div className="flex flex-col sm:flex-row mt-4">
+            <div className="flex flex-col sm:flex-row">
                 {/* Map section */}
                 <div className="w-full sm:w-2/3">
                     {hasLocation ? (

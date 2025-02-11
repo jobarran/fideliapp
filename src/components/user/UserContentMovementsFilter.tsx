@@ -1,4 +1,5 @@
 import React from 'react'
+import { AiOutlineClose } from 'react-icons/ai'
 
 interface Props {
     searchTerm: string,
@@ -13,16 +14,29 @@ export const UserContentMovementsFilter = ({ searchTerm, setSearchTerm, transact
     return (
         <div className="mb-4">
             <div className="flex flex-col gap-2 md:flex-row">
-                <input
-                    type="text"
-                    placeholder="Buscar"
-                    className="w-full rounded-md border bg-gray-50 border-gray-300 text-slate-800 px-2 py-1 text-sm outline-none"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
+
+                <div className="relative flex items-center w-full">
+                    <input
+                        type="text"
+                        placeholder="Buscar"
+                        className="flex-1 border px-3 py-2 rounded-md text-sm w-full focus:outline-none"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    {searchTerm && (
+                        <button
+                            className="absolute right-3 text-gray-400 hover:text-gray-600"
+                            onClick={() => setSearchTerm('')}
+                            aria-label="Clear search"
+                        >
+                            <AiOutlineClose size={18} />
+                        </button>
+                    )}
+                </div>
+
                 <div className="flex gap-2">
                     <select
-                        className="flex border px-3 py-1 rounded-md text-sm w-full md:w-auto"
+                        className="flex border px-3 py-2 rounded-md text-sm w-full md:w-auto"
                         value={transactionType}
                         onChange={(e) =>
                             setTransactionType(e.target.value as 'BUY' | 'REWARD' | 'MANUAL' | '')
@@ -34,7 +48,7 @@ export const UserContentMovementsFilter = ({ searchTerm, setSearchTerm, transact
                         <option value="MANUAL">Manual</option>
                     </select>
                     <select
-                        className="flex border px-3 py-1 rounded-md text-sm w-full md:w-auto"
+                        className="flex border px-3 py-2 rounded-md text-sm w-full md:w-auto"
                         value={transactionState}
                         onChange={(e) =>
                             setTransactionState(e.target.value as 'ALL' | 'CONFIRMED' | 'CANCELLED')

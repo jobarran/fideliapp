@@ -5,10 +5,11 @@ import { colorOptions, defaultOpenHours } from '@/config';
 import { CompanyClientDashboard, DayHours } from '@/interfaces';
 import { formatAddress } from '@/utils';
 import React, { useCallback, useEffect, useState } from 'react';
-import { CheckboxField, ColorPicker, DeleteWarningModal, OpenHoursSection, SelectField, TextField } from '..';
+import { ActionButton, CheckboxField, ColorPicker, DeleteWarningModal, OpenHoursSection, SelectField, TextField } from '..';
 import { useRouter } from 'next/navigation';
 import { FaBan, FaCheck, FaRegTrashCan } from 'react-icons/fa6';
 import { ActiveWarningModal } from '../ui/modals/ActiveWarningModal';
+import { FaRegEdit, FaRegSave } from 'react-icons/fa';
 
 interface EditedCompany extends CompanyClientDashboard {
     openHours: Record<string, DayHours>;
@@ -113,20 +114,9 @@ export const ClientContentInformation = ({ company }: Props) => {
 
     return (
         <div>
-            <div className="flex justify-between items-center">
-                <h2 className="text-xl font-semibold text-gray-800 mb-2">Información</h2>
-                <button
-                    onClick={handleEditClick}
-                    className="px-4 py-1 bg-white text-slate-800 border border-slate-800 rounded hover:bg-slate-800 hover:text-white"
-                >
-                    {isEditing ? 'Guardar' : 'Editar'}
-                </button>
-            </div>
-
-            <hr className="w-full h-px border-neutral-200 my-4" />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-                <div>
+                <div className='text-sm'>
                     <TextField
                         label="Nombre"
                         value={editedCompany.name}
@@ -183,19 +173,33 @@ export const ClientContentInformation = ({ company }: Props) => {
 
                 </div>
 
-                <OpenHoursSection
-                    openHours={editedCompany.openHours}
-                    onHourChange={handleOpenHourChange}
-                    onCheckboxChange={handleCheckboxChange}
-                    isEditing={isEditing}
-                    label={''}
-                    divClassName={'mb-4'}
-                    labelClassName={'font-medium hidden sm:flex'}
-                    sectionClassName={'grid grid-cols-3 gap-4 items-center mb-2'}
-                />
+                <div className='text-sm'>
+                    <OpenHoursSection
+                        openHours={editedCompany.openHours}
+                        onHourChange={handleOpenHourChange}
+                        onCheckboxChange={handleCheckboxChange}
+                        isEditing={isEditing}
+                        label={''}
+                        divClassName={'mb-4'}
+                        labelClassName={'font-medium hidden sm:flex'}
+                        sectionClassName={'grid grid-cols-3 gap-4 items-center mb-2'}
+                    />
+                </div>
 
 
             </div>
+
+            <div className='flex justify-end'>
+                <button
+                    onClick={() => handleEditClick()}
+                    className={` text-xs py-1 px-2 rounded-lg  ${isEditing ? 'bg-slate-800 text-slate-100' : 'text-slate-800 hover:bg-slate-100'}`}
+                >
+                    <span className='flex gap-2 p-1'>
+                        <p className='text-sm'>{isEditing ? 'Guardar' : 'Editar'}</p><span className='text-base'>{isEditing ? <FaRegSave /> : <FaRegEdit />}</span>
+                    </span>
+                </button>
+            </div>
+
 
             <ActiveWarningModal
                 buttonLabel={isActive ? 'Desactivar negocio' : 'Activar negocio'}

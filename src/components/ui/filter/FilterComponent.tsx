@@ -38,8 +38,8 @@ export const FilterComponent = ({ filters, setFilters, activityTypes, clearFilte
           placeholder="Buscar"
           value={filters.name}
           onChange={e => handleInputChange('name', e.target.value)}
-          className="w-full rounded-md border bg-gray-50 border-gray-300 text-slate-800 px-2 py-1 text-sm outline-none"
-        />
+          className="border px-3 py-2 rounded-md text-sm w-full focus:outline-none"
+          />
       </div>
 
       <FilterModal

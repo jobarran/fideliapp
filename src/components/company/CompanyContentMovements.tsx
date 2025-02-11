@@ -55,7 +55,7 @@ export const CompanyContentMovements = ({
   const shouldShowMoreButton = visibleTransactions.length < filteredTransactions.length;
 
   return (
-    <div className="mt-4 mb-4">
+    <div className="mb-4">
       <CompanyContentNoCard
         userCardForCompany={userCardForCompany}
         slug={slug}

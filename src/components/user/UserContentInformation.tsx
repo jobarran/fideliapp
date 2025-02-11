@@ -5,6 +5,7 @@ import { TextField, PasswordField, DeleteWarningModal } from '..'; // Import cus
 import { FaRegTrashCan } from 'react-icons/fa6';
 import { updateUser } from '@/actions';
 import { UserProfileData } from '@/interfaces';
+import { FaRegEdit, FaRegSave } from 'react-icons/fa';
 
 interface EditedUser {
   id: string;
@@ -99,19 +100,8 @@ export const UserContentInformation = ({ user }: Props) => {
 
   return (
     <div>
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold text-gray-800 mb-2">Información del Usuario</h2>
-        <button
-          onClick={handleEditClick}
-          className="px-4 py-1 bg-white text-slate-800 border border-slate-800 rounded hover:bg-slate-800 hover:text-white"
-        >
-          {isEditing ? 'Guardar' : 'Editar'}
-        </button>
-      </div>
 
-      <hr className="w-full h-px border-neutral-200 my-4" />
-
-      <div className="grid grid-cols-1 gap-2">
+      <div className="grid grid-cols-1 gap-2 text-sm">
         {/* Editable Fields */}
         <TextField
           label="Nombre"
@@ -184,6 +174,17 @@ export const UserContentInformation = ({ user }: Props) => {
             ))}
           </div>
         )}
+      </div>
+
+      <div className='flex justify-end'>
+        <button
+          onClick={() => handleEditClick()}
+          className={` text-xs py-1 px-2 rounded-lg  ${isEditing ? 'bg-slate-800 text-slate-100' : 'text-slate-800 hover:bg-slate-100'}`}
+        >
+          <span className='flex gap-2 p-1'>
+            <p className='text-sm'>{isEditing ? 'Guardar' : 'Editar'}</p><span className='text-base'>{isEditing ? <FaRegSave /> : <FaRegEdit />}</span>
+          </span>
+        </button>
       </div>
 
       <DeleteWarningModal

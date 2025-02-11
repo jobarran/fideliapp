@@ -54,7 +54,7 @@ export const ActiveWarningModal = ({
         <div className={`flex ${buttonPossition}`}>
             <button
                 onClick={() => setOpenModal(true)}
-                className={`${buttonBgColor} ${buttonTextColor} text-sm py-2 px-2 rounded-lg ${buttonHoverColor}`}
+                className={`${buttonBgColor} ${buttonTextColor} text-sm py-1 px-2 rounded-lg ${buttonHoverColor}`}
             >
                 <span className='flex gap-2 p-1'>
                     <p className='text-sm'>{buttonLabel}</p><span className='text-base'>{buttonIcon}</span>

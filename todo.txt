@@ -7,7 +7,8 @@ Config sign in with google
 Freemium/Premium
 error page
 soft delete
-register company from phone
+hide pictures upload in small screens
+register company verification (can upload products but is not seen by users and cant make movements)
 
 client/id   - plan -> add tag
             - /transaction/id create
@@ -28,6 +29,7 @@ home
 ----------------------------------------
 
 Bubble or FlutterFlow for no-code simple projects
+
 Aqcuire for selling projects
 
 NextJs to react native -> Capacitor, Apache Cordova, Tauri, PWA builder, Solito
@@ -36,9 +38,19 @@ PWA (manifest) + Native Shell (Capacitor, Apache Cordova, Tauri)
 
 deployment fees on stores + should bypass payments inside to avoid % for users (send payments outside the app)
 
-1st - Capacitor
-2nd - PWA
-3rd - React Native Webview
+lighthouse to analyze site
+
+1st - PWA
+2nd - React Native Webview (not a bad idea, is a frame for showing web in a app format)
+3rd - Capacitor
+
+WebView to auth, then show hybrid site
+
+https://medium.com/@imvinojanv/the-complete-guide-to-building-progressive-web-apps-with-next-js-f37b4bb878cd
+https://www.freecodecamp.org/news/how-to-create-a-nextjs-pwa/
+
+Building a PWA and then using https://www.pwabuilder.com/ to make mobile apps displaying that PWA (I've successfully gotten apps like this into the app and play store, so ignore the online comments saying that they will be declined)
+Difficulty: Easy (but hard to access some native-only features)
 
 ----------------------------------------
 

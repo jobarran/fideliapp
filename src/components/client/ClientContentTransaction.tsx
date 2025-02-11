@@ -136,6 +136,7 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
             if (response.success) {
                 setTransactionSuccess(true);
                 setIsPinValidated(false);
+                setSelectedProducts({})
                 userPin && deletePin(userPin)
             } else {
                 console.error('Transaction failed:', response.message);

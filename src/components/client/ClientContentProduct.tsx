@@ -1,20 +1,21 @@
-"use client"
+"use client";
 
 import { Product } from '@/interfaces';
 import React, { useState } from 'react';
 import { CouponClientProduct } from '../ui/coupon/CouponClientProduct';
 import { ClientContentProductsFilter } from './ClientContentProductsFilter';
 import { useProductFilter } from '@/hooks/useProductFilter';
-import { LoadingSpinnerDark } from '..';
+import { ActionButton, LoadingSpinnerDark } from '..';
 
 interface Props {
     products: Product[];
+    isCreating: boolean;
+    setIsCreating: (creating: boolean) => void
 }
 
-export const ClientContentProduct = ({ products }: Props) => {
-
+export const ClientContentProduct = ({ products, isCreating, setIsCreating }: Props) => {
     const [searchTerm, setSearchTerm] = useState("");
-    const [showMoreLoading, setShowMoreLoading] = useState(false)
+    const [showMoreLoading, setShowMoreLoading] = useState(false);
 
     const { visibleProducts, loadMore, filteredProducts } = useProductFilter(
         products,
@@ -31,15 +32,33 @@ export const ClientContentProduct = ({ products }: Props) => {
 
     const shouldShowMoreButton = visibleProducts.length < filteredProducts.length;
 
-    return (
+    // Sort visibleProducts by product.name
+    const sortedProducts = [...visibleProducts].sort((a, b) =>
+        a.name.localeCompare(b.name)
+    );
 
-        <div >
-            <ClientContentProductsFilter
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-            />
+    return (
+        <div>
+            <div className="flex space-x-2 mb-4">
+                <div className="flex-grow">
+                    <ClientContentProductsFilter
+                        searchTerm={searchTerm}
+                        setSearchTerm={setSearchTerm}
+                    />
+                </div>
+                <div className="hidden sm:block">
+                    <ActionButton
+                        slug={'Agregar producto'}
+                        bgColor={isCreating ? 'bg-slate-100' : 'border border-slate-200'}
+                        textColor={'text-slate-800'}
+                        hoverColor={'hover:bg-slate-100'}
+                        action={() => setIsCreating(true)}
+                        icon={undefined}
+                    />
+                </div>
+            </div>
             <ul className="space-y-2">
-                {visibleProducts.map((product) => {
+                {sortedProducts.map((product) => {
                     const buyPoints = product.templates
                         ?.filter((t) => t.type === "BUY")
                         .map((t) => t.points)
@@ -50,11 +69,12 @@ export const ClientContentProduct = ({ products }: Props) => {
                         .join(", ");
 
                     return (
-
-                        <li key={product.id} >
-
-                            <CouponClientProduct product={product} buyPoints={buyPoints} rewardPoints={rewardPoints} />
-
+                        <li key={product.id}>
+                            <CouponClientProduct
+                                product={product}
+                                buyPoints={buyPoints}
+                                rewardPoints={rewardPoints}
+                            />
                         </li>
                     );
                 })}
