@@ -176,30 +176,32 @@ export const UserContentInformation = ({ user }: Props) => {
         )}
       </div>
 
-      <div className='flex justify-end'>
-        <button
-          onClick={() => handleEditClick()}
-          className={` text-xs py-1 px-2 rounded-lg  ${isEditing ? 'bg-slate-800 text-slate-100' : 'text-slate-800 hover:bg-slate-100'}`}
-        >
-          <span className='flex gap-2 p-1'>
-            <p className='text-sm'>{isEditing ? 'Guardar' : 'Editar'}</p><span className='text-base'>{isEditing ? <FaRegSave /> : <FaRegEdit />}</span>
-          </span>
-        </button>
-      </div>
+      <div className='flex flex-row space-x-2 mt-4'>
+        <div className='flex justify-start'>
+          <button
+            onClick={() => handleEditClick()}
+            className={` text-xs py-1 px-2 rounded-lg border border-slate-200 ${isEditing ? 'bg-slate-800 text-slate-100' : 'text-slate-800 hover:bg-slate-100'}`}
+          >
+            <span className='flex gap-2 p-1'>
+              <p className='text-sm'>{isEditing ? 'Guardar' : 'Editar'}</p><span className='text-base'>{isEditing ? <FaRegSave className='hidden sm:block' /> : <FaRegEdit className='hidden sm:block'/>}</span>
+            </span>
+          </button>
+        </div>
 
-      <DeleteWarningModal
-        buttonLabel={'Eliminar usuario'}
-        buttonBgColor={''}
-        buttonTextColor={'text-red-600'}
-        buttonHoverColor={'hover:bg-red-100'}
-        buttonIcon={<FaRegTrashCan />}
-        buttonPossition="justify-end"
-        modalLabel="Atención!"
-        content="Atención! Una vez que elimines tu negocio ya no podrás acceder a toda tu información."
-        contentAction={handleDeleteCompany}
-        acceptButton={'Eliminar'}
-        cancelButton={'Cancelar'}
-      />
+        <DeleteWarningModal
+          buttonLabel={'Eliminar usuario'}
+          buttonBgColor={''}
+          buttonTextColor={'text-red-600'}
+          buttonHoverColor={'hover:bg-red-100 border border-red-200'}
+          buttonIcon={<FaRegTrashCan className='hidden sm:block'/>}
+          buttonPossition="justify-start"
+          modalLabel="Atención!"
+          content="Atención! Una vez que elimines tu negocio ya no podrás acceder a toda tu información."
+          contentAction={handleDeleteCompany}
+          acceptButton={'Eliminar'}
+          cancelButton={'Cancelar'}
+        />
+      </div>
     </div>
   );
 };

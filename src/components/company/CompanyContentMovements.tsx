@@ -55,7 +55,7 @@ export const CompanyContentMovements = ({
   const shouldShowMoreButton = visibleTransactions.length < filteredTransactions.length;
 
   return (
-    <div className="mb-4">
+    <div>
       <CompanyContentNoCard
         userCardForCompany={userCardForCompany}
         slug={slug}
@@ -92,7 +92,7 @@ export const CompanyContentMovements = ({
             <>
               <div>
                 {visibleTransactions.length === 0 ? (
-                  <p className="text-center text-gray-600">Todavía no se han registrado movimientos</p>
+                  <p className="text-sm text-center text-gray-600 italic">Todavía no se han registrado movimientos</p>
                 ) : (
                   visibleTransactions.map((transaction) => (
                     <UserContentMovementsRow

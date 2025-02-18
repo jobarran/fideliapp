@@ -90,16 +90,3 @@ export const updateCompany = async (editedCompany: CompanyClientDashboard) => {
         };
     }
 };
-
-const uploadLogo = async (image: File) => {
-    try {
-        const buffer = await image.arrayBuffer();
-        const base64Image = Buffer.from(buffer).toString('base64');
-
-        const result = await cloudinary.uploader.upload(`data:image/png;base64,${base64Image}`);
-        return result.secure_url;
-    } catch (error) {
-        console.log(error);
-        return null;
-    }
-};

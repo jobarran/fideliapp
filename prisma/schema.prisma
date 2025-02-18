@@ -41,6 +41,18 @@ enum TransactionState {
   CANCELLED
 }
 
+enum AlertStatus {
+  NOT_SEEN
+  SEEN
+  DONE
+}
+
+enum AlertType {
+  COMMENT_NEW
+  COMMENT_PENDING
+  VAR
+}
+
 model User {
   id       String   @id @default(uuid())
   name     String
@@ -54,6 +66,7 @@ model User {
   Cards         Card[]
   Company       Company?
   CompanyReview CompanyReview[]
+  Alert         Alert[]
 
   // Timestamps
   createdAt DateTime @default(now())
@@ -80,6 +93,7 @@ model Company {
   Cards         Card[]
   CompanyLogo   CompanyLogo?
   CompanyReview CompanyReview[]
+  Alert         Alert[]
 
   // Relations - Up
   user   User   @relation(fields: [userId], references: [id])
@@ -141,15 +155,16 @@ model Card {
 }
 
 model PointTransaction {
-  id     String           @id @default(uuid())
-  points Int
-  date   DateTime         @default(now())
-  state  TransactionState @default(CONFIRMED)
+  id          String           @id @default(uuid())
+  points      Int
+  date        DateTime         @default(now())
+  state       TransactionState @default(CONFIRMED)
   description String?
 
   // Relations - Down
   type                TransactionType
   transactionProducts TransactionProduct[]
+  Alert               Alert[]
 
   // Relations - Up
   card   Card   @relation(fields: [cardId], references: [id])
@@ -157,17 +172,16 @@ model PointTransaction {
 }
 
 model TransactionProduct {
-  id             String             @id @default(cuid())
-  quantity       Int
-  productName    String
-  productPoints  Int
-  productId      String         
+  id            String @id @default(cuid())
+  quantity      Int
+  productName   String
+  productPoints Int
+  productId     String
 
   // Relations - Up
   pointTransaction   PointTransaction @relation(fields: [pointTransactionId], references: [id])
   pointTransactionId String
 }
-
 
 model PointTransactionTemplate {
   id          String  @id @default(uuid())
@@ -196,8 +210,8 @@ model Product {
   ProductImage ProductImage?
 
   // Relations - Up
-  company            Company              @relation(fields: [companyId], references: [id])
-  companyId          String
+  company   Company @relation(fields: [companyId], references: [id])
+  companyId String
 }
 
 model ProductImage {
@@ -240,4 +254,20 @@ model Pin {
 
   // Indexes
   @@index([cardId])
+}
+
+model Alert {
+  id        String      @id @default(uuid())
+  type      AlertType   @default(VAR) // Enum for alert status
+  status    AlertStatus @default(NOT_SEEN) // Enum for alert status
+  createdAt DateTime    @default(now()) // Timestamp when the alert was created
+  updatedAt DateTime    @updatedAt // Timestamp for the last update
+
+  // Relations - Up
+  user               User              @relation(fields: [userId], references: [id])
+  userId             String // Foreign key to User
+  company            Company           @relation(fields: [companyId], references: [id])
+  companyId          String // Foreign key to Company
+  pointTransaction   PointTransaction? @relation(fields: [pointTransactionId], references: [id])
+  pointTransactionId String? // Optional Foreign key to PointTransaction
 }

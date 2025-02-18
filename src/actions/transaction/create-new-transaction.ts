@@ -121,6 +121,17 @@ export async function createNewTransaction(input: CreateTransactionInput) {
             data: { points: card.points + totalPoints },
         });
 
+        // Create alert for user
+        await prisma.alert.create({
+            data: {
+                userId: card.userId,
+                companyId: card.companyId,
+                type: 'COMMENT_PENDING',
+                status: 'NOT_SEEN',
+                pointTransactionId: transaction.id,
+            },
+        });
+
         // Revalidate the company's path.
         revalidatePath(`/companies/${companySlug}`);
 

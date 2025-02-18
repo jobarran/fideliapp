@@ -78,6 +78,13 @@ export const CompanyContentProduct = ({ products }: Props) => {
                     );
                 })}
             </ul>
+
+            <div>
+                {visibleProducts.length === 0 &&
+                    <p className="text-sm text-center text-gray-600 italic">No se encontraron productos</p>
+                }
+            </div>
+
             {/* Show More Button */}
             {shouldShowMoreButton && (
                 <div className="flex justify-center mt-4">

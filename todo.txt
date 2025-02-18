@@ -7,8 +7,11 @@ Config sign in with google
 Freemium/Premium
 error page
 soft delete
-hide pictures upload in small screens
 register company verification (can upload products but is not seen by users and cant make movements)
+
+Add alert to top menu (add model alert)
+
+Show COMMENTS modal after transaction OK
 
 client/id   - plan -> add tag
             - /transaction/id create
@@ -20,7 +23,6 @@ client/id   - plan -> add tag
         - add opinion an valoration by transaction
 
 user/id 
-        - inofrmacion -> add editable inputs
         - plan -> add tag
 
 home

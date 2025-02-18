@@ -1,28 +1,48 @@
 'use client';
 
-import { CompanyClientDashboard, User } from "@/interfaces";
+import { Alert, CompanyClientDashboard, User } from "@/interfaces";
 import { LoginModal } from "./LoginModal";
-import { NewAccountModal, SearchCompany, TopMenuCompanyLink, UserDropdownMenu } from "@/components";
+import { AlertsDropdownMenu, NewAccountModal, SearchCompany, TopMenuCompanyLink, UserDropdownMenu } from "@/components";
 import Link from "next/link";
 import { useLoginModal } from "@/hooks/useLoginModal";
 
 interface Props {
   user: User | null;
   company?: CompanyClientDashboard | null;
+  unseenAlerts?: number;
+  alerts?: Alert[];
 }
 
-export const TopMenu = ({ user, company }: Props) => {
+export const TopMenu = ({
+  user,
+  company,
+  unseenAlerts = 0,
+  alerts = [],
+}: Props) => {
+  const { loginModal, toggleLoginModal, newAccountModal, toggleNewAccountModal } =
+    useLoginModal();
 
-  const { loginModal, toggleLoginModal, newAccountModal, toggleNewAccountModal } = useLoginModal();
+  const handleAlertClick = (alertId: string) => {
+    console.log(`Alert clicked: ${alertId}`);
+    // Additional functionality for alert click
+  };
+
+  const handleAlertDelete = (alertId: string) => {
+    console.log(`Alert deleted: ${alertId}`);
+    // Additional functionality for alert click  }
+  };
 
   return (
-    <nav className="bg-white border-b-slate-300 h-12" style={{ borderBottomWidth: 0.5, borderBottomStyle: 'solid' }}>
+    <nav
+      className="bg-white border-b-slate-300 h-12"
+      style={{ borderBottomWidth: 0.5, borderBottomStyle: "solid" }}
+    >
       <LoginModal
         loginModal={loginModal}
         setLoginModal={toggleLoginModal}
-        setNewAccountModal={toggleNewAccountModal} 
+        setNewAccountModal={toggleNewAccountModal}
         uniqueId={"top-menu"}
-        />
+      />
       <NewAccountModal
         newAccountModal={newAccountModal}
         setNewAccountModal={toggleNewAccountModal}
@@ -39,6 +59,12 @@ export const TopMenu = ({ user, company }: Props) => {
         </div>
         <div className="flex items-center space-x-2">
           {company && <TopMenuCompanyLink company={company} />}
+          <AlertsDropdownMenu
+            unseenAlerts={unseenAlerts}
+            alerts={alerts}
+            onAlertClick={handleAlertClick}
+            handleDeleteAlert={handleAlertDelete}
+          />
           {user ? (
             <UserDropdownMenu userName={user.name} userId={user.id} />
           ) : (

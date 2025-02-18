@@ -1,8 +1,8 @@
 import { AppFooter, Footer, MapProvider, TopMenu } from "@/components";
 import { auth } from "@/auth.config";
 import React from "react";
-import { User } from "@/interfaces";
-import { getCompanyByUser } from "@/actions";
+import { Alert, User } from "@/interfaces";
+import { getCompanyByUser, getUnseenAlertsByUser } from "@/actions";
 
 export default async function BaseLayout({
     children
@@ -23,12 +23,15 @@ export default async function BaseLayout({
         });
     };
 
-    const company = await getCompanyByUser(user ? user.id : '')
+    const company = await getCompanyByUser(user ? user.id : "");
+    const alertsResult = await getUnseenAlertsByUser(user ? user.id : "");
+
+    const unseenAlerts: Alert[] = alertsResult.ok && alertsResult.alerts ? alertsResult.alerts : [];
 
     return (
         <div className="flex flex-col min-h-screen">
             <div className="flex-grow">
-                <TopMenu user={user} company={company} />
+                <TopMenu user={user} company={company} alerts={unseenAlerts} unseenAlerts={unseenAlerts.length} />
                 <div className="flex flex-col items-center justify-center">
                     <div className="container px-4 py-4 mb-20 sm:mb-0">
                         <div className="max-w-4xl w-full mx-auto">
