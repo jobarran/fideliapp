@@ -8,8 +8,10 @@ Freemium/Premium
 error page
 soft delete
 register company verification (can upload products but is not seen by users and cant make movements)
+fav bug in card in home
 
-Add alert to top menu (add model alert)
+Add alert to top menu (add model alert) - KEEP ON WORKING ON THIS (Style, function, refactor component)
+COPY FACEBOOK TOPMENU
 
 Show COMMENTS modal after transaction OK
 

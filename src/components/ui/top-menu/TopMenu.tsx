@@ -66,7 +66,7 @@ export const TopMenu = ({
             handleDeleteAlert={handleAlertDelete}
           />
           {user ? (
-            <UserDropdownMenu userName={user.name} userId={user.id} />
+            <UserDropdownMenu userName={user.name} userId={user.id} userLastName={user.lastName} />
           ) : (
             <button
               onClick={toggleLoginModal}

@@ -8,10 +8,11 @@ import { userDropdownNavItems } from "@/config/userDropdownNavItems";
 
 interface Props {
   userName: string;
+  userLastName: string;
   userId: string;
 }
 
-export const UserDropdownMenu = ({ userName, userId }: Props) => {
+export const UserDropdownMenu = ({ userName, userLastName, userId }: Props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -49,23 +50,29 @@ export const UserDropdownMenu = ({ userName, userId }: Props) => {
 
   const navItems = userDropdownNavItems(userId);
 
+  // Generate user initials
+  const getInitials = (name: string, lastName: string) => {
+    return `${name.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`;
+  };
+
   return (
     <div className="relative">
-      <span
+      <div
         onClick={toggleDropdown}
-        className="text-xs text-slate-800 cursor-pointer flex items-center dropdown-toggle"
+        className="relative flex items-center cursor-pointer dropdown-toggle"
       >
-        <FaAngleDown
-          className={`mr-1 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""
-            }`}
-        />
-        Hola <span className="font-bold ml-1">{userName}</span>!
-      </span>
+        <div className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-800 text-white font-bold relative">
+          {getInitials(userName, userLastName)}
+          <FaAngleDown
+            className={`absolute -bottom-1 -right-1 text-sm bg-slate-200 text-slate-800 border-2 border-white rounded-full p-0.5 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
+          />
+        </div>
+      </div>
 
       {dropdownOpen && (
         <div
           ref={dropdownRef}
-          className="absolute right-0 mt-2 w-36 bg-white border border-gray-200 rounded z-10"
+          className="absolute right-0 mt-3 w-36 py-1 bg-white border border-gray-200 rounded z-10 shadow-md"
         >
           <ul>
             {navItems.map((item) => (
