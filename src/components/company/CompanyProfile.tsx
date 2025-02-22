@@ -1,11 +1,12 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { CompanyContentCard, CompanyContentInformation, CompanyContentMovements, CompanyProfileHeader, ProfileContent, UserContentMovements } from "..";
+import { CompanyContentCard, CompanyContentInformation, CompanyContentMovements, CompanyContentReviews, CompanyProfileHeader, ProfileContent, UserContentMovements } from "..";
 import { companyNavItems } from "@/config";
 import { CardProfile, CompanyClientDashboard, Pin, Product } from "@/interfaces";
 import { CompanyContentProducts } from './CompanyContentProducts';
 import { UserTransaction } from "@/interfaces/transacrion.interface";
+import { CompanyReview } from "@/interfaces/review.interface";
 
 interface Props {
     company: CompanyClientDashboard,
@@ -15,9 +16,10 @@ interface Props {
     initialTabIndex?: number
     userPin: Pin | undefined
     userId: string | null
+    reviews: CompanyReview[] | null
 }
 
-export const CompanyProfile = ({ company, userCardForCompany, products, card, initialTabIndex, userPin, userId }: Props) => {
+export const CompanyProfile = ({ company, userCardForCompany, products, card, initialTabIndex, userPin, userId, reviews }: Props) => {
 
     const validIndex = initialTabIndex ?? 0;
     const initialTab = companyNavItems[validIndex]?.id ?? companyNavItems[0].id;
@@ -35,20 +37,20 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
         const processedTransactions = card?.History?.map((history) => ({
             id: history.id,
             points: history.points,
-            date: new Date(history.date).toISOString(), 
-            type: history.type, 
-            cardId: card?.id || '', 
-            state: history.state, 
+            date: new Date(history.date).toISOString(),
+            type: history.type,
+            cardId: card?.id || '',
+            state: history.state,
             userId: userId as string,
             companyName: company.name,
-            companyId: company.id, 
-            companyReview: null, 
+            companyId: company.id,
+            companyReview: null,
             transactionProducts: history.transactionProducts
-                .filter(item => item.productName !== null) 
+                .filter(item => item.productName !== null)
                 .map(item => ({
                     productPoints: item.productPoints,
-                    quantity: item.quantity, 
-                    productName: item.productName, 
+                    quantity: item.quantity,
+                    productName: item.productName,
                     productId: item.productId,
                     id: item.id,
                 })),
@@ -93,7 +95,7 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
                     loading={loading}
                 />;
             case "opiniones":
-                return <p>Opiniones</p>;
+                return <CompanyContentReviews reviews={reviews} />;
             case "informacion":
                 return <CompanyContentInformation company={company} />;
             default:

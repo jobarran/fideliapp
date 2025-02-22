@@ -11,8 +11,6 @@ register company verification (can upload products but is not seen by users and 
 fav bug in card in home
 
 TODAY:
-- UserContentMovementsRow small screens check
-- dont give too much importance to comment but to stars
 - add comments to transaction modals
 - show comments in company/comments
 - send comment alert to make a comment (commen modal?)

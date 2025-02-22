@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { Metadata, ResolvingMetadata } from "next";
-import { getCompanyBySlug, getProductsByCompanyId, getUserCardForCompany, getUserPin } from "@/actions";
+import { getCompanyBySlug, getCompanyReviewsByCompanyId, getProductsByCompanyId, getUserCardForCompany, getUserPin } from "@/actions";
 import { CompanyProfile } from "@/components";
 
 interface Props {
@@ -42,6 +42,7 @@ export default async function CompanyBySlugPage({ params, searchParams }: Props)
   }
 
   const products = await getProductsByCompanyId(company.id);
+  const reviews = await getCompanyReviewsByCompanyId(company.id)
 
   const initialTabIndex = nav === "product" ? 1 : 0;
 
@@ -55,6 +56,7 @@ export default async function CompanyBySlugPage({ params, searchParams }: Props)
         initialTabIndex={initialTabIndex}
         userPin={userPin.pin}
         userId={userId}
+        reviews={reviews}
       />
     </div>
   );
