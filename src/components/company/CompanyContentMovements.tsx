@@ -4,7 +4,7 @@ import { useMovementsFilter } from '@/hooks';
 import React, { useState } from 'react';
 import { UserTransaction } from '@/interfaces/transacrion.interface';
 import { LoadingSpinnerDark } from '../ui/buttons/LoadingSpinnerDark';
-import { CompanyContentNoCard, MovementModal, UserContentMovementsFilter, UserContentMovementsRow } from '..';
+import { CompanyContentMovementsRow, CompanyContentNoCard, MovementModal, UserContentMovementsFilter, UserContentMovementsRow } from '..';
 
 interface Props {
   transactions: UserTransaction[];
@@ -95,7 +95,7 @@ export const CompanyContentMovements = ({
                   <p className="text-sm text-center text-gray-600 italic">Todavía no se han registrado movimientos</p>
                 ) : (
                   visibleTransactions.map((transaction) => (
-                    <UserContentMovementsRow
+                    <CompanyContentMovementsRow
                       key={transaction.id}
                       transaction={transaction}
                       onClick={() => handleRowClick(transaction)} 
