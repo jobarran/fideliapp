@@ -33,20 +33,25 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
 
         // Ensure card?.History is not undefined
         const processedTransactions = card?.History?.map((history) => ({
-            ...history,
-            companyName: company.name,
+            id: history.id,
+            points: history.points,
+            date: new Date(history.date).toISOString(), 
+            type: history.type, 
+            cardId: card?.id || '', 
+            state: history.state, 
             userId: userId as string,
-            date: new Date(history.date).toISOString(), // Convert date to ISO string
-            state: history.state, // Add the missing 'state' property here
+            companyName: company.name,
+            companyId: company.id, 
+            companyReview: null, 
             transactionProducts: history.transactionProducts
-                .filter(item => item.productName !== null) // Filter out items with null products
+                .filter(item => item.productName !== null) 
                 .map(item => ({
-                    productPoints: item.productPoints, // Include points
-                    quantity: item.quantity, // Include quantity
-                    productName: item.productName, // Access the 'name' property directly
+                    productPoints: item.productPoints,
+                    quantity: item.quantity, 
+                    productName: item.productName, 
                     productId: item.productId,
-                    id: item.id
-                }))
+                    id: item.id,
+                })),
         })) ?? []; // Fallback to an empty array if History is undefined
 
         const sortedTransactions = processedTransactions.sort((a, b) => {

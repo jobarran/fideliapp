@@ -72,3 +72,17 @@ export interface Review {
   pointTransactionId: string;
   companyId: string;
 } 
+
+export interface CompanyTransaction {
+  companyName: string;
+  companyId: string;
+  id: string;
+  points: number;
+  date: string;
+  type: "BUY" | "REWARD" | "MANUAL";
+  description?: string;
+  cardId: string;
+  state: TransactionState;
+  userId: string;
+  transactionProducts: TransactionProductSnapshot[];
+}
