@@ -21,7 +21,6 @@ export const getCompanyTransactionsByUser = async (userId: string) => {
                 date: 'desc',
               },
             },
-
           },
         },
         user: {
@@ -29,9 +28,8 @@ export const getCompanyTransactionsByUser = async (userId: string) => {
             name: true,
             lastName: true,
           },
-        }
+        },
       },
-
     });
 
     if (!companyWithTransactions) return null;
@@ -41,6 +39,7 @@ export const getCompanyTransactionsByUser = async (userId: string) => {
         ...transaction,
         cardId: card.id,
         companyId: companyWithTransactions.id,
+        companyName: companyWithTransactions.name, // Add the companyName property
         clientName: companyWithTransactions.user.name,
         clientLastName: companyWithTransactions.user.lastName,
         userName: card.user.name || '',
@@ -49,9 +48,9 @@ export const getCompanyTransactionsByUser = async (userId: string) => {
         transactionProducts: transaction.transactionProducts || [], // Ensure products is included
         description: transaction.description || '',
         date: transaction.date.toISOString(), // Convert Date to string
+        companyReviewId: transaction.companyReviewId || null, // Include companyReviewId if applicable
       }))
     );
-
 
     return transactions; // Return the transactions
   } catch (error) {
