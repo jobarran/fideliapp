@@ -1,9 +1,8 @@
 import React from "react";
-import Link from "next/link";
 import { FaBan } from "react-icons/fa6";
 import { formatDate } from "../../utils/formatDate";
-import { capitalizeFirstLetter, cropText, formattedTime, getPointsColor, getTransactionTypeColor } from "@/utils";
-import { CompanyTransaction, Transaction } from "@/interfaces/transacrion.interface";
+import { capitalizeFirstLetter, formattedTime, getPointsColor, getTransactionTypeColor } from "@/utils";
+import { CompanyTransaction } from "@/interfaces/transacrion.interface";
 import { ClientContentMovementsCancelConfirm } from "./ClientContentMovementsCancelConfirm";
 import { ClientContentMovementsDetail } from "./ClientContentMovementsDetail";
 

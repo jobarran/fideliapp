@@ -42,7 +42,8 @@ export const getUserById = async (id: string) => {
                                 backgroundColor: true,
                                 slug: true,
                                 activityTypeId: true,
-                                CompanyLogo: true
+                                CompanyLogo: true,
+                                id: true
                             },
                         },
                         History: {
@@ -62,6 +63,15 @@ export const getUserById = async (id: string) => {
                                         productId: true,
                                     },
                                 },
+                                companyReview: {
+                                    select: {
+                                        id: true,
+                                        rating: true,
+                                        comment: true,
+                                        pointTransactionId: true,
+                                        companyId: true,
+                                    }
+                                }
                             },
                         },
                     },

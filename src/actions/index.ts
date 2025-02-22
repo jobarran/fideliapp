@@ -39,5 +39,6 @@ export { getUserPin } from './pin/get-user-pin'
 
 export { createNewTransaction } from './transaction/create-new-transaction'
 export { updateTransactionStateById } from './transaction/update-transaction-state-by-id'
+export { createTransactionReview } from './transaction/create-transaction-review'
 
 export { getUnseenAlertsByUser } from './alert/get-unseen-alerts-by-user'

@@ -10,10 +10,16 @@ soft delete
 register company verification (can upload products but is not seen by users and cant make movements)
 fav bug in card in home
 
-Add alert to top menu (add model alert) - KEEP ON WORKING ON THIS (Style, function, refactor component)
-COPY FACEBOOK TOPMENU
-
-Show COMMENTS modal after transaction OK
+TODAY:
+- UserContentMovementsRow small screens check
+- dont give too much importance to comment but to stars
+- add comments to transaction modals
+- show comments in company/comments
+- send comment alert to make a comment (commen modal?)
+- delete alerts by click
+- mark alerts as seen (keep them on inbox)
+- best valued slider on home based on comments
+- Show COMMENTS modal after transaction OK
 
 client/id   - plan -> add tag
             - /transaction/id create

@@ -31,9 +31,11 @@ export const UserProfile = ({ user, hasCompany, selectedTab: initialTab, compani
             card.History.map((history) => ({
                 ...history,
                 companyName: card.company.name,
+                companyId: card.company.id,
                 userId: user.id,
                 date: new Date(history.date).toISOString(), // Convert date to ISO string
                 products: history.transactionProducts?.map((product) => ({ name: product.productName })) || [],
+                companyReview: history.companyReview
             }))
         );
 

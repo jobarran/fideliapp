@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect } from "react";
-import { CompanyTransaction, UserTransaction } from "@/interfaces/transacrion.interface";
+import { CompanyTransaction } from "@/interfaces/transacrion.interface";
 import { updateTransactionStateById } from "@/actions";
 import { useMovementsFilter } from "@/hooks";
 import { ClientContentMovementsRow } from "./ClientContentMovementsRow";
@@ -86,7 +86,7 @@ export const ClientContentMovements = ({ transactions, userId }: Props) => {
             {!loading && (
                 <>
                     <div>
-                        {visibleTransactions.map((transaction) => (
+                    {visibleTransactions.map((transaction: CompanyTransaction) => (
                             <ClientContentMovementsRow
                                 key={transaction.id}
                                 transaction={transaction}

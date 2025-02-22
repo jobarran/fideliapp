@@ -7,6 +7,7 @@ import { LoadingSpinnerDark } from '../ui/buttons/LoadingSpinnerDark';
 import { UserContentMovementsFilter } from './UserContentMovementsFilter';
 import { MovementModal } from '../ui/modals/MovementModal';
 import { UserTransaction } from '@/interfaces/transacrion.interface';
+import { createTransactionReview } from '@/actions';
 
 interface Props {
   transactions: UserTransaction[];
@@ -28,6 +29,11 @@ export const UserContentMovements = ({
   const [showMoreLoading, setShowMoreLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState<UserTransaction | null>(null);
+  const [comentingTransactionId, setCommentingTransactionId] = useState<string | null>(null);
+
+  // State for rating and comment for each transaction
+  const [ratings, setRatings] = useState<{ [key: string]: number }>({});
+  const [comments, setComments] = useState<{ [key: string]: string }>({});
 
   const { visibleTransactions, loadMore, filteredTransactions } = useMovementsFilter(
     transactions,
@@ -47,6 +53,54 @@ export const UserContentMovements = ({
       setShowMoreLoading(false);
       loadMore();
     }, 500);
+  };
+
+  const handleCommentTransaction = (transactionId: string) => {
+    setCommentingTransactionId(transactionId);
+  };
+
+  const handleRatingChange = (transactionId: string, rating: number) => {
+    setRatings((prev) => ({ ...prev, [transactionId]: rating }));
+  };
+
+  const handleCommentChange = (transactionId: string, comment: string) => {
+    setComments((prev) => ({ ...prev, [transactionId]: comment }));
+  };
+
+  const commentTransaction = async () => {
+    if (!comentingTransactionId) return;
+
+    const transactionToReview = transactions.find((transaction) => transaction.id === comentingTransactionId);
+
+    if (!transactionToReview) return;
+
+    const companyId = transactionToReview.companyId
+    const pointTransactionId = transactionToReview.id;
+
+    // Check if pointTransactionId exists and is valid
+    if (!pointTransactionId) {
+      console.error('This transaction does not have an associated point transaction.');
+      return;
+    }
+
+    try {
+      await createTransactionReview({
+        pointTransactionId,
+        companyId: companyId || '', // Adjust if needed
+        rating: ratings[comentingTransactionId] || 5,
+        comment: comments[comentingTransactionId] || 'No comment',
+      });
+
+      setCommentingTransactionId(null); // Reset commenting state after success
+    } catch (error) {
+      console.error('Error creating review:', error);
+    }
+  };
+
+  const cancelComment = () => {
+    setCommentingTransactionId(null);
+    setRatings({})
+    setComments({})
   };
 
   const shouldShowMoreButton = visibleTransactions.length < filteredTransactions.length;
@@ -82,7 +136,16 @@ export const UserContentMovements = ({
                   <UserContentMovementsRow
                     key={transaction.id}
                     transaction={transaction}
-                    onClick={() => handleRowClick(transaction)} // Open modal on row click
+                    onClick={() => handleRowClick(transaction)}
+                    onComment={handleCommentTransaction}
+                    onCancel={cancelComment}
+                    isCommenting={comentingTransactionId === transaction.id}
+                    userId={transaction.userId}
+                    rating={ratings[transaction.id] || 0}
+                    comment={comments[transaction.id] || ''}
+                    onRatingChange={handleRatingChange}
+                    onCommentChange={handleCommentChange}
+                    commentTransaction={commentTransaction}
                   />
                 ))
               )}
@@ -117,7 +180,7 @@ export const UserContentMovements = ({
           transaction={selectedTransaction}
         />
       )}
-      
+
     </div>
   );
 };

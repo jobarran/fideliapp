@@ -1,7 +1,7 @@
 'use client';
 import { Alert } from "@/interfaces";
 import { useState, useRef, useEffect } from "react";
-import { FiBell, FiMessageCircle, FiX } from "react-icons/fi"; // Added FiMessageCircle for comment icon
+import { FiBell, FiMessageCircle, FiStar, FiX } from "react-icons/fi"; // Added FiMessageCircle for comment icon
 
 interface AlertsDropdownProps {
   unseenAlerts?: number;
@@ -16,7 +16,6 @@ export const AlertsDropdownMenu = ({
   onAlertClick,
   handleDeleteAlert,
 }: AlertsDropdownProps) => {
-  console.log(alerts);
 
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -77,16 +76,15 @@ export const AlertsDropdownMenu = ({
                   }}
                 >
                   <div className="flex-1">
-                    <p className="text-xs text-gray-700">
-                      <div className="inline-flex items-center space-x-1">
-                        <span>
-                          <FiMessageCircle className="w-4 h-4 text-gray-600" />
-                        </span>
-                        <span className="flex-shrink-0">Agregar comentario sobre </span>
-                        <span className="truncate font-semibold max-w-full">{alert.company?.name}</span>
-                        </div>
+                    <p className="text-xs text-gray-700 flex items-center space-x-2">
+                      <FiStar className="w-5 h-5 text-gray-600" />
+                      <span>
+                        Tu opinión importa, ¿Cómo fue tu experiencia con{" "}
+                        <span className="font-semibold">{alert.company?.name}</span>?
+                      </span>
                     </p>
                   </div>
+
 
                   {/* Delete button ('x') */}
                   <button

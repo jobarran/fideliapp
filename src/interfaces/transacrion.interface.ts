@@ -52,6 +52,7 @@ export interface CompanyTransaction {
  */
 export interface UserTransaction {
   companyName: string;
+  companyId: string;
   id: string;
   points: number;
   date: string;
@@ -61,4 +62,13 @@ export interface UserTransaction {
   state: TransactionState;
   userId: string;
   transactionProducts: TransactionProductSnapshot[];
+  companyReview: Review | null
 }
+
+export interface Review {
+  id: string;
+  rating: number;
+  comment: string | null;
+  pointTransactionId: string;
+  companyId: string;
+} 
