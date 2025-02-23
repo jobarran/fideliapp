@@ -8,7 +8,7 @@ export const useMovementsFilter = <T extends Transaction>(
   searchTerm: string,
   transactionType: "BUY" | "REWARD" | "MANUAL" | "",
   transactionState: "ALL" | "CONFIRMED" | "CANCELLED",
-  commentFilter: "HAS_COMMENT" | "NO_COMMENT" | ""
+  commentFilter?: "HAS_COMMENT" | "NO_COMMENT" | ""
 ) => {
   const [filteredTransactions, setFilteredTransactions] = useState<T[]>([]);
   const [visibleTransactions, setVisibleTransactions] = useState<T[]>([]);

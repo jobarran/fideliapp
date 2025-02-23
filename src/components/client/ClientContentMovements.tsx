@@ -27,7 +27,7 @@ export const ClientContentMovements = ({ transactions, userId }: Props) => {
         transactions,
         searchTerm,
         transactionType,
-        transactionState
+        transactionState,
     );
 
     useEffect(() => {

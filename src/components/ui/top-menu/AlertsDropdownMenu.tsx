@@ -40,7 +40,7 @@ export const AlertsDropdownMenu = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [setIsAlertDropdownOpen]);
 
   // Handle adding a comment (currently just logs the action)
   const handleAddComment = (companyName: string) => {
