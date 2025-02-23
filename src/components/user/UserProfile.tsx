@@ -12,9 +12,10 @@ interface Props {
     selectedTab: string;
     companies: Company[]
     activityTypes: ActivityType[];
+    tabFilter: string | undefined
 }
 
-export const UserProfile = ({ user, hasCompany, selectedTab: initialTab, companies, activityTypes }: Props) => {
+export const UserProfile = ({ user, hasCompany, selectedTab: initialTab, tabFilter, companies, activityTypes }: Props) => {
 
     const [selectedTab, setSelectedTab] = useState(
         userNavItems.find((item) => item.id === initialTab)?.id || userNavItems[0].id
@@ -69,7 +70,7 @@ export const UserProfile = ({ user, hasCompany, selectedTab: initialTab, compani
             case "tarjetas":
                 return <UserContentCards user={user} companies={companies} activityTypes={activityTypes} />;
             case "movimientos":
-                return <UserContentMovements transactions={transactions} loading={loading} />;
+                return <UserContentMovements transactions={transactions} loading={loading} tabFilter={tabFilter} />;
             case "informacion":
                 return <UserContentInformation user={user} />;
             case "planes":

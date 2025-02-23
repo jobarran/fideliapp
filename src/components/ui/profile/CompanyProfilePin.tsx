@@ -12,7 +12,7 @@ interface Props {
     handleGeneratePin: (id: string) => Promise<void>;
     setPin: React.Dispatch<React.SetStateAction<Pin | undefined>>;
     handleUpdatePoints: () => void
-    pin?: Pin; 
+    pin?: Pin;
 }
 
 export const CompanyProfilePin = ({
@@ -46,14 +46,14 @@ export const CompanyProfilePin = ({
                     setIsPollingActive(false);
                     setShowSuccessMessage(true);
                     handleUpdatePoints()
-                    setTimeout(() => setShowSuccessMessage(false), 5000);
+                    setTimeout(() => {
+                        setShowSuccessMessage(false)}, 5000);
                     setPin(undefined);
                 }
             },
         }
     );
 
-    // Sync initial `pin` prop with SWR state on mount
     useEffect(() => {
         if (initialPin) {
             setPin(initialPin);

@@ -1,3 +1,5 @@
+import { TransactionType } from "@prisma/client";
+
 export interface CompanyReview {
     id: string;
     rating: number;
@@ -11,7 +13,7 @@ export interface CompanyReview {
 }
 
 export interface PointTransaction {
-    type: string; // Use a string literal type if there are fixed values (e.g., 'BUY' | 'SELL')
+    type: TransactionType;
     description: string | null;
     points: number;
     transactionProducts?: TransactionProduct[]; // Optional array of transaction products

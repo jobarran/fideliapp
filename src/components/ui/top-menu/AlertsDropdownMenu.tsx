@@ -1,13 +1,15 @@
 'use client';
 import { Alert } from "@/interfaces";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, SetStateAction, Dispatch } from "react";
 import { FiBell, FiMessageCircle, FiStar, FiX } from "react-icons/fi"; // Added FiMessageCircle for comment icon
 
 interface AlertsDropdownProps {
   unseenAlerts?: number;
   alerts?: Alert[];
-  onAlertClick: (alertId: string) => void;
+  onAlertClick: (alertId: string, alertType: string) => void;
   handleDeleteAlert: (alertId: string) => void; // Added a delete function
+  setIsAlertDropdownOpen: (isAlertDropdownOpen: boolean) => void
+  isAlertDropdownOpen: boolean
 }
 
 export const AlertsDropdownMenu = ({
@@ -15,13 +17,14 @@ export const AlertsDropdownMenu = ({
   alerts = [],
   onAlertClick,
   handleDeleteAlert,
+  setIsAlertDropdownOpen,
+  isAlertDropdownOpen
 }: AlertsDropdownProps) => {
 
-  const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   // Toggle dropdown visibility
-  const toggleDropdown = () => setIsOpen(!isOpen);
+  const toggleDropdown = () => setIsAlertDropdownOpen(!isAlertDropdownOpen);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -30,7 +33,7 @@ export const AlertsDropdownMenu = ({
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false);
+        setIsAlertDropdownOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -41,7 +44,6 @@ export const AlertsDropdownMenu = ({
 
   // Handle adding a comment (currently just logs the action)
   const handleAddComment = (companyName: string) => {
-    console.log(`Open modal for comment about ${companyName}`);
   };
 
   return (
@@ -58,7 +60,7 @@ export const AlertsDropdownMenu = ({
           )}
         </div>
       </button>
-      {isOpen && (
+      {isAlertDropdownOpen && (
         <div className="absolute -right-10 mt-3 w-80 bg-white border border-gray-200 rounded z-50 shadow-md">
           <ul className="divide-y divide-gray-200">
             {alerts.length > 0 ? (
@@ -67,12 +69,7 @@ export const AlertsDropdownMenu = ({
                   key={alert.id}
                   className="flex items-center p-2 hover:bg-gray-100 cursor-pointer"
                   onClick={() => {
-                    if (onAlertClick) onAlertClick(alert.id);
-
-                    // If the alert type is COMMENT_PENDING, open comment modal
-                    if (alert.type === 'COMMENT_PENDING' && alert.company?.name) {
-                      handleAddComment(alert.company.name);
-                    }
+                    if (onAlertClick) onAlertClick(alert.id, alert.type);
                   }}
                 >
                   <div className="flex-1">

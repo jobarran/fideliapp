@@ -43,3 +43,4 @@ export { updateTransactionStateById } from './transaction/update-transaction-sta
 export { createTransactionReview } from './transaction/create-transaction-review'
 
 export { getUnseenAlertsByUser } from './alert/get-unseen-alerts-by-user'
+export { updateAlertToSeenById } from './alert/update-alert-to-seen-by-id'

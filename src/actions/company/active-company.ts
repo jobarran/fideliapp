@@ -1,7 +1,6 @@
 'use server';
 
 import { auth } from "@/auth.config";
-import { CompanyClientDashboard } from "@/interfaces";
 import prisma from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 

@@ -1,7 +1,7 @@
 'use client';
 
 import { useMovementsFilter } from '@/hooks';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { UserContentMovementsRow } from './UserContentMovementsRow';
 import { LoadingSpinnerDark } from '../ui/buttons/LoadingSpinnerDark';
 import { UserContentMovementsFilter } from './UserContentMovementsFilter';
@@ -12,16 +12,13 @@ import { createTransactionReview } from '@/actions';
 interface Props {
   transactions: UserTransaction[];
   loading: boolean;
-  userCardForCompany?: boolean;
-  slug?: string;
-  companyName?: string;
-  companyColor?: string;
-  companyLogoUrl?: string;
+  tabFilter: string | undefined
 }
 
 export const UserContentMovements = ({
   transactions,
   loading,
+  tabFilter
 }: Props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [transactionType, setTransactionType] = useState<'BUY' | 'REWARD' | 'MANUAL' | ''>('');
@@ -30,6 +27,7 @@ export const UserContentMovements = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState<UserTransaction | null>(null);
   const [comentingTransactionId, setCommentingTransactionId] = useState<string | null>(null);
+  const [commentFilter, setCommentFilter] = useState<'HAS_COMMENT' | 'NO_COMMENT' | ''>('');
 
   // State for rating and comment for each transaction
   const [ratings, setRatings] = useState<{ [key: string]: number }>({});
@@ -39,8 +37,17 @@ export const UserContentMovements = ({
     transactions,
     searchTerm,
     transactionType,
-    transactionState
+    transactionState,
+    commentFilter
   );
+
+  useEffect(() => {
+    if (tabFilter === 'HAS_COMMENT' || tabFilter === 'NO_COMMENT') {
+      setCommentFilter(tabFilter);  
+    } else {
+      setCommentFilter('');  
+    }
+  }, [tabFilter]); 
 
   const handleRowClick = (transaction: UserTransaction) => {
     setSelectedTransaction(transaction);
@@ -115,6 +122,8 @@ export const UserContentMovements = ({
           setSearchTerm={setSearchTerm}
           setTransactionType={setTransactionType}
           setTransactionState={setTransactionState}
+          setCommentFilter={setCommentFilter}
+          commentFilter={commentFilter}
         />
         {/* Loading state */}
         <div className={`transition-opacity duration-300 ease-in-out ${loading ? 'opacity-100' : 'opacity-0'}`}>

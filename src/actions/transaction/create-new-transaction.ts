@@ -68,6 +68,7 @@ export async function createNewTransaction(input: CreateTransactionInput) {
 
         // Revalidate the company's path.
         revalidatePath(`/companies/${companySlug}`);
+        revalidatePath('/')
 
         return {
             success: true,

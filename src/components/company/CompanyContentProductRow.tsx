@@ -1,7 +1,6 @@
 "use client"
 
 import { Product } from "@/interfaces";
-import { useState } from "react";
 
 // ProductList Component
 interface ProductListProps {

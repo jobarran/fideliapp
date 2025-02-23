@@ -5,6 +5,9 @@ import { LoginModal } from "./LoginModal";
 import { AlertsDropdownMenu, NewAccountModal, SearchCompany, TopMenuCompanyLink, UserDropdownMenu } from "@/components";
 import Link from "next/link";
 import { useLoginModal } from "@/hooks/useLoginModal";
+import { updateAlertToSeenById } from "@/actions";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 interface Props {
   user: User | null;
@@ -19,17 +22,28 @@ export const TopMenu = ({
   unseenAlerts = 0,
   alerts = [],
 }: Props) => {
+
+  const router = useRouter();
+
+  const [isAlertDropdownOpen, setIsAlertDropdownOpen] = useState(false);
   const { loginModal, toggleLoginModal, newAccountModal, toggleNewAccountModal } =
     useLoginModal();
 
-  const handleAlertClick = (alertId: string) => {
-    console.log(`Alert clicked: ${alertId}`);
-    // Additional functionality for alert click
+  const handleAlertClick = (alertId: string, alertType: string) => {
+    // Check if the alert type is 'COMMENT_PENDING'
+    if (alertType === 'COMMENT_PENDING') {
+      // Assuming the user ID is available from the user object
+      const userId = user?.id;
+      if (userId) {
+        router.push(`/user/${userId}?tab=movimientos&commentFilter=NO_COMMENT`)
+      }
+    }
+    setIsAlertDropdownOpen(false)
+    updateAlertToSeenById(alertId)
   };
 
   const handleAlertDelete = (alertId: string) => {
-    console.log(`Alert deleted: ${alertId}`);
-    // Additional functionality for alert click  }
+    updateAlertToSeenById(alertId)
   };
 
   return (
@@ -64,6 +78,8 @@ export const TopMenu = ({
             alerts={alerts}
             onAlertClick={handleAlertClick}
             handleDeleteAlert={handleAlertDelete}
+            setIsAlertDropdownOpen={setIsAlertDropdownOpen}
+            isAlertDropdownOpen={isAlertDropdownOpen}
           />
           {user ? (
             <UserDropdownMenu userName={user.name} userId={user.id} userLastName={user.lastName} />

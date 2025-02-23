@@ -7,14 +7,16 @@ interface Props {
     id: string;
   };
   searchParams: {
-    tab?: string;
+    tab?: string;         // Add the `tab` parameter
+    commentFilter?: string; // Add the `commentFilter` parameter
   };
 }
 
 export default async function UserPage({ params, searchParams }: Props) {
 
   const { id } = params;
-  console.log(id)
+  const { tab, commentFilter } = searchParams;
+
   // Get the user data
   const { user } = await getUserById(id);
   const companies = await getAllCompanies()
@@ -30,11 +32,12 @@ export default async function UserPage({ params, searchParams }: Props) {
 
   const hasCompany = user.Company !== null; // true if Company exists
   const selectedTab = searchParams.tab || "tarjetas"; // Default to "tarjetas" if no tab is provided
+  const tabFilter = searchParams.commentFilter; // Default to "tarjetas" if no tab is provided
 
   return (
     <div>
       <div>
-        <UserProfile user={user} hasCompany={hasCompany} selectedTab={selectedTab} companies={companies} activityTypes={activityTypes} />
+        <UserProfile user={user} hasCompany={hasCompany} selectedTab={selectedTab} tabFilter={tabFilter} companies={companies} activityTypes={activityTypes} />
       </div>
     </div>
   );

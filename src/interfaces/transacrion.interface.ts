@@ -45,6 +45,7 @@ export interface CompanyTransaction {
   userLastName: string;
   userId: string;
   transactionProducts: TransactionProductSnapshot[];
+  companyReview: Review | null
 }
 
 /** A Transaction object formatted for User views.
@@ -71,7 +72,7 @@ export interface Review {
   comment: string | null;
   pointTransactionId: string;
   companyId: string;
-} 
+}
 
 export interface CompanyTransaction {
   companyName: string;

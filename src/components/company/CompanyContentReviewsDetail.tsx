@@ -1,11 +1,12 @@
 "use client"
 
 import { useState } from "react";
-import { FaAngleDown, FaAngleUp } from "react-icons/fa";
+import { transactionTypeTranslate } from '../../utils/transactionTypeTranslate';
+import { TransactionType } from "@prisma/client";
 
 interface Props {
     pointTransaction: {
-        type: string;
+        type: TransactionType;
         points: number;
         transactionProducts?: { id: string; productName: string; quantity: number; productPoints: number }[]; // Made optional
     };
@@ -25,19 +26,19 @@ export const CompanyContentReviewsDetail = ({ pointTransaction }: Props) => {
             </div>
 
             {isExpanded && (
-                <div className="p-1 space-y-2">
-                    <p className="text-xs text-gray-700">
-                        <span className="font-medium text-gray-800">Tipo de transacción:</span>{' '}
-                        {pointTransaction.type}
+                <div className="p-1 space-y-1">
+                    <p className="text-xs text-slate-700">
+                        <span className="font-semibold text-slate-800">Tipo de transacción:</span>{' '}
+                        {transactionTypeTranslate(pointTransaction.type)}
                     </p>
-                    <p className="text-xs text-gray-700">
-                        <span className="font-medium text-gray-800">Puntos:</span>{' '}
+                    <p className="text-xs text-slate-700">
+                        <span className="font-semibold text-slate-800">Puntos:</span>{' '}
                         {pointTransaction.points}
                     </p>
                     {(pointTransaction.transactionProducts || []).length > 0 && (
                         <div>
-                            <span className="text-xs text-gray-800">Productos:</span>
-                            <ul className="list-disc list-inside text-xs text-gray-600">
+                            <span className="font-semibold text-xs text-slate-800">Productos:</span>
+                            <ul className="list-disc list-inside text-xs text-slate-500">
                                 {(pointTransaction.transactionProducts || []).map((product) => (
                                     <li key={product.id}>
                                         {product.productName} - {product.quantity}x ({product.productPoints})
