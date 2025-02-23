@@ -12,14 +12,8 @@ fav bug in card in home
 
 TODAY:
 - add comments to transaction modals
-- show comments in company/comments (revise UI and responsive)
-- send comment alert to make a comment (commen modal?)
-- delete alerts by click
-- mark alerts as seen (keep them on inbox)
 - best valued slider on home based on comments
-- Show COMMENTS modal after transaction OK
 - Alert to client - New comment submitted
-- companies / movements input filter by product name add +
 - companies/product no image bug
 
 client/id   - plan -> add tag

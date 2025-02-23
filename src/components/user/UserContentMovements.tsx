@@ -27,7 +27,7 @@ export const UserContentMovements = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState<UserTransaction | null>(null);
   const [comentingTransactionId, setCommentingTransactionId] = useState<string | null>(null);
-  const [commentFilter, setCommentFilter] = useState<'HAS_COMMENT' | 'NO_COMMENT' | ''>('');
+  const [commentFilter, setCommentFilter] = useState<'HAS_COMMENT' | 'NO_COMMENT' | 'ALL'>('ALL');
 
   // State for rating and comment for each transaction
   const [ratings, setRatings] = useState<{ [key: string]: number }>({});
@@ -45,7 +45,7 @@ export const UserContentMovements = ({
     if (tabFilter === 'HAS_COMMENT' || tabFilter === 'NO_COMMENT') {
       setCommentFilter(tabFilter);  
     } else {
-      setCommentFilter('');  
+      setCommentFilter('ALL');  
     }
   }, [tabFilter]); 
 
