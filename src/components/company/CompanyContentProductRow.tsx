@@ -1,61 +1,79 @@
-"use client"
+"use client";
 
 import { Product } from "@/interfaces";
+import Image from "next/image";
+import React from "react";
 
-// ProductList Component
 interface ProductListProps {
     product: Product;
-    isExpanded: boolean
-    toggleExpand: (productId: string) => void
-    buyPoints: string
-    rewardPoints: string
+    isExpanded: boolean;
+    toggleExpand: (productId: string) => void;
+    buyPoints: string;
+    rewardPoints: string;
 }
 
-export const CompanyContentProductRow = ({ product, isExpanded, buyPoints, rewardPoints, toggleExpand }: ProductListProps) => {
+export const CompanyContentProductRow = ({
+    product,
+    isExpanded,
+    buyPoints,
+    rewardPoints,
+    toggleExpand,
+}: ProductListProps) => {
+    // Fallback No Image URL (Placeholder)
+    const noImagePlaceholder = "/imgs/noimage-logo.jpg";
 
     return (
-
         <li key={product.id}>
-            <div className={`flex items-center h-auto p-2 border border-slate-200 rounded-lg transition-all duration-300 overflow-hidden ${isExpanded ? 'h-auto py-2' : ''}`}>
+            <div
+                className={`flex items-center h-auto p-2 border border-slate-200 rounded-lg transition-all duration-300 overflow-hidden ${isExpanded ? "h-auto py-2" : ""
+                    }`}
+            >
                 {/* Product Image */}
-                {product.ProductImage ? (
-                    <div className="w-10 h-10 flex-shrink-0 rounded-full overflow-hidden bg-gray-200 mr-4">
-                        <img
-                            src={product.ProductImage.url}
-                            alt={product.name}
-                            className="object-cover w-full h-full"
-                        />
-                    </div>
-                ) : (
-                    <div className="w-12 h-12 flex-shrink-0 flex justify-center items-center border border-slate-100 bg-slate-50 rounded-full overflow-hidden mr-4">
-                        <span className="text-2xl text-slate-300">No Image</span>
-                    </div>
-                )}
+                <div className="w-10 h-10 flex-shrink-0 rounded-full overflow-hidden bg-gray-200 mr-4">
+                    <Image
+                        src={product?.ProductImage?.url || noImagePlaceholder}
+                        width={40}
+                        height={40}
+                        alt={product.name || "No image available"}
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        sizes="100vw"
+                        className="w-full h-full"
+                    />
+                </div>
 
                 {/* Product Details */}
                 <div className="flex-grow min-w-0 mr-4">
                     {/* Product Name */}
                     <h3
-                        className={`text-sm font-medium text-slate-800 ${isExpanded ? 'whitespace-normal' : 'overflow-hidden text-ellipsis whitespace-nowrap'}`}
-                        style={{ wordBreak: 'break-word' }}
+                        className={`text-sm font-medium text-slate-800 ${isExpanded
+                                ? "whitespace-normal"
+                                : "overflow-hidden text-ellipsis whitespace-nowrap"
+                            }`}
+                        style={{ wordBreak: "break-word" }}
                     >
                         {product.name}
                     </h3>
 
                     {/* Product Description */}
-                    <p className={`text-slate-400 text-xs ${isExpanded ? 'whitespace-normal' : 'overflow-hidden text-ellipsis whitespace-nowrap'}`}>
+                    <p
+                        className={`text-slate-400 text-xs ${isExpanded
+                                ? "whitespace-normal"
+                                : "overflow-hidden text-ellipsis whitespace-nowrap"
+                            }`}
+                    >
                         {product.description}
                     </p>
 
                     {/* Toggle Button */}
-                    {(product.name.length > 20 || (product.description?.length || 0) > 20) && (
-                        <button
-                            onClick={() => toggleExpand(product.id)}
-                            className="text-xs text-slate-800 mt-1 font-medium"
-                        >
-                            {isExpanded ? 'Ver menos' : 'Ver más'}
-                        </button>
-                    )}
+                    {(product.name.length > 20 ||
+                        (product.description?.length || 0) > 20) && (
+                            <button
+                                onClick={() => toggleExpand(product.id)}
+                                className="text-xs text-slate-800 mt-1 font-medium"
+                            >
+                                {isExpanded ? "Ver menos" : "Ver más"}
+                            </button>
+                        )}
                 </div>
 
                 {/* Points Sections */}

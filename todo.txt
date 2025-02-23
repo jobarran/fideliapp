@@ -11,10 +11,8 @@ register company verification (can upload products but is not seen by users and 
 fav bug in card in home
 
 TODAY:
-- add comments to transaction modals
 - best valued slider on home based on comments
 - Alert to client - New comment submitted
-- companies/product no image bug
 - Add stars to cards in see all
 
 client/id   - plan -> add tag

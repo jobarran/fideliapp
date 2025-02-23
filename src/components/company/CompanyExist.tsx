@@ -1,7 +1,6 @@
 import { Company, CompanyClientDashboard } from '@/interfaces';
 import Link from 'next/link';
 import React from 'react'
-import { CompanyLinkImage } from './CompanyLinkImage';
 import { Avatar, CompanyCard } from '..';
 
 interface Props {
