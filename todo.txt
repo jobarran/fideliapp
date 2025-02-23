@@ -16,8 +16,6 @@ TODAY:
 - Alert to client - New comment submitted
 - companies/product no image bug
 - Add stars to cards in see all
-- Que pasa cuando hay muchas alertas y aprieto el icono de alerta? se borran?
-- when open alert, seend all alerts to SEEN
 
 client/id   - plan -> add tag
             - /transaction/id create

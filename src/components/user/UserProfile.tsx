@@ -70,7 +70,7 @@ export const UserProfile = ({ user, hasCompany, selectedTab: initialTab, tabFilt
             case "tarjetas":
                 return <UserContentCards user={user} companies={companies} activityTypes={activityTypes} />;
             case "movimientos":
-                return <UserContentMovements transactions={transactions} loading={loading} tabFilter={tabFilter} />;
+                return <UserContentMovements transactions={transactions} loading={loading} tabFilter={tabFilter} userName={`${user.name} ${user.lastName}`} />;
             case "informacion":
                 return <UserContentInformation user={user} />;
             case "planes":

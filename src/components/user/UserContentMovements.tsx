@@ -13,12 +13,14 @@ interface Props {
   transactions: UserTransaction[];
   loading: boolean;
   tabFilter: string | undefined
+  userName: string
 }
 
 export const UserContentMovements = ({
   transactions,
   loading,
-  tabFilter
+  tabFilter,
+  userName
 }: Props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [transactionType, setTransactionType] = useState<'BUY' | 'REWARD' | 'MANUAL' | ''>('');
@@ -95,7 +97,7 @@ export const UserContentMovements = ({
         pointTransactionId,
         companyId: companyId || '', // Adjust if needed
         rating: ratings[comentingTransactionId] || 5,
-        comment: comments[comentingTransactionId] || 'No comment',
+        comment: comments[comentingTransactionId] || '',
       });
 
       setCommentingTransactionId(null); // Reset commenting state after success
@@ -187,6 +189,7 @@ export const UserContentMovements = ({
           setOpenMovementModal={setIsModalOpen}
           openMovementModal={isModalOpen}
           transaction={selectedTransaction}
+          clientName={userName}
         />
       )}
 

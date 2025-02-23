@@ -1,19 +1,23 @@
 'use client';
 
 import { CompanyTransaction, UserTransaction } from '@/interfaces/transacrion.interface';
+import { transactionStateTranslate, transactionTypeTranslate } from '@/utils';
 import React, { useRef } from 'react';
 import { IoCloseSharp } from 'react-icons/io5';
+import { FaStar, FaRegStar } from 'react-icons/fa';
 
 interface Props {
     setOpenMovementModal: (open: boolean) => void;
     openMovementModal: boolean;
     transaction: UserTransaction | CompanyTransaction;
+    clientName: string
 }
 
 export const MovementModal = ({
     setOpenMovementModal,
     openMovementModal,
-    transaction
+    transaction,
+    clientName
 }: Props) => {
     const modalRef = useRef<HTMLDivElement>(null);
 
@@ -51,33 +55,43 @@ export const MovementModal = ({
                         <IoCloseSharp />
                     </button>
 
+                    <div className="p-6 space-y-2">
+                        <h3 className="text-base font-semibold text-gray-800">Resumen</h3>
 
-                    <div className="p-6 space-y-4">
-
-
-                        <h3 className="text-lg font-semibold text-gray-800 mb-4">Resumen</h3>
-                        <div className="border-b border-gray-300 mb-2"></div>
-                        <div className="flex flex-row items-center mb-2">
-                            <p className="text-sm font-semibold text-gray-800 mr-2">Tipo de Transacción:</p>
-                            <p className="text-sm text-gray-700">{transaction.type}</p>
+                        <div className="border-b border-gray-300"></div>
+                        <div>
+                            <div className="flex flex-row items-center">
+                                <p className="text-sm font-semibold text-gray-800 mr-2">Negocio:</p>
+                                <p className="text-sm text-gray-700">{transaction.companyName}</p>
+                            </div>
+                            <div className="flex flex-row items-center">
+                                <p className="text-sm font-semibold text-gray-800 mr-2">Cliente:</p>
+                                <p className="text-sm text-gray-700">{clientName}</p>
+                            </div>
+                            <div className="flex flex-row items-center">
+                                <p className="text-sm font-semibold text-gray-800 mr-2">Tipo de Transacción:</p>
+                                <p className="text-sm text-gray-700">{transactionTypeTranslate(transaction.type)}</p>
+                            </div>
+                            <div className="flex flex-row items-center">
+                                <p className="text-sm font-semibold text-gray-800 mr-2">Estado:</p>
+                                <p className="text-sm text-gray-700">{transactionStateTranslate(transaction.state)}</p>
+                            </div>
                         </div>
-                        <div className="border-b border-gray-300 mb-2"></div>
 
-                        {transaction.type === 'MANUAL'
-                            ?
-                            <div className="flex flex-row items-center mb-2">
+                        {transaction.type === 'MANUAL' ? (
+                            <div className="flex flex-row items-center">
                                 <p className="text-sm font-semibold text-gray-800 mr-2">Detalle:</p>
                                 <p className="text-sm text-gray-700">{transaction.description}</p>
                             </div>
-                            :
+                        ) : (
                             <>
-                                <div className="flex justify-between border-b border-gray-300 pb-2 mb-2">
+                                <div className="flex justify-between border-b border-gray-300 pb-2">
                                     <span className="text-sm font-semibold text-gray-600 flex-grow">Producto/s</span>
                                     <span className="text-sm font-semibold text-gray-600 w-1/5 text-right">Cant.</span>
                                     <span className="text-sm font-semibold text-gray-600 w-1/5 text-right">Puntos</span>
                                     <span className="text-sm font-semibold text-gray-600 w-1/5 text-right">Total</span>
                                 </div>
-                                <ul className="text-sm text-gray-700 space-y-2 mb-4">
+                                <ul className="text-sm text-gray-700 space-y-2">
                                     {transaction.transactionProducts.map((product) => {
                                         const total = product.quantity * product.productPoints;
                                         return (
@@ -99,27 +113,48 @@ export const MovementModal = ({
                                     })}
                                 </ul>
                             </>
-                        }
-
-
-
-
+                        )}
 
                         <div className="border-t border-gray-300 pt-2"></div>
                         <div className="flex justify-between">
-                            <span className="text-sm font-semibold text-gray-800 justify-end text-right w-full">
-                                Total puntos {transaction.points}
-                            </span>
+                            <span className="text-sm text-gray-800">Total puntos:</span>
+                            <span className="text-sm text-gray-800 font-semibold">{transaction.points}</span>
+                        </div>
+
+                        <div className="border-t border-gray-300 pt-4">
+                            {transaction.companyReview ? (
+                                <>
+                                    {/* Render the rating */}
+                                    <div className="flex items-center space-x-2">
+                                        <div className="flex">
+                                            {Array.from({ length: 5 }).map((_, index) => (
+                                                <span key={index} className="text-slate-800">
+                                                    {index < (transaction.companyReview?.rating || 0) ? <FaStar /> : <FaRegStar />}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Render the comment if it exists */}
+                                    {transaction.companyReview?.comment && (
+                                        <div className="mt-2">
+                                            <p className="text-sm font-semibold text-gray-800">Comentarios:</p>
+                                            <p className="text-sm text-gray-700">{transaction.companyReview.comment}</p>
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <p className="text-sm text-gray-500">No hay comentarios disponibles</p>
+                            )}
                         </div>
 
                         <button
-                            className="w-full py-2 px-4 bg-slate-600 text-white hover:bg-slate-800 rounded-lg mt-4"
+                            className="w-full p-2 text-sm text-slate-800 hover:bg-slate-200 rounded-lg mt-4 border"
                             onClick={handleCloseModal}
                         >
                             Cerrar
                         </button>
                     </div>
-
                 </div>
             </div>
         </div>

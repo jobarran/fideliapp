@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { formatDate } from "../../utils/formatDate";
-import { formattedTime, getPointsColor, getTransactionTypeColor } from "@/utils";
+import { formattedTime, getPointsColor, getTransactionTypeColor, transactionTypeTranslate } from "@/utils";
 import { UserTransaction } from "@/interfaces/transacrion.interface";
 import { ClientContentMovementsDetail, UserContentMovementsRowBgComment, UserContentMovementsRowSmComment } from "..";
 import { FiMessageSquare, FiSave, FiStar, FiX } from "react-icons/fi";
@@ -39,6 +39,7 @@ export const UserContentMovementsRow = ({
     const typeColor = getTransactionTypeColor(transaction.type);
     const pointsColor = getPointsColor(transaction.points);
     const isCommented = transaction.companyReview !== null;
+    const isCancelled = transaction.state === "CANCELLED";
     const productNames = transaction.transactionProducts
         .map((item) => item.productName) // Extracting the 'name' property of each product
         .join(", "); // Joining the names into a single string, separated by commas
@@ -47,7 +48,9 @@ export const UserContentMovementsRow = ({
         <div
             className={`flex flex-row border rounded-lg mb-2 w-full transition-colors duration-300 ease-in-out ${isCommenting
                 ? "bg-slate-200"
-                : "bg-white text-slate-800"
+                : isCancelled
+                    ? "bg-red-50 text-slate-800"
+                    : "bg-white text-slate-800"
                 }`}
         >
             {isCommenting ? (
@@ -79,14 +82,14 @@ export const UserContentMovementsRow = ({
                     />
                 </div>
             ) : (
-                <div key={transaction.id} className="hover:bg-slate-50 w-full cursor-pointer" onClick={onClick}>
+                <div key={transaction.id} className={`${isCancelled ? 'hover:bg-red-100' : 'hover:bg-slate-50'} w-full cursor-pointer`} onClick={onClick}>
                     <div
                         className={`flex items-center grow w-full p-3 sm:p-3 sm:justify-between rounded-lg transition-all duration-500 h-16 relative overflow-hidden`}
                     >
                         <div className="flex flex-wrap w-full space-x-4"> {/* Allow wrapping for small screens */}
                             <ClientContentMovementsDetail
                                 label="Tipo"
-                                value={transaction.type}
+                                value={transactionTypeTranslate(transaction.type)}
                                 color={typeColor}
                                 width="sm:min-w-14"
                                 smScreenValue={transaction.type.substring(0, 1)}
@@ -133,22 +136,32 @@ export const UserContentMovementsRow = ({
                 </div>
             )}
 
-            {isCommented ? (
-                <button
-                    disabled
-                    onClick={() => onComment(transaction.id)}
-                    className="bg-slate-200 text-slate-800 text-base p-2 ml-auto rounded-e-lg items-center justify-center"
-                >
-                    <FaStar />
-                </button>
-            ) : (
-                <button
-                    onClick={() => onComment(transaction.id)}
-                    className="bg-slate-200 text-slate-800 text-base hover:bg-slate-800 hover:text-white p-2 ml-auto rounded-e-lg items-center justify-center"
-                >
-                    <FaRegStar />
-                </button>
-            )}
+            {
+                isCancelled
+                    ?
+                    <button
+                        disabled
+                        className="bg-red-200 text-red-800 text-base p-2 ml-auto rounded-e-lg items-center justify-center"
+                    >
+                        <FaStar />
+                    </button>
+                    :
+                    isCommented ? (
+                        <button
+                            disabled
+                            onClick={() => onComment(transaction.id)}
+                            className="bg-slate-200 text-slate-800 text-base p-2 ml-auto rounded-e-lg items-center justify-center"
+                        >
+                            <FaStar />
+                        </button>
+                    ) : (
+                        <button
+                            onClick={() => onComment(transaction.id)}
+                            className="bg-slate-200 text-slate-800 text-base hover:bg-slate-800 hover:text-white p-2 ml-auto rounded-e-lg items-center justify-center"
+                        >
+                            <FaRegStar />
+                        </button>
+                    )}
         </div>
     );
 };

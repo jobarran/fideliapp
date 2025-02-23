@@ -1,6 +1,8 @@
 "use client";
 
-import { CompanyContentNoCard } from '..';
+import { useLoginModal } from '@/hooks/useLoginModal';
+import { CompanyContentNoCard, LoginModal, NewAccountModal } from '..';
+import { useSession } from 'next-auth/react';
 
 interface Props {
     userCardForCompany: boolean;
@@ -12,18 +14,44 @@ interface Props {
 
 export const CompanyContentCard = ({ userCardForCompany, slug, companyName, companyColor, companyLogoUrl }: Props) => {
 
+    const { data } = useSession();
+    const { loginModal, toggleLoginModal, newAccountModal, toggleNewAccountModal } = useLoginModal();
 
     return (
         <div>
-            <div className="mt-4 mb-4">
-                <CompanyContentNoCard
-                    userCardForCompany={userCardForCompany}
-                    slug={slug}
-                    companyName={companyName}
-                    companyColor={companyColor}
-                    companyLogoUrl={companyLogoUrl}
-                />
-            </div>
+            <LoginModal
+                loginModal={loginModal}
+                setLoginModal={toggleLoginModal}
+                setNewAccountModal={toggleNewAccountModal}
+                uniqueId={"no-card"}
+            />
+            <NewAccountModal
+                newAccountModal={newAccountModal}
+                setNewAccountModal={toggleNewAccountModal}
+            />
+            {
+                data?.user ? (
+                    <CompanyContentNoCard
+                        userCardForCompany={userCardForCompany}
+                        slug={slug}
+                        companyName={companyName}
+                        companyColor={companyColor}
+                        companyLogoUrl={companyLogoUrl}
+                    />
+                ) : (
+                    <div className="text-center">
+                        <p className="text-sm text-gray-600 italic">
+                            Tenés que estar registrado para ver tus movimientos
+                        </p>
+                        <button
+                            className="mt-4 text-sm bg-slate-800 text-white py-2 px-4 rounded-md hover:bg-slate-700"
+                            onClick={toggleLoginModal}
+                        >
+                            Iniciar sesión
+                        </button>
+                    </div>
+                )
+            }
 
             {userCardForCompany && (
                 <div className="flex justify-between items-center mt-1 mb-4">

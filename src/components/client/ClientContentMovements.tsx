@@ -126,6 +126,7 @@ export const ClientContentMovements = ({ transactions, userId }: Props) => {
                     setOpenMovementModal={setIsModalOpen}
                     openMovementModal={isModalOpen}
                     transaction={selectedTransaction}
+                    clientName={`${selectedTransaction.clientName} ${selectedTransaction.clientLastName}`}
                 />
             )}
 

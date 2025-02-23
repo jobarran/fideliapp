@@ -60,6 +60,7 @@ export const TopMenu = ({
   const handleDeleteAll = async () => {
     if (user?.id) {
       const response = await manageUserAlerts(user.id, "deleteAll");
+      setIsAlertDropdownOpen(false);
     }
   };
 
