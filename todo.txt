@@ -18,6 +18,9 @@ TODAY:
 - mark alerts as seen (keep them on inbox)
 - best valued slider on home based on comments
 - Show COMMENTS modal after transaction OK
+- Alert to client - New comment submitted
+- Filter reviews
+- companies / movements input filter by product name add +
 
 client/id   - plan -> add tag
             - /transaction/id create

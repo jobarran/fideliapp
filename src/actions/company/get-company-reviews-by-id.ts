@@ -28,6 +28,9 @@ export const getCompanyReviewsByCompanyId = async (companyId: string) => {
                         }
                     }
                 }
+            },
+            orderBy: {
+                createdAt: 'desc',
             }
         });
 

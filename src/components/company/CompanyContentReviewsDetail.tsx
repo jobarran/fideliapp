@@ -18,14 +18,14 @@ export const CompanyContentReviewsDetail = ({ pointTransaction }: Props) => {
     return (
         <div className={`mt-2 border p-2 rounded-md ${!isExpanded ? 'hover:bg-slate-50' : ''}`}>
             <div
-                className="cursor-pointer text-xs text-slate-600 font-medium flex justify-end w-full hover:text-slate-900"
+                className="cursor-pointer text-xs text-slate-600 font-medium flex justify-end md:justify-center w-full hover:text-slate-900"
                 onClick={() => setIsExpanded(!isExpanded)}
             >
                 {isExpanded ? 'Ocultar detalles' : 'Ver detalles'}
             </div>
 
             {isExpanded && (
-                <div className="mt-2 space-y-2">
+                <div className="p-1 space-y-2">
                     <p className="text-xs text-gray-700">
                         <span className="font-medium text-gray-800">Tipo de transacción:</span>{' '}
                         {pointTransaction.type}
