@@ -113,7 +113,7 @@ export const CompanyContentReviews = ({ reviews }: Props) => {
 
                         {/* Comment */}
                         <p className="mt-2 text-sm text-gray-600 italic">
-                            "{review.comment || 'No tiene comentarios'}"
+                            {review.comment || 'No tiene comentarios'}
                         </p>
 
                         {/* Point Transaction Details */}
