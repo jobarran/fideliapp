@@ -5,9 +5,9 @@ import { LoginModal } from "./LoginModal";
 import { AlertsDropdownMenu, NewAccountModal, SearchCompany, TopMenuCompanyLink, UserDropdownMenu } from "@/components";
 import Link from "next/link";
 import { useLoginModal } from "@/hooks/useLoginModal";
-import { updateAlertToSeenById } from "@/actions";
+import { deleteAlertById, manageUserAlerts, updateAlertToSeenByIds } from "@/actions";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   user: User | null;
@@ -32,18 +32,35 @@ export const TopMenu = ({
   const handleAlertClick = (alertId: string, alertType: string) => {
     // Check if the alert type is 'COMMENT_PENDING'
     if (alertType === 'COMMENT_PENDING') {
-      // Assuming the user ID is available from the user object
       const userId = user?.id;
       if (userId) {
-        router.push(`/user/${userId}?tab=movimientos&commentFilter=NO_COMMENT`)
+        setIsAlertDropdownOpen(false);
+        updateAlertToSeenByIds(alertId);
+        router.push(`/user/${userId}?tab=movimientos&commentFilter=NO_COMMENT`);
       }
     }
-    setIsAlertDropdownOpen(false)
-    updateAlertToSeenById(alertId)
   };
 
   const handleAlertDelete = (alertId: string) => {
-    updateAlertToSeenById(alertId)
+    deleteAlertById(alertId)
+  };
+
+  const handleDeleteAllSeen = async () => {
+    if (user?.id) {
+      const response = await manageUserAlerts(user.id, "deleteAllSeen");
+    }
+  };
+
+  const handleMarkAllAsSeen = async () => {
+    if (user?.id) {
+      const response = await manageUserAlerts(user.id, "markAllAsSeen");
+    }
+  };
+
+  const handleDeleteAll = async () => {
+    if (user?.id) {
+      const response = await manageUserAlerts(user.id, "deleteAll");
+    }
   };
 
   return (
@@ -80,6 +97,9 @@ export const TopMenu = ({
             handleDeleteAlert={handleAlertDelete}
             setIsAlertDropdownOpen={setIsAlertDropdownOpen}
             isAlertDropdownOpen={isAlertDropdownOpen}
+            handleDeleteAllSeen={handleDeleteAllSeen}
+            handleMarkAllAsSeen={handleMarkAllAsSeen}
+            handleDeleteAll={handleDeleteAll}
           />
           {user ? (
             <UserDropdownMenu userName={user.name} userId={user.id} userLastName={user.lastName} />

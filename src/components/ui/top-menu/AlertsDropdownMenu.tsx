@@ -1,15 +1,18 @@
 'use client';
 import { Alert } from "@/interfaces";
-import { useState, useRef, useEffect, SetStateAction, Dispatch } from "react";
-import { FiBell, FiMessageCircle, FiStar, FiX } from "react-icons/fi"; // Added FiMessageCircle for comment icon
+import { useState, useRef, useEffect } from "react";
+import { FiBell, FiStar, FiX } from "react-icons/fi"; // Removed unused imports
 
 interface AlertsDropdownProps {
   unseenAlerts?: number;
   alerts?: Alert[];
   onAlertClick: (alertId: string, alertType: string) => void;
-  handleDeleteAlert: (alertId: string) => void; // Added a delete function
-  setIsAlertDropdownOpen: (isAlertDropdownOpen: boolean) => void
-  isAlertDropdownOpen: boolean
+  handleDeleteAlert: (alertId: string) => void;
+  setIsAlertDropdownOpen: (isAlertDropdownOpen: boolean) => void;
+  isAlertDropdownOpen: boolean;
+  handleDeleteAllSeen: () => void; // Added a handler for deleting all seen alerts
+  handleMarkAllAsSeen: () => void; // Added a handler for marking all alerts as seen
+  handleDeleteAll: () => void; // Added a handler for deleting all alerts
 }
 
 export const AlertsDropdownMenu = ({
@@ -18,7 +21,10 @@ export const AlertsDropdownMenu = ({
   onAlertClick,
   handleDeleteAlert,
   setIsAlertDropdownOpen,
-  isAlertDropdownOpen
+  isAlertDropdownOpen,
+  handleDeleteAllSeen,
+  handleMarkAllAsSeen,
+  handleDeleteAll
 }: AlertsDropdownProps) => {
 
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -42,10 +48,6 @@ export const AlertsDropdownMenu = ({
     };
   }, [setIsAlertDropdownOpen]);
 
-  // Handle adding a comment (currently just logs the action)
-  const handleAddComment = (companyName: string) => {
-  };
-
   return (
     <div className="relative" ref={dropdownRef}>
       <button
@@ -67,7 +69,8 @@ export const AlertsDropdownMenu = ({
               alerts.map((alert) => (
                 <li
                   key={alert.id}
-                  className="flex items-center p-2 hover:bg-gray-100 cursor-pointer"
+                  className={`flex items-center p-2 hover:bg-gray-100 cursor-pointer ${alert.status === "NOT_SEEN" ? "bg-slate-100 border-l-4 border-slate-500" : ""
+                    }`} // Highlighting NOT_SEEN alerts
                   onClick={() => {
                     if (onAlertClick) onAlertClick(alert.id, alert.type);
                   }}
@@ -81,7 +84,6 @@ export const AlertsDropdownMenu = ({
                       </span>
                     </p>
                   </div>
-
 
                   {/* Delete button ('x') */}
                   <button
@@ -98,10 +100,35 @@ export const AlertsDropdownMenu = ({
               ))
             ) : (
               <li className="p-2 text-xs text-gray-500">
-                No tienes notificaciones
+                No tienes notificaciones nuevas
               </li>
             )}
           </ul>
+
+          {/* Options for deleting/marking all alerts */}
+          {/* Options for deleting/marking all alerts, only shown if there are alerts */}
+          {alerts.length > 0 && (
+            <div className="flex justify-between items-center p-2 text-xs text-slate-500">
+              <button
+                onClick={handleDeleteAllSeen}
+                className="hover:text-red-600"
+              >
+                Eliminar vistas
+              </button>
+              <button
+                onClick={handleMarkAllAsSeen}
+                className="hover:text-slate-800"
+              >
+                Marcar como visto
+              </button>
+              <button
+                onClick={handleDeleteAll}
+                className="hover:text-red-600"
+              >
+                Eliminar todo
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

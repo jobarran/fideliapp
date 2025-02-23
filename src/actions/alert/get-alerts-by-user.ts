@@ -4,7 +4,7 @@ import { auth } from '@/auth.config';
 import { Alert } from '@/interfaces';
 import prisma from '@/lib/prisma';
 
-export const getUnseenAlertsByUser  = async (userId: string): Promise<{
+export const getAlertsByUser = async (userId: string): Promise<{
   ok: boolean;
   message?: string;
   alerts?: Alert[];
@@ -22,8 +22,15 @@ export const getUnseenAlertsByUser  = async (userId: string): Promise<{
     const alerts = await prisma.alert.findMany({
       where: {
         userId,
-        status: "NOT_SEEN",
+        status: {
+          in: ["SEEN", "NOT_SEEN"],
+        },
       },
+      orderBy: [
+        { status: 'asc' },  // Sort by 'NOT_SEEN' first (since 'asc' puts 'NOT_SEEN' before 'SEEN')
+        { createdAt: 'desc' },  // Then sort by the most recent alerts first
+      ],
+      take: 10,  // Limit to the first 10 alerts
       select: {
         id: true,
         type: true,
