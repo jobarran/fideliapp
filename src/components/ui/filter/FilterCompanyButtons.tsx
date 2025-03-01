@@ -8,9 +8,10 @@ interface Props {
   setFilterModalData: React.Dispatch<React.SetStateAction<boolean>>;
   handleSortChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   setSortBy: React.Dispatch<React.SetStateAction<"rating" | "distance" | "">>;
+  sortBy: string
 }
 
-export const FilterCompanyButtons = ({ filters, handleClearFilters, setFilterModalData, handleSortChange, setSortBy }: Props) => {
+export const FilterCompanyButtons = ({ filters, handleClearFilters, setFilterModalData, handleSortChange, setSortBy, sortBy }: Props) => {
   // Check if any filters are applied
   const isAnyFilterApplied = filters.name !== '' || filters.activityTypeId.length > 0;
 
@@ -56,12 +57,11 @@ export const FilterCompanyButtons = ({ filters, handleClearFilters, setFilterMod
 
 
 
-
         {/* Sort Icon for Small Screens */}
         <div className="sm:hidden flex gap-2 w-full">
           <button
             onClick={() => setSortBy("rating")}
-            className="flex items-center px-3 py-2 rounded-md border hover:bg-gray-200 focus:outline-none w-1/4 justify-center"
+            className={`flex items-center px-3 py-2 rounded-md border hover:bg-gray-200 focus:outline-none w-1/4 justify-center ${sortBy === 'rating' ? 'bg-gray-200' : ''}`}
             aria-label="Ordenar por mejor valoradas"
           >
             <MdStar className="w-5 h-5 text-gray-600" aria-hidden="true" />
@@ -69,7 +69,7 @@ export const FilterCompanyButtons = ({ filters, handleClearFilters, setFilterMod
 
           <button
             onClick={() => setSortBy("distance")}
-            className="flex items-center px-3 py-2 rounded-md border hover:bg-gray-200 focus:outline-none w-1/4 justify-center"
+            className={`flex items-center px-3 py-2 rounded-md border hover:bg-gray-200 focus:outline-none w-1/4 justify-center ${sortBy === 'distance' ? 'bg-gray-200' : ''}`}
             aria-label="Ordenar por más cercanos"
           >
             <MdLocationOn className="w-5 h-5 text-gray-600" aria-hidden="true" />

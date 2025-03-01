@@ -10,9 +10,10 @@ interface Props {
     activityTypes: ActivityType[];
     clearFilters: () => void;
     setSortBy: React.Dispatch<React.SetStateAction<"rating" | "distance" | "">>;  // Allow empty string as well
+    sortBy: string
 }
 
-export const FilterCompaniesComponent = ({ filters, setFilters, activityTypes, clearFilters, setSortBy }: Props) => {
+export const FilterCompaniesComponent = ({ filters, setFilters, activityTypes, clearFilters, setSortBy, sortBy }: Props) => {
     const [filterModalData, setSetFilterModalData] = useState(false);
 
     const handleInputChange = (name: keyof CompanyFilters, value: string | string[]) => {
@@ -58,6 +59,7 @@ export const FilterCompaniesComponent = ({ filters, setFilters, activityTypes, c
                 handleClearFilters={handleClearFilters}
                 handleSortChange={handleSortChange}
                 setSortBy={setSortBy}
+                sortBy={sortBy}
             />
         </div>
     );

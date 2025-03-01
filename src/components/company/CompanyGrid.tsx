@@ -67,6 +67,7 @@ export const CompanyGrid = ({ companies, activityTypes, search, companyIdByUserC
         clearFilters={clearFilters}
         activityTypes={activityTypes}
         setSortBy={setSortBy}
+        sortBy={sortBy}
       />
 
       <div>
