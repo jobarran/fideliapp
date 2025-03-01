@@ -17,7 +17,6 @@ export interface SeedCompany {
   name: string;
   activityType: string;
   backgroundColor: string;
-  acceptReferral: boolean;
   address: string;
   lat: number;
   lng: number;
@@ -125,7 +124,6 @@ export const initialData: SeedData = {
       name: 'Bakery',
       activityType: 'Cafe',
       backgroundColor: '#B04E5A',
-      acceptReferral: true,
       address: 'Elcano 3288',
       lat: -34.574088289446046,
       lng: -58.45966730369283,
@@ -138,7 +136,6 @@ export const initialData: SeedData = {
       name: 'Crisol',
       activityType: 'Cafe',
       backgroundColor: '#6B8E68',
-      acceptReferral: true,
       address: 'Cap. Gral. Ramón Freire 1502',
       lat: -34.57249502027996,
       lng: -58.458076927227566,
@@ -151,7 +148,6 @@ export const initialData: SeedData = {
       name: 'Gorrion',
       activityType: 'Cafe',
       backgroundColor: '#4F4F4F',
-      acceptReferral: true,
       address: 'Superi 1408',
       lat: -34.57430294810942,
       lng: -58.45943326844991,
@@ -164,7 +160,6 @@ export const initialData: SeedData = {
       name: 'Nucha',
       activityType: 'Cafe',
       backgroundColor: '#B04E5A',
-      acceptReferral: true,
       address: 'Av de los Incas 3390',
       lat: -34.573443693251036,
       lng: -58.46138831585131,
@@ -177,7 +172,6 @@ export const initialData: SeedData = {
       name: 'Havanna',
       activityType: 'Cafe',
       backgroundColor: '#C2B784',
-      acceptReferral: true,
       address: 'Av. Elcano 3335',
       lat: -34.574565726063355,
       lng: -58.4599945443418,
@@ -190,7 +184,6 @@ export const initialData: SeedData = {
       name: 'Verdin',
       activityType: 'Cafe',
       backgroundColor: '#6B8E68',
-      acceptReferral: true,
       address: 'Zapiola 1514',
       lat: -34.571358100310945,
       lng: -58.45741688473838,
@@ -203,7 +196,6 @@ export const initialData: SeedData = {
       name: 'Cafe Martinez',
       activityType: 'Cafe',
       backgroundColor: '#6B8E68',
-      acceptReferral: true,
       address: 'Virrey del Pino 2765',
       lat: -34.56819122099298,
       lng: -58.456108349971444,
@@ -216,7 +208,6 @@ export const initialData: SeedData = {
       name: 'Starbucks',
       activityType: 'Cafe',
       backgroundColor: '#6B8E68',
-      acceptReferral: true,
       address: 'Ecano 3179',
       lat: -34.57285671084644,
       lng: -58.459497088479445,
@@ -229,7 +220,6 @@ export const initialData: SeedData = {
       name: 'Tienda de cafe',
       activityType: 'Cafe',
       backgroundColor: '#4F4F4F',
-      acceptReferral: true,
       address: 'Elcano 3189',
       lat: -34.57303351952609,
       lng: -58.45963808780269,

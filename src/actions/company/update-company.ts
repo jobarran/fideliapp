@@ -11,9 +11,10 @@ cloudinary.config(process.env.CLOUDINARY_URL ?? '');
 
 const companySchema = z.object({
     id: z.string().uuid().optional().nullable(),
-    name: z.string().min(3).max(255),
+    name: z.string().min(1).max(255),
     slug: z.string().min(3).max(255),
     activityTypeId: z.string().uuid(),
+    description: z.string().min(3).max(1000),
     backgroundColor: z.string().min(3).max(255),
     address: z.string().min(3).max(255),
     lat: z.preprocess((val) => parseFloat(val as string), z.number()),
@@ -65,7 +66,7 @@ export const updateCompany = async (editedCompany: CompanyClientDashboard) => {
                     backgroundColor: rest.backgroundColor,
                     activityTypeId: editedCompany.activityType.id,
                     openHours: openHours,
-                    acceptReferral: editedCompany.acceptReferral
+                    description: rest.description
                 }
             });
 

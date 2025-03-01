@@ -17,16 +17,11 @@ Rename App
 - Alert to client - New comment submitted
 - user/[id] - "Tarjetas" -> Whe no card, it show "No tenés tarjetas disponibles..." 2 times
 - client/[id] - "Movimientos" -> MovementModal dont display comments
-- companies/[slug] - Remove "Tarjeta" ?
-- companies/[slug] - "Informacion" -> Add text description
-- client/[id] - "Informacion" -> Add text description
-- Add text description to company register form
-- Add "intereses" to user register form
-- user/[id] - "Informacion" -> add intereses
-- home -> Cambiar "Nuevos" por "Mejor valorados"
-- home -> Cambiar "Recomendados" por "Recomendados para vos" (intereses)
-- user/[id] - Remove "planes"
-- client/[id] - Add "planes" (by transaction, by month, by year, Freemium/Premium)
 - client/[id] - Create ProductModal for editing
+- footer content
+- email validation
+- Forgot password
+
+------------------------------------------
 
 - Lighthouse Report

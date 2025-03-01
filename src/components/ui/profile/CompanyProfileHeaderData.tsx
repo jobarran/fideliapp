@@ -1,7 +1,7 @@
 'use client';
 
-import React, { SetStateAction, useState } from 'react'
-import { CompanyClientDashboard, Pin } from '@/interfaces';
+import React, { useState } from 'react';
+import { CompanyClientDashboard } from '@/interfaces';
 import { ProfileHeaderLogo } from '@/components';
 import { FaCheck, FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { IoTicketOutline } from 'react-icons/io5';
@@ -9,13 +9,13 @@ import { favouriteCard } from '@/actions';
 import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
 
 interface Props {
-    company: CompanyClientDashboard
+    company: CompanyClientDashboard;
     setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-    userCardForCompany: boolean
-    cardPoints: number | undefined
-    favorite: boolean | undefined
-    cardId: string | undefined
-    isUpdatingPoints: boolean
+    userCardForCompany: boolean;
+    cardPoints: number | undefined;
+    favorite: boolean | undefined;
+    cardId: string | undefined;
+    isUpdatingPoints: boolean;
 }
 
 export const CompanyProfileHeaderData = ({
@@ -32,9 +32,7 @@ export const CompanyProfileHeaderData = ({
     // Function to toggle favorite status
     const toggleFavourite = async () => {
         try {
-            // Call the backend function to update the favorite status
             cardId && await favouriteCard(cardId, !isFavorite);
-            // Update the local state after a successful update
             setIsFavorite(!isFavorite);
         } catch (error) {
             console.error("Error updating favorite status:", error);
@@ -125,17 +123,24 @@ export const CompanyProfileHeaderData = ({
                     </div>
                 )}
 
-                {/* Add stars for rating */}
-                {company.averageRating && (
-                    <div className="mt-2 flex items-center justify-center text-sm">
-                        <div className="flex items-center">
-                            {generateStars(company.averageRating)}
-                        </div>
-                        <span className="ml-2 text-slate-600">({company.averageRating.toFixed(1)})</span>
+                {/* Add stars for rating or show 5 empty stars if no rating */}
+                <div className="mt-2 flex items-center justify-center text-sm">
+                    <div className="flex items-center">
+                        {company.averageRating && company.averageRating > 0 ? (
+                            generateStars(company.averageRating)
+                        ) : (
+                            // Display 5 empty stars if no reviews yet
+                            Array.from({ length: 5 }).map((_, index) => (
+                                <FaRegStar key={index} className="h-4 w-4 mx-0.5 text-slate-200" />
+                            ))
+                        )}
                     </div>
-                )}
-
-
+                    <span className="ml-2 text-slate-600">
+                        {company.averageRating && company.averageRating > 0
+                            ? `(${company.averageRating.toFixed(1)})`
+                            : ''}
+                    </span>
+                </div>
             </div>
         </div>
     );

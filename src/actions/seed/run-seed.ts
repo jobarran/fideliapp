@@ -117,7 +117,6 @@ export const runSeed = async () => {
                             slug: slug,
                             activityTypeId: activityTypeMap[companyData.activityType],
                             backgroundColor: companyData.backgroundColor,
-                            acceptReferral: companyData.acceptReferral,
                             address: companyData.address,
                             lat: companyData.lat,
                             lng: companyData.lng,

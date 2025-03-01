@@ -79,14 +79,14 @@ model Company {
   id              String  @id @default(uuid())
   name            String
   backgroundColor String
-  acceptReferral  Boolean @default(false)
   active          Boolean @default(true)
   address         String
+  description     String?
   slug            String  @unique
   lat             Float?
   lng             Float?
   openHours       Json
-  averageRating   Float   @default(0) 
+  averageRating   Float   @default(0)
 
   // Relations - Down
   Products      Product[]

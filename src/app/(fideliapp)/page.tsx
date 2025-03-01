@@ -1,5 +1,5 @@
 import { getAllCardsByUser, getAllCompanies, getAllRewards } from "@/actions";
-import { ActivityTypeGrid, CompanyCloserSlider, CompanyRecommendedSlider, HowItWorks, PopularRewardsSlider, SearchCompanySmallScreen, SliderHeader, UserCardSlider } from '@/components';
+import { ActivityTypeGrid, CompanyCloserSlider, CompanyRecommendedSlider, HowItWorks, PopularRewardsSlider, SearchCompanySmallScreen, UserCardSlider } from '@/components';
 import { UserCard } from "@/interfaces";
 import { auth } from "@/auth.config";
 
@@ -32,8 +32,6 @@ export default async function Home() {
       <PopularRewardsSlider popularRewards={rewards} />
 
       <CompanyRecommendedSlider companiesAll={companies} />
-
-      <SliderHeader label={'Nuevos'} href={'/'} seeAllLabel={'Ver todos'} />
 
       <HowItWorks />
 

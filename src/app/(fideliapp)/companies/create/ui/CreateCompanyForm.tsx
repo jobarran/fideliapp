@@ -20,7 +20,6 @@ interface DayHours {
 type FormInputs = {
   name: string;
   backgroundColor: string;
-  acceptReferral: boolean;
   address: string;
   slug: string;
   lat: number;
@@ -28,7 +27,8 @@ type FormInputs = {
   openHours: string;
   activityTypeId: string;
   logo?: FileList | undefined;
-  active: true
+  active: true;
+  description: string
 };
 
 interface Props {
@@ -59,14 +59,14 @@ export const CreateCompanyForm = ({ userId }: Props) => {
     defaultValues: {
       name: '',
       backgroundColor: selectedColor,
-      acceptReferral: false,
       address: '',
       slug: '',
       lat: 0,
       lng: 0,
       openHours: '',
       activityTypeId: '',
-      active: true
+      active: true,
+      description: ''
     }
   });
 
@@ -113,7 +113,8 @@ export const CreateCompanyForm = ({ userId }: Props) => {
     formData.append("lng", lng.toString());
     formData.append("openHours", JSON.stringify(openHours)); // Serialize to JSON string
     formData.append("slug", slug);
-    formData.append("acceptReferral", companyToSave.acceptReferral ? "true" : "false");
+    formData.append("description", companyToSave.description);
+
 
     if (logo && logo.length > 0) {
       formData.append('logo', logo[0]);

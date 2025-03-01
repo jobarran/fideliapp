@@ -25,7 +25,7 @@ export const CompanyRecommendedSlider = ({ companiesAll }: Props) => {
 
     return (
         <div>
-            <SliderHeader label={'Recomendados'} href={'/companies'} seeAllLabel={'Ver todos'} />
+            <SliderHeader label={'Destacados'} href={'/companies'} seeAllLabel={'Ver todos'} />
             {bestCompanyRating.length > 0 ? (
                 <BaseSlider
                     data={bestCompanyRating}

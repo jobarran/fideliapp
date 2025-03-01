@@ -10,7 +10,8 @@ cloudinary.config(process.env.CLOUDINARY_URL ?? '');
 
 const companySchema = z.object({
     id: z.string().uuid().optional().nullable(),
-    name: z.string().min(3).max(255),
+    name: z.string().min(1).max(255),
+    description: z.string().min(3).max(1000),
     slug: z.string().min(3).max(255),
     activityTypeId: z.string().uuid(),
     backgroundColor: z.string().min(3).max(255),
@@ -26,25 +27,28 @@ const companySchema = z.object({
 
 export const registerCompany = async (formData: FormData) => {
 
+    
     const session = await auth();
     const userId = session?.user.id;
-
+    
     // Use a Record type to ensure types are correctly asserted
     const data: Record<string, FormDataEntryValue> = Object.fromEntries(formData);
-
+    
+    
     // Parse openHours from JSON string back to an object if it exists
     if (data.openHours) {
         data.openHours = JSON.parse(data.openHours as string);
     }
-
+    
     const companyParsed = companySchema.safeParse(data);
-
+    
     if (!companyParsed.success) {
         return { ok: false };
     }
-
+    
     const companyData = companyParsed.data;
-
+    
+    
     const { openHours, slug, ...rest } = companyData; // Destructure and remove `id`
 
     if (!userId) {
@@ -77,7 +81,8 @@ export const registerCompany = async (formData: FormData) => {
                 lat: rest.lat,
                 lng: rest.lng,
                 activityTypeId: rest.activityTypeId,
-                openHours: openHours
+                openHours: openHours,
+                description: rest.description
             }
         });
 

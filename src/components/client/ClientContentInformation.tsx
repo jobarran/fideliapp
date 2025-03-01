@@ -5,7 +5,7 @@ import { colorOptions, defaultOpenHours } from '@/config';
 import { CompanyClientDashboard, DayHours } from '@/interfaces';
 import { formatAddress } from '@/utils';
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActionButton, CheckboxField, ColorPicker, DeleteWarningModal, OpenHoursSection, SelectField, TextField } from '..';
+import { ActionButton, CheckboxField, ColorPicker, DeleteWarningModal, OpenHoursSection, SelectField, TextArea, TextField } from '..';
 import { useRouter } from 'next/navigation';
 import { FaBan, FaCheck, FaRegTrashCan } from 'react-icons/fa6';
 import { ActiveWarningModal } from '../ui/modals/ActiveWarningModal';
@@ -45,12 +45,25 @@ export const ClientContentInformation = ({ company }: Props) => {
         setIsEditing((prev) => !prev);
     }, [isEditing, editedCompany]);
 
-    const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>, field: keyof EditedCompany) => {
+    const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: keyof EditedCompany) => {
         setEditedCompany((prevState) => ({
             ...prevState,
             [field]: e.target.value,
         }));
     }, []);
+
+    const handleDescriptionChange = useCallback(
+        (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+            const { value } = e.target;
+            if (value.length <= 1000) {
+                setEditedCompany((prevState) => ({
+                    ...prevState,
+                    description: value,
+                }));
+            }
+        },
+        []
+    );
 
     const handleSelectChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedType = activityTypes.find((type) => type.id === e.target.value);
@@ -114,7 +127,15 @@ export const ClientContentInformation = ({ company }: Props) => {
 
     return (
         <div>
-
+            <TextArea
+                label="Descripción"
+                value={editedCompany.description || ''}
+                onChange={handleDescriptionChange} 
+                disabled={!isEditing}
+                divClassName='grid grid-cols-1 gap-4 items-center mb-4 text-sm text-slate-600 resize-none overflow-auto'
+                labelClassName='font-medium hidden sm:flex'
+                inputClassName='border p-1 col-span-2 rounded'
+            />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                 <div className='text-sm'>
                     <TextField
@@ -147,16 +168,6 @@ export const ClientContentInformation = ({ company }: Props) => {
                         divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
                         labelClassName='font-medium hidden sm:flex'
                         selectClassName='input border col-span-2 p-1 rounded'
-                    />
-
-                    <CheckboxField
-                        label="Acepta referidos"
-                        checked={editedCompany.acceptReferral}
-                        onChange={() => setEditedCompany((prev) => ({ ...prev, acceptReferral: !prev.acceptReferral }))}
-                        disabled={!isEditing}
-                        divClassName='flex sm:grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
-                        labelClassName='font-medium mr-2'
-                        inputClassName='w-4 h-4 col-span-2'
                     />
 
                     <ColorPicker
@@ -193,10 +204,10 @@ export const ClientContentInformation = ({ company }: Props) => {
                 <div className='flex justify-start'>
                     <button
                         onClick={() => handleEditClick()}
-                        className={` text-xs py-1 px-2 rounded-lg border border-slate-200 ${isEditing ? 'bg-slate-800 text-slate-100' : 'text-slate-800 hover:bg-slate-100'}`}
+                        className={` text-xs py-1 px-2 rounded-lg border border-slate-200 ${isEditing ? 'bg-slate-800 text-slate-100' : 'text-slate-500 hover:bg-slate-100'}`}
                     >
                         <span className='flex gap-2 p-1'>
-                            <p className='text-sm'>{isEditing ? 'Guardar' : 'Editar'}</p><span className='text-base'>{isEditing ? <FaRegSave className='hidden sm:block'/> : <FaRegEdit className='hidden sm:block'/>}</span>
+                            <p className='text-sm'>{isEditing ? 'Guardar' : 'Editar'}</p><span className='text-base'>{isEditing ? <FaRegSave className='hidden sm:block' /> : <FaRegEdit className='hidden sm:block' />}</span>
                         </span>
                     </button>
                 </div>
@@ -207,7 +218,7 @@ export const ClientContentInformation = ({ company }: Props) => {
                     buttonBgColor={''}
                     buttonTextColor={'text-slate-500'}
                     buttonHoverColor={'hover:bg-slate-100 border border-slate-200'}
-                    buttonIcon={isActive ? <FaBan className='hidden sm:block' /> : <FaCheck className='hidden sm:block'/>}
+                    buttonIcon={isActive ? <FaBan className='hidden sm:block' /> : <FaCheck className='hidden sm:block' />}
                     buttonPossition='justify-start'
                     modalLabel='Atención!'
                     content={
@@ -220,7 +231,7 @@ export const ClientContentInformation = ({ company }: Props) => {
                     cancelButton={'Cancelar'}
                 />
 
-                <DeleteWarningModal
+                {/* <DeleteWarningModal
                     buttonLabel={'Eliminar negocio'}
                     buttonBgColor={''}
                     buttonTextColor={'text-red-600'}
@@ -232,7 +243,8 @@ export const ClientContentInformation = ({ company }: Props) => {
                     contentAction={handleDeleteCompany}
                     acceptButton={'Eliminar'}
                     cancelButton={'Cancelar'}
-                />
+                /> */}
+
             </div>
 
 

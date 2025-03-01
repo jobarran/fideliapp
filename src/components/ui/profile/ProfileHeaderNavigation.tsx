@@ -17,7 +17,7 @@ export const ProfileHeaderNavigation = ({ handleTabChange, selectedTab, profileT
     const linkLabel = profileType === 'user' ? "Negocio" : "Usuario";
 
     return (
-        <ul className="flex flex-row sm:flex-wrap items-center sm:items-stretch w-full justify-between sm:justify-normal list-none overflow-hidden">
+        <ul className={`flex flex-row sm:flex-wrap items-center sm:items-stretch w-full justify-between sm:justify-normal list-none overflow-hidden ${profileType === 'user' ? "px-8 sm:px-0" : ""}`}>
             {navItems.map((item, index) => (
                 <li className="flex items-center" key={item.id}>
                     <a

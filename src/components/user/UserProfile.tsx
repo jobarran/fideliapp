@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ProfileContent, ProfileHeader, UserContentMovements, UserContentInformation, UserContentPlans, UserContentCards } from "..";
+import { ProfileContent, ProfileHeader, UserContentMovements, UserContentInformation, UserContentCards } from "..";
 import { ActivityType, Company, UserProfileData } from "@/interfaces";
 import { userNavItems } from "@/config";
 import { UserTransaction } from "@/interfaces/transacrion.interface";
@@ -73,8 +73,6 @@ export const UserProfile = ({ user, hasCompany, selectedTab: initialTab, tabFilt
                 return <UserContentMovements transactions={transactions} loading={loading} tabFilter={tabFilter} userName={`${user.name} ${user.lastName}`} />;
             case "informacion":
                 return <UserContentInformation user={user} />;
-            case "planes":
-                return <UserContentPlans user={user} />;
             default:
                 return <UserContentCards user={user} companies={companies} activityTypes={activityTypes} />; // Fallback to the first tab content
         }

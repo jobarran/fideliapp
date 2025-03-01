@@ -15,22 +15,22 @@ export const AddProductForm: FC<ProductDetailsProps> = ({ register, isValid, sub
             {/* Product Details section */}
             <div className="flex-1 mb-4 md:mr-4">
                 <div className="mb-4">
-                    <label className="block mb-1" htmlFor="name">Name</label>
+                    <label className="block mb-1" htmlFor="name">Nombre</label>
                     <input
                         {...register("name", { required: true })}
                         type="text"
                         id="name"
                         className={`border rounded p-2 w-full ${submitted && !isValid ? 'border-red-500' : 'border-gray-300'}`} // Apply red border conditionally
-                        placeholder="Enter product name"
+                        placeholder="Nombre del producto o servicio"
                     />
                 </div>
                 <div className="mb-2">
-                    <label className="block mb-1" htmlFor="description">Description</label>
+                    <label className="block mb-1" htmlFor="description">Descripción</label>
                     <textarea
                         {...register("description", { required: false })}
                         id="description"
                         className={`border rounded p-2 w-full`}
-                        placeholder="Enter product description"
+                        placeholder="Descripción del producto o servicio"
                     ></textarea>
                 </div>
                 <div className="mb-4">
@@ -50,7 +50,7 @@ export const AddProductForm: FC<ProductDetailsProps> = ({ register, isValid, sub
 
             {/* Reward section */}
             <div className="flex-1 mb-4">
-                <h2 className="text-lg font-semibold mb-2">Reward Section</h2>
+                <h2 className="text-lg font-semibold mb-2">Recompensas</h2>
                 <div className="mb-4">
                     <label className="block mb-1" htmlFor="buyPoints">Suma puntos</label>
                     <label className="block mb-2 text-xs" htmlFor="buyPoints">Estos son los puntos que se le otorgaran al usuario cuando adquiere este producto o servicio.</label>
@@ -59,7 +59,7 @@ export const AddProductForm: FC<ProductDetailsProps> = ({ register, isValid, sub
                         type="number"
                         id="buyPoints"
                         className="border rounded p-2 w-full"
-                        placeholder="Enter buy points (optional)"
+                        placeholder="Puntos (opcional)"
                     />
                 </div>
                 <div className="mb-4">
@@ -70,7 +70,7 @@ export const AddProductForm: FC<ProductDetailsProps> = ({ register, isValid, sub
                         type="number"
                         id="rewardPoints"
                         className="border rounded p-2 w-full"
-                        placeholder="Enter reward points (optional)"
+                        placeholder="Puntos (opcional)"
                     />
                 </div>
             </div>

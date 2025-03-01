@@ -43,7 +43,7 @@ export const CompanyDetails = ({
     }
   }, [openHours, setOpenHours]);
 
-  
+
   // Function to handle hour changes
   const handleHourChange = (e: React.ChangeEvent<HTMLInputElement>, day: string, type: 'from' | 'to') => {
     const updatedHours = {
@@ -80,9 +80,10 @@ export const CompanyDetails = ({
           {/* Name */}
           <input
             id="name"
-            {...register('name', { required: 'Company name is required' })}
+            {...register('name', { required: 'El nombre del negocio es requerido' })}
             className="input border border-gray-300 p-2 rounded"
-            placeholder="Company Name"
+            placeholder="Nombre del negocio"
+            aria-label="Nombre del negocio"
           />
           {/* Open Days */}
           <OpenHoursSection
@@ -114,23 +115,27 @@ export const CompanyDetails = ({
               </option>
             ))}
           </select>
-          {/* Accept Referral */}
-          <div className="flex items-center space-x-3">
-            <input
-              type="checkbox"
-              id="acceptReferral"
-              {...register('acceptReferral')}
-              className="h-4 w-4"
-            />
-            <label htmlFor="acceptReferral" className="text-sm font-medium italic">
-              Aceptar referidos
-            </label>
-          </div>
+
         </div>
 
         {/* Address */}
         <CreateCompanyMapContainer setAddress={setAddress} setLat={setLat} setLng={setLng} />
       </div>
+
+      {/* Description */}
+      <div className="w-full mt-4">
+        <textarea
+          id="description"
+          {...register('description', { required: false })}
+          className="input border border-gray-300 p-2 rounded w-full resize-none overflow-auto"
+          placeholder="Descripción del negocio"
+          rows={5}
+          aria-label="Descripción del negocio"
+          maxLength={1000} 
+        />
+        <p className="text-sm text-gray-500 mt-1">Máximo 1000 caracteres</p>
+      </div>
+
     </>
   );
 };

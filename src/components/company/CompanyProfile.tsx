@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import { CompanyContentCard, CompanyContentInformation, CompanyContentMovements, CompanyContentReviews, CompanyProfileHeader, ProfileContent, UserContentMovements } from "..";
+import { CompanyContentInformation, CompanyContentMovements, CompanyContentReviews, CompanyProfileHeader, ProfileContent, UserContentMovements } from "..";
 import { companyNavItems } from "@/config";
 import { CardProfile, CompanyClientDashboard, Pin, Product } from "@/interfaces";
 import { CompanyContentProducts } from './CompanyContentProducts';
@@ -74,14 +74,6 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
 
     const renderContent = () => {
         switch (selectedTab) {
-            case "tarjeta":
-                return <CompanyContentCard
-                    userCardForCompany={userCardForCompany}
-                    slug={company.slug}
-                    companyName={company.name}
-                    companyColor={company.backgroundColor}
-                    companyLogoUrl={company.CompanyLogo?.url}
-                />;
             case "productos":
                 return <CompanyContentProducts companyId={company.id} products={products ?? []} />;
             case "movimientos":

@@ -12,6 +12,7 @@ export const CompanyContentInformation = ({ company }: Props) => {
 
     return (
         <div>
+            <p className="text-slate-500 text-xs sm:text-sm mb-4">{company.description}</p>
             <div className="flex flex-col sm:flex-row">
                 {/* Map section */}
                 <div className="w-full sm:w-2/3">

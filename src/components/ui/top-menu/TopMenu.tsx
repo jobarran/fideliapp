@@ -91,19 +91,22 @@ export const TopMenu = ({
         </div>
         <div className="flex items-center space-x-2">
           {company && <TopMenuCompanyLink company={company} />}
-          <AlertsDropdownMenu
-            unseenAlerts={unseenAlerts}
-            alerts={alerts}
-            onAlertClick={handleAlertClick}
-            handleDeleteAlert={handleAlertDelete}
-            setIsAlertDropdownOpen={setIsAlertDropdownOpen}
-            isAlertDropdownOpen={isAlertDropdownOpen}
-            handleDeleteAllSeen={handleDeleteAllSeen}
-            handleMarkAllAsSeen={handleMarkAllAsSeen}
-            handleDeleteAll={handleDeleteAll}
-          />
+
           {user ? (
-            <UserDropdownMenu userName={user.name} userId={user.id} userLastName={user.lastName} />
+            <>
+              <AlertsDropdownMenu
+                unseenAlerts={unseenAlerts}
+                alerts={alerts}
+                onAlertClick={handleAlertClick}
+                handleDeleteAlert={handleAlertDelete}
+                setIsAlertDropdownOpen={setIsAlertDropdownOpen}
+                isAlertDropdownOpen={isAlertDropdownOpen}
+                handleDeleteAllSeen={handleDeleteAllSeen}
+                handleMarkAllAsSeen={handleMarkAllAsSeen}
+                handleDeleteAll={handleDeleteAll}
+              />
+              <UserDropdownMenu userName={user.name} userId={user.id} userLastName={user.lastName} />
+            </>
           ) : (
             <button
               onClick={toggleLoginModal}

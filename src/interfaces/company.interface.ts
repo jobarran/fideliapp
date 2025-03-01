@@ -6,7 +6,6 @@ export interface Company {
     id: string;
   };
   backgroundColor: string | null;
-  acceptReferral: boolean;
   active: boolean;
   address: string | null;
   slug: string;
@@ -56,13 +55,13 @@ export interface CompanyFilters {
 export interface CompanyClientDashboard {
   id: string;
   name: string;
+  description: string | null;
   activityType: {
     name: string;
     id: string;
   };
   activityTypeId: string;
   backgroundColor: string;
-  acceptReferral: boolean;
   active: boolean;
   address: string;
   slug: string;
@@ -87,7 +86,6 @@ export interface CompanyClientInformation {
   };
   activityTypeId: string;
   backgroundColor: string;
-  acceptReferral: boolean;
   active: boolean;
   address: string;
   slug: string;
