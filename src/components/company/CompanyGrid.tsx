@@ -4,7 +4,9 @@ import { ActivityType, Company } from "@/interfaces";
 import { CompanyGridItem } from "./CompanyGridItem";
 import { FilterComponent } from '../ui/filter/FilterComponent';
 import { useCompanyNameFilter } from "@/hooks/useCompanyNameFilter";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useSortedCompanies } from "@/hooks/useSortedCompanies";
+import { FilterCompaniesComponent } from "../ui/filter/FilterCompaniesComponent";
 
 interface Props {
   companies: Company[];  // Enforced type for companies
@@ -15,8 +17,27 @@ interface Props {
 }
 
 export const CompanyGrid = ({ companies, activityTypes, search, companyIdByUserCard, activityType }: Props) => {
-
   const { filteredItems, filteredObj, filters, setFilters, clearFilters } = useCompanyNameFilter(companies, search);
+  const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [sortBy, setSortBy] = useState<"rating" | "distance" | "">("");  // Default to "" for "not sorted by anything"
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");  // Default to high to low for rating, low to high for distance
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setUserLocation({ lat: latitude, lng: longitude });
+        },
+        () => {
+          // Fallback to a default location if geolocation fails
+          setUserLocation({ lat: 35.8799866, lng: 76.5048004 });
+        }
+      );
+    } else {
+      setUserLocation({ lat: 35.8799866, lng: 76.5048004 });
+    }
+  }, []);
 
   const activityTypeId = activityType
     ? activityTypes.find((type) => type.name.toLowerCase() === activityType.toLowerCase())?.id
@@ -26,29 +47,38 @@ export const CompanyGrid = ({ companies, activityTypes, search, companyIdByUserC
     if (activityTypeId) {
       setFilters(prevFilters => ({
         ...prevFilters,
-        activityTypeId: [activityTypeId], 
+        activityTypeId: [activityTypeId],
       }));
     }
   }, [activityTypeId, setFilters]);
 
+  // Use the custom hook to get sorted companies
+  const sortedCompanies = useSortedCompanies({
+    companies: filteredItems as Company[],
+    userLocation,
+    sortBy,
+    sortOrder,
+  });
+
   return (
     <>
-      <FilterComponent
+      <FilterCompaniesComponent
         filters={filters}
         setFilters={setFilters}
         clearFilters={clearFilters}
         activityTypes={activityTypes}
-        customClassName="rounded-xl border border-slate-200 bg-white p-2 flex flex-row items-center justify-between gap-2"
+        setSortBy={setSortBy}  // Pass setSortBy for handling sorting
       />
 
       <div>
         {filteredObj === "company" ? (
           <div className="grid grid-cols-3 sm:grid-cols-5 lg:grid-cols-6 gap-2 md:gap-5 mb-10 mt-4">
-            {(filteredItems as Company[]).map((company: Company) => (
+            {sortedCompanies.map((company: Company) => (
               <CompanyGridItem
                 key={company.id}
                 company={company}
                 isInUserCards={companyIdByUserCard.includes(company.slug)}
+                userLocation={userLocation}
               />
             ))}
           </div>

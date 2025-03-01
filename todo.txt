@@ -13,8 +13,10 @@ Rename App
 - register company verification (can upload products but is not seen by users and cant make movements)
 - Soft delete All (user, client, etc)
 - Config sign in with google
+- calc distance in /companies
+- sort by rating and distance in /companies
+- recalculate avgRating when commented
 - Add error page
-- Add rating in companies/
 - Alert to client - New comment submitted
 - Add stars to cards in see all
 - user/[id] - "Tarjetas" -> Whe no card, it show "No tenés tarjetas disponibles..." 2 times

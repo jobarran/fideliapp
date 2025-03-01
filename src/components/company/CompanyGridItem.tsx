@@ -2,22 +2,32 @@
 
 import { Company } from '@/interfaces';
 import Link from 'next/link';
-
 import { cropText } from '../../utils/cropText';
 import { CompanyLinkImage } from './CompanyLinkImage';
 import { Avatar } from '..';
-import { FaCheck } from 'react-icons/fa6';
 import { FiCreditCard, FiStar } from 'react-icons/fi';  // Import the star icon
+import { useEffect, useState } from 'react';
+import { calculateDistance } from '@/utils';
 
 interface Props {
     company: Company;
     isInUserCards: boolean;
+    userLocation: { lat: number; lng: number } | null;  // Add userLocation to calculate distance
 }
 
-export const CompanyGridItem = ({ company, isInUserCards }: Props) => {
+export const CompanyGridItem = ({ company, isInUserCards, userLocation }: Props) => {
 
-    // Simulate distance for now
-    const distance = 500; // Example distance in meters
+    const [distance, setDistance] = useState<number | null>(null);  // Store distance state
+    const [isLoading, setIsLoading] = useState(true);  // Track loading state
+
+    useEffect(() => {
+        if (userLocation && company.lat && company.lng) {
+            setIsLoading(true);
+            const dist = calculateDistance(userLocation.lat, userLocation.lng, company.lat, company.lng);
+            setDistance(dist);
+            setIsLoading(false);
+        }
+    }, [userLocation, company]);
 
     return (
         <div className={`relative w-70 rounded-lg border border-slate-200 bg-white hover:bg-gray-100`}>
@@ -63,7 +73,13 @@ export const CompanyGridItem = ({ company, isInUserCards }: Props) => {
                             <span>{company.averageRating || 0}</span>
                         </div>
                         {/* Right: Distance */}
-                        <div>{distance}m</div>
+                        <div className={`text-gray-400 ${isLoading ? 'animate-pulse' : ''}`}>
+                            {isLoading ? (
+                                <div className='flex flex-row space-x-1 items-center justify-center align-middle'><div className='h-3 w-10 bg-gray-200'></div><span>m</span></div> // Use placeholder text while loading
+                            ) : (
+                                <span>{distance} m</span> // Show the calculated distance once it's available
+                            )}
+                        </div>
                     </div>
                 </div>
             </Link>
