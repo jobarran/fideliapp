@@ -51,10 +51,10 @@ export const CompanyProfileHeaderData = ({
 
         return stars.map((star, index) => {
             if (star === "full") {
-                return <FaStar key={index} className="h-4 w-4 mx-0.5 text-yellow-400" />;
+                return <FaStar key={index} className="h-4 w-4 mx-0.5 text-slate-500" />;
             }
             if (star === "half") {
-                return <FaStarHalfAlt key={index} className="h-4 w-4 mx-0.5 text-yellow-400" />;
+                return <FaStarHalfAlt key={index} className="h-4 w-4 mx-0.5 text-slate-500" />;
             }
             return <FaRegStar key={index} className="h-4 w-4 mx-0.5 text-slate-200" />;
         });

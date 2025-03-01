@@ -23,10 +23,10 @@ export const CompanyLinkWithRating = ({ company, rating }: Props) => {
       <div className="flex items-center justify-center text-gray-600 mt-1">
         {stars.map((star, index) => {
           if (star === "full") {
-            return <FaStar key={index} className="h-5 w-5 mx-0.5 text-yellow-400" />;
+            return <FaStar key={index} className="h-5 w-5 mx-0.5 text-slate-500" />;
           }
           if (star === "half") {
-            return <FaStarHalfAlt key={index} className="h-5 w-5 mx-0.5 text-yellow-400" />;
+            return <FaStarHalfAlt key={index} className="h-5 w-5 mx-0.5 text-slate-500" />;
           }
           return <FaRegStar key={index} className="h-5 w-5 mx-0.5 text-slate-200" />;
         })}

@@ -70,7 +70,7 @@ export const CompanyGridItem = ({ company, isInUserCards, userLocation }: Props)
                         {/* Left: Rating */}
                         <div className="flex items-center">
                             <div className="flex items-center justify-center relative">
-                                <FiStar className="text-yellow-500 text-sm" />
+                                <FiStar className="text-slate-500 text-sm" />
                             </div>
                             <div className="flex items-center justify-center ml-1">
                                 <span className="text-gray-800">{roundToStars(company.averageRating) || 0}</span>
