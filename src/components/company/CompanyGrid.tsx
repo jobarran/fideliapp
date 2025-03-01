@@ -2,14 +2,13 @@
 
 import { ActivityType, Company } from "@/interfaces";
 import { CompanyGridItem } from "./CompanyGridItem";
-import { FilterComponent } from '../ui/filter/FilterComponent';
+import { FilterCompaniesComponent } from "../ui/filter/FilterCompaniesComponent";
 import { useCompanyNameFilter } from "@/hooks/useCompanyNameFilter";
 import { useEffect, useState } from "react";
 import { useSortedCompanies } from "@/hooks/useSortedCompanies";
-import { FilterCompaniesComponent } from "../ui/filter/FilterCompaniesComponent";
 
 interface Props {
-  companies: Company[];  // Enforced type for companies
+  companies: Company[];
   activityTypes: ActivityType[];
   search: string;
   companyIdByUserCard: string[];
@@ -19,8 +18,8 @@ interface Props {
 export const CompanyGrid = ({ companies, activityTypes, search, companyIdByUserCard, activityType }: Props) => {
   const { filteredItems, filteredObj, filters, setFilters, clearFilters } = useCompanyNameFilter(companies, search);
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
-  const [sortBy, setSortBy] = useState<"rating" | "distance" | "">("");  // Default to "" for "not sorted by anything"
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");  // Default to high to low for rating, low to high for distance
+  const [sortBy, setSortBy] = useState<"rating" | "distance" | "">(""); // Default to "" for "no sorting"
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc"); // Default to high to low for rating, low to high for distance
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -67,7 +66,7 @@ export const CompanyGrid = ({ companies, activityTypes, search, companyIdByUserC
         setFilters={setFilters}
         clearFilters={clearFilters}
         activityTypes={activityTypes}
-        setSortBy={setSortBy}  // Pass setSortBy for handling sorting
+        setSortBy={setSortBy}
       />
 
       <div>

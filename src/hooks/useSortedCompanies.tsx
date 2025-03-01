@@ -28,21 +28,28 @@ export const useSortedCompanies = ({
         return distance;
     };
 
-    // Sorting logic
-    const sortedCompanies = companies.sort((a, b) => {
-        if (sortBy === "rating") {
-            return sortOrder === "desc" ? b.averageRating - a.averageRating : a.averageRating - b.averageRating;
-        }
+    // Don't sort initially
+    const [sortedCompanies, setSortedCompanies] = useState(companies);
 
-        if (userLocation) {
-            // Check if lat and lng are not null for a and b
-            const distanceA = a.lat && a.lng ? calculateDistance(userLocation.lat, userLocation.lng, a.lat, a.lng) : Infinity;
-            const distanceB = b.lat && b.lng ? calculateDistance(userLocation.lat, userLocation.lng, b.lat, b.lng) : Infinity;
-            return sortOrder === "desc" ? distanceB - distanceA : distanceA - distanceB;
+    useEffect(() => {
+        if (sortBy === "") {
+            setSortedCompanies(companies); // No sorting applied
+        } else {
+            const sorted = [...companies];
+            if (sortBy === "rating") {
+                sorted.sort((a, b) => {
+                    return sortOrder === "desc" ? b.averageRating - a.averageRating : a.averageRating - b.averageRating;
+                });
+            } else if (sortBy === "distance" && userLocation) {
+                sorted.sort((a, b) => {
+                    const distanceA = a.lat && a.lng ? calculateDistance(userLocation.lat, userLocation.lng, a.lat, a.lng) : Infinity;
+                    const distanceB = b.lat && b.lng ? calculateDistance(userLocation.lat, userLocation.lng, b.lat, b.lng) : Infinity;
+                    return sortOrder === "asc" ? distanceB - distanceA : distanceA - distanceB;
+                });
+            }
+            setSortedCompanies(sorted);
         }
-
-        return 0; // Fallback if userLocation is unavailable
-    });
+    }, [companies, sortBy, sortOrder, userLocation]);
 
     return sortedCompanies;
 };
