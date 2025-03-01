@@ -12,6 +12,7 @@ export interface Company {
   slug: string;
   lat: number | null;
   lng: number | null;
+  averageRating: number
   openHours: Record<string, {
     from: string;
     to: string;

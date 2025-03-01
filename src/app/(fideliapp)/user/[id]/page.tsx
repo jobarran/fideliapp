@@ -15,7 +15,6 @@ interface Props {
 export default async function UserPage({ params, searchParams }: Props) {
 
   const { id } = params;
-  const { tab, commentFilter } = searchParams;
 
   // Get the user data
   const { user } = await getUserById(id);

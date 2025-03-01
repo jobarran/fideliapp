@@ -1,63 +1,34 @@
 Roadmap
-Web->App(react native)->Testing->Security
+Web->App(React Native Webview)->Testing->Security
 
-----------------------------------------
-
-Config sign in with google
-Freemium/Premium
-error page
-soft delete
-register company verification (can upload products but is not seen by users and cant make movements)
-fav bug in card in home
-
-TODAY:
-- best valued slider on home based on comments
-- Alert to client - New comment submitted
-- Add stars to cards in see all
-
-client/id   - plan -> add tag
-            - /transaction/id create
-            - /product/id create
-
-[user] companies/slug tarjeta -> 
-        - add some stats and history?
-        - Opiniontes -> add fomr
-        - add opinion an valoration by transaction
-
-user/id 
-        - plan -> add tag
-
-home
-        - add recomendados and nuevos sliders
-
-----------------------------------------
-
-Bubble or FlutterFlow for no-code simple projects
-
-Aqcuire for selling projects
-
-NextJs to react native -> Capacitor, Apache Cordova, Tauri, PWA builder, Solito
+React Native Webview:
+- Hybrid WebView with Native features as TopBar and DownBar
 
 PWA (manifest) + Native Shell (Capacitor, Apache Cordova, Tauri)
 
-deployment fees on stores + should bypass payments inside to avoid % for users (send payments outside the app)
-
-lighthouse to analyze site
-
-1st - PWA
-2nd - React Native Webview (not a bad idea, is a frame for showing web in a app format)
-3rd - Capacitor
-
-WebView to auth, then show hybrid site
-
-https://medium.com/@imvinojanv/the-complete-guide-to-building-progressive-web-apps-with-next-js-f37b4bb878cd
-https://www.freecodecamp.org/news/how-to-create-a-nextjs-pwa/
-
-Building a PWA and then using https://www.pwabuilder.com/ to make mobile apps displaying that PWA (I've successfully gotten apps like this into the app and play store, so ignore the online comments saying that they will be declined)
-Difficulty: Easy (but hard to access some native-only features)
+Rename App
 
 ----------------------------------------
 
-IDEAS:
+- register company verification (can upload products but is not seen by users and cant make movements)
+- Soft delete All (user, client, etc)
+- Config sign in with google
+- Add error page
+- Add rating in companies/
+- Alert to client - New comment submitted
+- Add stars to cards in see all
+- user/[id] - "Tarjetas" -> Whe no card, it show "No tenés tarjetas disponibles..." 2 times
+- client/[id] - "Movimientos" -> MovementModal dont display comments
+- companies/[slug] - Remove "Tarjeta" ?
+- companies/[slug] - "Informacion" -> Add text description
+- client/[id] - "Informacion" -> Add text description
+- Add text description to company register form
+- Add "intereses" to user register form
+- user/[id] - "Informacion" -> add intereses
+- home -> Cambiar "Nuevos" por "Mejor valorados"
+- home -> Cambiar "Recomendados" por "Recomendados para vos" (intereses)
+- user/[id] - Remove "planes"
+- client/[id] - Add "planes" (by transaction, by month, by year, Freemium/Premium)
+- client/[id] - Create ProductModal for editing
 
-* CONSTRUCTION: Simple sheets to PDF construction. A table that is linked to a PDF (or image) and mark down the (avance) of the project. Date, state, type, resources, etc... with colors by month
+- Lighthouse Report

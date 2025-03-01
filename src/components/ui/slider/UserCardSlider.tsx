@@ -27,6 +27,7 @@ export const UserCardSlider = ({ userCards, userId, showHeader }: UserCardSlider
         [userCards]
     );
 
+
     return (
         <>
             {showHeader && <SliderHeader href={`/user/${userId}?tab=tarjetas`} label={'Mis tarjetas'} seeAllLabel={'Ver todas'} />}
@@ -34,9 +35,10 @@ export const UserCardSlider = ({ userCards, userId, showHeader }: UserCardSlider
                 <BaseSlider
                     data={sortedCards}
                     breakpoints={breakpoints}
-                    renderItem={(card) => <UserCard card={card} />}
+                    renderItem={(card) => <UserCard key={card.id} card={card} />}
                     loadingComponent={<SliderLoading sliderType={'userCard'} />}
                 />
+
             ) : (
                 <p className="text-center text-xs text-slate-400 mt-2 mb-4 italic">
                     No tenés tarjetas disponibles, explorá los negocios y creá tu primer tarjeta.{' '}

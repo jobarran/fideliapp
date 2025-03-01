@@ -1,7 +1,6 @@
 'use client';
 
-import useCompaniesDistances from '@/hooks/useCompaniesDistances';
-import { BaseSlider, CompanyLinkWithDistance, SliderHeader, SliderLoading } from '../..';
+import { BaseSlider, CompanyLinkWithRating, SliderHeader, SliderLoading } from '../..';
 import { Company } from '@/interfaces';
 import Link from 'next/link';
 
@@ -9,9 +8,12 @@ interface Props {
     companiesAll: Company[];
 }
 
-export const CompanyCloserSlider = ({ companiesAll }: Props) => {
+export const CompanyRecommendedSlider = ({ companiesAll }: Props) => {
 
-    const { closestCompanies, isLoading } = useCompaniesDistances(companiesAll);
+    const bestCompanyRating = companiesAll
+        .filter((company) => company.averageRating !== null) // Ensure there's a rating
+        .sort((a, b) => b.averageRating - a.averageRating) // Sort by highest rating first
+        .slice(0, 10); // Take the top 10
 
     const breakpoints = {
         320: { slidesPerView: 3.5 },
@@ -22,19 +24,18 @@ export const CompanyCloserSlider = ({ companiesAll }: Props) => {
 
     return (
         <div>
-            <SliderHeader label={'Cercanos'} href={'/companies'} seeAllLabel={'Ver todos'} />
-            {isLoading ? (
-                <SliderLoading sliderType={'company'} />
-            ) : closestCompanies.length > 0 ? (
+            <SliderHeader label={'Recomendados'} href={'/companies'} seeAllLabel={'Ver todos'} />
+            {bestCompanyRating.length > 0 ? (
                 <BaseSlider
-                    data={closestCompanies}
+                    data={bestCompanyRating}
                     breakpoints={breakpoints}
-                    renderItem={(closestCompanies) => (
-                        <CompanyLinkWithDistance
-                            company={closestCompanies.company}
-                            distance={closestCompanies.distance}
+                    renderItem={(bestCompanyRating) => (
+                        <CompanyLinkWithRating
+                            company={bestCompanyRating}
+                            rating={bestCompanyRating.averageRating}
                         />
                     )}
+                    loadingComponent={<SliderLoading sliderType={'company'} />}
                 />
             ) : (
                 <p className="text-center text-xs text-slate-400 mt-2 mb-4 italic">
@@ -46,4 +47,5 @@ export const CompanyCloserSlider = ({ companiesAll }: Props) => {
             )}
         </div>
     );
-};
+
+}

@@ -85,7 +85,8 @@ model Company {
   slug            String  @unique
   lat             Float?
   lng             Float?
-  openHours       Json // Store as JSON
+  openHours       Json
+  averageRating   Float   @default(0) 
 
   // Relations - Down
   Products      Product[]

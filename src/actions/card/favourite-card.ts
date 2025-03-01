@@ -34,6 +34,7 @@ export const favouriteCard = async (cardId: string, favourite: boolean) => {
 
             revalidatePath(`/cards/${cardId}`);
             revalidatePath(`/user/${userId}`);
+            revalidatePath(`/`);
 
             return {
                 ok: true,

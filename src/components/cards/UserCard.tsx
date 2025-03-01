@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, UserCard as UserCardProp } from '@/interfaces';
+import { UserCard as UserCardProp } from '@/interfaces';
 import Link from 'next/link';
 import React, { useState } from 'react'
 import { FaHeart, FaRegHeart } from 'react-icons/fa6';
@@ -18,19 +18,20 @@ export const UserCard = ({ card }: Props) => {
     const [isFavourite, setIsFavourite] = useState(card.favourite);
 
     // Unified color logic
-    const borderColor = '#CBD5E1' //slate-300
     const backgroundColor = card.company.backgroundColor || '#0F172A';
     const color = backgroundColor === '#FFFFFF' ? '#0F172A' : backgroundColor;
 
     // Function to toggle favorite status
     const toggleFavourite = async () => {
         try {
-            await favouriteCard(card.id, !isFavourite);
-            setIsFavourite(!isFavourite); // Update local state after successful backend update
+            await favouriteCard(card.id, !isFavourite); // Update on server
+            setIsFavourite((prev) => !prev); // Toggle state using functional update
+            console.log({ name: card.company.name, fav: !isFavourite }); // Log updated state
         } catch (error) {
             console.error("Error updating favorite status:", error);
         }
     };
+    
 
     return (
         <div
