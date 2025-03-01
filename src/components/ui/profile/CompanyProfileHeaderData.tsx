@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { SetStateAction, useState } from 'react'
 import { CompanyClientDashboard, Pin } from '@/interfaces';
@@ -6,6 +6,7 @@ import { ProfileHeaderLogo } from '@/components';
 import { FaCheck, FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { IoTicketOutline } from 'react-icons/io5';
 import { favouriteCard } from '@/actions';
+import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
 
 interface Props {
     company: CompanyClientDashboard
@@ -40,6 +41,25 @@ export const CompanyProfileHeaderData = ({
         }
     };
 
+    // Generate stars for average rating
+    const generateStars = (rating: number) => {
+        const stars = Array.from({ length: 5 }, (_, index) => {
+            if (rating >= index + 1) return "full"; // Full star
+            if (rating >= index + 0.5) return "half"; // Half star
+            return "empty"; // Empty star
+        });
+
+        return stars.map((star, index) => {
+            if (star === "full") {
+                return <FaStar key={index} className="h-4 w-4 mx-0.5 text-yellow-400" />;
+            }
+            if (star === "half") {
+                return <FaStarHalfAlt key={index} className="h-4 w-4 mx-0.5 text-yellow-400" />;
+            }
+            return <FaRegStar key={index} className="h-4 w-4 mx-0.5 text-slate-200" />;
+        });
+    };
+
     return (
         <div className="flex flex-col sm:flex-row items-center justify-between">
             {/* Render Profile Header Logo if company is provided */}
@@ -52,66 +72,70 @@ export const CompanyProfileHeaderData = ({
 
             {/* User or Company information */}
             <div className="flex-1 flex flex-col sm:items-start items-center md:ml-4">
-
-                {/* User or Company information */}
-                <div className="flex-1 flex flex-col sm:items-start items-center md:ml-4">
-                    <h1 className="sm:font-semibold text-lg sm:text-2xl text-center sm:text-left flex items-center">
-                        {company?.name}
-                        {userCardForCompany && (
-                            <span className="ml-2 inline-flex items-center justify-center w-5 h-5 bg-green-500 rounded-full">
-                                <FaCheck className="text-white text-xs" />
-                            </span>
-                        )}
-                    </h1>
-                    <p className="text-gray-600 mb-2 hidden sm:flex">
-                        {company.activityType?.name}
-                    </p>
-                    {/* <p className="text-gray-600 items-center hidden sm:flex">
-                        <FaMapMarkerAlt className="mr-2" />
-                        {formatAddress(company.address)}
-                    </p> */}
+                <h1 className="sm:font-semibold text-lg sm:text-2xl text-center sm:text-left flex items-center">
+                    {company?.name}
                     {userCardForCompany && (
-                        <div>
-                            <div className="flex flex-row items-center mt-2 sm:mt-0">
-                                <IoTicketOutline className="mr-2 text-gray-600" />
-                                {isUpdatingPoints ? (
-                                    <div className="rounded-lg overflow-hidden animate-pulse">
-                                        <div className="flex flex-col items-center justify-center h-5 w-16 bg-gray-200"></div>
-                                    </div>
-                                ) : (
-                                    <p className="text-xs sm:text-sm text-gray-600">{cardPoints} puntos</p>
-                                )}
-                            </div>
-                            <div className="flex flex-row items-center mt-2 sm:mt-1">
-                                {/* Conditionally render the favorite icon and text */}
-                                {isFavorite ? (
-                                    <>
-                                        <FaHeart className="mr-2 text-rose-600" />
-                                        <span className="text-xs sm:text-sm text-gray-600">Favorito</span>
-                                        <span className="mx-2 text-xs sm:text-sm text-gray-400">-</span>
-                                        <button
-                                            onClick={toggleFavourite}
-                                            className="text-xs sm:text-sm text-gray-900 hover:underline"
-                                        >
-                                            Quitar
-                                        </button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <FaRegHeart className="mr-2 text-gray-600" />
-                                        <button
-                                            onClick={toggleFavourite}
-                                            className="text-xs sm:text-sm text-gray-900 hover:underline"
-                                        >
-                                            Agregar a favoritos
-                                        </button>
-                                    </>
-                                )}
-                            </div>
-
-                        </div>
+                        <span className="ml-2 inline-flex items-center justify-center w-5 h-5 bg-green-500 rounded-full">
+                            <FaCheck className="text-white text-xs" />
+                        </span>
                     )}
-                </div>
+                </h1>
+                <p className="text-gray-600 mb-2 hidden sm:flex">
+                    {company.activityType?.name}
+                </p>
+
+                {userCardForCompany && (
+                    <div>
+                        <div className="flex flex-row items-center mt-2 sm:mt-0">
+                            <IoTicketOutline className="mr-2 text-gray-600" />
+                            {isUpdatingPoints ? (
+                                <div className="rounded-lg overflow-hidden animate-pulse">
+                                    <div className="flex flex-col items-center justify-center h-5 w-16 bg-gray-200"></div>
+                                </div>
+                            ) : (
+                                <p className="text-xs sm:text-sm text-gray-600">{cardPoints} puntos</p>
+                            )}
+                        </div>
+                        <div className="flex flex-row items-center mt-2 sm:mt-1">
+                            {/* Conditionally render the favorite icon and text */}
+                            {isFavorite ? (
+                                <>
+                                    <FaHeart className="mr-2 text-rose-600" />
+                                    <span className="text-xs sm:text-sm text-gray-600">Favorito</span>
+                                    <span className="mx-2 text-xs sm:text-sm text-gray-400">-</span>
+                                    <button
+                                        onClick={toggleFavourite}
+                                        className="text-xs sm:text-sm text-gray-900 hover:underline"
+                                    >
+                                        Quitar
+                                    </button>
+                                </>
+                            ) : (
+                                <>
+                                    <FaRegHeart className="mr-2 text-gray-600" />
+                                    <button
+                                        onClick={toggleFavourite}
+                                        className="text-xs sm:text-sm text-gray-900 hover:underline"
+                                    >
+                                        Agregar a favoritos
+                                    </button>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                )}
+
+                {/* Add stars for rating */}
+                {company.averageRating && (
+                    <div className="mt-2 flex items-center justify-center text-sm">
+                        <div className="flex items-center">
+                            {generateStars(company.averageRating)}
+                        </div>
+                        <span className="ml-2 text-slate-600">({company.averageRating.toFixed(1)})</span>
+                    </div>
+                )}
+
+
             </div>
         </div>
     );

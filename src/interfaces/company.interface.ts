@@ -66,6 +66,7 @@ export interface CompanyClientDashboard {
   active: boolean;
   address: string;
   slug: string;
+  averageRating: number;
   lat: number | null;
   lng: number | null;
   openHours: Record<string, {

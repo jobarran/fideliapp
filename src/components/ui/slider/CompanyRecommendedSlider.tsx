@@ -3,6 +3,7 @@
 import { BaseSlider, CompanyLinkWithRating, SliderHeader, SliderLoading } from '../..';
 import { Company } from '@/interfaces';
 import Link from 'next/link';
+import { roundToStars } from '../../../utils/roundToStars';
 
 interface Props {
     companiesAll: Company[];
@@ -32,7 +33,7 @@ export const CompanyRecommendedSlider = ({ companiesAll }: Props) => {
                     renderItem={(bestCompanyRating) => (
                         <CompanyLinkWithRating
                             company={bestCompanyRating}
-                            rating={bestCompanyRating.averageRating}
+                            rating={roundToStars(bestCompanyRating.averageRating)}
                         />
                     )}
                     loadingComponent={<SliderLoading sliderType={'company'} />}

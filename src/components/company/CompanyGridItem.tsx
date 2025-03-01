@@ -8,6 +8,7 @@ import { Avatar } from '..';
 import { FiCreditCard, FiStar } from 'react-icons/fi';  // Import the star icon
 import { useEffect, useState } from 'react';
 import { calculateDistance } from '@/utils';
+import { roundToStars } from '../../utils/roundToStars';
 
 interface Props {
     company: Company;
@@ -63,24 +64,34 @@ export const CompanyGridItem = ({ company, isInUserCards, userLocation }: Props)
                     <div className="text-center mb-1 mt-1 text-xs">
                         {cropText(company.name, 14)}
                     </div>
-                    {/* Footer */}
+
+
                     <div className="w-full text-xs text-gray-600 flex justify-between px-2 py-1 border-t border-slate-200">
                         {/* Left: Rating */}
                         <div className="flex items-center">
-                            <span className="mr-1 text-yellow-500">
-                                <FiStar />
-                            </span>
-                            <span>{company.averageRating || 0}</span>
+                            <div className="flex items-center justify-center relative">
+                                <FiStar className="text-yellow-500 text-sm" />
+                            </div>
+                            <div className="flex items-center justify-center ml-1">
+                                <span className="text-gray-800">{roundToStars(company.averageRating) || 0}</span>
+                            </div>
                         </div>
+
                         {/* Right: Distance */}
                         <div className={`text-gray-400 ${isLoading ? 'animate-pulse' : ''}`}>
                             {isLoading ? (
-                                <div className='flex flex-row space-x-1 items-center justify-center align-middle'><div className='h-3 w-10 bg-gray-200'></div><span>m</span></div> // Use placeholder text while loading
+                                <div className="flex flex-row space-x-1 items-center">
+                                    <div className="h-3 w-10 bg-gray-200"></div>
+                                    <span>m</span>
+                                </div>
                             ) : (
-                                <span>{distance} m</span> // Show the calculated distance once it's available
+                                <span>{distance} m</span>
                             )}
                         </div>
                     </div>
+
+
+
                 </div>
             </Link>
         </div>

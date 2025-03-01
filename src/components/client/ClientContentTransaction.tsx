@@ -197,124 +197,126 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
 
 
     return (
-        <div className="md:flex md:space-x-4">
-            <div className="md:w-2/3">
+        <>
+            <div>
+                <div className="rounded-md border h-16 w-full flex items-center justify-center">
+                    {!transactionSuccess && !isPinValidated &&
+                        <ClientContentTransactionValidatePin
+                            handleValidatePin={handleValidatePin}
+                            isPinValidated={isPinValidated}
+                            errorMessage={errorMessage}
+                            setErrorMessage={setErrorMessage}
+                            setIsPinLoading={setIsPinLoading}
+                        />
+                    }
+                    {!transactionSuccess && isPinValidated &&
+                        <ClientContentTransactionValidPin
+                            pinExpiration={pinExpiration}
+                            userInfo={userInfo}
+                            userPin={userPin}
+                            onPinExpire={() => {
+                                setIsPinValidated(false);
+                                setPinExpiration(undefined);
+                            }}
+                            handleResetStates={handleResetStates}
+                        />
+                    }
+                    {transactionSuccess && confirmLoading &&
+                        <ClientContentTransactionLoading
+                            setConfirmLoading={setConfirmLoading}
+                        />
+                    }
+                    {transactionSuccess && !confirmLoading &&
+                        <ClientContentTransactionSuccess
+                            setTransactionSuccess={setTransactionSuccess}
+                        />
+                    }
 
-                <div>
-                    <div className="rounded-lg border h-16 w-full flex items-center justify-center">
-                        {!transactionSuccess && !isPinValidated &&
-                            <ClientContentTransactionValidatePin
-                                handleValidatePin={handleValidatePin}
-                                isPinValidated={isPinValidated}
-                                errorMessage={errorMessage}
-                                setErrorMessage={setErrorMessage}
-                                setIsPinLoading={setIsPinLoading}
-                            />
-                        }
-                        {!transactionSuccess && isPinValidated &&
-                            <ClientContentTransactionValidPin
-                                pinExpiration={pinExpiration}
-                                userInfo={userInfo}
-                                userPin={userPin}
-                                onPinExpire={() => {
-                                    setIsPinValidated(false);
-                                    setPinExpiration(undefined);
-                                }}
-                                handleResetStates={handleResetStates}
-                            />
-                        }
-                        {transactionSuccess && confirmLoading &&
-                            <ClientContentTransactionLoading
-                                setConfirmLoading={setConfirmLoading}
-                            />
-                        }
-                        {transactionSuccess && !confirmLoading &&
-                            <ClientContentTransactionSuccess
-                                setTransactionSuccess={setTransactionSuccess}
-                            />
-                        }
-
-                    </div>
                 </div>
+            </div>
 
-                <div className='flex space-x-2 py-2 text-xs'>
-                    <button
-                        onClick={handleTransactionConfirm}
-                        disabled={disableConfirm}
-                        className={
-                            `py-2 px-2 rounded w-full ${disableConfirm ? 'bg-gray-100 text-slate-800 opacity-50' : 'bg-green-600 text-white hover:bg-green-500'}`
-                        }
-                    >
-                        CONFIRMAR
-                    </button>
+            <div className='flex space-x-2 py-2 text-xs mb-2'>
+                <button
+                    onClick={handleTransactionConfirm}
+                    disabled={disableConfirm}
+                    className={
+                        `py-2 px-2 rounded w-full ${disableConfirm ? 'bg-gray-100 text-slate-800 opacity-50' : 'bg-green-600 text-white hover:bg-green-500'}`
+                    }
+                >
+                    CONFIRMAR
+                </button>
 
-                    <button
-                        onClick={handletransactionCancel}
-                        disabled={!isPinValidated}
-                        className={`py-2 px-2 rounded w-full 
+                <button
+                    onClick={handletransactionCancel}
+                    disabled={!isPinValidated}
+                    className={`py-2 px-2 rounded w-full 
                             ${!isPinValidated
-                                ? 'bg-gray-100 text-slate-800 opacity-50'
-                                : 'bg-red-600 text-white hover:bg-red-800'
-                            }`}
-                    >
-                        CANCELAR
-                    </button>
-                </div>
+                            ? 'bg-gray-100 text-slate-800 opacity-50'
+                            : 'bg-red-600 text-white hover:bg-red-800'
+                        }`}
+                >
+                    CANCELAR
+                </button>
+            </div>
 
-                <div className="flex flex-col md:flex-row md:items-center md:space-x-4 mt-2">
-                    <ClientContentTransactionButtons
-                        handleTransactionTypeSelect={handleTransactionTypeSelect}
-                        selectedTransactionType={selectedTransactionType}
-                    />
+
+            <div className="md:flex md:space-x-4">
+                <div className="md:w-2/3">
+                    <div className="flex flex-col md:flex-row md:items-center md:space-x-4">
+                        <ClientContentTransactionButtons
+                            handleTransactionTypeSelect={handleTransactionTypeSelect}
+                            selectedTransactionType={selectedTransactionType}
+                        />
+                    </div>
+
+                    {selectedTransactionType && (
+                        <ClientContentTransactionSummary
+                            selectedTransactionType={selectedTransactionType}
+                            selectedProducts={Object.keys(selectedProducts)}
+                            totalPoints={totalPoints}
+                            totalProducts={totalProducts}
+                            availablePoints={availablePoints}
+                            manualPoints={manualPoints}
+                            manualTransactionType={manualTransactionType}
+                        />
+                    )}
+
+                    {selectedTransactionType && (
+                        selectedTransactionType === "MANUAL"
+                            ? <ClientContentTransactionManual
+                                manualPoints={manualPoints}
+                                setManualPoints={setManualPoints}
+                                manualTransactionType={manualTransactionType}
+                                setManualTransactionType={setManualTransactionType}
+                                availablePoints={availablePoints}
+                                manualDescription={manualDescription}
+                                setManualDescription={setManualDescription}
+
+                            />
+                            : <ClientContentTransactionProductList
+                                filteredProducts={filteredProducts}
+                                selectedProducts={selectedProducts}
+                                handleProductSelect={handleProductSelect}
+                                handleQuantityChange={handleQuantityChange}
+                                selectedTransactionType={selectedTransactionType}
+                            />
+                    )}
+
                 </div>
 
                 {selectedTransactionType && (
-                    <ClientContentTransactionSummary
+                    <ClientContentTransactionInvoice
                         selectedTransactionType={selectedTransactionType}
-                        selectedProducts={Object.keys(selectedProducts)}
+                        selectedProductDetails={selectedProductDetails}
                         totalPoints={totalPoints}
+                        selectedProducts={selectedProducts}
                         totalProducts={totalProducts}
                         availablePoints={availablePoints}
                         manualPoints={manualPoints}
                         manualTransactionType={manualTransactionType}
                     />
                 )}
-
-                {selectedTransactionType && (
-                    selectedTransactionType === "MANUAL"
-                        ? <ClientContentTransactionManual
-                            manualPoints={manualPoints}
-                            setManualPoints={setManualPoints}
-                            manualTransactionType={manualTransactionType}
-                            setManualTransactionType={setManualTransactionType}
-                            availablePoints={availablePoints}
-                            manualDescription={manualDescription}
-                            setManualDescription={setManualDescription}
-
-                        />
-                        : <ClientContentTransactionProductList
-                            filteredProducts={filteredProducts}
-                            selectedProducts={selectedProducts}
-                            handleProductSelect={handleProductSelect}
-                            handleQuantityChange={handleQuantityChange}
-                            selectedTransactionType={selectedTransactionType}
-                        />
-                )}
-
             </div>
-
-            {selectedTransactionType && (
-                <ClientContentTransactionInvoice
-                    selectedTransactionType={selectedTransactionType}
-                    selectedProductDetails={selectedProductDetails}
-                    totalPoints={totalPoints}
-                    selectedProducts={selectedProducts}
-                    totalProducts={totalProducts}
-                    availablePoints={availablePoints}
-                    manualPoints={manualPoints}
-                    manualTransactionType={manualTransactionType}
-                />
-            )}
-        </div>
+        </>
     );
 };

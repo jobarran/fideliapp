@@ -11,7 +11,6 @@ type CreateReviewInput = {
 };
 
 export async function createTransactionReview(data: CreateReviewInput): Promise<void> {
-  console.log(data)
   const { companyId, rating, comment, pointTransactionId } = data;
 
   // Validation
@@ -22,13 +21,13 @@ export async function createTransactionReview(data: CreateReviewInput): Promise<
     throw new Error("Company ID is required.");
   }
   if (!pointTransactionId) {
-    throw new Error("Point transaction ID is required."); // Ensure pointTransactionId is provided
+    throw new Error("Point transaction ID is required.");
   }
 
   // Check if the point transaction exists and isn't already associated with a review
   const pointTransaction = await prisma.pointTransaction.findUnique({
     where: { id: pointTransactionId },
-    include: { companyReview: true }, // Include companyReview to check for existing review
+    include: { companyReview: true },
   });
 
   if (!pointTransaction) {
@@ -47,6 +46,22 @@ export async function createTransactionReview(data: CreateReviewInput): Promise<
       comment,
       pointTransactionId,
     },
+  });
+
+  // Retrieve all reviews for the company including the new one
+  const allReviews = await prisma.companyReview.findMany({
+    where: { companyId },
+    select: { rating: true },
+  });
+
+  // Calculate the average rating
+  const averageRating =
+    allReviews.reduce((sum, review) => sum + review.rating, 0) / allReviews.length;
+
+  // Update the company's averageRating
+  await prisma.company.update({
+    where: { id: companyId },
+    data: { averageRating },
   });
 
   // Optionally revalidate the path where the reviews are displayed
