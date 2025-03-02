@@ -28,6 +28,7 @@ export const TextAreaField = ({
             className={inputClassName}
             rows={5}
             maxLength={1000}
+            placeholder={'Agregar descripción del producto o servicio'}
         />
     </div>
 );

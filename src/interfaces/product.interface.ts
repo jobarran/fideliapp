@@ -20,7 +20,7 @@ export interface PointTransactionTemplate {
 
 interface ProductImage {
     id: string;
-    url: File | string;  // Allow both File and string types for the URL
+    url: string;  
     productId: string;
 }
 

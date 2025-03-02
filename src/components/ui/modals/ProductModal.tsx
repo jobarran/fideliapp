@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { IoCloseSharp } from 'react-icons/io5';
 import { Product, PointTransactionTemplate } from '@/interfaces';
-import { ImageField, NumberField, TextAreaField, TextField } from '@/components';
+import { Avatar, CompanyLinkImage, NumberField, TextAreaField, TextField } from '@/components';
 import { updateProduct } from '@/actions/product/update-product';
 import { FaRegEdit, FaRegSave } from 'react-icons/fa';
 
@@ -89,24 +89,6 @@ export const ProductModal = ({
         setIsEditing((prev) => !prev);
     }, [isEditing, editedProduct, clientId]);
 
-    const handleImageChange = useCallback(
-        async (e: React.ChangeEvent<HTMLInputElement>) => {
-            const file = e.target.files?.[0];
-            if (!file) return;
-
-            // Save the file in the state
-            setEditedProduct((prevState) => {
-                if (!prevState) return null;
-                return {
-                    ...prevState,
-                    productImage: file,  // Keep the file object for backend
-                };
-            });
-        },
-        []
-    );
-
-
     const handleDescriptionChange = useCallback(
         (e: React.ChangeEvent<HTMLTextAreaElement>) => {
             const { value } = e.target;
@@ -148,16 +130,28 @@ export const ProductModal = ({
                     <button className="absolute top-2 right-2 text-gray-500" onClick={handleCloseModal}>
                         <IoCloseSharp />
                     </button>
-                    <h3 className="text-lg font-semibold mb-4">Editar Producto o servicio</h3>
-                    <TextField
-                        label="Nombre"
-                        value={editedProduct.name}
-                        onChange={(e) => handleInputChange(e, 'name')}
-                        disabled={!isEditing}
-                        divClassName="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4"
-                        labelClassName="font-medium hidden sm:flex"
-                        inputClassName="border p-1 col-span-2 rounded"
-                    />
+
+                    {/* Product Header */}
+                    <div className="flex flex-col items-center mb-6">
+                        <div className="relative w-24 h-24 mb-2 rounded-full overflow-hidden">
+                            {editedProduct?.ProductImage ? (
+                                <CompanyLinkImage
+                                    src={editedProduct.ProductImage.url}
+                                    width={0}
+                                    height={0}
+                                    alt={editedProduct.name}
+                                    className="object-cover"
+                                    priority
+                                    style={{ width: '100%', height: '100%' }}
+                                />
+                            ) : (
+                                <Avatar name={editedProduct.name} backgroundColor={'#FFFFFF'} size={'24'} />
+                            )}
+                        </div>
+                        <h3 className="text-xl font-semibold text-center">{editedProduct.name}</h3>
+                    </div>
+
+                    {/* Editable fields below */}
                     <TextAreaField
                         label="Descripción"
                         value={editedProduct.description || ''}
@@ -168,7 +162,7 @@ export const ProductModal = ({
                         inputClassName="border p-1 col-span-2 rounded resize-none overflow-auto"
                     />
                     <div>
-                        <h4 className="mt-4 font-semibold">Recompensas</h4>
+                        <h4 className="mt-4 mb-2 font-semibold">Recompensas</h4>
                         {editedProduct.templates.map((template, index) => (
                             <div key={template.id} className="mb-4">
                                 <NumberField
