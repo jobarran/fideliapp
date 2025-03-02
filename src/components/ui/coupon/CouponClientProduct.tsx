@@ -22,7 +22,7 @@ export const CouponClientProduct = ({ product, buyPoints, rewardPoints }: Props)
 
     return (
         <div className={clsx("flex flex-row border rounded-lg mb-2 w-full transition-colors duration-300 ease-in-out bg-white text-slate-800")}>
-            <Link key={product.id} href={`/client/${userId}/product/${product.id}`} className="hover:bg-slate-50 w-full">
+            <div key={product.id} className="hover:bg-slate-50 w-full cursor-pointer">
                 <div className={`flex items-center h-auto p-2 overflow-hidden`}>
                     {/* Product Image */}
                     {product.ProductImage ? (
@@ -87,7 +87,7 @@ export const CouponClientProduct = ({ product, buyPoints, rewardPoints }: Props)
                         )}
                     </div>
                 </div>
-            </Link>
+            </div>
         </div>
     );
 };

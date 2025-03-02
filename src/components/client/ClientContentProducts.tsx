@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
 import { createNewProduct } from "@/actions/product/create-new-product";
-import { ActionButton, AddProductForm, ClientContentProduct } from '..';
+import { ActionButton, AddProductForm, ClientContentProduct, ProductModal } from '..';
 import { Product } from '@/interfaces';
 
 type FormInputs = {
@@ -22,11 +22,13 @@ interface Props {
     products: Product[]
 }
 
-export const ClientContentProducts = ({ companyId, products }: Props) => {
+export const ClientContentProducts = ({ companyId, products, userId }: Props) => {
 
     const [isCreating, setIsCreating] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false); // State to track form submission
+    const [openProductModal, setOpenProductModal] = useState(false)
+    const [productToEdit, setProductToEdit] = useState<Product | null>(null)
 
     const { register, handleSubmit, reset, formState: { isValid } } = useForm<FormInputs>({
         mode: 'onChange',
@@ -88,6 +90,14 @@ export const ClientContentProducts = ({ companyId, products }: Props) => {
 
     return (
         <div>
+            <ProductModal
+                setOpenProductModal={setOpenProductModal}
+                openProductModal={openProductModal}
+                productToEdit={productToEdit}
+                setProductToEdit={setProductToEdit}
+                clientId={userId}
+            />
+
             {isCreating ? (
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <AddProductForm register={register} submitted={submitted} isValid={isValid} />
@@ -109,7 +119,13 @@ export const ClientContentProducts = ({ companyId, products }: Props) => {
                     </div>
                 </form>
             ) : (
-                <ClientContentProduct products={products} isCreating={isCreating} setIsCreating={setIsCreating} />
+                <ClientContentProduct
+                    products={products}
+                    isCreating={isCreating}
+                    setIsCreating={setIsCreating}
+                    setOpenProductModal={setOpenProductModal}
+                    setProductToEdit={setProductToEdit}
+                />
             )}
         </div>
     );

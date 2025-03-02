@@ -180,7 +180,7 @@ export const UserContentInformation = ({ user }: Props) => {
         <div className='flex justify-start'>
           <button
             onClick={() => handleEditClick()}
-            className={` text-xs py-1 px-2 rounded-lg border border-slate-200 ${isEditing ? 'bg-slate-800 text-slate-100' : 'text-slate-800 hover:bg-slate-100'}`}
+            className={` text-xs py-1 px-2 rounded-lg border border-slate-200 ${isEditing ? 'bg-slate-800 text-slate-100' : 'text-slate-500 hover:bg-slate-100'}`}
           >
             <span className='flex gap-2 p-1'>
               <p className='text-sm'>{isEditing ? 'Guardar' : 'Editar'}</p><span className='text-base'>{isEditing ? <FaRegSave className='hidden sm:block' /> : <FaRegEdit className='hidden sm:block'/>}</span>
@@ -188,7 +188,7 @@ export const UserContentInformation = ({ user }: Props) => {
           </button>
         </div>
 
-        <DeleteWarningModal
+        {/* <DeleteWarningModal
           buttonLabel={'Eliminar usuario'}
           buttonBgColor={''}
           buttonTextColor={'text-red-600'}
@@ -200,7 +200,8 @@ export const UserContentInformation = ({ user }: Props) => {
           contentAction={handleDeleteCompany}
           acceptButton={'Eliminar'}
           cancelButton={'Cancelar'}
-        />
+        /> */}
+        
       </div>
     </div>
   );

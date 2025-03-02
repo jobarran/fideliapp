@@ -11,9 +11,11 @@ interface Props {
     products: Product[];
     isCreating: boolean;
     setIsCreating: (creating: boolean) => void
+    setOpenProductModal: (open: boolean) => void
+    setProductToEdit: React.Dispatch<React.SetStateAction<Product | null>>
 }
 
-export const ClientContentProduct = ({ products, isCreating, setIsCreating }: Props) => {
+export const ClientContentProduct = ({ products, isCreating, setIsCreating, setOpenProductModal, setProductToEdit }: Props) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [showMoreLoading, setShowMoreLoading] = useState(false);
 
@@ -29,6 +31,11 @@ export const ClientContentProduct = ({ products, isCreating, setIsCreating }: Pr
             loadMore();
         }, 500);
     };
+
+    const handleClickProduct = (product: Product) => {
+        setOpenProductModal(true)
+        setProductToEdit(product)
+    }
 
     const shouldShowMoreButton = visibleProducts.length < filteredProducts.length;
 
@@ -69,7 +76,7 @@ export const ClientContentProduct = ({ products, isCreating, setIsCreating }: Pr
                         .join(", ");
 
                     return (
-                        <li key={product.id}>
+                        <li key={product.id} onClick={() => handleClickProduct(product)}>
                             <CouponClientProduct
                                 product={product}
                                 buyPoints={buyPoints}

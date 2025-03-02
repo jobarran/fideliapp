@@ -14,7 +14,6 @@ Rename App
 - Soft delete All (user, client, etc)
 - Config sign in with google
 - Add error page
-- client/[id] - Create ProductModal for editing
 - footer content
 - email validation
 - Forgot password
@@ -25,6 +24,9 @@ Rename App
 Alert
 - add "user" / "client" type
 - create more alerts for intereactions
+
+Products
+- Update Image
 
 ------------------------------------------
 
