@@ -1,4 +1,4 @@
-import { getCompanyByUser, getCompanyTransactionsByUser, getProductsByCompanyId } from "@/actions";
+import { getCompanyByUser, getCompanyTransactionsByCompany, getCompanyTransactionsByUser, getProductsByCompanyId } from "@/actions";
 import { auth } from "@/auth.config";
 import { ClientProfile } from "@/components";
 import { CompanyTransaction } from "@/interfaces/transacrion.interface";
@@ -16,7 +16,6 @@ export default async function ClientPage({ params }: Props) {
   const { id } = params;
 
   const company = await getCompanyByUser(id);
-  const transactions = await getCompanyTransactionsByUser(id)
   const session = await auth();
   const user = session?.user || null;
 
@@ -25,6 +24,7 @@ export default async function ClientPage({ params }: Props) {
     return <p>Company not found</p>;
   }
 
+  const transactions = await getCompanyTransactionsByCompany(company.id)
   const products = await getProductsByCompanyId(company.id);
 
   // Ensure that products is always an array

@@ -41,6 +41,7 @@ export interface CompanyTransaction {
   companyId: string;
   clientName: string;
   clientLastName: string;
+  companyName: string; // HERE
   userName: string;
   userLastName: string;
   userId: string;
@@ -74,16 +75,16 @@ export interface Review {
   companyId: string;
 }
 
-export interface CompanyTransaction {
-  companyName: string;
-  companyId: string;
-  id: string;
-  points: number;
-  date: string;
-  type: "BUY" | "REWARD" | "MANUAL";
-  description?: string;
-  cardId: string;
-  state: TransactionState;
-  userId: string;
-  transactionProducts: TransactionProductSnapshot[];
-}
+// export interface CompanyTransaction {
+//   companyName: string;
+//   companyId: string;
+//   id: string;
+//   points: number;
+//   date: string;
+//   type: "BUY" | "REWARD" | "MANUAL";
+//   description?: string;
+//   cardId: string;
+//   state: TransactionState;
+//   userId: string;
+//   transactionProducts: TransactionProductSnapshot[];
+// }

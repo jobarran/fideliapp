@@ -5,7 +5,7 @@ import { colorOptions, defaultOpenHours } from '@/config';
 import { CompanyClientDashboard, DayHours } from '@/interfaces';
 import { formatAddress } from '@/utils';
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActionButton, CheckboxField, ColorPicker, DeleteWarningModal, OpenHoursSection, SelectField, TextArea, TextField } from '..';
+import { ActionButton, CheckboxField, ColorPicker, DeleteWarningModal, OpenHoursSection, SelectField, TextAreaField, TextField } from '..';
 import { useRouter } from 'next/navigation';
 import { FaBan, FaCheck, FaRegTrashCan } from 'react-icons/fa6';
 import { ActiveWarningModal } from '../ui/modals/ActiveWarningModal';
@@ -127,14 +127,14 @@ export const ClientContentInformation = ({ company }: Props) => {
 
     return (
         <div>
-            <TextArea
+            <TextAreaField
                 label="Descripción"
                 value={editedCompany.description || ''}
                 onChange={handleDescriptionChange} 
                 disabled={!isEditing}
-                divClassName='grid grid-cols-1 gap-4 items-center mb-4 text-sm text-slate-600 resize-none overflow-auto'
+                divClassName='grid grid-cols-1 gap-4 items-center mb-4 text-sm text-slate-600'
                 labelClassName='font-medium hidden sm:flex'
-                inputClassName='border p-1 col-span-2 rounded'
+                inputClassName='border p-1 col-span-2 rounded resize-none overflow-auto'
             />
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
                 <div className='text-sm'>

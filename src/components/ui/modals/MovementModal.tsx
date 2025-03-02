@@ -19,6 +19,9 @@ export const MovementModal = ({
     transaction,
     clientName
 }: Props) => {
+
+    console.log(transaction)
+
     const modalRef = useRef<HTMLDivElement>(null);
 
     const handleOverlayClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {

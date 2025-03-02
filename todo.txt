@@ -14,14 +14,20 @@ Rename App
 - Soft delete All (user, client, etc)
 - Config sign in with google
 - Add error page
-- Alert to client - New comment submitted
-- user/[id] - "Tarjetas" -> Whe no card, it show "No tenés tarjetas disponibles..." 2 times
-- client/[id] - "Movimientos" -> MovementModal dont display comments
 - client/[id] - Create ProductModal for editing
 - footer content
 - email validation
 - Forgot password
+- add amount of reviews to stars
+
+------------------------------------------
+
+Alert
+- add "user" / "client" type
+- create more alerts for intereactions
 
 ------------------------------------------
 
 - Lighthouse Report
+
+

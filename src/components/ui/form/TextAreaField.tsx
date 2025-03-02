@@ -9,7 +9,7 @@ interface Props {
     inputClassName?: string;
 }
 
-export const TextArea = ({
+export const TextAreaField = ({
     label,
     placeholder,
     value,
