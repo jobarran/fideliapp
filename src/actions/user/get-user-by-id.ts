@@ -29,6 +29,7 @@ export const getUserById = async (id: string) => {
                         backgroundColor: true,
                         slug: true,
                         activityTypeId: true,
+                        active: true,
                     },
                 },
                 Cards: {
@@ -43,7 +44,8 @@ export const getUserById = async (id: string) => {
                                 slug: true,
                                 activityTypeId: true,
                                 CompanyLogo: true,
-                                id: true
+                                id: true,
+                                active: true,
                             },
                         },
                         History: {

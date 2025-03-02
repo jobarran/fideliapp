@@ -23,6 +23,7 @@ export interface UserProfileData {
         backgroundColor: string;
         slug: string;
         activityTypeId: string;
+        active: boolean;
     } | null;
     Cards: {
         id: string;
@@ -34,7 +35,8 @@ export interface UserProfileData {
             slug: string;
             activityTypeId: string;
             CompanyLogo: CompanyLogo | null;
-            id: string
+            id: string;
+            active: boolean;
         };
         History: {
             id: string;
