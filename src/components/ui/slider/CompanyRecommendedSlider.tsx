@@ -4,6 +4,9 @@ import { BaseSlider, CompanyLinkWithRating, SliderHeader, SliderLoading } from '
 import { Company } from '@/interfaces';
 import Link from 'next/link';
 import { roundToStars } from '../../../utils/roundToStars';
+import { useCompaniesInRadius } from '@/hooks';
+import { useEffect, useState } from 'react';
+import { companiesInRadiusDistance } from '@/config';
 
 interface Props {
     companiesAll: Company[];
@@ -11,7 +14,27 @@ interface Props {
 
 export const CompanyRecommendedSlider = ({ companiesAll }: Props) => {
 
-    const bestCompanyRating = companiesAll
+    const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
+    const companiesInRadius = useCompaniesInRadius(companiesAll, userLocation, companiesInRadiusDistance)
+
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    setUserLocation({ lat: latitude, lng: longitude });
+                },
+                () => {
+                    // Fallback to a default location if geolocation fails
+                    setUserLocation({ lat: 35.8799866, lng: 76.5048004 });
+                }
+            );
+        } else {
+            setUserLocation({ lat: 35.8799866, lng: 76.5048004 });
+        }
+    }, []);
+
+    const bestCompanyRating = companiesInRadius
         .filter((company) => company.averageRating !== null) // Ensure there's a rating
         .sort((a, b) => b.averageRating - a.averageRating) // Sort by highest rating first
         .slice(0, 10); // Take the top 10

@@ -195,7 +195,7 @@ export const ProductModal = ({
                             <span className="flex gap-2 p-1">
                                 <p className="text-sm">{isEditing ? 'Guardar' : 'Editar'}</p>
                                 <span className="text-base">
-                                    {isEditing ? <FaRegSave className="hidden sm:block" /> : <FaRegEdit className="hidden sm:block" />}
+                                    {isEditing ? <FaRegSave /> : <FaRegEdit />}
                                 </span>
                             </span>
                         </button>

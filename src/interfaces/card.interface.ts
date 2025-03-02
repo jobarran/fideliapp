@@ -71,6 +71,7 @@ export interface UserCard {
         slug: string;
         activityTypeId: string;
         CompanyLogo: CompanyLogo | null;
+        active: boolean;
     };
     History: {
         id: string;

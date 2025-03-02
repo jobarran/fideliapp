@@ -7,6 +7,9 @@ import { Prisma } from '@prisma/client';
 export const getAllCompanies = async (): Promise<Company[]> => {
   try {
     const companies = await prisma.company.findMany({
+      where: {
+        active: true,
+      },
       include: {
         CompanyLogo: {
           select: {
@@ -16,7 +19,7 @@ export const getAllCompanies = async (): Promise<Company[]> => {
         user: {
           select: {
             name: true,
-            lastName: true, 
+            lastName: true,
           },
         },
         activityType: {
@@ -31,8 +34,8 @@ export const getAllCompanies = async (): Promise<Company[]> => {
       },
     });
 
-     // Safely parse openHours from Prisma's Json type
-     return companies.map(company => ({
+    // Safely parse openHours from Prisma's Json type
+    return companies.map(company => ({
       ...company,
       openHours: (company.openHours as Prisma.JsonObject)
         ? (company.openHours as Prisma.JsonObject) // Explicit cast to Prisma.JsonObject

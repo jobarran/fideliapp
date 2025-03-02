@@ -10,8 +10,7 @@ Rename App
 
 ----------------------------------------
 
-- register company verification (can upload products but is not seen by users and cant make movements)
-- Soft delete All (user, client, etc)
+- register company verification (can upload products but is not seen by users and cant make movements) same as desactivate company
 - Config sign in with google
 - Add error page
 - footer content
@@ -27,6 +26,9 @@ Alert
 
 Products
 - Update Image
+
+Admin
+- Panel
 
 ------------------------------------------
 

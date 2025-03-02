@@ -207,7 +207,7 @@ export const ClientContentInformation = ({ company }: Props) => {
                         className={` text-xs py-1 px-2 rounded-lg border border-slate-200 ${isEditing ? 'bg-slate-800 text-slate-100' : 'text-slate-500 hover:bg-slate-100'}`}
                     >
                         <span className='flex gap-2 p-1'>
-                            <p className='text-sm'>{isEditing ? 'Guardar' : 'Editar'}</p><span className='text-base'>{isEditing ? <FaRegSave className='hidden sm:block' /> : <FaRegEdit className='hidden sm:block' />}</span>
+                            <p className='text-sm'>{isEditing ? 'Guardar' : 'Editar'}</p><span className='text-base'>{isEditing ? <FaRegSave/> : <FaRegEdit />}</span>
                         </span>
                     </button>
                 </div>
@@ -218,7 +218,7 @@ export const ClientContentInformation = ({ company }: Props) => {
                     buttonBgColor={''}
                     buttonTextColor={'text-slate-500'}
                     buttonHoverColor={'hover:bg-slate-100 border border-slate-200'}
-                    buttonIcon={isActive ? <FaBan className='hidden sm:block' /> : <FaCheck className='hidden sm:block' />}
+                    buttonIcon={isActive ? <FaBan /> : <FaCheck />}
                     buttonPossition='justify-start'
                     modalLabel='Atención!'
                     content={

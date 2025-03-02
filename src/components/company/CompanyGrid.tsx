@@ -6,6 +6,8 @@ import { FilterCompaniesComponent } from "../ui/filter/FilterCompaniesComponent"
 import { useCompanyNameFilter } from "@/hooks/useCompanyNameFilter";
 import { useEffect, useState } from "react";
 import { useSortedCompanies } from "@/hooks/useSortedCompanies";
+import { useCompaniesInRadius } from "@/hooks";
+import { companiesInRadiusDistance } from "@/config";
 
 interface Props {
   companies: Company[];
@@ -16,8 +18,10 @@ interface Props {
 }
 
 export const CompanyGrid = ({ companies, activityTypes, search, companyIdByUserCard, activityType }: Props) => {
-  const { filteredItems, filteredObj, filters, setFilters, clearFilters } = useCompanyNameFilter(companies, search);
+
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const companiesInRadius = useCompaniesInRadius(companies, userLocation, companiesInRadiusDistance)
+  const { filteredItems, filteredObj, filters, setFilters, clearFilters } = useCompanyNameFilter(companiesInRadius, search);
   const [sortBy, setSortBy] = useState<"rating" | "distance" | "">(""); // Default to "" for "no sorting"
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc"); // Default to high to low for rating, low to high for distance
 
