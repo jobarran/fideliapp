@@ -15,7 +15,7 @@ interface Props {
 export const CompanyRecommendedSlider = ({ companiesAll }: Props) => {
 
     const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
-    const companiesInRadius = useCompaniesInRadius(companiesAll, userLocation, companiesInRadiusDistance)
+    const { filteredCompanies, isLoading } = useCompaniesInRadius(companiesAll, userLocation, companiesInRadiusDistance)
 
     useEffect(() => {
         if (navigator.geolocation) {
@@ -34,7 +34,7 @@ export const CompanyRecommendedSlider = ({ companiesAll }: Props) => {
         }
     }, []);
 
-    const bestCompanyRating = companiesInRadius
+    const bestCompanyRating = filteredCompanies
         .filter((company) => company.averageRating !== null) // Ensure there's a rating
         .sort((a, b) => b.averageRating - a.averageRating) // Sort by highest rating first
         .slice(0, 10); // Take the top 10
@@ -49,7 +49,10 @@ export const CompanyRecommendedSlider = ({ companiesAll }: Props) => {
     return (
         <div>
             <SliderHeader label={'Destacados'} href={'/companies'} seeAllLabel={'Ver todos'} />
-            {bestCompanyRating.length > 0 ? (
+
+            {isLoading ? (
+                <SliderLoading sliderType={'company'} />
+            ) : bestCompanyRating.length > 0 ? (
                 <BaseSlider
                     data={bestCompanyRating}
                     breakpoints={breakpoints}
@@ -69,6 +72,7 @@ export const CompanyRecommendedSlider = ({ companiesAll }: Props) => {
                     </Link>.
                 </p>
             )}
+
         </div>
     );
 

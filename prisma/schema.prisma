@@ -94,6 +94,7 @@ model Company {
   lng             Float?
   openHours       Json
   averageRating   Float   @default(0)
+  totalRating     Float   @default(0)
 
   // Social media addresses
   instagram String?

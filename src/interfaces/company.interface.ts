@@ -12,7 +12,8 @@ export interface Company {
   slug: string;
   lat: number | null;
   lng: number | null;
-  averageRating: number
+  averageRating: number;
+  totalRating: number;
   openHours: Record<string, {
     from: string;
     to: string;
@@ -73,6 +74,7 @@ export interface CompanyClientDashboard {
   address: string;
   slug: string;
   averageRating: number;
+  totalRating: number;
   lat: number | null;
   lng: number | null;
   openHours: Record<string, {

@@ -1,5 +1,5 @@
 import { Company } from '@/interfaces';
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 
 interface UserLocation {
   lat: number;
@@ -10,7 +10,7 @@ export const useCompaniesInRadius = (
   companies: Company[],
   userLocation: UserLocation | null,
   meters: number
-): Company[] => {
+): { filteredCompanies: Company[], isLoading: boolean } => {
   // Haversine formula to calculate distance between two coordinates
   const calculateDistance = (
     lat1: number,
@@ -35,7 +35,15 @@ export const useCompaniesInRadius = (
     return R * c;
   };
 
-  return useMemo(() => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (userLocation) {
+      setIsLoading(false); // Set loading to false once location is available
+    }
+  }, [userLocation]);
+
+  const filteredCompanies = useMemo(() => {
     if (!userLocation) return []; // Return empty array if user location is null
 
     const { lat: userLat, lng: userLng } = userLocation;
@@ -52,4 +60,6 @@ export const useCompaniesInRadius = (
       return distance <= meters;
     });
   }, [companies, userLocation, meters]);
+
+  return { filteredCompanies, isLoading };
 };

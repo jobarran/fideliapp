@@ -1,5 +1,6 @@
 'use client';
 
+import useCompanyRewardDistance from '@/hooks/useCompanyRewardDistance';
 import { BaseSlider, ProductRewardLink, SliderHeader, SliderLoading } from '../..';
 import { Reward } from '@/interfaces';
 
@@ -8,6 +9,8 @@ interface Props {
 }
 
 export const PopularRewardsSlider = ({ popularRewards }: Props) => {
+
+    const { filteredRewards, isLoading } = useCompanyRewardDistance(popularRewards); // Use the updated hook
 
     const breakpoints = {
         320: { slidesPerView: 1.5 },
@@ -20,9 +23,9 @@ export const PopularRewardsSlider = ({ popularRewards }: Props) => {
         <div>
             <SliderHeader label={'Recompensas'} href={''} seeAllLabel={''} />
             <BaseSlider
-                data={popularRewards}
+                data={filteredRewards}
                 breakpoints={breakpoints}
-                renderItem={(popularRewards) => (<ProductRewardLink reward={popularRewards} />)}
+                renderItem={(reward) => (<ProductRewardLink reward={reward} />)}
                 loadingComponent={<SliderLoading sliderType={'reward'} />}
             />
         </div>

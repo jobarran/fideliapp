@@ -8,4 +8,6 @@ export interface Reward {
     companyLogoUrl?: string;
     companyBackgroundColor: string;
     companySlug: string;
+    companyLat?: number;
+    companyLng?: number;
   }

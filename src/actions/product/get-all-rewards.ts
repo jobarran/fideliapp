@@ -21,7 +21,9 @@ export const getAllRewards = async () => {
             company: {
               select: {
                 name: true,
-                slug: true, // Include company slug
+                slug: true,
+                lat: true,
+                lng: true,
                 CompanyLogo: {
                   select: {
                     url: true,
@@ -46,6 +48,8 @@ export const getAllRewards = async () => {
       companySlug: reward.product.company.slug, // Add company slug to the result
       companyLogoUrl: reward.product.company.CompanyLogo?.url,
       companyBackgroundColor: reward.product.company.backgroundColor,
+      companyLat: reward.product.company.lat || undefined,
+      companyLng: reward.product.company.lng || undefined
     }));
   } catch (error) {
     console.error('Error fetching rewards:', error);

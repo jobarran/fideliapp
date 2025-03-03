@@ -147,7 +147,7 @@ export const CompanyProfileHeaderData = ({
                     </div>
                     <span className="ml-2 text-slate-600">
                         {company.averageRating && company.averageRating > 0
-                            ? `(${company.averageRating.toFixed(1)})`
+                            ? `${company.averageRating.toFixed(1)} (${company.totalRating})`
                             : ''}
                     </span>
                 </div>

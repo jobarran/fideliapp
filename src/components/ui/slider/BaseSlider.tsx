@@ -28,7 +28,7 @@ export function BaseSlider<T>({
 
     if (!isMounted && loadingComponent) {
         return (
-            <div className='w-full mt-2 mb-4'>
+            <div className='w-full'>
                 {loadingComponent}
             </div>
         );

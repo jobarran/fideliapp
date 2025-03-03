@@ -57,11 +57,12 @@ export async function createTransactionReview(data: CreateReviewInput): Promise<
   // Calculate the average rating
   const averageRating =
     allReviews.reduce((sum, review) => sum + review.rating, 0) / allReviews.length;
+  const totalRating = allReviews.length
 
   // Update the company's averageRating
   await prisma.company.update({
     where: { id: companyId },
-    data: { averageRating },
+    data: { averageRating, totalRating },
   });
 
   // Optionally revalidate the path where the reviews are displayed

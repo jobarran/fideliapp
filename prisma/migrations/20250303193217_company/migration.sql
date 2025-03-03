@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Company" ADD COLUMN     "totalRating" DOUBLE PRECISION NOT NULL DEFAULT 0;

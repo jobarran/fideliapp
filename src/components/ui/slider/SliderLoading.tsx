@@ -6,7 +6,7 @@ interface Props {
 
 export const SliderLoading = ({ sliderType }: Props) => {
     return (
-        <div className="flex flex-row gap-2 flex-nowrap overflow-hidden mb-4">
+        <div className="flex flex-row gap-2 flex-nowrap overflow-hidden mt-2 mb-4">
             {/* Conditionally render loading components based on sliderType */}
             {sliderType === "userCard" ? (
                 Array.from({ length: 5 }).map((_, index) => (
