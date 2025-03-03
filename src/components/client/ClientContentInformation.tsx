@@ -142,7 +142,7 @@ export const ClientContentInformation = ({ company }: Props) => {
 
                     <TextField
                         label="Dirección"
-                        value={formatAddress(editedCompany.address)}
+                        value={editedCompany.address}
                         onChange={(e) => handleInputChange(e, 'address')}
                         disabled={true}
                         divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
