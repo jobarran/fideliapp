@@ -28,6 +28,7 @@ export { getUserById } from './user/get-user-by-id'
 export { updateUser } from './user/update-user'
 
 export { runSeed } from './seed/run-seed'
+export { convertTotalAdmin } from './seed/convert-total-admin'
 
 export { getProductsByCompanyId } from './product/get-products-by-companyId'
 export { createNewProduct } from './product/create-new-product'

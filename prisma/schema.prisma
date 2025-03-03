@@ -25,6 +25,11 @@ enum UserRole {
   ADMIN
 }
 
+enum UserPermission {
+  NONE
+  TOTAL
+}
+
 enum ActivityCategory {
   PRODUCT
   SERVICE
@@ -54,13 +59,14 @@ enum AlertType {
 }
 
 model User {
-  id       String   @id @default(uuid())
-  name     String
-  lastName String
-  email    String   @unique
-  password String
-  active   Boolean  @default(true)
-  role     UserRole @default(USER)
+  id         String         @id @default(uuid())
+  name       String
+  lastName   String
+  email      String         @unique
+  password   String
+  active     Boolean        @default(true)
+  role       UserRole       @default(USER)
+  permission UserPermission @default(NONE)
 
   // Relations - Down
   Cards   Card[]

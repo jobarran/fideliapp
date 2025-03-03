@@ -1,4 +1,4 @@
-import { UserRole } from '@prisma/client';
+import { UserPermission, UserRole } from '@prisma/client';
 import bcryptjs from 'bcryptjs';
 
 
@@ -9,6 +9,7 @@ export interface SeedUser {
   email: string;
   password: string;
   role: UserRole;
+  permission?: UserPermission;
   image?: string;
 }
 
@@ -51,6 +52,7 @@ export const initialData: SeedData = {
       email: 'jbarrandeguy@fidelia.com',
       password: bcryptjs.hashSync('123456'),
       role: UserRole.ADMIN,
+      permission: UserPermission.TOTAL
     },
     {
       name: 'Martina',
