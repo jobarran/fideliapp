@@ -1,11 +1,11 @@
 import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp, FaPhone } from "react-icons/fa";
 
 interface Props {
-  instagram?: string;
-  facebook?: string;
-  twitter?: string;
-  whatsapp?: string;
-  phone?: string;
+  instagram: string | null;
+  facebook: string | null;
+  twitter: string | null;
+  whatsapp: string | null;
+  phone: string | null;
 }
 
 export const CompanySocialMediaContact = ({ instagram, facebook, twitter, whatsapp, phone }: Props) => {
