@@ -108,10 +108,10 @@ export const AdminEditCompanyModal = ({
                     </div>
 
                     {/* Actions */}
-                    <div className="flex justify-between items-center mt-6">
+                    <div className="flex items-center mt-6 w-full gap-2 justify-center">
                         <button
                             onClick={handleValidateBusiness}
-                            className={`text-sm py-1 px-3 rounded-lg text-white flex items-center ${editedCompany.validated ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'}`}
+                            className={`text-md py-1 px-3 rounded-lg text-white flex items-center justify-center w-full ${editedCompany.validated ? 'bg-red-800 hover:bg-red-900' : 'bg-green-800 hover:bg-green-900'}`}
                         >
                             {editedCompany.validated ? (
                                 <IoBan className="mr-2" />
@@ -123,7 +123,7 @@ export const AdminEditCompanyModal = ({
 
                         <button
                             onClick={handleCloseModal}
-                            className="text-sm py-1 px-3 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-100"
+                            className="text-sm py-1 px-3 rounded-lg border w-full border-slate-200 text-slate-500 hover:bg-slate-100"
                         >
                             Cerrar
                         </button>
