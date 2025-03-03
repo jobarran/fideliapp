@@ -19,11 +19,11 @@ const companySchema = z.object({
     address: z.string().min(3).max(255),
     lat: z.preprocess((val) => parseFloat(val as string), z.number()),
     lng: z.preprocess((val) => parseFloat(val as string), z.number()),
-    instagram: z.string().min(1).max(100),
-    facebook: z.string().min(1).max(100),
-    twitter: z.string().min(1).max(100),
-    whatsapp: z.string().min(1).max(100),
-    phone: z.string().min(1).max(100),
+    instagram: z.string().min(0).max(100),
+    facebook: z.string().min(0).max(100),
+    twitter: z.string().min(0).max(100),
+    whatsapp: z.string().min(0).max(100),
+    phone: z.string().min(0).max(100),
     openHours: z.record(z.object({
         from: z.string(),
         to: z.string(),
@@ -64,7 +64,6 @@ export const updateCompany = async (editedCompany: CompanyClientDashboard) => {
         });
 
         if (existingCompany) {
-            // If company exists, update it
             const updatedCompany = await prisma.company.update({
                 where: { slug: slug },
                 data: {

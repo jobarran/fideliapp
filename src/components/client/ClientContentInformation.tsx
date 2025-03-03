@@ -46,11 +46,13 @@ export const ClientContentInformation = ({ company }: Props) => {
     }, [isEditing, editedCompany]);
 
     const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: keyof EditedCompany) => {
+        const value = e.target.value.trim() === '' ? '' : e.target.value;  // Ensure value is an empty string if it's empty
         setEditedCompany((prevState) => ({
             ...prevState,
-            [field]: e.target.value,
+            [field]: value,
         }));
     }, []);
+
 
     const handleDescriptionChange = useCallback(
         (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -235,12 +237,12 @@ export const ClientContentInformation = ({ company }: Props) => {
                 <div className='text-sm'>
 
                     <TextAreaField
-                        label="¿Quienes somos?"
+                        label=""
                         value={editedCompany.description || ''}
                         onChange={handleDescriptionChange}
                         disabled={!isEditing}
                         divClassName='grid grid-cols-1 items-center mb-4 text-sm text-slate-600'
-                        labelClassName='font-medium hidden sm:flex mb-2'
+                        labelClassName='font-medium hidden sm:flex'
                         inputClassName='border p-1 col-span-2 rounded resize-none overflow-auto'
                     />
 
