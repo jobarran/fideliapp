@@ -101,6 +101,7 @@ model Company {
   twitter   String?
   whatsapp  String?
   phone     String?
+  site      String?
 
   // Relations - Down
   Products      Product[]

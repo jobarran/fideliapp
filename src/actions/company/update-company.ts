@@ -24,6 +24,7 @@ const companySchema = z.object({
     twitter: z.string().min(0).max(100),
     whatsapp: z.string().min(0).max(100),
     phone: z.string().min(0).max(100),
+    site: z.string().min(0).max(100),
     openHours: z.record(z.object({
         from: z.string(),
         to: z.string(),
@@ -76,6 +77,7 @@ export const updateCompany = async (editedCompany: CompanyClientDashboard) => {
                     twitter: rest.twitter,
                     whatsapp: rest.whatsapp,
                     phone: rest.phone,
+                    site: rest.site,
                 }
             });
 

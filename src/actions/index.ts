@@ -13,6 +13,8 @@ export { activeCompany } from './company/active-company'
 export { getCompanyTransactionsByUser } from './company/get-company-transactions-by-user'
 export { getCompanyReviewsByCompanyId } from './company/get-company-reviews-by-id'
 export { getCompanyTransactionsByCompany } from './company/get-company-transactions-by-company'
+export { getAllAdminCompanies } from './company/get-all-admin-companies'
+export { updateCompanyValidationAdmin } from './company/update-company-validation-admin'
 
 export { getAllCardsByUser } from './card/get-all-cards-by-user'
 export { getCardById } from './card/get-card-by-id'

@@ -8,6 +8,7 @@ interface Props {
 }
 
 export default async function CompaniesPage({ searchParams }: Props) {
+  
   const { search, activityType } = searchParams;
   const companies = await getAllCompanies();
   const activityTypes = await getActivityTypes();

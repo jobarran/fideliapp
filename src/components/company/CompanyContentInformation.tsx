@@ -14,6 +14,7 @@ export const CompanyContentInformation = ({ company }: Props) => {
         company.facebook ||
         company.twitter ||
         company.whatsapp ||
+        company.site ||
         company.phone;
 
     return (
@@ -55,6 +56,7 @@ export const CompanyContentInformation = ({ company }: Props) => {
                             twitter={company.twitter}
                             whatsapp={company.whatsapp}
                             phone={company.phone}
+                            site={company.site}
                         />
                     )}
                 </div>

@@ -34,6 +34,7 @@ type FormInputs = {
   twitter: string;
   whatsapp: string;
   phone: string;
+  site: string;
   validated: boolean
 };
 
@@ -78,6 +79,7 @@ export const CreateCompanyForm = ({ userId }: Props) => {
       twitter: '',
       whatsapp: '',
       phone: '',
+      site: '',
       validated: false,
     }
   });
@@ -127,6 +129,7 @@ export const CreateCompanyForm = ({ userId }: Props) => {
     formData.append("slug", slug);
     formData.append("description", companyToSave.description);
     formData.append("facebook", companyToSave.facebook);
+    formData.append("site", companyToSave.site);
     formData.append("twitter", companyToSave.twitter);
     formData.append("instagram", companyToSave.instagram);
     formData.append("phone", companyToSave.phone);

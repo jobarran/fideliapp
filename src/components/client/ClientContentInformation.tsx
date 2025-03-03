@@ -9,7 +9,7 @@ import { ColorPicker, OpenHoursSection, SelectField, TextAreaField, TextField } 
 import { useRouter } from 'next/navigation';
 import { FaBan, FaCheck } from 'react-icons/fa6';
 import { ActiveWarningModal } from '../ui/modals/ActiveWarningModal';
-import { FaFacebook, FaInstagram, FaPhone, FaRegEdit, FaRegSave, FaTwitter, FaWhatsapp } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaLink, FaPhone, FaRegEdit, FaRegSave, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 
 interface EditedCompany extends CompanyClientDashboard {
     openHours: Record<string, DayHours>;
@@ -197,6 +197,18 @@ export const ClientContentInformation = ({ company }: Props) => {
                         labelClassName='font-medium hidden sm:flex'
                         inputClassName='border p-1 rounded ps-10 w-full'
                         icon={FaWhatsapp}
+                    />
+
+
+                    <TextField
+                        label="site"
+                        value={editedCompany.site || ''}
+                        onChange={(e) => handleInputChange(e, 'site')}
+                        disabled={!isEditing}
+                        divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4 w-full'
+                        labelClassName='font-medium hidden sm:flex'
+                        inputClassName='border p-1 rounded ps-10 w-full'
+                        icon={FaLink}
                     />
 
                     <TextField

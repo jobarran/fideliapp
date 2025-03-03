@@ -29,6 +29,7 @@ export interface Company {
   twitter: string | null;
   whatsapp: string | null;
   phone: string | null;
+  site: string | null;
 }
 
 export interface CompanyLogo {
@@ -86,6 +87,7 @@ export interface CompanyClientDashboard {
   twitter: string | null;
   whatsapp: string | null;
   phone: string | null;
+  site: string | null;
 }
 
 export interface CompanyClientInformation {
@@ -115,6 +117,7 @@ export interface CompanyClientInformation {
   twitter: string | null;
   whatsapp: string | null;
   phone: string | null;
+  site: string | null;
 }
 
 export interface DayHours {

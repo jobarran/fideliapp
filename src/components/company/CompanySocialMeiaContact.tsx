@@ -1,4 +1,4 @@
-import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp, FaPhone } from "react-icons/fa";
+import { FaInstagram, FaFacebook, FaTwitter, FaWhatsapp, FaPhone, FaLink } from "react-icons/fa";
 
 interface Props {
   instagram: string | null;
@@ -6,9 +6,10 @@ interface Props {
   twitter: string | null;
   whatsapp: string | null;
   phone: string | null;
+  site: string | null;
 }
 
-export const CompanySocialMediaContact = ({ instagram, facebook, twitter, whatsapp, phone }: Props) => {
+export const CompanySocialMediaContact = ({ instagram, facebook, twitter, whatsapp, phone, site }: Props) => {
   return (
     <div>
       <h3 className="text-base font-semibold text-gray-800">Contacto y Redes Sociales</h3>
@@ -50,6 +51,14 @@ export const CompanySocialMediaContact = ({ instagram, facebook, twitter, whatsa
             <FaPhone className="mr-2" />
             <a href={`tel:${phone}`} className="hover:font-semibold">
               {phone}
+            </a>
+          </div>
+        )}
+        {site && (
+          <div className="flex items-center text-slate-800">
+            <FaLink className="mr-2" />
+            <a href={site} target="_blank" rel="noopener noreferrer" className="hover:font-semibold">
+              {site}
             </a>
           </div>
         )}

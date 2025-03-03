@@ -1,6 +1,6 @@
 // src/config/socialConfig.ts
 
-import { FaFacebook, FaInstagram, FaPhone, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import { FaFacebook, FaInstagram, FaLink, FaPhone, FaTwitter, FaWhatsapp } from "react-icons/fa";
 
 export const socialConfig = {
     facebook: {
@@ -37,5 +37,12 @@ export const socialConfig = {
         icon: FaPhone,
         placeholder: 'Teléfono',
         ariaLabel: 'Teléfono',
+    },
+    site: {
+        register: "site",
+        label: 'Site',
+        icon: FaLink,
+        placeholder: 'Web',
+        ariaLabel: 'Web',
     },
 };

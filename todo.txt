@@ -12,7 +12,6 @@ Rename App
 
 - filter home slider rewards by "companies in radius"
 - add amount of reviews to stars
-- admin company validation
 
 - email validation
 - Config sign in with google
@@ -34,6 +33,8 @@ Admin
 - Panel
 - Company validation
 - Contact answer
+
+Validations in back
 
 ------------------------------------------
 

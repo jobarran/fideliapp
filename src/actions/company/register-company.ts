@@ -23,6 +23,7 @@ const companySchema = z.object({
     twitter: z.string().min(0).max(100),
     whatsapp: z.string().min(0).max(100),
     phone: z.string().min(0).max(100),
+    site: z.string().min(0).max(100),
     openHours: z.record(z.object({
         from: z.string(),
         to: z.string(),
@@ -32,28 +33,28 @@ const companySchema = z.object({
 
 export const registerCompany = async (formData: FormData) => {
 
-    
+
     const session = await auth();
     const userId = session?.user.id;
-    
+
     // Use a Record type to ensure types are correctly asserted
     const data: Record<string, FormDataEntryValue> = Object.fromEntries(formData);
-    
-    
+
+
     // Parse openHours from JSON string back to an object if it exists
     if (data.openHours) {
         data.openHours = JSON.parse(data.openHours as string);
     }
-    
+
     const companyParsed = companySchema.safeParse(data);
-    
+
     if (!companyParsed.success) {
         return { ok: false };
     }
-    
+
     const companyData = companyParsed.data;
-    
-    
+
+
     const { openHours, slug, ...rest } = companyData; // Destructure and remove `id`
 
     if (!userId) {
@@ -93,6 +94,7 @@ export const registerCompany = async (formData: FormData) => {
                 twitter: rest.twitter,
                 whatsapp: rest.whatsapp,
                 phone: rest.phone,
+                site: rest.site,
             }
         });
 
@@ -121,7 +123,7 @@ export const registerCompany = async (formData: FormData) => {
         return {
             ok: true,
             company: company,
-            message: companyLogo 
+            message: companyLogo
                 ? 'Company created with logo.'
                 : 'Company created without logo. Logo was not provided.',
         };
