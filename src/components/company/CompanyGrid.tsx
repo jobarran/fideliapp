@@ -20,8 +20,8 @@ interface Props {
 export const CompanyGrid = ({ companies, activityTypes, search, companyIdByUserCard, activityType }: Props) => {
 
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
-  const companiesInRadius = useCompaniesInRadius(companies, userLocation, companiesInRadiusDistance)
-  const { filteredItems, filteredObj, filters, setFilters, clearFilters } = useCompanyNameFilter(companiesInRadius, search);
+  const { filteredCompanies } = useCompaniesInRadius(companies, userLocation, companiesInRadiusDistance)
+  const { filteredItems, filteredObj, filters, setFilters, clearFilters } = useCompanyNameFilter(filteredCompanies, search);
   const [sortBy, setSortBy] = useState<"rating" | "distance" | "">(""); // Default to "" for "no sorting"
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc"); // Default to high to low for rating, low to high for distance
 
