@@ -33,6 +33,9 @@ export const getUserById = async (id: string) => {
                     },
                 },
                 Cards: {
+                    where: {
+                        company: { validated: true }
+                    },
                     select: {
                         id: true,
                         points: true,

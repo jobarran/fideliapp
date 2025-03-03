@@ -9,6 +9,7 @@ export const getAllCompanies = async (): Promise<Company[]> => {
     const companies = await prisma.company.findMany({
       where: {
         active: true,
+        validated: true,
       },
       include: {
         CompanyLogo: {

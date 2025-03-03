@@ -13,7 +13,6 @@ Rename App
 - filter home slider rewards by "companies in radius"
 - add amount of reviews to stars
 
-
 - email validation
 - Config sign in with google
 - Forgot password

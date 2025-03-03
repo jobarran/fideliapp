@@ -18,6 +18,7 @@ export const getAllCardsByUser = async () => {
     const cards = await prisma.card.findMany({
       where: {
         userId: session.user.id,
+        company: { validated: true }
       },
       select: {
         id: true,

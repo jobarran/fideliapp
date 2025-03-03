@@ -8,6 +8,7 @@ export const getCompanyBySlug = async (slug: string) => {
       const company = await prisma.company.findFirst({
         where: {
           slug: slug,
+          validated: true
         },
         include: {
           CompanyLogo: {
