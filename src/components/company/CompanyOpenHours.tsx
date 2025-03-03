@@ -35,7 +35,7 @@ export const CompanyOpenHours: React.FC<Props> = ({ openHours }) => {
 
     return (
         <div >
-            <h3 className="text-base sm:text-lg font-semibold text-gray-800">Horarios</h3>
+            <h3 className="text-base font-semibold text-gray-800">Horarios</h3>
             <div className="grid grid-cols-[auto_1fr] gap-x-4 text-xs sm:text-sm">
                 {Object.entries(normalizedOpenHours).map(([day, hours]) => (
                     <React.Fragment key={day}>

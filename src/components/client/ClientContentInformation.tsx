@@ -5,11 +5,11 @@ import { colorOptions, defaultOpenHours } from '@/config';
 import { CompanyClientDashboard, DayHours } from '@/interfaces';
 import { formatAddress } from '@/utils';
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActionButton, CheckboxField, ColorPicker, DeleteWarningModal, OpenHoursSection, SelectField, TextAreaField, TextField } from '..';
+import { ColorPicker, OpenHoursSection, SelectField, TextAreaField, TextField } from '..';
 import { useRouter } from 'next/navigation';
-import { FaBan, FaCheck, FaRegTrashCan } from 'react-icons/fa6';
+import { FaBan, FaCheck } from 'react-icons/fa6';
 import { ActiveWarningModal } from '../ui/modals/ActiveWarningModal';
-import { FaRegEdit, FaRegSave } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaPhone, FaRegEdit, FaRegSave, FaTwitter, FaWhatsapp } from 'react-icons/fa';
 
 interface EditedCompany extends CompanyClientDashboard {
     openHours: Record<string, DayHours>;
@@ -127,16 +127,8 @@ export const ClientContentInformation = ({ company }: Props) => {
 
     return (
         <div>
-            <TextAreaField
-                label="Descripción"
-                value={editedCompany.description || ''}
-                onChange={handleDescriptionChange} 
-                disabled={!isEditing}
-                divClassName='grid grid-cols-1 gap-4 items-center mb-4 text-sm text-slate-600'
-                labelClassName='font-medium hidden sm:flex'
-                inputClassName='border p-1 col-span-2 rounded resize-none overflow-auto'
-            />
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className='text-sm'>
                     <TextField
                         label="Nombre"
@@ -145,7 +137,7 @@ export const ClientContentInformation = ({ company }: Props) => {
                         disabled={true}
                         divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
                         labelClassName='font-medium hidden sm:flex'
-                        inputClassName='border p-1 col-span-2 rounded'
+                        inputClassName='border p-1 rounded w-full'
                     />
 
                     <TextField
@@ -155,7 +147,7 @@ export const ClientContentInformation = ({ company }: Props) => {
                         disabled={true}
                         divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
                         labelClassName='font-medium hidden sm:flex'
-                        inputClassName='border p-1 col-span-2 rounded'
+                        inputClassName='border p-1 rounded w-full'
                     />
 
                     <SelectField
@@ -182,9 +174,76 @@ export const ClientContentInformation = ({ company }: Props) => {
                         pickerClassName='flex space-x-2 col-span-2'
                     />
 
+                    <TextField
+                        label="Teléfono"
+                        value={editedCompany.phone || ''}
+                        onChange={(e) => handleInputChange(e, 'phone')}
+                        disabled={!isEditing}
+                        divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
+                        labelClassName='font-medium hidden sm:flex'
+                        inputClassName='border p-1 rounded ps-10 w-full'
+                        icon={FaPhone}
+                    />
+
+
+                    <TextField
+                        label="Whatsapp"
+                        value={editedCompany.whatsapp || ''}
+                        onChange={(e) => handleInputChange(e, 'whatsapp')}
+                        disabled={!isEditing}
+                        divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4 w-full'
+                        labelClassName='font-medium hidden sm:flex'
+                        inputClassName='border p-1 rounded ps-10 w-full'
+                        icon={FaWhatsapp}
+                    />
+
+                    <TextField
+                        label="Instagram"
+                        value={editedCompany.instagram || ''}
+                        onChange={(e) => handleInputChange(e, 'instagram')}
+                        disabled={!isEditing}
+                        divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
+                        labelClassName='font-medium hidden sm:flex'
+                        inputClassName='border p-1 rounded ps-10 w-full'
+                        icon={FaInstagram}
+                    />
+
+                    <TextField
+                        label="Facebook"
+                        value={editedCompany.facebook || ''}
+                        onChange={(e) => handleInputChange(e, 'facebook')}
+                        disabled={!isEditing}
+                        divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
+                        labelClassName='font-medium hidden sm:flex'
+                        inputClassName='border p-1 rounded ps-10 w-full'
+                        icon={FaFacebook}
+                    />
+
+                    <TextField
+                        label="Twitter"
+                        value={editedCompany.twitter || ''}
+                        onChange={(e) => handleInputChange(e, 'twitter')}
+                        disabled={!isEditing}
+                        divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
+                        labelClassName='font-medium hidden sm:flex'
+                        inputClassName='border p-1 rounded ps-10 w-full'
+                        icon={FaTwitter}
+                    />
+
                 </div>
 
                 <div className='text-sm'>
+
+                    <TextAreaField
+                        label="¿Quienes somos?"
+                        value={editedCompany.description || ''}
+                        onChange={handleDescriptionChange}
+                        disabled={!isEditing}
+                        divClassName='grid grid-cols-1 items-center mb-4 text-sm text-slate-600'
+                        labelClassName='font-medium hidden sm:flex mb-2'
+                        inputClassName='border p-1 col-span-2 rounded resize-none overflow-auto'
+                    />
+
                     <OpenHoursSection
                         openHours={editedCompany.openHours}
                         onHourChange={handleOpenHourChange}
@@ -207,7 +266,7 @@ export const ClientContentInformation = ({ company }: Props) => {
                         className={` text-xs py-1 px-2 rounded-lg border border-slate-200 ${isEditing ? 'bg-slate-800 text-slate-100' : 'text-slate-500 hover:bg-slate-100'}`}
                     >
                         <span className='flex gap-2 p-1'>
-                            <p className='text-sm'>{isEditing ? 'Guardar' : 'Editar'}</p><span className='text-base'>{isEditing ? <FaRegSave/> : <FaRegEdit />}</span>
+                            <p className='text-sm'>{isEditing ? 'Guardar' : 'Editar'}</p><span className='text-base'>{isEditing ? <FaRegSave /> : <FaRegEdit />}</span>
                         </span>
                     </button>
                 </div>
