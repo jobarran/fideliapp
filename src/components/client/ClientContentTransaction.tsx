@@ -14,9 +14,10 @@ import { ClientContentTransactionLoading, ClientContentTransactionManual, Client
 interface Props {
     products: Product[];
     companySlug: string;
+    companyActive: boolean
 }
 
-export const ClientContentTransaction = ({ products, companySlug }: Props) => {
+export const ClientContentTransaction = ({ products, companySlug, companyActive }: Props) => {
     const [selectedTransactionType, setSelectedTransactionType] = useState<TransactionType | null>('BUY');
     const [selectedProducts, setSelectedProducts] = useState<Record<string, number>>({});
     const [userInfo, setUserInfo] = useState<any>(null);
@@ -207,6 +208,7 @@ export const ClientContentTransaction = ({ products, companySlug }: Props) => {
                             errorMessage={errorMessage}
                             setErrorMessage={setErrorMessage}
                             setIsPinLoading={setIsPinLoading}
+                            companyActive={companyActive}
                         />
                     }
                     {!transactionSuccess && isPinValidated &&

@@ -3,7 +3,7 @@
 import { UserCard as UserCardProp } from '@/interfaces';
 import Link from 'next/link';
 import React, { useState } from 'react'
-import { FaHeart, FaRegHeart } from 'react-icons/fa6';
+import { FaBan, FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { Avatar, UserCardImage } from '..';
 import { softColor } from '../../utils/softColor';
 import { favouriteCard } from '@/actions';
@@ -20,6 +20,8 @@ export const UserCard = ({ card }: Props) => {
     // Unified color logic
     const backgroundColor = card.company.backgroundColor || '#0F172A';
     const color = backgroundColor === '#FFFFFF' ? '#0F172A' : backgroundColor;
+    const inactiveColor = '#64748B'
+    const inactiveBgColor = '#F1F5F9'
 
     // Function to toggle favorite status
     const toggleFavourite = async () => {
@@ -31,7 +33,7 @@ export const UserCard = ({ card }: Props) => {
             console.error("Error updating favorite status:", error);
         }
     };
-    
+
 
     return (
         <div
@@ -43,9 +45,9 @@ export const UserCard = ({ card }: Props) => {
                 <div className="rounded-lg overflow-hidden"
                     style={{ borderColor: softColor(color, 70), borderWidth: 0.5, borderStyle: 'solid' }}>
                     <div
-                        className="flex flex-col items-center justify-center bg-white"
+                        className={`flex flex-col items-center justify-center ${card.company.active ? 'bg-white' : 'bg-gray-100'} `}
                     >
-                        <div className="mt-1 text-sm font-medium" style={{ color: color }}>{cropText(card.company.name, 23)}</div>
+                        <div className="mt-1 text-sm font-medium" style={{ color: card.company.active ? color : inactiveColor }}>{cropText(card.company.name, 23)}</div>
                         <div className="mt-1 mb-2">
                             <div className="relative w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-white">
                                 {card.company.CompanyLogo ? (
@@ -64,20 +66,58 @@ export const UserCard = ({ card }: Props) => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex items-center justify-between px-4 pb-2 bg-white">
-                        {/* Mis puntos section at bottom left */}
-                        <div className="flex flex-col items-start">
-                            <p className="text-xs font-medium" style={{ color: color }}>{`${card.points} puntos`}</p> {/* Random number */}
-                        </div>
-                        {/* Icons section at bottom right */}
-                        {isFavourite ? (
-                            <FaHeart size={16} style={{ color: color }} onClick={(e) => { e.preventDefault(); toggleFavourite(); }} />
+                    <div className={`flex items-center justify-between px-4 pb-2 ${card.company.active ? 'bg-white' : 'bg-gray-100'}`}>
+                        {card.company.active ? (
+                            <>
+                                {/* "Mis puntos" section at bottom left */}
+                                <div className="flex flex-col items-start">
+                                    <p
+                                        className="text-xs font-medium"
+                                        style={{ color: color }}
+                                    >
+                                        {`${card.points} puntos`}
+                                    </p>
+                                </div>
+                                {/* Favorite icon section at bottom right */}
+                                <div onClick={(e) => e.preventDefault()}>
+                                    {isFavourite ? (
+                                        <FaHeart
+                                            size={16}
+                                            style={{ color: color }}
+                                            onClick={toggleFavourite}
+                                        />
+                                    ) : (
+                                        <FaRegHeart
+                                            size={16}
+                                            style={{ color: color }}
+                                            onClick={toggleFavourite}
+                                        />
+                                    )}
+                                </div>
+                            </>
                         ) : (
-                            <FaRegHeart size={16} style={{ color: color }} onClick={(e) => { e.preventDefault(); toggleFavourite(); }} />
+                            <>
+                                {/* "Mis puntos" section at bottom left */}
+                                <div className="flex flex-col items-start">
+                                    <p
+                                        className="text-xs font-medium"
+                                        style={{ color: inactiveColor }}
+                                    >
+                                        Negocio inactivo
+                                    </p>
+                                </div>
+                                {/* Favorite icon section at bottom right */}
+                                <div onClick={(e) => e.preventDefault()}>
+                                    <FaBan
+                                        size={16}
+                                        style={{ color: inactiveColor }}
+                                    />
+                                </div>
+                            </>
                         )}
                     </div>
                 </div>
-            </Link>
+            </Link >
         </div >
     )
 }

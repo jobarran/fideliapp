@@ -7,6 +7,7 @@ export interface Company {
   };
   backgroundColor: string | null;
   active: boolean;
+  validated: boolean;
   address: string | null;
   slug: string;
   lat: number | null;
@@ -23,7 +24,11 @@ export interface Company {
     name: string;
     lastName: string;
   };
-
+  instagram: string | null;
+  facebook: string | null;
+  twitter: string | null;
+  whatsapp: string | null;
+  phone: string | null;
 }
 
 export interface CompanyLogo {
@@ -63,6 +68,7 @@ export interface CompanyClientDashboard {
   activityTypeId: string;
   backgroundColor: string;
   active: boolean;
+  validated: boolean;
   address: string;
   slug: string;
   averageRating: number;
@@ -75,6 +81,11 @@ export interface CompanyClientDashboard {
   }> | {} | null;
   userId: string;
   CompanyLogo: CompanyLogo | null;
+  instagram: string | null;
+  facebook: string | null;
+  twitter: string | null;
+  whatsapp: string | null;
+  phone: string | null;
 }
 
 export interface CompanyClientInformation {
@@ -87,6 +98,7 @@ export interface CompanyClientInformation {
   activityTypeId: string;
   backgroundColor: string;
   active: boolean;
+  validated: boolean;
   address: string;
   slug: string;
   lat: number | null;
@@ -98,6 +110,11 @@ export interface CompanyClientInformation {
   }>
   userId: string;
   CompanyLogo: CompanyLogo | null;
+  instagram: string | null;
+  facebook: string | null;
+  twitter: string | null;
+  whatsapp: string | null;
+  phone: string | null;
 }
 
 export interface DayHours {

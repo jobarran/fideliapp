@@ -1,6 +1,5 @@
 import { CompanyClientDashboard } from "@/interfaces";
-import { CompanyOpenHours, CompanyProfileMapComponent, MapComponent, MapProvider } from "..";
-import { formatOpenHours } from "@/utils";
+import { CompanyOpenHours, CompanyProfileMapComponent, CompanySocialMediaContact, MapComponent, MapProvider } from "..";
 
 interface Props {
     company: CompanyClientDashboard;
@@ -36,6 +35,13 @@ export const CompanyContentInformation = ({ company }: Props) => {
                     <p className="text-slate-500 text-xs sm:text-sm">{company.address}</p>
                     {/* Opening hours section */}
                     <CompanyOpenHours openHours={company.openHours} />
+                    <CompanySocialMediaContact
+                        instagram={company.instagram}
+                        facebook={company.facebook}
+                        twitter={company.twitter}
+                        whatsapp={company.whatsapp}
+                        phone={company.phone}
+                    />
                 </div>
 
             </div>

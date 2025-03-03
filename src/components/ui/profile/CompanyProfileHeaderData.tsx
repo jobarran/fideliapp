@@ -6,7 +6,7 @@ import { ProfileHeaderLogo } from '@/components';
 import { FaCheck, FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { IoTicketOutline } from 'react-icons/io5';
 import { favouriteCard } from '@/actions';
-import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
+import { FaStar, FaRegStar, FaStarHalfAlt, FaBan } from 'react-icons/fa';
 
 interface Props {
     company: CompanyClientDashboard;
@@ -78,9 +78,19 @@ export const CompanyProfileHeaderData = ({
                         </span>
                     )}
                 </h1>
-                <p className="text-gray-600 mb-2 hidden sm:flex">
-                    {company.activityType?.name}
-                </p>
+                {
+                    company.active ? (
+                        <p className="text-gray-600 mb-1">
+                            {company.activityType?.name}
+                        </p>
+                    ) : (
+                        <div className="flex items-center text-gray-600 mb-1">
+                            <FaBan  className="mr-2" />
+                            <p>Negocio inactivo</p>
+                        </div>
+                    )
+                }
+
 
                 {userCardForCompany && (
                     <div>

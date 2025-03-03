@@ -11,12 +11,16 @@ Rename App
 ----------------------------------------
 
 - register company verification (can upload products but is not seen by users and cant make movements) same as desactivate company
+- filter home slider rewards by "companies in radius"
+- add amount of reviews to stars
+- social media to company
+
+- email validation
 - Config sign in with google
+- Forgot password
+
 - Add error page
 - footer content
-- email validation
-- Forgot password
-- add amount of reviews to stars
 
 ------------------------------------------
 

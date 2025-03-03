@@ -80,6 +80,7 @@ model Company {
   name            String
   backgroundColor String
   active          Boolean @default(true)
+  validated       Boolean @default(false)
   address         String
   description     String?
   slug            String  @unique
@@ -87,6 +88,13 @@ model Company {
   lng             Float?
   openHours       Json
   averageRating   Float   @default(0)
+
+  // Social media addresses
+  instagram String?
+  facebook  String?
+  twitter   String?
+  whatsapp  String?
+  phone     String?
 
   // Relations - Down
   Products      Product[]

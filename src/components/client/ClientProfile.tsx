@@ -26,7 +26,7 @@ export const ClientProfile = ({ company, userId, products, transactions }: Props
     const renderContent = () => {
         switch (selectedTab) {
             case "transaccion":
-                return <ClientContentTransaction products={products ?? []} companySlug={company.slug} />;
+                return <ClientContentTransaction products={products ?? []} companySlug={company.slug} companyActive={company.active} />;
             case "movimientos":
                 return <ClientContentMovements transactions={transactions} userId={userId} />;
             case "productos":

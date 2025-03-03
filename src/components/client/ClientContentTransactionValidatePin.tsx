@@ -8,6 +8,7 @@ interface Props {
     errorMessage: string | null;
     setErrorMessage: Dispatch<SetStateAction<string | null>>
     setIsPinLoading: Dispatch<SetStateAction<boolean>>;
+    companyActive: boolean
 }
 
 export const ClientContentTransactionValidatePin = ({
@@ -16,6 +17,7 @@ export const ClientContentTransactionValidatePin = ({
     errorMessage,
     setErrorMessage,
     setIsPinLoading,
+    companyActive
 }: Props) => {
     const [pin, setPin] = useState(["", "", "", ""]);
     const [isLoading, setIsLoading] = useState(false);
@@ -72,6 +74,7 @@ export const ClientContentTransactionValidatePin = ({
                                 type="text"
                                 maxLength={1}
                                 value={digit}
+                                disabled={!companyActive}
                                 onChange={(e) => handleInputChange(e.target.value, index)}
                                 className={`w-7 h-7 text-center text-sm font-medium border rounded-md focus:outline-none ${errorMessage ? "border-red-500" : "border-gray-300"
                                     }`}

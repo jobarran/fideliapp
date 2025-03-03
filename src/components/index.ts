@@ -136,3 +136,4 @@ export * from './user/UserProfile'
 
 export * from './ui/form/NumberField'
 export * from './ui/form/ImageField'
+export * from './company/CompanySocialMeiaContact'
