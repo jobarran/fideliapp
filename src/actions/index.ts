@@ -26,6 +26,7 @@ export { getAllActivityType } from './activity-type/get-all-activityType'
 
 export { getUserById } from './user/get-user-by-id'
 export { updateUser } from './user/update-user'
+export { getUserAdmin } from './user/get-user-admin'
 
 export { runSeed } from './seed/run-seed'
 export { convertTotalAdmin } from './seed/convert-total-admin'
