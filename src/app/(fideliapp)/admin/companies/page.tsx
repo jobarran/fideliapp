@@ -22,7 +22,7 @@ export default async function AdminCompaniesPage() {
     return (
         <div>
             <div className="flex flex-col items-center">
-                <div className="mb-10">
+                <div className="max-w-4xl w-full mx-auto">
                     <CompaniesTable companies={companies} />
                 </div>
             </div>

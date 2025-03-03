@@ -11,14 +11,22 @@ interface Prop {
 }
 
 export default function CompaniesTableRow({ company, setCompanyToEdit, setOpenCompanyModal }: Prop) {
-
     const handleEditCompany = () => {
         setCompanyToEdit(company); // Set the company to edit
         setOpenCompanyModal(true); // Open the modal
     };
 
+    // Determine the background color based on active and validated properties
+    const rowBgColor = !company.active
+        ? "bg-slate-50"
+        : !company.validated
+            ? "bg-red-50"
+            : "bg-white";
+
     return (
-        <tr className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
+        <tr
+            className={`${rowBgColor} border-b transition duration-300 ease-in-out hover:bg-gray-100 `}
+        >
             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                 <div className="relative w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-white">
                     {company.CompanyLogo ? (
@@ -29,31 +37,28 @@ export default function CompaniesTableRow({ company, setCompanyToEdit, setOpenCo
                             alt={company.name}
                             className="object-cover"
                             priority
-                            style={{ width: '100%', height: '100%' }}
+                            style={{ width: "100%", height: "100%" }}
                         />
                     ) : (
-                        <Avatar name={company.name} backgroundColor={company.backgroundColor} size={'16'} />
+                        <Avatar name={company.name} backgroundColor={company.backgroundColor} size={"16"} />
                     )}
                 </div>
             </td>
-            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+            <td className="text-sm text-slate-800 font-light px-6 py-4 whitespace-nowrap">
                 {company.name}
             </td>
-            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+            <td className="text-sm text-slate-800 font-light px-6 py-4 whitespace-nowrap">
                 {company.user.name} {company.user.lastName}
             </td>
-            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+            <td className="text-sm text-slate-800 font-light px-6 py-4 whitespace-nowrap">
                 {company.active ? "Sí" : "No"}
             </td>
-            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+            <td className="text-sm text-slate-800 font-light px-6 py-4 whitespace-nowrap">
                 {company.validated ? "Sí" : "No"}
             </td>
-            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                {company.slug}
-            </td>
-            <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+            <td className="text-sm text-slate-800 font-light px-6 py-4 whitespace-nowrap">
                 <button
-                    className="text-blue-500 hover:text-blue-700"
+                    className="text-slate-500 hover:text-slate-700"
                     onClick={handleEditCompany}
                 >
                     <FiEdit size={20} />
