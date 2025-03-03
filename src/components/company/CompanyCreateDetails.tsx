@@ -1,9 +1,10 @@
 "use client"
 
 import { CreateCompanyMapContainer, OpenHoursSection } from '@/components';
-import { defaultOpenHours } from '@/config';
+import { defaultOpenHours, socialConfig } from '@/config';
 import { DayHours } from '@/interfaces';
 import { useEffect } from 'react';
+import { FaFacebook } from 'react-icons/fa';
 
 interface CompanyDetailsProps {
   register: any;
@@ -116,25 +117,49 @@ export const CompanyDetails = ({
             ))}
           </select>
 
+
+          {/* Social Inputs */}
+          {Object.entries(socialConfig).map(([key, config]) => {
+            return (
+              <div key={key} className="relative w-full">
+                <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                  <config.icon className="text-slate-600 font-semibold" />
+                </div>
+                <input
+                  id={key}
+                  {...register(config.register)}
+                  className="input border border-gray-300 p-2 rounded ps-10 w-full"
+                  placeholder={config.placeholder}
+                  aria-label={config.ariaLabel}
+                />
+              </div>
+            );
+          })}
+
         </div>
 
-        {/* Address */}
-        <CreateCompanyMapContainer setAddress={setAddress} setLat={setLat} setLng={setLng} />
+        <div>
+          {/* Address */}
+          <CreateCompanyMapContainer setAddress={setAddress} setLat={setLat} setLng={setLng} />
+
+          {/* Description */}
+          <div className="w-full mt-4">
+            <textarea
+              id="description"
+              {...register('description', { required: false })}
+              className="input border border-gray-300 p-2 rounded w-full resize-none overflow-auto"
+              placeholder="Descripción del negocio"
+              rows={8}
+              aria-label="Descripción del negocio"
+              maxLength={1000}
+            />
+            <p className="text-sm text-gray-500 mt-1">Máximo 1000 caracteres</p>
+          </div>
+        </div>
+
+
       </div>
 
-      {/* Description */}
-      <div className="w-full mt-4">
-        <textarea
-          id="description"
-          {...register('description', { required: false })}
-          className="input border border-gray-300 p-2 rounded w-full resize-none overflow-auto"
-          placeholder="Descripción del negocio"
-          rows={5}
-          aria-label="Descripción del negocio"
-          maxLength={1000} 
-        />
-        <p className="text-sm text-gray-500 mt-1">Máximo 1000 caracteres</p>
-      </div>
 
     </>
   );

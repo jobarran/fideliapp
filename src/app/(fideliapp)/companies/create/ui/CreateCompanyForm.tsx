@@ -28,7 +28,13 @@ type FormInputs = {
   activityTypeId: string;
   logo?: FileList | undefined;
   active: true;
-  description: string
+  description: string;
+  instagram: string;
+  facebook: string;
+  twitter: string;
+  whatsapp: string;
+  phone: string;
+  validated: boolean
 };
 
 interface Props {
@@ -66,7 +72,13 @@ export const CreateCompanyForm = ({ userId }: Props) => {
       openHours: '',
       activityTypeId: '',
       active: true,
-      description: ''
+      description: '',
+      instagram: '',
+      facebook: '',
+      twitter: '',
+      whatsapp: '',
+      phone: '',
+      validated: false,
     }
   });
 
@@ -114,6 +126,12 @@ export const CreateCompanyForm = ({ userId }: Props) => {
     formData.append("openHours", JSON.stringify(openHours)); // Serialize to JSON string
     formData.append("slug", slug);
     formData.append("description", companyToSave.description);
+    formData.append("facebook", companyToSave.facebook);
+    formData.append("twitter", companyToSave.twitter);
+    formData.append("instagram", companyToSave.instagram);
+    formData.append("phone", companyToSave.phone);
+    formData.append("whatsapp", companyToSave.whatsapp);
+
 
 
     if (logo && logo.length > 0) {

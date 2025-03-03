@@ -18,6 +18,11 @@ const companySchema = z.object({
     address: z.string().min(3).max(255),
     lat: z.preprocess((val) => parseFloat(val as string), z.number()),
     lng: z.preprocess((val) => parseFloat(val as string), z.number()),
+    instagram: z.string().min(0).max(100),
+    facebook: z.string().min(0).max(100),
+    twitter: z.string().min(0).max(100),
+    whatsapp: z.string().min(0).max(100),
+    phone: z.string().min(0).max(100),
     openHours: z.record(z.object({
         from: z.string(),
         to: z.string(),
@@ -82,7 +87,12 @@ export const registerCompany = async (formData: FormData) => {
                 lng: rest.lng,
                 activityTypeId: rest.activityTypeId,
                 openHours: openHours,
-                description: rest.description
+                description: rest.description,
+                instagram: rest.instagram,
+                facebook: rest.facebook,
+                twitter: rest.twitter,
+                whatsapp: rest.whatsapp,
+                phone: rest.phone,
             }
         });
 
