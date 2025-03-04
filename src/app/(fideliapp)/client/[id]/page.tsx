@@ -9,15 +9,21 @@ interface Props {
   params: {
     id: string;
   };
+  searchParams: {
+    tab?: string; 
+  };
 }
 
-export default async function ClientPage({ params }: Props) {
+export default async function ClientPage({ params, searchParams }: Props) {
 
   const { id } = params;
+  const { tab } = searchParams;
 
   const company = await getCompanyByUser(id);
   const session = await auth();
   const user = session?.user || null;
+
+  const selectedTab = tab || "product"; // Default to "tarjetas" if no tab is provided
 
 
   if (!company) {
@@ -44,6 +50,7 @@ export default async function ClientPage({ params }: Props) {
         userId={id}
         products={companyProducts}
         transactions={sortedTransactions}
+        selectedTab={selectedTab}
       />
     </div>
   );

@@ -262,9 +262,9 @@ export const ClientContentTransaction = ({ products, companySlug, companyActive 
             </div>
 
 
-            <div className="md:flex md:space-x-4">
-                <div className="md:w-2/3">
-                    <div className="flex flex-col md:flex-row md:items-center md:space-x-4">
+            <div className="lg:flex lg:space-x-4">
+                <div className="lg:w-2/3">
+                    <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-4">
                         <ClientContentTransactionButtons
                             handleTransactionTypeSelect={handleTransactionTypeSelect}
                             selectedTransactionType={selectedTransactionType}

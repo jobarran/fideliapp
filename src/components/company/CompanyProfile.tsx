@@ -13,18 +13,18 @@ interface Props {
     products: Product[] | null
     userCardForCompany: boolean
     card: CardProfile | null
-    initialTabIndex?: number
+    selectedTab: string
     userPin: Pin | undefined
     userId: string | null
     reviews: CompanyReview[] | null
 }
 
-export const CompanyProfile = ({ company, userCardForCompany, products, card, initialTabIndex, userPin, userId, reviews }: Props) => {
+export const CompanyProfile = ({ company, userCardForCompany, products, card, selectedTab: initialTab, userPin, userId, reviews }: Props) => {
 
-    const validIndex = initialTabIndex ?? 0;
-    const initialTab = companyNavItems[validIndex]?.id ?? companyNavItems[0].id;
+    const [selectedTab, setSelectedTab] = useState(
+        companyNavItems.find((item) => item.id === initialTab)?.id || companyNavItems[0].id
+    );
 
-    const [selectedTab, setSelectedTab] = useState(initialTab);
     const [openModal, setOpenModal] = useState(false)
     const [cardPoints, setCardPoints] = useState(card?.points); // Initialize with card points
     const [loading, setLoading] = useState(true); // Track loading state
@@ -70,6 +70,7 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
 
     const handleTabChange = (tab: string) => {
         setSelectedTab(tab);
+        window.history.pushState(null, "", `?tab=${tab}`);
     };
 
     const renderContent = () => {
@@ -110,6 +111,7 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, in
                 favorite={card?.favourite}
                 userPin={userPin}
                 userId={userId}
+
             />
 
             <ProfileContent

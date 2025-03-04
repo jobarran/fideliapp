@@ -8,7 +8,7 @@ interface Props {
     slug: string;
   };
   searchParams: {
-    nav?: string; // Add searchParams to include query parameters
+    tab?: string; // Add searchParams to include query parameters
   };
 }
 
@@ -28,7 +28,7 @@ export async function generateMetadata(
 export default async function CompanyBySlugPage({ params, searchParams }: Props) {
 
   const { slug } = params;
-  const { nav } = searchParams;
+  const { tab } = searchParams;
   if (!slug) {
     redirect("/");
   }
@@ -44,7 +44,7 @@ export default async function CompanyBySlugPage({ params, searchParams }: Props)
   const products = await getProductsByCompanyId(company.id);
   const reviews = await getCompanyReviewsByCompanyId(company.id)
 
-  const initialTabIndex = nav === "product" ? 1 : 0;
+  const selectedTab = tab || "product"; // Default to "tarjetas" if no tab is provided
 
   return (
     <div>
@@ -53,7 +53,7 @@ export default async function CompanyBySlugPage({ params, searchParams }: Props)
         products={products}
         userCardForCompany={!!card}
         card={card}
-        initialTabIndex={initialTabIndex}
+        selectedTab={selectedTab}
         userPin={userPin.pin}
         userId={userId}
         reviews={reviews}

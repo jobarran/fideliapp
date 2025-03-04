@@ -42,6 +42,9 @@ GoDaddy
 - Puntsy
 - FideliNow
 - fidelyup
+- fidelimoon
+
+- Perkly
 
 
 Step 2: Choose an Email Hosting Provider

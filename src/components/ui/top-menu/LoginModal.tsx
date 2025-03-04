@@ -72,7 +72,7 @@ export const LoginModal = ({
 
     return (
         <div>
-            <div className="fixed inset-0 bg-black bg-opacity-30 z-40"></div>
+            <div className="fixed inset-0 bg-black bg-opacity-30 z-50"></div>
             <div
                 id={`login-modal-${uniqueId}`}
                 tabIndex={-1}

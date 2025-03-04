@@ -22,7 +22,7 @@ export const ProductRewardLink = ({ reward }: Props) => {
                     backgroundColor: '#F8F8F8', borderColor: '#CBD5E1', borderWidth: 0.5, borderStyle: 'solid'
                 }}
             >
-                <Link href={`/companies/${reward.companySlug}?nav=product`}>
+                <Link href={`/companies/${reward.companySlug}?tab=product`}>
 
                     <div className="w-full rounded-lg overflow-hidden"
                         style={{ borderColor: '#F8F8F8', borderWidth: 0.5, borderStyle: 'solid' }}>

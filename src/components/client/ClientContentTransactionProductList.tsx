@@ -28,7 +28,7 @@ export const ClientContentTransactionProductList = ({
 
     return (
 
-        <div className="max-h-64 overflow-y-auto border border-gray-200 rounded-lg p-4">
+        <div className="overflow-y-auto border border-gray-200 rounded-lg p-4">
 
             {/* Search Input */}
             {selectedTransactionType !== "MANUAL" && (

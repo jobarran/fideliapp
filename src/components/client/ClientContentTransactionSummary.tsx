@@ -41,7 +41,7 @@ export const ClientContentTransactionSummary = ({
     };
 
     return (
-        <div className="md:hidden bg-white border border-gray-200 rounded-md p-4 mb-4">
+        <div className="lg:hidden bg-white border border-gray-200 rounded-md p-4 mb-4">
             <h3 className="text-lg font-medium text-gray-800">Resumen de Transacción</h3>
             <div className="text-xs text-gray-700">
                 <p className="mb-1">

@@ -12,15 +12,19 @@ interface Props {
     userId: string
     products: Product[]
     transactions: CompanyTransaction[]
+    selectedTab: string
 }
 
-export const ClientProfile = ({ company, userId, products, transactions }: Props) => {
+export const ClientProfile = ({ company, userId, products, transactions, selectedTab: initialTab, }: Props) => {
 
-    const [selectedTab, setSelectedTab] = useState(clientNavItems[0].id);
+    const [selectedTab, setSelectedTab] = useState(
+        clientNavItems.find((item) => item.id === initialTab)?.id || clientNavItems[0].id
+    );
     const [openModal, setOpenModal] = useState(false)
 
     const handleTabChange = (tab: string) => {
         setSelectedTab(tab);
+        window.history.pushState(null, "", `?tab=${tab}`);
     };
 
     const renderContent = () => {
