@@ -35,7 +35,7 @@ Ambiente de prueba
 
 ------------------------------------------
 
-Email Validation / Passwor recovery
+Email Validation / Password recovery
 
 Step 1: Buy a Domain
 GoDaddy

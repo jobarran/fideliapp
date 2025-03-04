@@ -66,7 +66,7 @@ export const TopMenu = ({
 
   return (
     <nav
-      className="bg-white border-b-slate-300 h-12"
+      className="bg-white border-b-slate-300 h-12 sm:relative fixed top-0 left-0 right-0 z-50"
       style={{ borderBottomWidth: 0.5, borderBottomStyle: "solid" }}
     >
       <LoginModal
