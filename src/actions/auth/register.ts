@@ -14,39 +14,25 @@ interface Props {
 
 export const registerUser = async ({ name, lastName, email, password, role }: Props) => {
 
-
     try {
-        const userData: any = {
-            name: name,
-            lastName: lastName,
+        const existingUser = await prisma.user.findUnique({ where: { email } });
+        if (existingUser) {
+            return { ok: false, message: "El correo electrónico ya está registrado." };
+        }
+
+        const userData = {
+            name,
+            lastName,
             email: email.toLowerCase(),
             password: bcryptjs.hashSync(password),
-            role: role ? role : 'USER',
+            role: role || "USER",
         };
 
-        const user = await prisma.user.create({
-            data: userData,
-            select: {
-                id: true,
-                name: true,
-                lastName: true,
-                email: true,
-                role: true,
-            }
-        });
+        const user = await prisma.user.create({ data: userData });
 
-        return {
-            ok: true,
-            user: user,
-            message: 'User created'
-        }
-
+        return { ok: true, user, message: "Usuario creado exitosamente." };
     } catch (error) {
-        console.log(error)
-        return {
-            ok: false,
-            message: 'Cannot create user'
-        }
+        console.error(error);
+        return { ok: false, message: "Error al crear el usuario." };
     }
-
-}
+};
