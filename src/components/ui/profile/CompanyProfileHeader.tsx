@@ -110,6 +110,7 @@ export const CompanyProfileHeader = ({
             <NewAccountModal
                 newAccountModal={newAccountModal}
                 setNewAccountModal={toggleNewAccountModal}
+                setLoginModal={toggleLoginModal}
             />
             <CreatingCardModal
                 slug={company.slug}

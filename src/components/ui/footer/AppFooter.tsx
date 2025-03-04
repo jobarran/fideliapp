@@ -32,6 +32,7 @@ export const AppFooter = ({ userId }: Props) => {
             <NewAccountModal
                 newAccountModal={newAccountModal}
                 setNewAccountModal={toggleNewAccountModal}
+                setLoginModal={toggleLoginModal}
             />
             {shouldShowFooter && (
                 <div className="fixed bottom-0 inset-x-0 bg-white shadow border-t border-slate-300 z-50 sm:hidden">

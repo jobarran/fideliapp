@@ -78,6 +78,7 @@ export const TopMenu = ({
       <NewAccountModal
         newAccountModal={newAccountModal}
         setNewAccountModal={toggleNewAccountModal}
+        setLoginModal={toggleLoginModal}
       />
 
       <div className="flex justify-between items-center h-full px-4">

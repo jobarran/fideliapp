@@ -10,13 +10,9 @@ Rename App
 
 ----------------------------------------
 
-- email validation
-- Config sign in with google
-- Forgot password
-
 - Add error page
 - footer content
-
+- Sticky header in small screens
 - ambiente de prueba
 
 ------------------------------------------
@@ -34,6 +30,30 @@ Admin
 - Contact answer
 
 Validations in back
+
+Ambiente de prueba
+
+------------------------------------------
+
+Email Validation / Passwor recovery
+
+Step 1: Buy a Domain
+GoDaddy
+- Puntsy
+- FideliNow
+- fidelyup
+
+
+Step 2: Choose an Email Hosting Provider
+Zoho Mail
+
+Step 3: Set Up Custom Email
+DNS
+Email accounts
+
+Step 4: Integrate Transactional Email (password recovery)
+Postmark
+Mailgun
 
 ------------------------------------------
 

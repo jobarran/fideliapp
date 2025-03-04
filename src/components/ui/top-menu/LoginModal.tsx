@@ -5,15 +5,17 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/actions';
 import clsx from 'clsx';
 import { IoCloseSharp } from "react-icons/io5";
+import Image from 'next/image';
 
 interface Props {
     loginModal: boolean;
     setLoginModal: () => void;
     setNewAccountModal: () => void;
-    uniqueId: string; 
+    uniqueId: string;
 }
 
 export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal, uniqueId }: Props) => {
+
     const [state, dispatch] = useFormState(authenticate, undefined);
     const emailRef = useRef<HTMLInputElement>(null);
     const passwordRef = useRef<HTMLInputElement>(null);
@@ -48,22 +50,27 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal, uniq
                 className="fixed inset-0 flex justify-center items-center bg-opacity-50 z-50"
                 onClick={handleOverlayClick}
             >
-                <div className="relative bg-white rounded-lg overflow-hidden h-full w-full sm:max-w-xs md:max-w-sm xl:max-w-lg sm:h-auto">
+                <div className="relative bg-white rounded-lg overflow-hidden h-full w-full sm:max-w-sm md:max-w-md xl:max-w-lg sm:h-auto flex flex-col justify-center sm:py-10 py-20">
                     <button
                         className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
                         onClick={setLoginModal}
                     >
                         <IoCloseSharp />
                     </button>
-                    <div className="p-4">
-                        <div>
-                            <span className="text-sm text-gray-900">Bienvenido!</span>
-                            <h1 className="text-xl font-bold">Iniciar sesión con tu cuenta</h1>
+                    <div className="p-6 text-center">
+                        <div className="mb-8">
+                            <Image
+                                src="/imgs/logo-black-2.png"
+                                alt="Company Logo"
+                                width={250}
+                                height={0}
+                                className="mx-auto"
+                            />
                         </div>
-                        <div className="overflow-auto max-h-[70vh]">
+                        <h1 className="text-lg font-bold">Iniciar sesión con tu cuenta</h1>
+                        <div className="overflow-auto max-h-[70vh] mt-4">
                             <form action={dispatch} className="space-y-3">
-                                <div className="my-3">
-                                    <label htmlFor={`email-${uniqueId}`} className="block text-md mb-2">Email</label>
+                                <div className="my-3 w-full max-w-xs mx-auto">
                                     <input
                                         ref={emailRef}
                                         id={`email-${uniqueId}`}
@@ -72,11 +79,11 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal, uniq
                                         placeholder="email"
                                         required
                                         autoComplete="off"
-                                        className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300"
+                                        className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300 mx-auto"
                                     />
                                 </div>
-                                <div className="mt-5">
-                                    <label htmlFor={`password-${uniqueId}`} className="block text-md mb-2">Contraseña</label>
+
+                                <div className="my-3 w-full max-w-xs mx-auto">
                                     <input
                                         ref={passwordRef}
                                         id={`password-${uniqueId}`}
@@ -85,32 +92,30 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal, uniq
                                         placeholder="contraseña"
                                         required
                                         autoComplete="off"
-                                        className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300"
+                                        className="px-4 w-full border py-2 rounded-md text-sm outline-none border-slate-300 mx-auto"
                                     />
                                 </div>
+
                                 {state === "CredentialsSignin" && (
-                                    <div className="flex flex-row mb-1 mt-1">
-                                        <p className="text-sm text-red-500">
-                                            Sorry, something went wrong. Please double-check your credentials.
+                                    <div className="flex flex-row mb-1 mt-1 w-full justify-center">
+                                        <p className="text-sm text-red-600 w-2/3">
+                                            Algo salió mal! Por favor vuelve a intentar.
                                         </p>
                                     </div>
                                 )}
-                                <div className="flex justify-between">
-                                    <span className="text-sm text-blue-700 hover:underline cursor-pointer">
+                                <div className="pt-5 w-full max-w-xs mx-auto">
+                                    <LoginButton />
+                                </div>
+                                <div className="flex justify-between w-full max-w-xs mx-auto">
+                                    <span className="text-sm text-slate-700 hover:underline cursor-pointer">
                                         Olvide mi contraseña
                                     </span>
                                     <span
-                                        className="text-sm text-blue-700 hover:underline cursor-pointer"
+                                        className="text-sm text-slate-700 hover:underline cursor-pointer"
                                         onClick={handleCreateAccountClick}
                                     >
                                         Crear cuenta
                                     </span>
-                                </div>
-                                <div className="">
-                                    <LoginButton />
-                                    <div className="flex space-x-2 justify-center items-end bg-white hover:bg-slate-100 text-slate-800 py-2 border rounded-md transition duration-100">
-                                        <button>Iniciar sesión con Google</button>
-                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -121,7 +126,6 @@ export const LoginModal = ({ loginModal, setLoginModal, setNewAccountModal, uniq
     );
 };
 
-
 function LoginButton() {
     const { pending } = useFormStatus();
 
@@ -129,9 +133,9 @@ function LoginButton() {
         <button
             type="submit"
             className={clsx(
-                "mb-3 w-full py-2 rounded-md transition duration-100",
+                "w-full py-2 rounded-md transition duration-100 mx-auto",
                 {
-                    "bg-slate-800 hover:bg-slate-950 text-white": !pending,
+                    "bg-slate-800 hover:bg-slate-900 text-white": !pending,
                     "bg-slate-800 text-white opacity-50 cursor-not-allowed": pending
                 }
             )}

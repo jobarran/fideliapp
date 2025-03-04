@@ -71,6 +71,7 @@ export const CompanyContentMovements = ({
       <NewAccountModal
         newAccountModal={newAccountModal}
         setNewAccountModal={toggleNewAccountModal}
+        setLoginModal={toggleLoginModal}
       />
       {
         data?.user ? (

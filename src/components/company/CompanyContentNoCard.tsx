@@ -57,6 +57,7 @@ export const CompanyContentNoCard = ({
             <NewAccountModal
                 newAccountModal={newAccountModal}
                 setNewAccountModal={toggleNewAccountModal}
+                setLoginModal={toggleLoginModal}
             />
             {/* Loading Screen */}
             <CreatingCardModal
