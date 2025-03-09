@@ -1,7 +1,7 @@
-import { Company, CompanyClientDashboard } from '@/interfaces';
+import { CompanyClientDashboard } from '@/interfaces';
 import Link from 'next/link';
 import React from 'react'
-import { Avatar, CompanyCard } from '..';
+import { CompanyCard } from '..';
 
 interface Props {
     company: CompanyClientDashboard,
@@ -10,7 +10,6 @@ interface Props {
 
 export const CompanyExist = ({ company, userId }: Props) => {
 
-    const borderColor = company?.backgroundColor! !== '#FFFFFF' ? company?.backgroundColor! : '#4F4F4F';
 
     return (
         <div className="bg-white p-8 rounded-lg mx-auto border">
@@ -25,6 +24,7 @@ export const CompanyExist = ({ company, userId }: Props) => {
                         address={company.address}
                         backgroundColor={company.backgroundColor}
                         activityType={company.activityType.name}
+                        textColor={company.textColor}
                     />
                 </Link>
             </div>
