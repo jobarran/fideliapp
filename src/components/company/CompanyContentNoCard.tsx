@@ -66,6 +66,7 @@ export const CompanyContentNoCard = ({
                 companyColor={companyColor}
                 isCreating={isCreating}
                 companyLogoUrl={companyLogoUrl}
+                companyTextColor={""}
             />
 
             {/* Content */}

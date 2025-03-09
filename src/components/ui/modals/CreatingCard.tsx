@@ -1,12 +1,7 @@
 'use client';
 
-import { Card } from '@/interfaces';
-import Link from 'next/link';
-import React, { useState } from 'react'
-import { FaHeart, FaRegHeart } from 'react-icons/fa6';
+import React from 'react'
 import { Avatar, UserCardImage } from '../..';
-import { softColor } from '../../../utils/softColor';
-import { favouriteCard } from '@/actions';
 import { useSession } from 'next-auth/react';
 
 interface Props {

@@ -7,10 +7,10 @@ interface Props {
     companyColor?: string;
     companyLogoUrl?: string;
     isCreating: boolean;
-    companyTextColor: string
+    companyTextColor?: string
 }
 
-export const CreatingCardModal = ({ isCreating, companyName, companyColor, companyTextColor, companyLogoUrl }: Props) => {
+export const CreatingCardModal = ({ isCreating, companyName, companyColor, companyTextColor = '#FFFFFF', companyLogoUrl }: Props) => {
 
     return (
         <>
