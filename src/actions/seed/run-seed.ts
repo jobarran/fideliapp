@@ -20,7 +20,7 @@ export const runSeed = async () => {
 
     try {
         // Clear existing data
-        await prisma.alert.deleteMany(); // Clear alerts
+        await prisma.alert.deleteMany(); 
         await prisma.transactionProduct.deleteMany();
         await prisma.pointTransaction.deleteMany();
         await prisma.pointTransactionTemplate.deleteMany();
