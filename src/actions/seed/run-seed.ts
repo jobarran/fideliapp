@@ -20,19 +20,21 @@ export const runSeed = async () => {
 
     try {
         // Clear existing data
-        await prisma.transactionProduct.deleteMany({});
-        await prisma.pointTransaction.deleteMany({});
-        await prisma.pointTransactionTemplate.deleteMany({});
-        await prisma.productImage.deleteMany({});
-        await prisma.product.deleteMany({});
-        await prisma.pin.deleteMany({});
-        await prisma.card.deleteMany({});
-        await prisma.companyReview.deleteMany({});
-        await prisma.companyLogo.deleteMany({});
-        await prisma.company.deleteMany({});
-        await prisma.activityType.deleteMany({});
-        await prisma.subCategory.deleteMany({});
-        await prisma.user.deleteMany({});
+        await prisma.alert.deleteMany(); // Clear alerts
+        await prisma.transactionProduct.deleteMany();
+        await prisma.pointTransaction.deleteMany();
+        await prisma.pointTransactionTemplate.deleteMany();
+        await prisma.productImage.deleteMany();
+        await prisma.product.deleteMany();
+        await prisma.pin.deleteMany();
+        await prisma.card.deleteMany();
+        await prisma.companyReview.deleteMany();
+        await prisma.companyLogo.deleteMany();
+        await prisma.company.deleteMany();
+        await prisma.activityType.deleteMany();
+        await prisma.subCategory.deleteMany();
+        await prisma.user.deleteMany();
+
 
         // Insert users
         const { users, companies, activityTypes, subCategories } = initialData;
