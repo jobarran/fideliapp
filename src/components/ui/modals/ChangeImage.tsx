@@ -75,7 +75,6 @@ export const ChangeImage = ({
             <div
                 id="new-modal"
                 tabIndex={-1}
-                aria-hidden={!openModal}
                 className={modalClasses}
                 onClick={handleOverlayClick}
                 ref={modalRef}

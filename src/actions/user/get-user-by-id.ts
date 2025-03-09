@@ -27,6 +27,7 @@ export const getUserById = async (id: string) => {
                     select: {
                         name: true,
                         backgroundColor: true,
+                        textColor: true,
                         slug: true,
                         activityTypeId: true,
                         active: true,
@@ -44,6 +45,7 @@ export const getUserById = async (id: string) => {
                             select: {
                                 name: true,
                                 backgroundColor: true,
+                                textColor:true,
                                 slug: true,
                                 activityTypeId: true,
                                 CompanyLogo: true,

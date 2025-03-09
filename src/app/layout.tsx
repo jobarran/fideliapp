@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 import GoogleMapInitializer from '@/components/map/MapInitializer';
 
 export const metadata: Metadata = {
-  title: 'FideliApp',
+  title: 'Klumpit',
   description: '',
 };
 

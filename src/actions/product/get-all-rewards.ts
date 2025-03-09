@@ -30,6 +30,7 @@ export const getAllRewards = async () => {
                   },
                 },
                 backgroundColor: true,
+                textColor: true,
               },
             },
           },

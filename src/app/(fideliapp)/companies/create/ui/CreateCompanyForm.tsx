@@ -20,6 +20,7 @@ interface DayHours {
 type FormInputs = {
   name: string;
   backgroundColor: string;
+  textColor: string;
   address: string;
   slug: string;
   lat: number;
@@ -47,6 +48,7 @@ export const CreateCompanyForm = ({ userId }: Props) => {
 
   const [slug, setSlug] = useState<string>('');
   const [selectedColor, setSelectedColor] = useState<string>(colorOptions[0]); // Default color
+  const [selectedTextColor, setSelectedTextColor] = useState('#000000')
   const [address, setAddress] = useState<string>('');
   const [lat, setLat] = useState<number>(0);
   const [lng, setLng] = useState<number>(0);
@@ -66,6 +68,7 @@ export const CreateCompanyForm = ({ userId }: Props) => {
     defaultValues: {
       name: '',
       backgroundColor: selectedColor,
+      textColor: selectedTextColor,
       address: '',
       slug: '',
       lat: 0,
@@ -85,7 +88,6 @@ export const CreateCompanyForm = ({ userId }: Props) => {
   });
 
   const nameValue = watch('name');
-  const activityTypeId = watch('activityTypeId'); // Watch the activityTypeId
 
   // Redirect if no session
   useEffect(() => {
@@ -122,6 +124,7 @@ export const CreateCompanyForm = ({ userId }: Props) => {
     formData.append("name", companyToSave.name);
     formData.append("activityTypeId", companyToSave.activityTypeId);
     formData.append("backgroundColor", selectedColor);
+    formData.append("textColor", selectedTextColor);
     formData.append("address", address);
     formData.append("lat", lat.toString());
     formData.append("lng", lng.toString());
@@ -175,6 +178,8 @@ export const CreateCompanyForm = ({ userId }: Props) => {
             register={register}
             selectedColor={selectedColor}
             setSelectedColor={setSelectedColor}
+            selectedTextColor={selectedTextColor}
+            setSelectedTextColor={setSelectedTextColor}
             name={nameValue}
             address={address}
             activityType={activityType}
@@ -203,9 +208,9 @@ export const CreateCompanyForm = ({ userId }: Props) => {
               disabled={!isValid || loading}
               type="submit"
               className={clsx(
-                'h-10 mt-4 py-2 px-4 w-full rounded font-semibold text-white flex items-center justify-center',
+                'h-10 mt-4 py-2 px-4 w-full rounded font-semibold text-slate-800 border border-slate-200 flex items-center justify-center',
                 isValid
-                  ? 'bg-slate-800 hover:bg-slate-950'
+                  ? 'bg-slate-50 hover:bg-slate-900 hover:text-white'
                   : 'bg-gray-400 cursor-not-allowed'
               )}
             >

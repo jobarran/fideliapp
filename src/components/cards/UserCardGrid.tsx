@@ -30,7 +30,7 @@ export const UserCardGrid = ({ userCards, gridClass, activityTypes, search, user
             />
             <div>
 
-                <div className='sm:hidden'><UserCardSlider userCards={filteredItems as UserCardProp[]} userId={userId} showHeader={false} /></div>
+                {/* <div className='sm:hidden'><UserCardSlider userCards={filteredItems as UserCardProp[]} userId={userId} showHeader={false} /></div> */}
 
                 <div>
                     {filteredObj === "card" ? (
@@ -38,7 +38,6 @@ export const UserCardGrid = ({ userCards, gridClass, activityTypes, search, user
                             {(filteredItems as UserCardProp[]).map((card: UserCardProp) => (
                                 <UserCard card={card} key={card.id} />
                             ))}
-                            <UserCardAdd color={'slate-400'} />
                         </div>
                     ) : (
                         <div className="w-full text-center italic mt-10 text-xs text-slate-400 mb-4 ">No tenés tarjetas disponibles, explorá los negocios y creá tu primer tarjeta</div>

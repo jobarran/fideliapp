@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CompanyClientDashboard, Product } from "@/interfaces";
 import { ChangeImage, ClientContentInformation, ClientContentMovements, ClientContentProducts, ProfileContent, ProfileHeader, ClientContentTransaction } from '..';
 import { clientNavItems } from "@/config";
@@ -22,6 +22,11 @@ export const ClientProfile = ({ company, userId, products, transactions, selecte
     );
     const [openModal, setOpenModal] = useState(false)
 
+    useEffect(() => {
+      console.log(openModal)
+    }, [openModal])
+    
+
     const handleTabChange = (tab: string) => {
         setSelectedTab(tab);
         window.history.pushState(null, "", `?tab=${tab}`);
@@ -36,7 +41,7 @@ export const ClientProfile = ({ company, userId, products, transactions, selecte
             case "productos":
                 return <ClientContentProducts userId={userId} companyId={company.id} products={products ?? []} />;
             case "informacion":
-                return <ClientContentInformation company={company} />;
+                return <ClientContentInformation company={company} setOpenModal={setOpenModal}/>;
             default:
                 return null;
         }

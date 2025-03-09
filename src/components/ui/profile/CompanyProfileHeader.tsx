@@ -118,6 +118,7 @@ export const CompanyProfileHeader = ({
                 companyColor={company.backgroundColor}
                 isCreating={isCreating}
                 companyLogoUrl={company.CompanyLogo?.url}
+                companyTextColor={company.textColor}
             />
 
             <div className="mb-4">

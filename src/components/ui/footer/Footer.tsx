@@ -40,7 +40,7 @@ export const Footer = () => {
                 </ul>
                 <div className="border-t border-gray-300 dark:border-gray-700 w-full md:w-auto my-2 md:my-0" />
                 <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400 mb-2 md:mb-0">
-                    © 2024 <a href="https://flowbite.com/" className="hover:underline">FideliApp</a>
+                    © 2024 <a href="https://flowbite.com/" className="hover:underline">Klumpit</a>
                 </span>
             </div>
         </footer>

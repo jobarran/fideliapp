@@ -5,7 +5,7 @@ import { colorOptions, defaultOpenHours } from '@/config';
 import { CompanyClientDashboard, DayHours } from '@/interfaces';
 import { formatAddress } from '@/utils';
 import React, { useCallback, useEffect, useState } from 'react';
-import { ColorPicker, OpenHoursSection, SelectField, TextAreaField, TextField } from '..';
+import { ColorField, ColorPicker, CompanyCard, OpenHoursSection, SelectField, TextAreaField, TextField } from '..';
 import { useRouter } from 'next/navigation';
 import { FaBan, FaCheck } from 'react-icons/fa6';
 import { ActiveWarningModal } from '../ui/modals/ActiveWarningModal';
@@ -17,9 +17,10 @@ interface EditedCompany extends CompanyClientDashboard {
 
 interface Props {
     company: CompanyClientDashboard;
+    setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const ClientContentInformation = ({ company }: Props) => {
+export const ClientContentInformation = ({ company, setOpenModal }: Props) => {
 
     const [editedCompany, setEditedCompany] = useState<EditedCompany>({
         ...company,
@@ -130,8 +131,9 @@ export const ClientContentInformation = ({ company }: Props) => {
     return (
         <div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="flex flex-col mb-4">
                 <div className='text-sm'>
+                    <h3 className='text-lg font-semibold mb-2 text-slate-800'>Información</h3>
                     <TextField
                         label="Nombre"
                         value={editedCompany.name}
@@ -164,18 +166,18 @@ export const ClientContentInformation = ({ company }: Props) => {
                         selectClassName='input border col-span-2 p-1 rounded'
                     />
 
-                    <ColorPicker
-                        label="Color de Fondo"
-                        colors={colorOptions}
-                        selectedColor={editedCompany.backgroundColor}
-                        onChange={handleColorChange}
-                        isEditing={isEditing}
-                        size='w-8 h-8'
+                    <TextAreaField
+                        label="Descripción"
+                        value={editedCompany.description || ''}
+                        onChange={handleDescriptionChange}
+                        disabled={!isEditing}
                         divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
                         labelClassName='font-medium hidden sm:flex'
-                        pickerClassName='flex space-x-2 col-span-2'
+                        inputClassName='border p-1 col-span-2 rounded resize-none overflow-auto'
+                        rows={8}
                     />
 
+                    <h3 className='text-lg font-semibold mb-2 text-slate-800'>Contacto y Redes</h3>
                     <TextField
                         label="Teléfono"
                         value={editedCompany.phone || ''}
@@ -247,17 +249,7 @@ export const ClientContentInformation = ({ company }: Props) => {
                 </div>
 
                 <div className='text-sm'>
-
-                    <TextAreaField
-                        label=""
-                        value={editedCompany.description || ''}
-                        onChange={handleDescriptionChange}
-                        disabled={!isEditing}
-                        divClassName='grid grid-cols-1 items-center mb-4 text-sm text-slate-600'
-                        labelClassName='font-medium hidden sm:flex'
-                        inputClassName='border p-1 col-span-2 rounded resize-none overflow-auto'
-                    />
-
+                    <h3 className='text-lg font-semibold mb-2 text-slate-800'>Horarios</h3>
                     <OpenHoursSection
                         openHours={editedCompany.openHours}
                         onHourChange={handleOpenHourChange}
@@ -268,6 +260,55 @@ export const ClientContentInformation = ({ company }: Props) => {
                         labelClassName={'font-medium hidden sm:flex'}
                         sectionClassName={'grid grid-cols-3 gap-4 items-center mb-2'}
                     />
+
+                    <h3 className='text-lg font-semibold sm:pt-4 mb-2 text-slate-800'>Tarjeta</h3>
+
+                    <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4 w-full'>
+
+                        <h3 className="font-medium hidden col-span-1 sm:flex">Editar tarjeta</h3>
+
+                        <div className="flex-1 flex flex-col sm:flex-row col-span-2 mb-2 lg:mb-0 items-center sm:items-start justify-center sm:justify-start gap-4 w-full">
+                            <CompanyCard
+                                logo={company.CompanyLogo?.url}
+                                name={editedCompany.name}
+                                address={editedCompany.address}
+                                backgroundColor={editedCompany.backgroundColor}
+                                activityType={editedCompany.activityType.name}
+                                textColor={editedCompany.textColor} // Pass the textColor to the CompanyCard
+                            />
+                            <div className='flex sm:flex-col space-x-2'>
+                                <button
+                                    className='border border-1 rounded-sm p-1 my-1 mx-1 sm:mx-2 h-8 w-24 border-slate-600'
+                                    onClick={() => setOpenModal(true)}
+                                    disabled={!isEditing}
+                                >
+                                    <p className='text-sm text-slate-500'>Logo</p>
+                                </button>
+
+                                <ColorField
+                                    label="Fondo"
+                                    value={editedCompany.backgroundColor}
+                                    onChange={(e) => handleInputChange(e, 'backgroundColor')}
+                                    disabled={!isEditing}
+                                    divClassName="flex"
+                                    labelClassName="absolute text-sm top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-slate-500"
+                                    inputClassName="h-10 p-0 rounded-lg w-24"
+                                />
+
+                                <ColorField
+                                    label="Texto"
+                                    value={editedCompany.textColor}
+                                    onChange={(e) => handleInputChange(e, "textColor")}
+                                    disabled={!isEditing}
+                                    divClassName="flex"
+                                    labelClassName="absolute text-sm top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-slate-500"
+                                    inputClassName="h-10 p-0 w-24 rounded-lg"
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
 
 

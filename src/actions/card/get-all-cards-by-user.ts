@@ -37,6 +37,7 @@ export const getAllCardsByUser = async () => {
           select: {
             name: true,
             backgroundColor: true,
+            textColor: true,
             slug: true,
             activityTypeId: true,
             active: true,

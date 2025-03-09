@@ -33,7 +33,7 @@ export const UserContentCards = ({ user, companies, activityTypes }: Props) => {
 
       <UserCardGrid
         userCards={sortedCards}
-        gridClass="w-full hidden sm:grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
+        gridClass="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
         activityTypes={activityTypes}
         search={''}
         userId={user.id}

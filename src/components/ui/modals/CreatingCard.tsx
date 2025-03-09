@@ -12,17 +12,13 @@ import { useSession } from 'next-auth/react';
 interface Props {
     name: string;
     backgroundColor: string
+    companyTextColor: string
     logo: string | undefined
 }
 
-export const CreatingCard = ({ name, backgroundColor, logo }: Props) => {
+export const CreatingCard = ({ name, backgroundColor, companyTextColor, logo }: Props) => {
 
     const { data } = useSession()
-
-    // Unified color logic
-    const borderColor = '#CBD5E1' //slate-300
-    const backgroundCardColor = backgroundColor || '#0F172A';
-    const color = backgroundCardColor
 
 
     return (
@@ -32,13 +28,13 @@ export const CreatingCard = ({ name, backgroundColor, logo }: Props) => {
             }}
         >
             <div className="rounded-lg overflow-hidden"
-                style={{ borderColor: softColor(backgroundColor, 70), borderWidth: 0.5, borderStyle: 'solid' }}>
+                style={{ backgroundColor: backgroundColor }}>
                 <div
-                    className="flex flex-col items-center justify-center bg-white"
+                    className="flex flex-col items-center justify-center"
                 >
-                    <div className="mt-1 text-sm font-medium" style={{ color: color }}>{name}</div>
+                    <div className="mt-1 text-sm font-medium" style={{ color: companyTextColor }}>{name}</div>
                     <div className="mt-1 mb-2">
-                        <div className="relative w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-white">
+                        <div className="relative w-16 h-16 rounded-full overflow-hidden flex items-center justify-center">
                             {logo ? (
                                 <UserCardImage
                                     src={logo}
@@ -56,8 +52,8 @@ export const CreatingCard = ({ name, backgroundColor, logo }: Props) => {
                     </div>
                 </div>
                 {/* Mis puntos section at bottom left */}
-                <div className="flex justify-center items-cente p-1 bg-white">
-                    <p className="text-xs font-medium text-centerr" style={{ color: color }}>{`${data?.user.name} ${data?.user.lastName}`}</p> {/* Random number */}
+                <div className="flex justify-center items-cente p-1">
+                    <p className="text-xs font-medium text-centerr" style={{ color: companyTextColor }}>{`${data?.user.name} ${data?.user.lastName}`}</p> {/* Random number */}
                 </div>
             </div>
         </div >

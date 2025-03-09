@@ -21,6 +21,7 @@ export interface UserProfileData {
     Company?: {
         name: string;
         backgroundColor: string;
+        textColor: string;
         slug: string;
         activityTypeId: string;
         active: boolean;
@@ -32,6 +33,7 @@ export interface UserProfileData {
         company: {
             name: string;
             backgroundColor: string;
+            textColor: string;
             slug: string;
             activityTypeId: string;
             CompanyLogo: CompanyLogo | null;

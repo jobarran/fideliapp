@@ -69,6 +69,7 @@ export interface CompanyClientDashboard {
   };
   activityTypeId: string;
   backgroundColor: string;
+  textColor: string;
   active: boolean;
   validated: boolean;
   address: string;
@@ -101,6 +102,7 @@ export interface CompanyClientInformation {
   };
   activityTypeId: string;
   backgroundColor: string;
+  textColor: string;
   active: boolean;
   validated: boolean;
   address: string;
@@ -131,6 +133,7 @@ export interface DayHours {
 export interface CompanyShort {
   name: string;
   backgroundColor: string;
+  textColor: string;
   slug: string;
   activityTypeId: string;
   CompanyLogo?: CompanyLogo | null;  // Make CompanyLogo optional

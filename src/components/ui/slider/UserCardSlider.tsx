@@ -16,8 +16,8 @@ export const UserCardSlider = ({ userCards, userId, showHeader }: UserCardSlider
 
     const breakpoints = {
         0: { slidesPerView: 1.1 },
-        335: { slidesPerView: 1.75 },
-        480: { slidesPerView: 2.3 },
+        335: { slidesPerView: 2.2 },
+        480: { slidesPerView: 2.75 },
         640: { slidesPerView: 3.3 },
         1024: { slidesPerView: 4.5 },
     };

@@ -85,6 +85,7 @@ model Company {
   id              String  @id @default(uuid())
   name            String
   backgroundColor String
+  textColor       String  @default("#FFFFFF")
   active          Boolean @default(true)
   validated       Boolean @default(false)
   address         String

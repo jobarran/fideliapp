@@ -16,21 +16,23 @@ const companySchema = z.object({
     activityTypeId: z.string().uuid(),
     description: z.string().min(3).max(1000),
     backgroundColor: z.string().min(3).max(255),
+    textColor: z.string().min(3).max(255),
     address: z.string().min(3).max(255),
     lat: z.preprocess((val) => parseFloat(val as string), z.number()),
     lng: z.preprocess((val) => parseFloat(val as string), z.number()),
-    instagram: z.string().min(0).max(100),
-    facebook: z.string().min(0).max(100),
-    twitter: z.string().min(0).max(100),
-    whatsapp: z.string().min(0).max(100),
-    phone: z.string().min(0).max(100),
-    site: z.string().min(0).max(100),
+    instagram: z.string().optional().nullable(),
+    facebook: z.string().optional().nullable(),
+    twitter: z.string().optional().nullable(),
+    whatsapp: z.string().optional().nullable(),
+    phone: z.string().optional().nullable(),
+    site: z.string().optional().nullable(),
     openHours: z.record(z.object({
         from: z.string(),
         to: z.string(),
         closed: z.boolean(),
-    })).optional().default({}), // Default to empty object
+    })).optional().default({}),
 });
+
 
 export const updateCompany = async (editedCompany: CompanyClientDashboard) => {
 
@@ -45,8 +47,10 @@ export const updateCompany = async (editedCompany: CompanyClientDashboard) => {
     const companyParsed = companySchema.safeParse(editedCompany);
 
     if (!companyParsed.success) {
+        console.log('Validation failed:', companyParsed.error.format());
         return { ok: false, message: 'Validation failed' };
     }
+    
 
     const companyData = companyParsed.data;
     const { openHours, slug, ...rest } = companyData;
@@ -57,6 +61,8 @@ export const updateCompany = async (editedCompany: CompanyClientDashboard) => {
             message: 'There is no user logged',
         };
     }
+
+    console.log(rest)
 
     try {
         // Check if the company exists by slug
@@ -69,6 +75,7 @@ export const updateCompany = async (editedCompany: CompanyClientDashboard) => {
                 where: { slug: slug },
                 data: {
                     backgroundColor: rest.backgroundColor,
+                    textColor: rest.textColor,
                     activityTypeId: editedCompany.activityType.id,
                     openHours: openHours,
                     description: rest.description,

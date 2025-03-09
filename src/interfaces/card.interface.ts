@@ -24,6 +24,7 @@ export interface Card {
         name: string;
         activityTypeId: string;
         backgroundColor: string | null;
+        textColor: string;
         slug: string;
         CompanyLogo: {
             id: string;
@@ -68,6 +69,7 @@ export interface UserCard {
     company: {
         name: string;
         backgroundColor: string;
+        textColor: string;
         slug: string;
         activityTypeId: string;
         CompanyLogo: CompanyLogo | null;

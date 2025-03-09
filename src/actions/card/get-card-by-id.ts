@@ -26,6 +26,7 @@ export const getCardById = async (id: string) => {
                         name: true,
                         activityType: true,
                         backgroundColor: true,
+                        textColor: true,
                         CompanyLogo: true,
                     },
                 },

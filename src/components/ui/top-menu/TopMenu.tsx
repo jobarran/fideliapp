@@ -84,7 +84,7 @@ export const TopMenu = ({
       <div className="flex justify-between items-center h-full px-4">
         <div className="flex items-center">
           <Link href={`/`}>
-            <h1 className="text-xl font-bold text-slate-800">FideliApp</h1>
+            <h1 className="text-xl font-bold text-slate-800">Klumpit</h1>
           </Link>
         </div>
         <div className="hidden sm:flex justify-center items-center space-x-2">

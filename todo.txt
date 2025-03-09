@@ -2,20 +2,54 @@ Roadmap
 Web->App(React Native Webview)->Testing->Security
 
 React Native Webview:
+- Lighthouse Report (web & device)
 - Hybrid WebView with Native features as TopBar and DownBar
+- Native features:
 
-PWA (manifest) + Native Shell (Capacitor, Apache Cordova, Tauri)
+1. Push Notifications
+Native push notifications can be a simple yet effective way to engage users. React Native offers libraries like react-native-push-notification or react-native-notifications to implement this.
+You can trigger notifications for various events, such as:
+New reward offers or points activity
+Company updates or special promotions
+Reminders about unused points or benefits
 
-Rename App
+2. Deep Linking
+You can implement deep linking to allow users to open specific parts of the app directly from external links (like emails or SMS).
+For example, you could create deep links to specific company profiles, rewards, or transactions. This way, even though the app is mostly WebView-based, it still feels more integrated with the system.
 
-----------------------------------------
+3. Native Splash Screen
+Adding a native splash screen will improve the user experience when the app loads. React Native offers libraries like react-native-splash-screen that allow you to show a splash screen while the WebView content is being loaded.
 
-- Add error page
-- footer content
-- Sticky header in small screens
-- ambiente de prueba
+4. Offline Support
+Although your app will largely be web-based, you can implement offline functionality with native features. For example, caching important data like user info or reward points locally using react-native-offline or react-native-fs so users can still interact with basic app elements without an internet connection.
+If your web app supports offline access (e.g., with service workers for caching), this will work seamlessly in the WebView.
+
+5. In-App Payments (WebView + Native Bridge)
+If you have any form of payments (e.g., to buy rewards or products), you could implement native in-app payments through the WebView. Instead of relying purely on the web, you can trigger native payment flows (Google Pay, Apple Pay, etc.) by using bridges between React Native and the WebView.
+This would allow you to add native payment capabilities without drastically altering your current web-based setup.
+
+6. App Customization with Native UI Components
+You can enhance certain aspects of your app by using native UI components alongside the WebView. For instance:
+Custom bottom tabs or drawer navigation that can seamlessly launch your WebView, so users can still navigate around without changing the core structure of your app.
+Floating action buttons (FABs) for quick access to certain features like a user’s profile, rewards, or a loyalty card.
+
+7. Location Services
+Since your app includes company proximity features (e.g., distance to nearby businesses), you can add native location services to improve accuracy and handle location requests better than a pure web solution.
+React Native provides modules like react-native-geolocation-service or react-native-location to access and manage user location data efficiently.
+
+8. Native File System Access (for saving receipts, loyalty cards, etc.)
+If users need to save receipts, loyalty cards, or rewards as files (e.g., PDFs or images), you can implement native file system access to allow saving and sharing these files using libraries like react-native-fs.
+
+9. Camera/QR Code Scanning
+If you plan on implementing features like scanning QR codes (for loyalty card validation or transactions), you can add native camera support. React Native has libraries like react-native-camera or react-native-qrcode-scanner that provide easy ways to integrate this.
 
 ------------------------------------------
+
+# Pendientes
+
+- Add error page 404. then, redirect to home. Add this page to routes where user shouldnt get in
+- footer content
+- ambiente de prueba
 
 Alert
 - add "user" / "client" type
@@ -29,22 +63,37 @@ Admin
 - Company validation
 - Contact answer
 
-Validations in back
+UX
+- agregar a fav en companies header (too small in device)
+- agrupar nombres "valor" / "premio" para que sea claro
+- user/info mostrar labels en sm, icono show solo cuando edita, nombre apellido input w
+- when card is created... puntos is null
+- home - como se ven las tarjetas de negocios desactivados
 
-Ambiente de prueba
+
+Company
+- Create admin panel (?)
+
+Validations in back
 
 ------------------------------------------
 
-Email Validation / Password recovery
+# Email Validation / Password recovery
 
 Step 1: Buy a Domain
-GoDaddy
-- Puntsy
-- FideliNow
-- fidelyup
-- fidelimoon
+klumpit
+klumpit
+klumpit
+klumpit
+klumpit
+klumpit
 
-- Perkly
+GoDaddy
+- *klumpit*
+- PeakyPerks
+- DigiPuntos
+- RePuntos
+- Rewarzy
 
 
 Step 2: Choose an Email Hosting Provider
@@ -58,8 +107,40 @@ Step 4: Integrate Transactional Email (password recovery)
 Postmark
 Mailgun
 
-------------------------------------------
+---------------------------------------
 
-- Lighthouse Report
+# Ideas
+
+Premium
+- Coupons
+
+Ref:
+- https://stocardapp.com/en/de.
+- https://www.supercardsapp.com/
+- https://dribbble.com/shots/22088619-Loyalty-Cards-App
+- https://www.klarna.com/international/press/klarna-app-is-enhanced-with-digital-wallet-for-easy-access-to-loyalty-cards/
+- https://packinglighttravel.com/travel-tech/best-loyalty-card-wallet-app/
+
+Ideas:
+- user - Total savings
+- company - Card design
+- client - ver casos de cadenas (sephora)
+- Landing page -> WebApp
+- Vencimiento de puntos
+- Tarjeta (plastic) real para usuarios (ver como escanea el comercio)
+
+-------------------------------------------
+
+Planes (estos son unicamente para clientes con Negocio. Los usuarios no pagan)
+Freemium: Todas las funcionalidades basicas, carga de hasta 10 productos, transacciones ilimitadas.
+Premium: Todas las funcionalidades basicas, carga de productos ilimitados, transacciones ilimitadas.
+Plus: Todas las funcionalidades basicas, carga de productos ilimitados, transacciones ilimitadas, nuevas funcionalidades de marketing (promociones, posicionamiento, etc)
 
 
+
+Para probar el prototipo:
+- Captar 100 negocios de distintos rubros
+- Capacitarlos con las funcionalidades
+- Ofrecer plan Premium de por vida a cambio de feedback
+- Enfocar captacion en "herramienta de marketing y generacion de comunidades" gratuita
+- Tarjeta de negocio (simular una tarjeta de puntos)

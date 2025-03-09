@@ -7,6 +7,7 @@ interface Props {
     divClassName?: string;
     labelClassName?: string;
     inputClassName?: string;
+    rows?: number
 }
 
 export const TextAreaField = ({
@@ -17,7 +18,8 @@ export const TextAreaField = ({
     disabled,
     divClassName,
     labelClassName,
-    inputClassName
+    inputClassName,
+    rows = 5
 }: Props) => (
     <div className={divClassName}>
         <label className={labelClassName}>{label}</label>
@@ -26,7 +28,7 @@ export const TextAreaField = ({
             onChange={onChange}
             disabled={disabled}
             className={inputClassName}
-            rows={5}
+            rows={rows}
             maxLength={1000}
             placeholder={'¿Quienes somos?'}
         />

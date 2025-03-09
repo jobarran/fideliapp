@@ -19,7 +19,10 @@ export const CompanyLink = ({ company }: Props) => {
                 <div className="flex flex-col items-center justify-center h-24 bg-white">
                     <div className="mt-1 mb-2">
                         <Link href={`/companies/${company.slug}`}>
-                            <div className="relative w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-white">
+                            <div
+                                className="relative w-16 h-16 rounded-full overflow-hidden flex items-center justify-center"
+                                style={{ backgroundColor: company.backgroundColor! }}
+                            >
                                 {company.CompanyLogo ? (
                                     <CompanyLinkImage
                                         src={company.CompanyLogo?.url}
