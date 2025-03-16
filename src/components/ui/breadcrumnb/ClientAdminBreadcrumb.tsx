@@ -14,10 +14,10 @@ const ClientAdminBreadcrumb = () => {
         /^[0-9a-fA-F-]{36}$/.test(segment)
     );
 
-    // Filter out "xclient" and the UUID
+    // Filter out "client" and the UUID
     const filteredSegments = pathSegments.filter(
         (segment) =>
-            segment !== "xclient" && segment !== clientId
+            segment !== "client" && segment !== clientId
     );
 
     // Create a mapping of links to labels
@@ -29,10 +29,10 @@ const ClientAdminBreadcrumb = () => {
     return (
         <nav aria-label="breadcrumb" className="mb-4">
             <ul className="flex text-sm text-gray-600">
-                {/* Inicio (links to xclient/[id]/) */}
+                {/* Inicio (links to client/[id]/) */}
                 <li className="flex items-center">
                     <Link
-                        href={`/xclient/${clientId}/`}
+                        href={`/client/${clientId}/`}
                         className="flex items-baseline hover:underline"
                     >
                         Inicio

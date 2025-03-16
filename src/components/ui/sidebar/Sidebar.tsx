@@ -2,12 +2,13 @@
 
 import { clientAdminNavItems, footerNavItems } from "@/config";
 import { useState, useEffect, useRef } from "react";
-import { FiChevronLeft, FiChevronRight, FiHome } from "react-icons/fi";
+import { FiChevronLeft, FiChevronRight, FiHome, FiLogOut, FiUser } from "react-icons/fi";
 import Link from "next/link";
 import { CompanyClientDashboard } from "@/interfaces";
 import { CompanyLinkImage } from "@/components/company/CompanyLinkImage";
 import { Avatar } from "../layout/Avatar";
 import { usePathname } from "next/navigation";
+import { logout as serverLogout } from "@/actions/auth/logout";
 
 interface Props {
     company?: CompanyClientDashboard | null;
@@ -91,6 +92,11 @@ const Sidebar = ({ company }: Props) => {
         if (pathname !== path) {
             closeSidebar();
         }
+    };
+
+    const handleLogout = async () => {
+        await serverLogout();
+        window.location.href = "/";
     };
 
     useEffect(() => {
@@ -192,22 +198,31 @@ const Sidebar = ({ company }: Props) => {
                     ))}
                 </nav>
 
-
-
                 {/* Footer Navigation Items */}
                 <nav className="mt-auto border-t border-slate-300">
-                    {footerNavItems.map((item) => (
-                        <div key={item.id}>
-                            <button
-                                className={`flex items-center w-full h-11 px-4 text-left text-slate-800 hover:bg-slate-100
-                  ${isOpen ? "justify-start gap-4" : "justify-center gap-0"}`}
-                            >
-                                <item.icon className="text-xl shrink-0" />
-                                {isOpen && isTransitionComplete && <span className="truncate">{item.label}</span>}
-                            </button>
-                        </div>
-                    ))}
+                    {/* Define static footer nav items */}
+                    <div>
+                        <Link
+                            className={`flex items-center w-full h-11 px-4 text-left text-slate-800 hover:bg-slate-100
+                            ${isOpen ? "justify-start gap-4" : "justify-center gap-0"}`}
+                            href={`/user/${company.userId}`}
+                        >
+                            <FiUser className="text-xl shrink-0" />
+                            {isOpen && isTransitionComplete && <span className="truncate">Ir a perfil de usuario</span>}
+                        </Link>
+                    </div>
+                    <div>
+                        <button
+                            className={`flex items-center w-full h-11 px-4 text-left text-slate-800 hover:bg-slate-100
+                            ${isOpen ? "justify-start gap-4" : "justify-center gap-0"}`}
+                            onClick={handleLogout}
+                        >
+                            <FiLogOut className="text-xl shrink-0" />
+                            {isOpen && isTransitionComplete && <span className="truncate">Cerrar sesión</span>}
+                        </button>
+                    </div>
                 </nav>
+
             </aside>
         </>
     );

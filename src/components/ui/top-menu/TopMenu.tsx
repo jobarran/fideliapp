@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useLoginModal } from "@/hooks/useLoginModal";
 import { deleteAlertById, manageUserAlerts, updateAlertToSeenByIds } from "@/actions";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface Props {
   user: User | null;
