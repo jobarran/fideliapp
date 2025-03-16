@@ -169,23 +169,29 @@ const Sidebar = ({ company }: Props) => {
                 {/* Main Navigation Items */}
                 <nav className="flex-1 mt-4">
                     {clientAdminNavItems.map((item) => (
-                        <Link href={`${pathname}/${item.link}`} key={item.id}>
+                        <Link
+                            href={`${pathname.split('/').slice(0, 3).join('/')}/${item.link}`} // Dynamic base path logic
+                            key={item.id}
+                        >
                             <button
                                 onClick={() => handleNavItemClick(item.link)}
                                 className={`
                                     flex items-center w-full h-11 px-4 text-left text-slate-800 hover:bg-slate-100
-                                            ${isOpen ? "justify-start gap-4" : "justify-center gap-0"}
-                                            ${pathname.endsWith(item.link) ? "font-bold" : ""}
+                                    ${isOpen ? "justify-start gap-4" : "justify-center gap-0"}
+                                    ${pathname.endsWith(item.link) ? "font-bold" : ""}
                                 `}
+                                disabled={pathname.endsWith(item.link)} // Disable button if already selected
                             >
                                 <item.icon
-                                    className={`text-xl shrink-0 ${pathname.endsWith(item.link) ? "bg-slate-800 text-slate-100 rounded-full" : ""}`}
+                                    className={`text-3xl p-1 shrink-0 ${pathname.endsWith(item.link) ? "bg-slate-200 text-slate-800 rounded-full" : ""
+                                        }`}
                                 />
                                 {isOpen && isTransitionComplete && <span className="truncate">{item.label}</span>}
                             </button>
                         </Link>
                     ))}
                 </nav>
+
 
 
                 {/* Footer Navigation Items */}

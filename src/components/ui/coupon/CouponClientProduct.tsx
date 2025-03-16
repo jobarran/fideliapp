@@ -4,7 +4,6 @@ import { CompanyLinkImage } from '@/components/company/CompanyLinkImage';
 import { Product } from '@/interfaces';
 import React from 'react';
 import { FaRegImage } from 'react-icons/fa6';
-import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import clsx from 'clsx';
 import { IoTicketOutline } from 'react-icons/io5';

@@ -4,6 +4,7 @@ import React from "react";
 import { Alert, User } from "@/interfaces";
 import { getAlertsByUser, getCompanyByUser } from "@/actions";
 import Sidebar from "@/components/ui/sidebar/Sidebar";
+import ClientAdminBreadcrumb from "@/components/ui/breadcrumnb/ClientAdminBreadcrumb";
 
 export default async function BaseLayout({
     children,
@@ -40,11 +41,11 @@ export default async function BaseLayout({
         <div className="flex flex-row h-screen overflow-hidden">
             {/* Sidebar */}
             <Sidebar company={company} />
-
             {/* Main Content */}
             <div className="flex-grow flex flex-col overflow-hidden">
                 <div className="flex-grow overflow-y-auto">
                     <div className="container px-4 py-4 mt-4 sm:mt-0 mb-20 sm:mb-0">
+                    <ClientAdminBreadcrumb />
                         <div className="w-full mx-auto">
                             {passUserToChildren(children)}
                         </div>
