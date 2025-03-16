@@ -7,22 +7,21 @@ import Link from "next/link";
 import { CompanyClientDashboard } from "@/interfaces";
 import { CompanyLinkImage } from "@/components/company/CompanyLinkImage";
 import { Avatar } from "../layout/Avatar";
-import { usePathname } from 'next/navigation'
+import { usePathname } from "next/navigation";
 
 interface Props {
     company?: CompanyClientDashboard | null;
 }
 
 const Sidebar = ({ company }: Props) => {
-
     const [isOpen, setIsOpen] = useState(false);
     const [isTransitionComplete, setIsTransitionComplete] = useState(false);
+    const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
+    const [inactiveTimeout, setInactiveTimeout] = useState<NodeJS.Timeout | null>(null);
 
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-    const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const sidebarRef = useRef<HTMLDivElement>(null);
-
-    const pathname = usePathname()
+    const pathname = usePathname();
 
     const openSidebar = () => {
         setIsOpen(true);
@@ -35,6 +34,12 @@ const Sidebar = ({ company }: Props) => {
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
+        if (hoverTimeout) {
+            clearTimeout(hoverTimeout);
+        }
+        if (inactiveTimeout) {
+            clearTimeout(inactiveTimeout);
+        }
     };
 
     const resetAutoCloseTimer = () => {
@@ -42,9 +47,8 @@ const Sidebar = ({ company }: Props) => {
             clearTimeout(timeoutRef.current);
         }
         timeoutRef.current = setTimeout(() => {
-            setIsOpen(false);
-            setIsTransitionComplete(false);
-        }, 1000);
+            closeSidebar();
+        }, 2000); // Auto-close after 2 seconds of inactivity
     };
 
     const handleTransitionEnd = () => {
@@ -53,36 +57,38 @@ const Sidebar = ({ company }: Props) => {
         }
     };
 
-
-    const handleMouseEnterNavItem = () => {
-        // Set a timeout to open sidebar after 2 seconds of hovering over a nav item
-        hoverTimeoutRef.current = setTimeout(() => {
-            openSidebar();
-        }, 500);
-    };
-
-    const handleMouseLeaveNavItem = () => {
-        // Clear timeout if mouse leaves before 2 seconds
-        if (hoverTimeoutRef.current) {
-            clearTimeout(hoverTimeoutRef.current);
-        }
-    };
-
     const handleMouseEnterSidebar = () => {
-        // Do nothing if mouse enters other sidebar parts (not nav items)
+        if (timeoutRef.current) {
+            clearTimeout(timeoutRef.current);
+        }
+        // Open sidebar if mouse is over the sidebar for more than 1 second
+        setHoverTimeout(
+            setTimeout(() => {
+                openSidebar();
+            }, 1000)
+        );
     };
 
     const handleMouseLeaveSidebar = () => {
-        if (isOpen) {
-            resetAutoCloseTimer();  // Reset the auto-close timer when mouse leaves
+        if (hoverTimeout) {
+            clearTimeout(hoverTimeout);
         }
+        // Start the inactivity timer if mouse leaves the sidebar
+        setInactiveTimeout(
+            setTimeout(() => {
+                closeSidebar();
+            }, 2000)
+        );
     };
 
     const handleClickOutside = (event: MouseEvent) => {
-        if (
-            sidebarRef.current &&
-            !sidebarRef.current.contains(event.target as Node)
-        ) {
+        if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+            closeSidebar();
+        }
+    };
+
+    const handleNavItemClick = (path: string) => {
+        if (pathname !== path) {
             closeSidebar();
         }
     };
@@ -99,8 +105,11 @@ const Sidebar = ({ company }: Props) => {
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
             }
-            if (hoverTimeoutRef.current) {
-                clearTimeout(hoverTimeoutRef.current);
+            if (hoverTimeout) {
+                clearTimeout(hoverTimeout);
+            }
+            if (inactiveTimeout) {
+                clearTimeout(inactiveTimeout);
             }
         };
     }, [isOpen]);
@@ -114,43 +123,29 @@ const Sidebar = ({ company }: Props) => {
             <div className={`lg:hidden ${isOpen ? "w-16" : "w-0"}`} />
             <aside
                 ref={sidebarRef}
-                className={`
-                flex flex-col h-screen bg-white text-slate-800 border-r border-gray-200
-                ${isOpen ? "w-64" : "w-16"}
-                ${isOpen ? "absolute lg:relative z-40 transition-all duration-300" : "relative"}
-              `}
+                className={`flex flex-col h-screen bg-white text-slate-800 border-r border-gray-200 transition-all duration-300
+          ${isOpen ? "w-64" : "w-16"}
+          ${isOpen ? "absolute lg:relative z-40" : "relative"}`}
                 onMouseEnter={handleMouseEnterSidebar}
                 onMouseLeave={handleMouseLeaveSidebar}
                 onTransitionEnd={handleTransitionEnd}
             >
-
                 {/* Top Section: Logo and Toggle */}
-                <div
-                    className={`flex ${isOpen ? "items-center justify-between" : "flex-col items-center"
-                        } p-4 border-b border-slate-300`}
-                >
-                    {/* Toggle Button */}
+                <div className={`flex ${isOpen ? "items-center justify-between" : "flex-col items-center"} p-4 border-b border-slate-300`}>
                     <button
                         onClick={isOpen ? closeSidebar : openSidebar}
-                        className={`p-2 z-40 rounded-full text-slate-800 hover:bg-slate-200 ${isOpen ? "" : "mb-2"
-                            }`}
+                        className={`p-2 z-40 rounded-full text-slate-800 hover:bg-slate-200 ${isOpen ? "" : "mb-2"}`}
                     >
                         {isOpen ? <FiChevronLeft size={20} /> : <FiChevronRight size={20} />}
                     </button>
-
-                    {/* Website Logo and Name */}
                     <Link href={`/`} className={`flex items-center gap-2 ${isOpen ? "order-1" : ""}`}>
-                        <FiHome size={24} className="text-slate-800" /> {/* Replace with your logo */}
-                        {isOpen && isTransitionComplete && (
-                            <h1 className="text-xl font-bold text-slate-800 truncate">Klumpit</h1>
-                        )}
+                        <FiHome size={24} className="text-slate-800" />
+                        {isOpen && isTransitionComplete && <h1 className="text-xl font-bold text-slate-800 truncate">Klumpit</h1>}
                     </Link>
                 </div>
 
                 {/* Logo and Company Name */}
-                <div
-                    className={`flex flex-col items-center gap-2 p-4 border-b border-slate-300 ${isOpen ? "h-28" : ""}`}
-                >
+                <div className={`flex flex-col items-center gap-2 p-4 border-b border-slate-300 ${isOpen ? "h-28" : ""}`}>
                     {company.CompanyLogo?.url ? (
                         <CompanyLinkImage
                             src={company.CompanyLogo.url}
@@ -168,47 +163,45 @@ const Sidebar = ({ company }: Props) => {
                             size="48"
                         />
                     )}
-                    {isOpen && isTransitionComplete && (
-                        <span className="text-base font-semibold truncate">{company.name}</span>
-                    )}
+                    {isOpen && isTransitionComplete && <span className="text-base font-semibold truncate">{company.name}</span>}
                 </div>
 
                 {/* Main Navigation Items */}
                 <nav className="flex-1 mt-4">
                     {clientAdminNavItems.map((item) => (
-                        <Link
-                            href={`${pathname}/${item.link}`}
-                            key={item.id}
-                        >
+                        <Link href={`${pathname}/${item.link}`} key={item.id}>
                             <button
-                                className={`flex items-center w-full h-11 px-4 text-left text-slate-800 hover:bg-slate-100 ${isOpen ? "justify-start gap-4" : "justify-center gap-0"}`}
-                                onMouseEnter={handleMouseEnterNavItem}
-                                onMouseLeave={handleMouseLeaveNavItem}
+                                onClick={() => handleNavItemClick(item.link)}
+                                className={`
+                                    flex items-center w-full h-11 px-4 text-left text-slate-800 hover:bg-slate-100
+                                            ${isOpen ? "justify-start gap-4" : "justify-center gap-0"}
+                                            ${pathname.endsWith(item.link) ? "font-bold" : ""}
+                                `}
                             >
-                                <item.icon className="text-xl shrink-0" />
+                                <item.icon
+                                    className={`text-xl shrink-0 ${pathname.endsWith(item.link) ? "bg-slate-800 text-slate-100 rounded-full" : ""}`}
+                                />
                                 {isOpen && isTransitionComplete && <span className="truncate">{item.label}</span>}
                             </button>
                         </Link>
                     ))}
                 </nav>
 
+
                 {/* Footer Navigation Items */}
                 <nav className="mt-auto border-t border-slate-300">
                     {footerNavItems.map((item) => (
-                        <button
-                            key={item.id}
-                            className={`flex items-center w-full h-11 px-4 text-left text-slate-800 hover:bg-slate-100 ${isOpen ? "justify-start gap-4" : "justify-center gap-0"
-                                }`}
-                            onMouseEnter={handleMouseEnterNavItem}
-                            onMouseLeave={handleMouseLeaveNavItem}
-                        >
-                            <item.icon className="text-xl shrink-0" />
-                            {isOpen && isTransitionComplete && <span className="truncate">{item.label}</span>}
-                        </button>
+                        <div key={item.id}>
+                            <button
+                                className={`flex items-center w-full h-11 px-4 text-left text-slate-800 hover:bg-slate-100
+                  ${isOpen ? "justify-start gap-4" : "justify-center gap-0"}`}
+                            >
+                                <item.icon className="text-xl shrink-0" />
+                                {isOpen && isTransitionComplete && <span className="truncate">{item.label}</span>}
+                            </button>
+                        </div>
                     ))}
                 </nav>
-
-
             </aside>
         </>
     );
