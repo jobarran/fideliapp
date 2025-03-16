@@ -26,18 +26,23 @@ const ClientAdminBreadcrumb = () => {
         return acc;
     }, {} as Record<string, string>);
 
+    // Check if we are on the "Inicio" page
+    const isInicioPage = pathname === `/client/${clientId}/`;
+
     return (
         <nav aria-label="breadcrumb" className="mb-4">
             <ul className="flex text-sm text-gray-600">
-                {/* Inicio (links to client/[id]/) */}
-                <li className="flex items-center">
-                    <Link
-                        href={`/client/${clientId}/`}
-                        className="flex items-baseline hover:underline"
-                    >
-                        Inicio
-                    </Link>
-                </li>
+                {/* Conditionally render "Inicio" only if not the last breadcrumb */}
+                {filteredSegments.length > 0 && (
+                    <li className="flex items-center">
+                        <Link
+                            href={`/client/${clientId}/`}
+                            className="flex items-baseline hover:underline"
+                        >
+                            Inicio
+                        </Link>
+                    </li>
+                )}
 
                 {filteredSegments.map((segment, index) => {
                     const href = `/${filteredSegments
@@ -45,6 +50,11 @@ const ClientAdminBreadcrumb = () => {
                         .join("/")}`;
                     const isLast = index === filteredSegments.length - 1;
                     const label = linkToLabelMap[segment] || segment; // Use label or fallback to segment
+
+                    // Skip rendering "Inicio" as the last breadcrumb
+                    if (isLast && label === "Inicio") {
+                        return null;
+                    }
 
                     return (
                         <li key={href} className="flex items-center">

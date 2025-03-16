@@ -1,6 +1,5 @@
-import { getCompanyByUser, getCompanyTransactionsByCompany } from "@/actions";
+import { getCompanyByUser } from "@/actions";
 import { auth } from "@/auth.config";
-import { ClientAdminMovements } from "@/components";
 import { redirect } from "next/navigation";
 
 interface Props {
@@ -9,7 +8,7 @@ interface Props {
   };
 }
 
-export default async function ClientAdminTransactionPage({ params }: Props) {
+export default async function ClientPage({ params }: Props) {
 
   const { id } = params;
 
@@ -21,17 +20,13 @@ export default async function ClientAdminTransactionPage({ params }: Props) {
     return <p>Company not found</p>;
   }
 
-  const transactions = await getCompanyTransactionsByCompany(company.id)
-
-  const companyTransactions = transactions ?? []
-
   if (user?.id !== id) {
     redirect("/");
   }
 
   return (
     <div>
-      <ClientAdminMovements transactions={companyTransactions} userId={user.id} />
+      summary
     </div>
   );
 }

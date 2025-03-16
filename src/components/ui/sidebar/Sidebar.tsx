@@ -1,6 +1,6 @@
 "use client";
 
-import { clientAdminNavItems, footerNavItems } from "@/config";
+import { clientAdminNavItems } from "@/config";
 import { useState, useEffect, useRef } from "react";
 import { FiChevronLeft, FiChevronRight, FiHome, FiLogOut, FiUser } from "react-icons/fi";
 import Link from "next/link";
@@ -62,7 +62,6 @@ const Sidebar = ({ company }: Props) => {
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
-        // Open sidebar if mouse is over the sidebar for more than 1 second
         setHoverTimeout(
             setTimeout(() => {
                 openSidebar();
@@ -74,7 +73,6 @@ const Sidebar = ({ company }: Props) => {
         if (hoverTimeout) {
             clearTimeout(hoverTimeout);
         }
-        // Start the inactivity timer if mouse leaves the sidebar
         setInactiveTimeout(
             setTimeout(() => {
                 closeSidebar();

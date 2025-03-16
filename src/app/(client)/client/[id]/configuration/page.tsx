@@ -1,6 +1,6 @@
-import { getCompanyByUser, getProductsByCompanyId } from "@/actions";
+import { getCompanyByUser } from "@/actions";
 import { auth } from "@/auth.config";
-import { ClientAdminTransaction } from "@/components";
+import { ClientAdminConfiguration } from "@/components";
 import { redirect } from "next/navigation";
 
 interface Props {
@@ -21,18 +21,15 @@ export default async function ClientAdminTransactionPage({ params }: Props) {
     return <p>Company not found</p>;
   }
 
-  const products = await getProductsByCompanyId(company.id);
-
-  // Ensure that products is always an array
-  const companyProducts = products ?? []; // If products is null, default to an empty array
-
   if (user?.id !== id) {
     redirect("/");
   }
 
   return (
     <div>
-      <ClientAdminTransaction products={companyProducts} companySlug={company.slug} companyActive={company.active} />
+      <ClientAdminConfiguration
+        company={company}
+      />
     </div>
   );
 }
