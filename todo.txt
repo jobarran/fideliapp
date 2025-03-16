@@ -70,6 +70,9 @@ UX
 - when card is created... puntos is null
 - home - como se ven las tarjetas de negocios desactivados
 - choose location manually
+- client/config update on live card color when editing
+
+DELET OLD CLIENT SECTION
 
 
 Company
