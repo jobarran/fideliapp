@@ -69,10 +69,11 @@ UX
 - user/info mostrar labels en sm, icono show solo cuando edita, nombre apellido input w
 - when card is created... puntos is null
 - home - como se ven las tarjetas de negocios desactivados
+- choose location manually
 
 
 Company
-- Create admin panel (?)
+- Create admin panel
 
 Validations in back
 

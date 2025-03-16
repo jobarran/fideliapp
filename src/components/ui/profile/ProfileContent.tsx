@@ -8,7 +8,7 @@ interface Props {
 export const ProfileContent  = ({ content }: Props) => {
 
     return (
-        <div className="mt-4 p-4 border rounded-lg bg-white">
+        <div className="p-4 border rounded-lg bg-white">
             {content}
         </div>
 

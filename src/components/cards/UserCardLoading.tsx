@@ -11,7 +11,7 @@ export const UserCardLoading = () => {
                 <div className="w-3/4 h-3 bg-gray-300 rounded mb-2 mt-2"></div>
 
                 {/* Placeholder for image */}
-                <div className="relative w-12 sm:w-16 h-12 sm:h-16 my-1 rounded-full overflow-hidden flex items-center justify-center bg-gray-200">
+                <div className="relative w-12 sm:w-16 h-12 sm:h-16 rounded-full overflow-hidden flex items-center justify-center bg-gray-200">
                     <UserCardImage
                         src={undefined}
                         width={0}

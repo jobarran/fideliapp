@@ -10,6 +10,7 @@ export const ClientContentTransactionButtons = ({
     handleTransactionTypeSelect,
     selectedTransactionType,
 }: Props) => {
+    
     const transactionTypes = [
         { type: TransactionType.BUY, label: "Compra" },
         { type: TransactionType.REWARD, label: "Recompensa" },

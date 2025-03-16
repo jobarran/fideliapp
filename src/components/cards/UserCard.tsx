@@ -70,7 +70,7 @@ export const UserCard = ({ card }: Props) => {
                     </div>
 
                     {/* Image Section */}
-                    <div className="flex flex-col items-center justify-center py-1">
+                    <div className="flex flex-col items-center justify-center">
                         <div className="relative w-12 sm:w-16 h-12 sm:h-16 rounded-full overflow-hidden">
                             {renderImage()}
                         </div>
