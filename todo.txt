@@ -71,6 +71,7 @@ UX
 - home - como se ven las tarjetas de negocios desactivados
 - choose location manually
 - client/config update on live card color when editing
+- client - Revisar tamaño de elemento s(poner zoom al 100%)
 
 DELET OLD CLIENT SECTION
 

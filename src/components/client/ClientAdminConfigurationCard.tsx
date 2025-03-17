@@ -8,7 +8,7 @@ import { Avatar } from '..';
 import { FaHeart } from 'react-icons/fa';
 import Image from 'next/image'
 import { cropText } from '@/utils';
-import { FiEdit, FiSave, FiUpload } from 'react-icons/fi';
+import { FiEdit, FiSave, FiUpload, FiX } from 'react-icons/fi';
 
 interface EditedCompany extends CompanyClientDashboard {
     openHours: Record<string, DayHours>;
@@ -36,6 +36,14 @@ export const ClientAdminConfigurationCard = ({ company, setOpenModal }: Props) =
         setIsEditing((prev) => !prev);
     }, [isEditing, editedCompany]);
 
+    const handleCancelClick = useCallback(() => {
+        setEditedCompany({
+            ...company, // Revert to the original company data
+            openHours: company.openHours || defaultOpenHours(),
+        });
+        setIsEditing(false);
+    }, [company]);
+
     const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: keyof EditedCompany) => {
         const value = e.target.value.trim() === '' ? '' : e.target.value;  // Ensure value is an empty string if it's empty
         setEditedCompany((prevState) => ({
@@ -62,12 +70,22 @@ export const ClientAdminConfigurationCard = ({ company, setOpenModal }: Props) =
         <div className='flex flex-col gap-4'>
             <div className='flex justify-between items-center'>
                 <h2 className="text-lg font-semibold text-gray-700">Tarjeta</h2>
-                <button
-                    onClick={handleEditClick}
-                    className={`p-2 rounded-full ${isEditing ? "bg-slate-800 text-slate-200" : "bg-slate-200 text-slate-800"} `}
-                >
-                    {isEditing ? <FiSave className='w-6 h-6' /> : <FiEdit className='w-6 h-6' />}
-                </button>
+                <div className="flex gap-2">
+                    {isEditing && (
+                        <button
+                            onClick={handleCancelClick}
+                            className="p-2 rounded-full bg-slate-200 text-slate-800"
+                        >
+                            <FiX className="w-6 h-6" />
+                        </button>
+                    )}
+                    <button
+                        onClick={handleEditClick}
+                        className={`p-2 rounded-full ${isEditing ? "bg-slate-800 text-slate-200" : "bg-slate-200 text-slate-800"} `}
+                    >
+                        {isEditing ? <FiSave className='w-6 h-6' /> : <FiEdit className='w-6 h-6' />}
+                    </button>
+                </div>
             </div>
 
             <div className="flex flex-col items-center justify-center gap-4 w-full">
@@ -75,7 +93,7 @@ export const ClientAdminConfigurationCard = ({ company, setOpenModal }: Props) =
                     <div
                         className="relative rounded-lg overflow-hidden flex flex-col justify-between"
                         style={{
-                            backgroundColor: company.backgroundColor,
+                            backgroundColor: editedCompany.backgroundColor,
                         }}
                     >
                         {/* Title Section */}
@@ -83,7 +101,7 @@ export const ClientAdminConfigurationCard = ({ company, setOpenModal }: Props) =
                             <p
                                 className="text-sm lg:text-base font-medium text-center"
                                 style={{
-                                    color: company.textColor,
+                                    color: editedCompany.textColor,
                                 }}
                             >
                                 {cropText(company.name, 23)}

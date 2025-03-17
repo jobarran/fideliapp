@@ -4,9 +4,8 @@ import { getActivityTypes, updateCompany } from '@/actions';
 import { defaultOpenHours } from '@/config';
 import { CompanyClientDashboard, DayHours } from '@/interfaces';
 import React, { useCallback, useEffect, useState } from 'react';
-import { OpenHoursSection, SelectField, TextAreaField, TextField } from '..';
-import { FaFacebook, FaInstagram, FaLink, FaPhone, FaTwitter, FaWhatsapp } from 'react-icons/fa';
-import { FiEdit, FiSave } from 'react-icons/fi'
+import { SelectField, TextAreaField, TextField } from '..';
+import { FiEdit, FiSave, FiX } from 'react-icons/fi'
 
 interface EditedCompany extends CompanyClientDashboard {
     openHours: Record<string, DayHours>;
@@ -22,6 +21,7 @@ export const ClientAdminConfigurationForm = ({ company }: Props) => {
         ...company,
         openHours: company.openHours || defaultOpenHours(),
     });
+
     const [isEditing, setIsEditing] = useState(false);
     const [activityTypes, setActivityTypes] = useState<Array<{ id: string; name: string }>>([]);
 
@@ -40,6 +40,15 @@ export const ClientAdminConfigurationForm = ({ company }: Props) => {
         }
         setIsEditing((prev) => !prev);
     }, [isEditing, editedCompany]);
+
+    const handleCancelClick = useCallback(() => {
+        setEditedCompany({
+            ...company,
+            openHours: company.openHours || defaultOpenHours(),
+        });
+        setIsEditing(false);
+    }, [company]);
+
 
     const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: keyof EditedCompany) => {
         const value = e.target.value.trim() === '' ? '' : e.target.value;  // Ensure value is an empty string if it's empty
@@ -78,14 +87,24 @@ export const ClientAdminConfigurationForm = ({ company }: Props) => {
 
     return (
         <div className='flex flex-col'>
-            <div className='flex justify-between items-center pb-2'>
+            <div className='flex justify-between items-center pb-4'>
                 <h2 className="text-lg font-semibold text-gray-700">Información</h2>
-                <button
-                    onClick={handleEditClick}
-                    className={`p-2 rounded-full ${isEditing ? "bg-slate-800 text-slate-200" : "bg-slate-200 text-slate-800"} `}
-                >
-                    {isEditing ? <FiSave className='w-6 h-6' /> : <FiEdit className='w-6 h-6' />}
-                </button>
+                <div className="flex gap-2">
+                    {isEditing && (
+                        <button
+                            onClick={handleCancelClick}
+                            className="p-2 rounded-full bg-slate-200 text-slate-800"
+                        >
+                            <FiX className="w-6 h-6" />
+                        </button>
+                    )}
+                    <button
+                        onClick={handleEditClick}
+                        className={`p-2 rounded-full ${isEditing ? "bg-slate-800 text-slate-200" : "bg-slate-200 text-slate-800"} `}
+                    >
+                        {isEditing ? <FiSave className='w-6 h-6' /> : <FiEdit className='w-6 h-6' />}
+                    </button>
+                </div>
             </div>
             <TextField
                 label="Nombre"

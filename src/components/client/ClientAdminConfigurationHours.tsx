@@ -5,7 +5,7 @@ import { defaultOpenHours } from '@/config';
 import { CompanyClientDashboard, DayHours } from '@/interfaces';
 import React, { useCallback, useState } from 'react';
 import { OpenHoursSection } from '..';
-import { FiEdit, FiSave } from 'react-icons/fi'
+import { FiEdit, FiSave, FiX } from 'react-icons/fi'
 
 interface EditedCompany extends CompanyClientDashboard {
     openHours: Record<string, DayHours>;
@@ -29,6 +29,15 @@ export const ClientAdminConfigurationHours = ({ company }: Props) => {
         }
         setIsEditing((prev) => !prev);
     }, [isEditing, editedCompany]);
+
+    const handleCancelClick = useCallback(() => {
+        setEditedCompany({
+            ...company,
+            openHours: company.openHours || defaultOpenHours(),
+        });
+        setIsEditing(false);
+    }, [company]);
+
 
     const handleOpenHourChange = useCallback((e: React.ChangeEvent<HTMLInputElement>, day: string, type: 'from' | 'to') => {
         const { value } = e.target;
@@ -62,14 +71,24 @@ export const ClientAdminConfigurationHours = ({ company }: Props) => {
 
     return (
         <div className='flex flex-col'>
-            <div className='flex justify-between items-center pb-2'>
+            <div className='flex justify-between items-center pb-4'>
                 <h2 className="text-lg font-semibold text-gray-700">Horarios</h2>
-                <button
-                    onClick={handleEditClick}
-                    className={`p-2 rounded-full ${isEditing ? "bg-slate-800 text-slate-200" : "bg-slate-200 text-slate-800"} `}
-                >
-                    {isEditing ? <FiSave className='w-6 h-6' /> : <FiEdit className='w-6 h-6' />}
-                </button>
+                <div className="flex gap-2">
+                    {isEditing && (
+                        <button
+                            onClick={handleCancelClick}
+                            className="p-2 rounded-full bg-slate-200 text-slate-800"
+                        >
+                            <FiX className="w-6 h-6" />
+                        </button>
+                    )}
+                    <button
+                        onClick={handleEditClick}
+                        className={`p-2 rounded-full ${isEditing ? "bg-slate-800 text-slate-200" : "bg-slate-200 text-slate-800"} `}
+                    >
+                        {isEditing ? <FiSave className='w-6 h-6' /> : <FiEdit className='w-6 h-6' />}
+                    </button>
+                </div>
             </div>
             <OpenHoursSection
                 openHours={editedCompany.openHours}
