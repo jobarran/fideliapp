@@ -3,9 +3,12 @@
 import { clientAdminNavItems } from "@/config";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FiHome } from "react-icons/fi";
 
-const ClientAdminBreadcrumb = () => {
+interface Props {
+    companyName: string | undefined
+}
+
+const ClientAdminBreadcrumb = ({ companyName }: Props) => {
     const pathname = usePathname();
     const pathSegments = pathname ? pathname.split("/").filter(Boolean) : [];
 
@@ -39,7 +42,7 @@ const ClientAdminBreadcrumb = () => {
                             href={`/client/${clientId}/`}
                             className="flex items-baseline hover:underline"
                         >
-                            Inicio
+                            {companyName || "Inicio"}
                         </Link>
                     </li>
                 )}

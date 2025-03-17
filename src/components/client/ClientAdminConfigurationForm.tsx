@@ -146,7 +146,7 @@ export const ClientAdminConfigurationForm = ({ company }: Props) => {
                 divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
                 labelClassName='font-medium hidden sm:flex'
                 inputClassName='border p-1 col-span-2 rounded resize-none overflow-auto'
-                rows={8}
+                rows={6}
             />
 
         </div>

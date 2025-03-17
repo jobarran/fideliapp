@@ -98,7 +98,7 @@ export const ClientAdminConfigurationHours = ({ company }: Props) => {
                 label={''}
                 divClassName={'mb-4'}
                 labelClassName={'font-medium hidden sm:flex'}
-                sectionClassName={'grid grid-cols-3 gap-4 items-center mb-2'}
+                sectionClassName={'flex flex-row sm:grid sm:grid-cols-3 gap-4 items-center mb-2'}
             />
 
         </div>

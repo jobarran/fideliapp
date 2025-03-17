@@ -48,9 +48,9 @@ export const OpenHoursSection = ({
                                     <span className="hidden sm:inline">
                                         {dayTranslations[day]}
                                     </span>
-                                    <span className="sm:hidden">
+                                    <div className="sm:hidden w-9">
                                         {shortDayTranslations[day]}
-                                    </span>
+                                    </div>
                                 </div>
                             </div>
 
