@@ -108,7 +108,7 @@ export const ClientAdminTransaction = ({ products, companySlug, companyActive }:
                         </div>
                     )}
                 </div>
-                <div className="col-span-2 lg:col-span-2 w-full">
+                <div className="col-span-2 lg:col-span-2">
                     <ClientAdminTransactionSource
                         handleTransactionTypeSelect={handleTransactionTypeSelect}
                         selectedTransactionType={selectedTransactionType}

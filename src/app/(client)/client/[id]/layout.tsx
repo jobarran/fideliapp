@@ -30,13 +30,13 @@ export default async function BaseLayout({
     const company = await getCompanyByUser(user ? user.id : "");
 
     return (
-        <div className="flex flex-row h-screen overflow-hidden">
+        <div className="flex flex-row h-screen">
             {/* Sidebar */}
             <Sidebar company={company} />
             {/* Main Content */}
             <div className="flex-grow flex flex-col overflow-hidden">
                 <div className="flex-grow overflow-y-auto">
-                    <div className="container px-4 py-4 mt-4 sm:mt-0 mb-20 sm:mb-0">
+                    <div className="container px-4 py-4 mt-0 mb-0">
                         <ClientAdminBreadcrumb companyName={company?.name} />
                         <div className="w-full mx-auto">
                             {passUserToChildren(children)}

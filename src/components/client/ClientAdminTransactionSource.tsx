@@ -3,7 +3,7 @@
 import { Product } from "@/interfaces";
 import { TransactionType } from "@prisma/client";
 import React, { useState } from "react";
-import { FaMinusCircle, FaPlusCircle, FaTimes } from "react-icons/fa";
+import { FaMinusCircle, FaPlusCircle, FaRegImage, FaTimes } from "react-icons/fa";
 
 interface Props {
     handleTransactionTypeSelect: (type: TransactionType) => void;
@@ -65,8 +65,10 @@ export const ClientAdminTransactionSource = ({
     };
 
     return (
-        <div className="flex flex-col border border-gray-200 rounded-md w-full bg-white p-4 gap-4">
-
+        <div
+            className={`flex flex-col border border-gray-200 rounded-md w-full bg-white p-4 gap-4 max-w-full overflow-hidden ${selectedTransactionType === TransactionType.MANUAL ? "h-auto" : "h-[90vh]"
+                }`}
+        >
             <h2 className="text-lg font-semibold text-gray-700">Transacción</h2>
 
             {/* Transaction Type Selection */}
@@ -99,8 +101,6 @@ export const ClientAdminTransactionSource = ({
                         <div className="mt-4 space-y-4">
                             {/* Manual Points Input */}
                             <div className="flex items-center space-x-4">
-
-
                                 {/* Transaction Type Selection */}
                                 <div className="flex-1">
                                     <label className="text-sm font-medium text-slate-800">
@@ -135,7 +135,6 @@ export const ClientAdminTransactionSource = ({
                                         min={0}
                                     />
                                 </div>
-
                             </div>
 
                             {/* Error Message */}
@@ -161,7 +160,7 @@ export const ClientAdminTransactionSource = ({
                             </div>
                         </div>
                     ) : (
-                        <div >
+                        <div className="flex flex-col h-full overflow-hidden">
                             {/* Product Search */}
                             <div className="relative mb-4">
                                 <input
@@ -182,55 +181,71 @@ export const ClientAdminTransactionSource = ({
                             </div>
 
                             {/* Product List */}
-                            {filteredAndSearchedProducts.map((product) => {
-                                const isChecked = Boolean(selectedProducts[product.id]);
-                                return (
-                                    <div
-                                        key={product.id}
-                                        className="flex items-center justify-between p-2 border-b border-gray-100 last:border-none"
-                                    >
-                                        <input
-                                            type="checkbox"
-                                            checked={isChecked}
-                                            onChange={() => handleProductSelect(product.id)}
-                                            className="mr-4"
-                                        />
-                                        <span className="flex-1 text-sm font-medium text-gray-800 truncate">
-                                            {product.name}
-                                        </span>
-                                        <div className="flex items-center space-x-2">
-                                            <button
-                                                onClick={() => handleQuantityChange(product.id, false)}
-                                                disabled={!isChecked || selectedProducts[product.id] <= 1}
-                                                className={`${isChecked ? "text-gray-800" : "text-gray-300"
-                                                    }`}
+                            <div className="flex-1 overflow-y-auto border rounded-md">
+                                {filteredAndSearchedProducts.map((product) => {
+                                    const isChecked = Boolean(selectedProducts[product.id]);
+                                    return (
+                                        <div
+                                            key={product.id}
+                                            className="flex items-center justify-between p-2 border-b border-gray-100 last:border-none"
+                                        >
+                                            <input
+                                                type="checkbox"
+                                                checked={isChecked}
+                                                onChange={() => handleProductSelect(product.id)}
+                                                className="mr-4"
+                                            />
+                                            <div
+                                                className={`w-7 h-7 rounded-full overflow-hidden bg-gray-200 mr-2 flex items-center justify-center`}
                                             >
-                                                <FaMinusCircle className="text-sm" />
-                                            </button>
-                                            <span className="text-sm font-medium text-gray-700">
-                                                {selectedProducts[product.id] || 1}
+                                                {product.ProductImage ? (
+                                                    <img
+                                                        src={product.ProductImage.url}
+                                                        alt={product.name}
+                                                        className="object-cover"
+                                                        width={0}
+                                                        height={0}
+                                                        style={{ width: '100%', height: '100%' }}
+                                                    />
+                                                ) : (
+                                                    <FaRegImage className="text-base text-slate-300" />
+                                                )}
+                                            </div>
+                                            <span className="flex-1 text-sm font-medium text-gray-800 truncate">
+                                                {product.name}
                                             </span>
-                                            <button
-                                                onClick={() => handleQuantityChange(product.id, true)}
-                                                disabled={!isChecked}
-                                                className={`${isChecked ? "text-gray-800" : "text-gray-300"
-                                                    }`}
-                                            >
-                                                <FaPlusCircle className="text-sm" />
-                                            </button>
+                                            <div className="flex items-center space-x-2">
+                                                <button
+                                                    onClick={() => handleQuantityChange(product.id, false)}
+                                                    disabled={!isChecked || selectedProducts[product.id] <= 1}
+                                                    className={`${isChecked ? "text-gray-800" : "text-gray-300"}`}
+                                                >
+                                                    <FaMinusCircle className="text-sm" />
+                                                </button>
+                                                <span className="text-sm font-medium text-gray-700">
+                                                    {selectedProducts[product.id] || 1}
+                                                </span>
+                                                <button
+                                                    onClick={() => handleQuantityChange(product.id, true)}
+                                                    disabled={!isChecked}
+                                                    className={`${isChecked ? "text-gray-800" : "text-gray-300"}`}
+                                                >
+                                                    <FaPlusCircle className="text-sm" />
+                                                </button>
+                                            </div>
+                                            <span className="ml-4 min-w-6 text-sm font-medium text-gray-900 text-right">
+                                                {product.templates
+                                                    .filter((template) =>
+                                                        selectedTransactionType === TransactionType.BUY
+                                                            ? template.type === "BUY"
+                                                            : template.type === "REWARD"
+                                                    )
+                                                    .reduce((sum, template) => sum + template.points, 0)}
+                                            </span>
                                         </div>
-                                        <span className="ml-4 min-w-6 text-sm font-medium text-gray-900 text-right">
-                                            {product.templates
-                                                .filter((template) =>
-                                                    selectedTransactionType === TransactionType.BUY
-                                                        ? template.type === "BUY"
-                                                        : template.type === "REWARD"
-                                                )
-                                                .reduce((sum, template) => sum + template.points, 0)}
-                                        </span>
-                                    </div>
-                                );
-                            })}
+                                    );
+                                })}
+                            </div>
                         </div>
                     )}
                 </>

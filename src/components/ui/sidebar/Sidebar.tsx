@@ -127,13 +127,15 @@ const Sidebar = ({ company }: Props) => {
             <div className={`lg:hidden ${isOpen ? "w-16" : "w-0"}`} />
             <aside
                 ref={sidebarRef}
-                className={`flex flex-col h-screen bg-white text-slate-800 border-r border-gray-200 transition-all duration-300
-          ${isOpen ? "w-64" : "w-16"}
-          ${isOpen ? "absolute lg:relative z-40" : "relative"}`}
+                className={`flex flex-col min-h-screen h-full bg-white text-slate-800 border-r border-gray-200 transition-all duration-300
+                    ${isOpen ? "w-64" : "w-16"}
+                    ${isOpen ? "absolute lg:relative z-40" : "relative"}
+                    overflow-y-auto`} // Add this class
                 onMouseEnter={handleMouseEnterSidebar}
                 onMouseLeave={handleMouseLeaveSidebar}
                 onTransitionEnd={handleTransitionEnd}
             >
+
                 {/* Top Section: Logo and Toggle */}
                 <div className={`flex ${isOpen ? "items-center justify-between" : "flex-col items-center"} p-4 border-b border-slate-300`}>
                     <button

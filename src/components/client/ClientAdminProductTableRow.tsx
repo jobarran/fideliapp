@@ -87,12 +87,12 @@ export const ClientAdminProductTableRow = ({
     };
 
     return (
-        <tr className={`${product.active ? 'bg-white' : 'bg-gray-50' } text-slate-800 border-b`}>
+        <tr className={`${product.active ? 'bg-white' : 'bg-gray-50'} text-slate-800 border-b`}>
 
             {/* State Toggle */}
             <td className="w-12 text-center p-2">
-            <label className="relative inline-block w-9 h-5 cursor-pointer">
-            <input
+                <label className="relative inline-block w-9 h-5 cursor-pointer">
+                    <input
                         type="checkbox"
                         id="hs-basic-usage"
                         className="peer sr-only"
@@ -110,9 +110,10 @@ export const ClientAdminProductTableRow = ({
                 <ProductImage
                     image={product.ProductImage}
                     name={product.name}
-                    onImageChange={handleImageChange} 
-                    isEditing={isEditing} 
-                />            </td>
+                    onImageChange={handleImageChange}
+                    isEditing={isEditing}
+                />
+            </td>
             <td className="max-w-[150px] text-left p-3">
                 {isEditing ? (
                     <input
@@ -143,12 +144,12 @@ export const ClientAdminProductTableRow = ({
                     <input
                         type="number"
                         name="buyPoints"
-                        value={calculatePoints('BUY')} 
+                        value={calculatePoints('BUY')}
                         onChange={handleInputChange}
-                        className="border rounded p-1 w-full text-green-600" 
+                        className="border rounded p-1 w-full text-green-600"
                     />
                 ) : (
-                    <span className="text-green-600">{calculatePoints('BUY')}</span> 
+                    <span className="text-green-600">{calculatePoints('BUY')}</span>
                 )}
             </td>
             <td className="w-16 text-center p-3">
@@ -156,12 +157,12 @@ export const ClientAdminProductTableRow = ({
                     <input
                         type="number"
                         name="rewardPoints"
-                        value={calculatePoints('REWARD')} 
+                        value={calculatePoints('REWARD')}
                         onChange={handleInputChange}
-                        className="border rounded p-1 w-full text-amber-600" 
+                        className="border rounded p-1 w-full text-amber-600"
                     />
                 ) : (
-                    <span className="text-orange-600">{calculatePoints('REWARD')}</span> 
+                    <span className="text-orange-600">{calculatePoints('REWARD')}</span>
                 )}
             </td>
             <td className="w-16 text-center p-3">
@@ -203,7 +204,7 @@ const ProductImage = ({ image, name, onImageChange, isEditing }: { image: any; n
 
     return (
         <div
-            className={`w-10 h-10 rounded-full overflow-hidden bg-gray-200 ${isEditing ? 'cursor-pointer' : ''}`}  // Add cursor-pointer conditionally
+            className={`w-10 h-10 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center ${isEditing ? 'cursor-pointer' : ''}`}  // Add cursor-pointer conditionally
             onClick={handleImageClick}
         >
             {image ? (
