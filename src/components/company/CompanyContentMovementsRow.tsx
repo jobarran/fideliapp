@@ -1,6 +1,6 @@
 import React from "react";
 import { formatDate } from "../../utils/formatDate";
-import { formattedTime, getPointsColor, getTransactionTypeColor } from "@/utils";
+import { formattedTime, getPointsColor, getTransactionTypeColor, transactionTypeTranslate } from "@/utils";
 import { UserTransaction } from "@/interfaces/transacrion.interface";
 import { ClientContentMovementsDetail } from "..";
 
@@ -35,7 +35,7 @@ export const CompanyContentMovementsRow = ({
                 >
 
                     <div className="flex flex-wrap w-full space-x-4"> {/* Allow wrapping for small screens */}
-                        <ClientContentMovementsDetail label="Tipo" value={transaction.type} color={typeColor} width="sm:min-w-14" smScreenValue={transaction.type.substring(0, 1)} />
+                        <ClientContentMovementsDetail label="Tipo" value={transactionTypeTranslate(transaction.type)} color={typeColor} width="sm:min-w-14" smScreenValue={transaction.type.substring(0, 1)} />
                         <div className="hidden sm:flex h-8 w-px bg-gray-200" />
 
                         <ClientContentMovementsDetail label="Puntos" value={transaction.points} color={pointsColor} className="min-w-8 sm:w-auto" />

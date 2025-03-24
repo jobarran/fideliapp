@@ -42,7 +42,9 @@ export const CompanyContentMovements = ({
     transactions,
     searchTerm,
     transactionType,
-    transactionState
+    transactionState,
+    "NO_COMMENT",
+    10
   );
 
   const handleShowMore = async () => {

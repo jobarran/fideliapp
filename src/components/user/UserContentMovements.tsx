@@ -40,7 +40,8 @@ export const UserContentMovements = ({
     searchTerm,
     transactionType,
     transactionState,
-    commentFilter
+    commentFilter,
+    10
   );
 
   useEffect(() => {

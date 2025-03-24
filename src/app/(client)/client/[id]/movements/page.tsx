@@ -1,6 +1,6 @@
 import { getCompanyByUser, getCompanyTransactionsByCompany } from "@/actions";
 import { auth } from "@/auth.config";
-import { ClientAdminMovements } from "@/components";
+import { ClientAdminMovements } from "@/components/client/ClientAdminMovements";
 import { redirect } from "next/navigation";
 
 interface Props {

@@ -8,7 +8,8 @@ export const useMovementsFilter = <T extends Transaction>(
   searchTerm: string,
   transactionType: "BUY" | "REWARD" | "MANUAL" | "",
   transactionState: "ALL" | "CONFIRMED" | "CANCELLED",
-  commentFilter?: "HAS_COMMENT" | "NO_COMMENT" | "ALL"
+  commentFilter?: "HAS_COMMENT" | "NO_COMMENT" | "ALL",
+  numBar?: number // Add numBar to determine how many items to display
 ) => {
   const [filteredTransactions, setFilteredTransactions] = useState<T[]>([]);
   const [visibleTransactions, setVisibleTransactions] = useState<T[]>([]);
@@ -51,8 +52,9 @@ export const useMovementsFilter = <T extends Transaction>(
   }, [searchTerm, transactionType, transactionState, transactions, commentFilter]);
 
   useEffect(() => {
-    setVisibleTransactions(filteredTransactions.slice(0, currentPage * 10));
-  }, [currentPage, filteredTransactions]);
+    const displayAmount = numBar || filteredTransactions.length; // Show all if numBar is not provided
+    setVisibleTransactions(filteredTransactions.slice(0, currentPage * displayAmount));
+  }, [currentPage, filteredTransactions, numBar]);
 
   const loadMore = () => setCurrentPage((prevPage) => prevPage + 1);
 
