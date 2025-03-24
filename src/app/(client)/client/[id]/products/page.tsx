@@ -18,7 +18,7 @@ export default async function ClientAdminTransactionPage({ params }: Props) {
   const user = session?.user || null;
 
   if (!company) {
-    return <p>Company not found</p>;
+    redirect("/");
   }
 
   const products = await getProductsByCompanyId(company.id);
@@ -32,7 +32,7 @@ export default async function ClientAdminTransactionPage({ params }: Props) {
 
   return (
     <div>
-      <ClientAdminProducts userId={user.id} companyId={company.id} products={companyProducts} />
+      <ClientAdminProducts userId={user.id} products={companyProducts} />
     </div>
   );
 }

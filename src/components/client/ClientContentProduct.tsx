@@ -22,6 +22,7 @@ export const ClientContentProduct = ({ products, isCreating, setIsCreating, setO
     const { visibleProducts, loadMore, filteredProducts } = useProductFilter(
         products,
         searchTerm,
+        10
     );
 
     const handleShowMore = async () => {

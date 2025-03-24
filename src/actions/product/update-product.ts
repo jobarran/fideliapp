@@ -10,9 +10,8 @@ const templateSchema = z.object({
     id: z.string().uuid(),
     description: z.string().nullable(),
     points: z.number().min(0),
-    type: z.enum(['BUY', 'REWARD']), 
+    type: z.enum(['BUY', 'REWARD']),
 });
-
 
 const productSchema = z.object({
     id: z.string().uuid(),
@@ -43,6 +42,7 @@ export const updateProduct = async (product: Product, clientId: string) => {
             return { ok: false, message: 'Producto no encontrado.' };
         }
 
+        // Update the product
         await prisma.product.update({
             where: { id },
             data: {
@@ -59,6 +59,42 @@ export const updateProduct = async (product: Product, clientId: string) => {
                     })),
                 },
             },
+        });
+
+        // Update buyPoints and rewardPoints separately
+        await prisma.$transaction(async (tx) => {
+            // Assuming there's a related PointTransaction or related models to update
+            for (const template of templates) {
+                if (template.type === 'BUY') {
+                    await tx.pointTransaction.updateMany({
+                        where: {
+                            cardId: clientId,
+                            state: 'CONFIRMED',
+                            type: 'BUY',
+                        },
+                        data: {
+                            points: {
+                                increment: template.points,
+                            },
+                        },
+                    });
+                }
+
+                if (template.type === 'REWARD') {
+                    await tx.pointTransaction.updateMany({
+                        where: {
+                            cardId: clientId,
+                            state: 'CONFIRMED',
+                            type: 'REWARD',
+                        },
+                        data: {
+                            points: {
+                                decrement: template.points,
+                            },
+                        },
+                    });
+                }
+            }
         });
 
         revalidatePath(`/client/${clientId}`);

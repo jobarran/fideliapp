@@ -12,7 +12,7 @@ export const ClientContentProductsFilter = ({ searchTerm, setSearchTerm }: Props
             <input
                 type="text"
                 placeholder="Buscar por nombre"
-                className="flex-1 border px-3 py-2 rounded-md text-sm w-full focus:outline-none"
+                className="flex-1 border px-3 py-2 rounded-md text-sm w-full focus:outline-none mr-2"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
             />

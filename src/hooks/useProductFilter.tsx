@@ -4,6 +4,7 @@ import { Product } from "@/interfaces/product.interface";
 export const useProductFilter = (
     products: Product[],
     searchTerm: string,
+    itemsPerPage?: number // Optional parameter for pagination
 ) => {
     const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
     const [visibleProducts, setVisibleProducts] = useState<Product[]>([]);
@@ -35,10 +36,18 @@ export const useProductFilter = (
     }, [searchTerm, products]);
 
     useEffect(() => {
-        setVisibleProducts(filteredProducts.slice(0, currentPage * 10)); // Paginate the filtered products
-    }, [currentPage, filteredProducts]);
+        if (itemsPerPage) {
+            setVisibleProducts(filteredProducts.slice(0, currentPage * itemsPerPage));
+        } else {
+            setVisibleProducts(filteredProducts); // Show all if itemsPerPage is not provided
+        }
+    }, [currentPage, filteredProducts, itemsPerPage]);
 
-    const loadMore = () => setCurrentPage((prevPage) => prevPage + 1);
+    const loadMore = () => {
+        if (itemsPerPage) {
+            setCurrentPage((prevPage) => prevPage + 1);
+        }
+    };
 
     return { visibleProducts, loadMore, filteredProducts };
 };

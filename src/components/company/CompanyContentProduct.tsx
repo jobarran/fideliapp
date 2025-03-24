@@ -22,6 +22,7 @@ export const CompanyContentProduct = ({ products }: Props) => {
     const { visibleProducts, loadMore, filteredProducts } = useProductFilter(
         products,
         searchTerm,
+        10
     );
 
     const toggleExpand = (productId: string) => {

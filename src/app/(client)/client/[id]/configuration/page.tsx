@@ -18,7 +18,7 @@ export default async function ClientAdminTransactionPage({ params }: Props) {
   const user = session?.user || null;
 
   if (!company) {
-    return <p>Company not found</p>;
+    redirect("/");
   }
 
   if (user?.id !== id) {

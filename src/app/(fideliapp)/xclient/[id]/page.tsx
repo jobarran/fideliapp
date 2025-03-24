@@ -27,7 +27,7 @@ export default async function ClientPage({ params, searchParams }: Props) {
 
 
   if (!company) {
-    return <p>Company not found</p>;
+    redirect("/");
   }
 
   const transactions = await getCompanyTransactionsByCompany(company.id)
