@@ -49,7 +49,7 @@ export const ClientAdminProductTable = ({ products, userId }: Props) => {
 
     return (
         <div className="flex flex-col h-full overflow-hidden">
-            <div className="flex my-4">
+            <div className="flex my-2">
                 <div className="flex-grow">
                     <ClientContentProductsFilter
                         searchTerm={searchTerm}

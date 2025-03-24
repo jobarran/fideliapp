@@ -87,11 +87,11 @@ export const ClientAdminProductTableRow = ({
     };
 
     return (
-        <tr className="bg-white text-slate-800 border-b">
+        <tr className={`${product.active ? 'bg-white' : 'bg-gray-50' } text-slate-800 border-b`}>
 
             {/* State Toggle */}
             <td className="w-12 text-center p-2">
-            <label className="relative inline-block w-7 h-4 cursor-pointer">
+            <label className="relative inline-block w-9 h-5 cursor-pointer">
             <input
                         type="checkbox"
                         id="hs-basic-usage"
@@ -100,7 +100,7 @@ export const ClientAdminProductTableRow = ({
                         onChange={handleActiveToggle}
                     />
                     <span className="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-slate-600 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
-                    <span className="absolute top-1/2 start-0.5 -translate-y-1/2 size-3 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full "></span>
+                    <span className="absolute top-1/2 start-0.5 -translate-y-1/2 size-4 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full "></span>
                 </label>
             </td>
 
@@ -110,8 +110,8 @@ export const ClientAdminProductTableRow = ({
                 <ProductImage
                     image={product.ProductImage}
                     name={product.name}
-                    onImageChange={handleImageChange}  // Pass the handler here
-                    isEditing={isEditing}  // Pass isEditing to manage click behavior
+                    onImageChange={handleImageChange} 
+                    isEditing={isEditing} 
                 />            </td>
             <td className="max-w-[150px] text-left p-3">
                 {isEditing ? (
@@ -143,12 +143,12 @@ export const ClientAdminProductTableRow = ({
                     <input
                         type="number"
                         name="buyPoints"
-                        value={calculatePoints('BUY')} // Default to calculated value if not yet updated
+                        value={calculatePoints('BUY')} 
                         onChange={handleInputChange}
-                        className="border rounded p-1 w-full text-green-600" // Green color for buyPoints
+                        className="border rounded p-1 w-full text-green-600" 
                     />
                 ) : (
-                    <span className="text-green-600">{calculatePoints('BUY')}</span> // Green color for buyPoints
+                    <span className="text-green-600">{calculatePoints('BUY')}</span> 
                 )}
             </td>
             <td className="w-16 text-center p-3">
@@ -156,12 +156,12 @@ export const ClientAdminProductTableRow = ({
                     <input
                         type="number"
                         name="rewardPoints"
-                        value={calculatePoints('REWARD')} // Default to calculated value if not yet updated
+                        value={calculatePoints('REWARD')} 
                         onChange={handleInputChange}
-                        className="border rounded p-1 w-full text-amber-600" // Orange color for rewardPoints
+                        className="border rounded p-1 w-full text-amber-600" 
                     />
                 ) : (
-                    <span className="text-orange-600">{calculatePoints('REWARD')}</span> // Orange color for rewardPoints
+                    <span className="text-orange-600">{calculatePoints('REWARD')}</span> 
                 )}
             </td>
             <td className="w-16 text-center p-3">

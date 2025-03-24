@@ -73,8 +73,7 @@ UX
 - client/config update on live card color when editing
 - client - Revisar tamaño de elemento s(poner zoom al 100%)
 
-product table
-- scrolling screen
+ALWAYS SHOW FULL SIDEBAR
 
 all admin
 - transaction: add image to product and scroll box
