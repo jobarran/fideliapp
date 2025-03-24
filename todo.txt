@@ -75,6 +75,11 @@ UX
 
 DELET OLD CLIENT SECTION
 
+product table
+- change image
+- disable effect over row
+- scrolling screen
+
 
 Company
 - Create admin panel

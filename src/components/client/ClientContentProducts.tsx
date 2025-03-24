@@ -100,7 +100,6 @@ export const ClientContentProducts = ({ companyId, products, userId }: Props) =>
 
             {isCreating ? (
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <AddProductForm register={register} submitted={submitted} isValid={isValid} />
                     <div className="flex justify-end mt-4">
                         <button
                             disabled={!isValid}
