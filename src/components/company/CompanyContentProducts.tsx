@@ -1,6 +1,6 @@
 "use client";
 
-import { ClientContentProduct, CompanyContentProduct } from '..';
+import { CompanyContentProduct } from '..';
 import { Product } from '@/interfaces';
 
 
@@ -10,7 +10,7 @@ interface Props {
     products: Product[]
 }
 
-export const CompanyContentProducts = ({ companyId, products }: Props) => {
+export const CompanyContentProducts = ({ products }: Props) => {
 
     return (
         <div>

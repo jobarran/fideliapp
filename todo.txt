@@ -73,13 +73,12 @@ UX
 - client/config update on live card color when editing
 - client - Revisar tamaño de elemento s(poner zoom al 100%)
 
-DELET OLD CLIENT SECTION
-
 product table
-- change image
-- disable effect over row
 - scrolling screen
 
+all admin
+- transaction: add image to product and scroll box
+- movements: make similar to product table and scroll box
 
 Company
 - Create admin panel

@@ -1,5 +1,6 @@
 "use client";
 
+import { updateImage } from '@/actions';
 import { Product } from '@/interfaces';
 import React, { useState, useEffect } from 'react';
 import { FaRegImage } from 'react-icons/fa6';
@@ -12,6 +13,10 @@ interface Props {
     onSave: (updatedProduct: Product) => void;
     onEdit: () => void;
 }
+
+type FormInputs = {
+    image?: FileList | undefined;
+};
 
 export const ClientAdminProductTableRow = ({
     product,
@@ -68,25 +73,46 @@ export const ClientAdminProductTableRow = ({
         onSave(editedProduct);
     };
 
+    const handleImageChange = async (data: FormInputs) => {
+        const formData = new FormData();
+        const { image } = data;
+
+        formData.append("id", product.id);
+        if (image && image.length > 0) {
+            formData.append("image", image[0]);
+        }
+
+        const response = await updateImage(formData);
+
+    };
+
     return (
         <tr className="bg-white text-slate-800 border-b">
 
             {/* State Toggle */}
-            <td className="w-16 text-center p-2">
-                <label className="inline-flex items-center cursor-pointer">
-                    <input
+            <td className="w-12 text-center p-2">
+            <label className="relative inline-block w-7 h-4 cursor-pointer">
+            <input
                         type="checkbox"
-                        className="sr-only peer focus:outline-none"
+                        id="hs-basic-usage"
+                        className="peer sr-only"
                         checked={editedProduct.active}
-                        onChange={handleActiveToggle}  // Use the new function for the toggle
+                        onChange={handleActiveToggle}
                     />
-                    <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-0 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-slate-800"></div>
+                    <span className="absolute inset-0 bg-gray-200 rounded-full transition-colors duration-200 ease-in-out peer-checked:bg-slate-600 peer-disabled:opacity-50 peer-disabled:pointer-events-none"></span>
+                    <span className="absolute top-1/2 start-0.5 -translate-y-1/2 size-3 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full "></span>
                 </label>
             </td>
 
+
+
             <td className="w-16 text-center p-2">
-                <ProductImage image={product.ProductImage} name={product.name} />
-            </td>
+                <ProductImage
+                    image={product.ProductImage}
+                    name={product.name}
+                    onImageChange={handleImageChange}  // Pass the handler here
+                    isEditing={isEditing}  // Pass isEditing to manage click behavior
+                />            </td>
             <td className="max-w-[150px] text-left p-3">
                 {isEditing ? (
                     <input
@@ -159,22 +185,47 @@ export const ClientAdminProductTableRow = ({
     );
 };
 
-// Product Image Component
-const ProductImage = ({ image, name }: { image: any; name: string }) => {
-    return image ? (
-        <div className="w-10 h-10 rounded-full overflow-hidden bg-gray-200">
-            <img
-                src={image.url}
-                alt={name}
-                className="object-cover"
-                width={0}
-                height={0}
-                style={{ width: '100%', height: '100%' }}
+const ProductImage = ({ image, name, onImageChange, isEditing }: { image: any; name: string; onImageChange: (data: FormInputs) => void; isEditing: boolean }) => {
+    const fileInputRef = React.useRef<HTMLInputElement>(null);
+
+    const handleImageClick = () => {
+        if (isEditing && fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files) {
+            const data = { image: e.target.files };
+            onImageChange(data);  // Call the parent handler
+        }
+    };
+
+    return (
+        <div
+            className={`w-10 h-10 rounded-full overflow-hidden bg-gray-200 ${isEditing ? 'cursor-pointer' : ''}`}  // Add cursor-pointer conditionally
+            onClick={handleImageClick}
+        >
+            {image ? (
+                <img
+                    src={image.url}
+                    alt={name}
+                    className="object-cover"
+                    width={0}
+                    height={0}
+                    style={{ width: '100%', height: '100%' }}
+                />
+            ) : (
+                <FaRegImage className="text-2xl text-slate-300" />
+            )}
+            {/* Hidden file input */}
+            <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleFileChange}
             />
-        </div>
-    ) : (
-        <div className="w-12 h-12 flex justify-center items-center border border-slate-100 bg-slate-50 rounded-full">
-            <FaRegImage className="text-2xl text-slate-300" />
         </div>
     );
 };

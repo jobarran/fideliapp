@@ -3,7 +3,7 @@
 import { createNewTransaction, deletePin, pinValidation } from '@/actions';
 import { TransactionType } from '@prisma/client';
 import React, { Dispatch, SetStateAction, useState } from 'react'
-import { ClientAdminTransactionLoading, ClientAdminTransactionSuccess, ClientAdminTransactionValidatePin, ClientAdminTransactionValidPin, ClientContentTransactionLoading, ClientContentTransactionSuccess, ClientContentTransactionValidatePin, ClientContentTransactionValidPin } from '..';
+import { ClientAdminTransactionLoading, ClientAdminTransactionSuccess, ClientAdminTransactionValidatePin, ClientAdminTransactionValidPin } from '..';
 import { Product } from '@/interfaces';
 
 interface Props {

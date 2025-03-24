@@ -1,32 +1,20 @@
 "use client";
 
-import { ClientAdminProductTable } from '..';
-import { Product } from '@/interfaces';
-
-type FormInputs = {
-    name: string;
-    description?: string;
-    companyId: string;
-    buyPoints?: number;
-    rewardPoints?: number;
-    image?: FileList; // Optional for image upload
-};
+import { ClientAdminProductTable } from "..";
+import { Product } from "@/interfaces";
 
 interface Props {
     userId: string;
-    products: Product[]
+    products: Product[];
 }
 
 export const ClientAdminProducts = ({ products, userId }: Props) => {
-
     return (
-
-        <div className="flex flex-col border border-gray-200 rounded-md w-full bg-white p-4 max-h-full max-w-full">
+        <div className="flex flex-col border border-gray-200 rounded-md w-full bg-white p-4 h-[90vh] max-w-full overflow-auto">
             <h2 className="text-lg font-semibold text-gray-700">Productos</h2>
-            <ClientAdminProductTable
-                products={products}
-                userId={userId}
-            />
+            <div className="flex-grow overflow-hidden">
+                <ClientAdminProductTable products={products} userId={userId} />
+            </div>
         </div>
     );
 };

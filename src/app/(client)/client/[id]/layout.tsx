@@ -1,8 +1,7 @@
-import { AppFooter, Footer, MapProvider, TopMenu } from "@/components";
 import { auth } from "@/auth.config";
 import React from "react";
-import { Alert, User } from "@/interfaces";
-import { getAlertsByUser, getCompanyByUser } from "@/actions";
+import { User } from "@/interfaces";
+import { getCompanyByUser } from "@/actions";
 import Sidebar from "@/components/ui/sidebar/Sidebar";
 import ClientAdminBreadcrumb from "@/components/ui/breadcrumnb/ClientAdminBreadcrumb";
 
@@ -29,13 +28,6 @@ export default async function BaseLayout({
     };
 
     const company = await getCompanyByUser(user ? user.id : "");
-    const alertsResult = await getAlertsByUser(user ? user.id : "");
-
-    const alerts: Alert[] =
-        alertsResult.ok && alertsResult.alerts ? alertsResult.alerts : [];
-    const unseenAlerts: Alert[] = alerts.filter(
-        (alert) => alert.status === "NOT_SEEN"
-    );
 
     return (
         <div className="flex flex-row h-screen overflow-hidden">

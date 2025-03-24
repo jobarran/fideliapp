@@ -1,14 +1,14 @@
 "use client";
 
-import { Product } from '@/interfaces';
-import React, { useState, useCallback } from 'react';
-import { ClientContentProductsFilter } from './ClientContentProductsFilter';
-import { useProductFilter } from '@/hooks/useProductFilter';
-import { ClientAdminProductTableRow } from '..';
-import Link from 'next/link';
-import { FaPlusCircle } from 'react-icons/fa';
-import { IoTicketOutline } from 'react-icons/io5';
-import { updateProduct } from '@/actions';
+import { Product } from "@/interfaces";
+import React, { useState, useCallback } from "react";
+import { ClientContentProductsFilter } from "./ClientContentProductsFilter";
+import { useProductFilter } from "@/hooks/useProductFilter";
+import { ClientAdminProductTableRow } from "..";
+import Link from "next/link";
+import { FaPlusCircle } from "react-icons/fa";
+import { IoTicketOutline } from "react-icons/io5";
+import { updateProduct } from "@/actions";
 
 interface Props {
     products: Product[];
@@ -22,31 +22,33 @@ export const ClientAdminProductTable = ({ products, userId }: Props) => {
 
     const { visibleProducts } = useProductFilter(products, searchTerm);
 
-    // Sort visibleProducts by product.name
     const sortedProducts = [...visibleProducts].sort((a, b) =>
         a.name.localeCompare(b.name)
     );
 
-    const handleSave = useCallback(async (product: Product) => {
-        try {
-            const response = await updateProduct(product, userId);
-            if (response.ok) {
-                setUpdatedProducts((prevProducts) =>
-                    prevProducts.map((p) =>
-                        p.id === product.id ? { ...p, ...product } : p
-                    )
-                );
-                setEditingProductId(null);
-            } else {
-                throw new Error('Failed to update product');
+    const handleSave = useCallback(
+        async (product: Product) => {
+            try {
+                const response = await updateProduct(product, userId);
+                if (response.ok) {
+                    setUpdatedProducts((prevProducts) =>
+                        prevProducts.map((p) =>
+                            p.id === product.id ? { ...p, ...product } : p
+                        )
+                    );
+                    setEditingProductId(null);
+                } else {
+                    throw new Error("Failed to update product");
+                }
+            } catch (error) {
+                console.error(error);
             }
-        } catch (error) {
-            console.error(error);
-        }
-    }, [userId]);
+        },
+        [userId]
+    );
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col h-full overflow-hidden">
             <div className="flex my-4">
                 <div className="flex-grow">
                     <ClientContentProductsFilter
@@ -63,14 +65,18 @@ export const ClientAdminProductTable = ({ products, userId }: Props) => {
             </div>
 
             {/* Table container */}
-            <div className="max-h-[70vh] overflow-auto border border-gray-200 rounded-md mt-2">
+            <div className="flex-grow overflow-auto border border-gray-200 rounded-md mt-2">
                 <table className="w-full">
                     <thead>
                         <tr className="bg-slate-50 text-slate-800 rounded-md">
                             <th className="w-24 text-center text-sm font-semibold p-3">Estado</th>
                             <th className="w-16 text-center text-sm font-semibold p-3">Imagen</th>
-                            <th className="max-w-[150px] text-left text-sm font-semibold p-3">Nombre</th>
-                            <th className="min-w-[200px] text-left text-sm font-semibold p-3">Descripción</th>
+                            <th className="max-w-[150px] text-left text-sm font-semibold p-3">
+                                Nombre
+                            </th>
+                            <th className="min-w-[200px] text-left text-sm font-semibold p-3">
+                                Descripción
+                            </th>
                             <th className="w-16 text-center text-sm font-semibold p-3">
                                 <div className="flex items-center justify-center text-green-600">
                                     <FaPlusCircle className="mr-1 text-sm" />
@@ -83,7 +89,9 @@ export const ClientAdminProductTable = ({ products, userId }: Props) => {
                                     Valor
                                 </div>
                             </th>
-                            <th className="w-16 text-center text-sm font-semibold p-3">Editar</th>
+                            <th className="w-16 text-center text-sm font-semibold p-3">
+                                Editar
+                            </th>
                         </tr>
                     </thead>
                     <tbody>

@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Product } from '@/interfaces';
 import { TransactionType } from '@prisma/client';
-import { ClientAdminTransactionPinValidation, ClientAdminTransactionSource, ClientAdminTransactionSummary, ClientContentTransactionButtons, ClientContentTransactionInvoice, ClientContentTransactionLoading, ClientContentTransactionManual, ClientContentTransactionProductList, ClientContentTransactionSuccess, ClientContentTransactionSummary, ClientContentTransactionValidatePin, ClientContentTransactionValidPin } from '@/components';
+import { ClientAdminTransactionPinValidation, ClientAdminTransactionSource, ClientAdminTransactionSummary } from '@/components';
 
 interface Props {
     products: Product[];

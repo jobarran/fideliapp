@@ -4,7 +4,6 @@ import React, { useRef } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import { ActionButton } from "../buttons/ActionButton";
 import { Avatar, CompanyLinkImage } from "@/components";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { updateLogo } from '../../../actions/company/update-logo';
 
@@ -37,7 +36,6 @@ export const ChangeImage = ({
     slug,
 }: Props) => {
     const modalRef = useRef<HTMLDivElement>(null);
-    const router = useRouter();
     const { register, handleSubmit } = useForm<FormInputs>();
 
     const onSubmit = async (data: FormInputs) => {
