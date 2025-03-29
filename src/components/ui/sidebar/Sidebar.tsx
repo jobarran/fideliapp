@@ -114,7 +114,6 @@ const Sidebar = ({ company }: Props) => {
 
     return (
         <>
-            <div className="w-12" />
             <aside
                 ref={sidebarRef}
                 className={`flex flex-col absolute z-40 min-h-screen h-full bg-white text-slate-800 border-r border-gray-200 transition-all duration-300

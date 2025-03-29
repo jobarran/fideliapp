@@ -36,7 +36,7 @@ export default async function BaseLayout({
             {/* Main Content */}
             <div className="flex-grow flex flex-col overflow-hidden">
                 <div className="flex-grow overflow-y-auto">
-                    <div className="container px-4 py-4 mt-0 mb-0">
+                    <div className="container pl-16 pr-4 py-4 mt-0 mb-0">
                         <ClientAdminBreadcrumb companyName={company?.name} />
                         <div className="w-full mx-auto">
                             {passUserToChildren(children)}

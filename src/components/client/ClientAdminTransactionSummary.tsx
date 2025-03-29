@@ -1,6 +1,7 @@
 import { Product } from '@/interfaces';
 import { TransactionType } from '@prisma/client';
 import React from 'react'
+import { transactionTypeTranslate } from '../../utils/transactionTypeTranslate';
 
 interface Props {
     selectedTransactionType: TransactionType;
@@ -47,11 +48,11 @@ export const ClientAdminTransactionSummary = ({
 
         <div className="flex flex-col border border-gray-200 rounded-md w-full bg-white p-4 gap-4">
 
-            <h2 className="text-lg font-semibold text-gray-700">Resumen</h2>
+            <h2 className="text-base font-semibold text-gray-700">Resumen</h2>
 
             <div className="flex flex-row items-center">
                 <p className="text-sm font-semibold text-gray-800 mr-2">Tipo de Transacción:</p>
-                <p className="text-sm text-gray-700">{selectedTransactionType}</p>
+                <p className="text-gray-700 text-xs">{transactionTypeTranslate(selectedTransactionType)}</p>
             </div>
             <div className="border-b border-gray-300"></div>
             <div className="flex justify-between">
@@ -60,7 +61,7 @@ export const ClientAdminTransactionSummary = ({
             </div>
             <div className="border-b border-gray-300"></div>
 
-            <ul className="text-sm text-gray-700 space-y-2">
+            <ul className="text-xs text-gray-700 space-y-2">
                 {selectedProductDetails.map((product) => {
                     const productPoints = product.templates
                         .filter((template) =>
@@ -74,7 +75,7 @@ export const ClientAdminTransactionSummary = ({
                     const totalProductPoints = productPoints * quantity;
 
                     return (
-                        <li key={product.id} className="flex justify-between">
+                        <li key={product.id} className="flex justify-between text-xs">
                             <span className="text-gray-800 w-2/3 truncate">
                                 ({quantity}) {product.name}
                             </span>
@@ -88,13 +89,13 @@ export const ClientAdminTransactionSummary = ({
             <div className="border-t border-gray-300"></div>
             <div className="flex justify-between">
                 <span className="text-sm font-semibold text-gray-800">Total Productos</span>
-                <span className="text-sm font-medium text-gray-900">{totalProducts}</span>
+                <span className="text-xs font-medium text-gray-900">{totalProducts}</span>
             </div>
             <div className="flex justify-between">
                 <span className="text-sm font-semibold text-gray-800">
                     Total puntos {isBuyTransaction || (isManualTransaction && manualTransactionType === 'Otorgar') ? "otorgados" : "necesarios"}
                 </span>
-                <span className="text-sm font-medium text-gray-900">
+                <span className="text-xs font-medium text-gray-900">
                     {
                         isManualTransaction
                             ? manualPoints

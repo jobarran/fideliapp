@@ -77,17 +77,17 @@ export const ClientAdminMovementsTable = ({ transactions, userId }: Props) => {
 
             {!loading && (
                 <div className="flex-grow overflow-auto border border-gray-200 rounded-md">
-                    <table className="table-auto w-full text-sm border-collapse">
+                    <table className="table-auto w-full text-xs border-collapse">
                         <thead>
                             <tr className="bg-slate-50 text-slate-800 rounded-md">
-                                <th className="w-24 text-center text-sm font-semibold p-3">Tipo</th>
-                                <th className="w-16 text-center text-sm font-semibold p-3">Puntos</th>
-                                <th className="max-w-[150px] text-left text-sm font-semibold p-3">Productos</th>
-                                <th className="min-w-[200px] text-left text-sm font-semibold p-3">Cliente</th>
-                                <th className="w-16 text-center text-sm font-semibold p-3">Valoración</th>
-                                <th className="w-16 text-center text-sm font-semibold p-3">Fecha</th>
-                                <th className="w-16 text-center text-sm font-semibold p-3">Hora</th>
-                                <th className="w-16 text-center text-sm font-semibold p-3">Acciones</th>
+                                <th className="w-24 text-center text-xs font-semibold p-3">Tipo</th>
+                                <th className="w-16 text-center text-xs font-semibold p-3">Puntos</th>
+                                <th className="max-w-[150px] text-left text-xs font-semibold p-3">Productos</th>
+                                <th className="min-w-[200px] text-left text-xs font-semibold p-3">Cliente</th>
+                                <th className="w-16 text-center text-xs font-semibold p-3">Valoración</th>
+                                <th className="w-16 text-center text-xs font-semibold p-3">Fecha</th>
+                                <th className="w-16 text-center text-xs font-semibold p-3">Hora</th>
+                                <th className="w-16 text-center text-xs font-semibold p-3">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -106,7 +106,7 @@ export const ClientAdminMovementsTable = ({ transactions, userId }: Props) => {
                                     >
                                         {cancellingTransactionId === transaction.id ? (
                                             <td colSpan={7} className="p-2 text-center bg-red-100">
-                                                <div className="flex flex-row text-sm align-middle justify-center items-center space-x-2">
+                                                <div className="flex flex-row text-xs align-middle justify-center items-center space-x-2">
                                                     <p>¿Seguro que desea cancelar la transacción?</p>
                                                     <button
                                                         onClick={() => handleCancelConfirmation(transaction.id, true)}

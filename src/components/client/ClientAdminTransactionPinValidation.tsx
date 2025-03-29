@@ -165,7 +165,7 @@ export const ClientAdminTransactionPinValidation = ({
 
         <div className="flex flex-col border border-gray-200 rounded-md w-full bg-white p-4 gap-4">
 
-            <h2 className="text-lg font-semibold text-gray-700">Validación de PIN</h2>
+            <h2 className="text-base font-semibold text-gray-700">Validación de PIN</h2>
 
             <div className="flex rounded-md border h-32 w-full items-center justify-center">
                 {!transactionSuccess && !isPinValidated &&
@@ -202,12 +202,12 @@ export const ClientAdminTransactionPinValidation = ({
                 }
             </div>
 
-            <div className='flex space-x-2 py-2 text-xs mb-2'>
+            <div className='flex space-x-2 py-2 mb-2'>
                 <button
                     onClick={handleTransactionConfirm}
                     disabled={disableConfirm}
                     className={
-                        `py-2 px-2 rounded w-full ${disableConfirm ? 'bg-gray-100 text-slate-800 opacity-50' : 'bg-green-600 text-white hover:bg-green-500'}`
+                        `py-2 px-2 rounded text-xs w-full ${disableConfirm ? 'bg-gray-100 text-slate-800 opacity-50' : 'bg-green-600 text-white hover:bg-green-500'}`
                     }
                 >
                     CONFIRMAR
@@ -216,7 +216,7 @@ export const ClientAdminTransactionPinValidation = ({
                 <button
                     onClick={handletransactionCancel}
                     disabled={!isPinValidated}
-                    className={`py-2 px-2 rounded w-full 
+                    className={`py-2 px-2 rounded w-full text-xs
                                     ${!isPinValidated
                             ? 'bg-gray-100 text-slate-800 opacity-50'
                             : 'bg-red-600 text-white hover:bg-red-800'

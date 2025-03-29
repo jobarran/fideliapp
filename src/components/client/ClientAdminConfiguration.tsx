@@ -2,13 +2,7 @@
 
 import { CompanyClientDashboard, DayHours } from '@/interfaces';
 import React, { useState } from 'react';
-import { ActiveWarningModal, ChangeImageModal, ClientAdminConfigurationAction, ClientAdminConfigurationCard, ClientAdminConfigurationForm, ClientAdminConfigurationHours, ClientAdminConfigurationSocial } from '..';
-import { FaBan, FaCheck } from 'react-icons/fa';
-import { activeCompany } from '@/actions';
-
-interface EditedCompany extends CompanyClientDashboard {
-    openHours: Record<string, DayHours>;
-}
+import { ChangeImageModal, ClientAdminConfigurationAction, ClientAdminConfigurationCard, ClientAdminConfigurationForm, ClientAdminConfigurationHours, ClientAdminConfigurationSocial } from '..';
 
 interface Props {
     company: CompanyClientDashboard;

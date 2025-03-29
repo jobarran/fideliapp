@@ -29,7 +29,7 @@ export const ClientAdminMovementsFilter = ({
                     <input
                         type="text"
                         placeholder="Buscar"
-                        className="flex-1 border px-3 py-2 rounded-md text-sm w-full focus:outline-none"
+                        className="flex-1 border px-3 py-2 rounded-md text-xs w-full focus:outline-none"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
@@ -46,7 +46,7 @@ export const ClientAdminMovementsFilter = ({
 
                 <div className="flex gap-2">
                     <select
-                        className="flex border px-3 py-2 rounded-md text-sm w-full md:w-auto"
+                        className="flex border px-3 py-2 rounded-md text-xs w-full md:w-auto"
                         value={transactionType}
                         onChange={(e) =>
                             setTransactionType(e.target.value as 'BUY' | 'REWARD' | 'MANUAL' | '')
@@ -58,7 +58,7 @@ export const ClientAdminMovementsFilter = ({
                         <option value="MANUAL">Manual</option>
                     </select>
                     <select
-                        className="flex border px-3 py-2 rounded-md text-sm w-full md:w-auto"
+                        className="flex border px-3 py-2 rounded-md text-xs w-full md:w-auto"
                         value={transactionState}
                         onChange={(e) =>
                             setTransactionState(e.target.value as 'ALL' | 'CONFIRMED' | 'CANCELLED')
@@ -72,7 +72,7 @@ export const ClientAdminMovementsFilter = ({
                     {
                         setCommentFilter &&
                         <select
-                            className="flex border px-3 py-2 rounded-md text-sm w-full md:w-auto"
+                            className="flex border px-3 py-2 rounded-md text-xs w-full md:w-auto"
                             value={commentFilter}  // Bind value to commentFilter
                             onChange={(e) => setCommentFilter(e.target.value as 'HAS_COMMENT' | 'NO_COMMENT' | 'ALL')}
                         >

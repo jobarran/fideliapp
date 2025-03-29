@@ -69,12 +69,12 @@ export const ClientAdminTransactionSource = ({
             className={`flex flex-col border border-gray-200 rounded-md w-full bg-white p-4 gap-4 max-w-full overflow-hidden ${selectedTransactionType === TransactionType.MANUAL ? "h-auto" : "h-[90vh]"
                 }`}
         >
-            <h2 className="text-lg font-semibold text-gray-700">Transacción</h2>
+            <h2 className="text-base font-semibold text-gray-700">Transacción</h2>
 
             {/* Transaction Type Selection */}
             <div className="flex flex-col lg:flex-row lg:items-center lg:space-x-4">
                 <div className="flex flex-col items-center md:items-start">
-                    <p className="text-sm font-medium text-gray-700 mb-2">
+                    <p className="text-xs font-medium text-gray-700 mb-2">
                         Seleccione tipo de operación
                     </p>
                     <div className="flex space-x-3">
@@ -82,7 +82,7 @@ export const ClientAdminTransactionSource = ({
                             <button
                                 key={type}
                                 onClick={() => handleTransactionTypeSelect(type)}
-                                className={`px-2 py-2 rounded-md font-medium text-sm sm:text-sm transition ${selectedTransactionType === type
+                                className={`px-2 py-2 rounded-md font-medium text-xs sm:text-xs transition ${selectedTransactionType === type
                                     ? "bg-slate-800 text-white"
                                     : "bg-gray-200 text-gray-800 hover:bg-gray-300"
                                     }`}
@@ -103,7 +103,7 @@ export const ClientAdminTransactionSource = ({
                             <div className="flex items-center space-x-4">
                                 {/* Transaction Type Selection */}
                                 <div className="flex-1">
-                                    <label className="text-sm font-medium text-slate-800">
+                                    <label className="text-xs font-medium text-slate-800">
                                         Tipo de Transacción manual:
                                     </label>
                                     <select
@@ -113,7 +113,7 @@ export const ClientAdminTransactionSource = ({
                                                 e.target.value as "Otorgar" | "Quitar"
                                             )
                                         }
-                                        className="mt-1 w-full text-sm border border-gray-200 rounded-lg px-3 py-2"
+                                        className="mt-1 w-full text-xs border border-gray-200 rounded-lg px-3 py-2"
                                     >
                                         <option value="Otorgar">Otorgar</option>
                                         <option value="Quitar">Quitar</option>
@@ -121,14 +121,14 @@ export const ClientAdminTransactionSource = ({
                                 </div>
 
                                 <div className="flex-1">
-                                    <label className="text-sm font-medium text-slate-800">
+                                    <label className="text-xs font-medium text-slate-800">
                                         Puntos:
                                     </label>
                                     <input
                                         type="number"
                                         value={manualPoints}
                                         onChange={handlePointsChange}
-                                        className={`mt-1 w-full text-sm border rounded-lg px-3 py-2 ${isExceedingPoints && manualTransactionType === "Quitar"
+                                        className={`mt-1 w-full text-xs border rounded-lg px-3 py-2 ${isExceedingPoints && manualTransactionType === "Quitar"
                                             ? "border-red-500"
                                             : "border-gray-200"
                                             }`}
@@ -139,12 +139,12 @@ export const ClientAdminTransactionSource = ({
 
                             {/* Error Message */}
                             {isExceedingPoints && manualTransactionType === "Quitar" && (
-                                <p className="text-sm text-red-500">Puntos insuficientes</p>
+                                <p className="text-xs text-red-500">Puntos insuficientes</p>
                             )}
 
                             {/* Description Input */}
                             <div>
-                                <label className="text-sm font-medium text-slate-800">
+                                <label className="text-xs font-medium text-slate-800">
                                     Descripción
                                 </label>
                                 <input
@@ -152,9 +152,9 @@ export const ClientAdminTransactionSource = ({
                                     value={manualDescription}
                                     onChange={handleDescriptionChange}
                                     maxLength={50}
-                                    className="mt-1 w-full text-sm border rounded-lg px-3 py-2"
+                                    className="mt-1 w-full text-xs border rounded-lg px-3 py-2"
                                 />
-                                <p className="text-sm text-gray-500 my-1">
+                                <p className="text-xs text-gray-500 my-1">
                                     {manualDescription.length}/50
                                 </p>
                             </div>
@@ -168,7 +168,7 @@ export const ClientAdminTransactionSource = ({
                                     placeholder="Buscar productos..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full p-2 border border-gray-300 rounded-lg text-sm"
+                                    className="w-full p-2 border border-gray-300 rounded-lg text-xs"
                                 />
                                 {searchQuery && (
                                     <button
@@ -211,7 +211,7 @@ export const ClientAdminTransactionSource = ({
                                                     <FaRegImage className="text-base text-slate-300" />
                                                 )}
                                             </div>
-                                            <span className="flex-1 text-sm font-medium text-gray-800 truncate">
+                                            <span className="flex-1 text-xs font-medium text-gray-800 truncate">
                                                 {product.name}
                                             </span>
                                             <div className="flex items-center space-x-2">
@@ -220,9 +220,9 @@ export const ClientAdminTransactionSource = ({
                                                     disabled={!isChecked || selectedProducts[product.id] <= 1}
                                                     className={`${isChecked ? "text-gray-800" : "text-gray-300"}`}
                                                 >
-                                                    <FaMinusCircle className="text-sm" />
+                                                    <FaMinusCircle className="text-xs" />
                                                 </button>
-                                                <span className="text-sm font-medium text-gray-700">
+                                                <span className="text-xs font-medium text-gray-700">
                                                     {selectedProducts[product.id] || 1}
                                                 </span>
                                                 <button
@@ -230,10 +230,10 @@ export const ClientAdminTransactionSource = ({
                                                     disabled={!isChecked}
                                                     className={`${isChecked ? "text-gray-800" : "text-gray-300"}`}
                                                 >
-                                                    <FaPlusCircle className="text-sm" />
+                                                    <FaPlusCircle className="text-xs" />
                                                 </button>
                                             </div>
-                                            <span className="ml-4 min-w-6 text-sm font-medium text-gray-900 text-right">
+                                            <span className="ml-4 min-w-6 text-xs font-medium text-gray-900 text-right">
                                                 {product.templates
                                                     .filter((template) =>
                                                         selectedTransactionType === TransactionType.BUY

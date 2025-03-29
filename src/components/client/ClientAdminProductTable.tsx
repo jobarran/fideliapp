@@ -58,7 +58,7 @@ export const ClientAdminProductTable = ({ products, userId }: Props) => {
                 </div>
                 <Link
                     href={`/client/${userId}/products/new`}
-                    className="border border-slate-200 text-slate-800 text-sm py-2 px-2 rounded-lg hover:bg-slate-100"
+                    className="border border-slate-200 text-slate-800 text-xs py-2 px-2 rounded-lg hover:bg-slate-100"
                 >
                     <p> Agregar producto </p>
                 </Link>
@@ -69,27 +69,27 @@ export const ClientAdminProductTable = ({ products, userId }: Props) => {
                 <table className="w-full">
                     <thead>
                         <tr className="bg-slate-50 text-slate-800 rounded-md">
-                            <th className="w-24 text-center text-sm font-semibold p-3">Estado</th>
-                            <th className="w-16 text-center text-sm font-semibold p-3">Imagen</th>
-                            <th className="max-w-[150px] text-left text-sm font-semibold p-3">
+                            <th className="w-24 text-center text-xs font-semibold p-3">Estado</th>
+                            <th className="w-16 text-center text-xs font-semibold p-3">Imagen</th>
+                            <th className="max-w-[150px] text-left text-xs font-semibold p-3">
                                 Nombre
                             </th>
-                            <th className="min-w-[200px] text-left text-sm font-semibold p-3">
+                            <th className="min-w-[200px] text-left text-xs font-semibold p-3">
                                 Descripción
                             </th>
-                            <th className="w-16 text-center text-sm font-semibold p-3">
+                            <th className="w-16 text-center text-xs font-semibold p-3">
                                 <div className="flex items-center justify-center text-green-600">
-                                    <FaPlusCircle className="mr-1 text-sm" />
+                                    <FaPlusCircle className="mr-1 text-xs" />
                                     Premio
                                 </div>
                             </th>
-                            <th className="w-16 text-center text-sm font-semibold p-3">
+                            <th className="w-16 text-center text-xs font-semibold p-3">
                                 <div className="flex items-center justify-center text-amber-600">
-                                    <IoTicketOutline className="mr-1 text-sm" />
+                                    <IoTicketOutline className="mr-1 text-xs" />
                                     Valor
                                 </div>
                             </th>
-                            <th className="w-16 text-center text-sm font-semibold p-3">
+                            <th className="w-16 text-center text-xs font-semibold p-3">
                                 Editar
                             </th>
                         </tr>

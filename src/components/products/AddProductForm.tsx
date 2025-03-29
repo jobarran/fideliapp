@@ -91,19 +91,19 @@ export const AddProductForm = ({ companyId, userId }: Props) => {
 
     return (
         <div className="flex flex-col border border-gray-200 rounded-md w-full bg-white p-4 max-w-5xl">
-            <h2 className="text-lg font-semibold text-gray-700 mb-4">Agregar producto</h2>
+            <h2 className="text-base font-semibold text-gray-700 mb-4">Agregar producto</h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div className="flex flex-col md:flex-row">
                     <div className="flex-1 mb-4 md:mr-4">
-                        <h2 className="text-base font-semibold mb-2">Información del producto</h2>
+                        <h2 className="text-sm font-semibold mb-2">Información del producto</h2>
                         <div className="mb-4">
-                            <label className="block mb-1" htmlFor="name">Nombre</label>
+                            <label className="block mb-1 text-xs" htmlFor="name">Nombre</label>
                             <input
                                 {...register("name", { required: "El nombre es obligatorio" })}
                                 type="text"
                                 id="name"
                                 className={clsx(
-                                    "border rounded p-2 w-full",
+                                    "border rounded p-2 w-full text-xs",
                                     errors.name ? 'border-red-500' : 'border-gray-300'
                                 )}
                                 placeholder="Nombre del producto o servicio"
@@ -111,22 +111,22 @@ export const AddProductForm = ({ companyId, userId }: Props) => {
                             {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
                         </div>
                         <div className="mb-2">
-                            <label className="block mb-1" htmlFor="description">Descripción</label>
+                            <label className="block mb-1 text-xs" htmlFor="description">Descripción</label>
                             <textarea
                                 {...register("description")}
                                 id="description"
-                                className="border rounded p-2 w-full"
+                                className="border rounded p-2 w-full  text-xs"
                                 placeholder="Descripción del producto o servicio"
                             />
                         </div>
                         <div className="mb-4">
-                            <label className="block mb-1" htmlFor="image">Imagen</label>
+                            <label className="block mb-1 text-xs" htmlFor="image">Imagen</label>
                             <input
                                 {...register("image")}
                                 type="file"
                                 id="image"
                                 accept="image/png, image/jpeg"
-                                className="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none file:bg-gray-50 file:border-0 file:me-4 file:py-3 file:px-4"
+                                className="block w-full border border-gray-200 rounded-lg text-xs focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none file:bg-gray-50 file:border-0 file:me-4 file:py-3 file:px-4"
                             />
                         </div>
                     </div>
@@ -134,10 +134,10 @@ export const AddProductForm = ({ companyId, userId }: Props) => {
                     <div className="hidden md:block border-l border-gray-300 mx-4"></div>
 
                     <div className="flex-1 mb-4">
-                        <h2 className="text-lg font-semibold mb-2">Recompensas</h2>
+                        <h2 className="text-sm font-semibold mb-2 ">Recompensas</h2>
                         <div className="mb-4">
-                            <label className="block mb-1" htmlFor="buyPoints">Suma puntos</label>
-                            <label className="block mb-2 text-xs" htmlFor="buyPoints">
+                            <label className="block mb-1 text-xs" htmlFor="buyPoints">Suma puntos</label>
+                            <label className="block mb-2 text-xs text-slate-400" htmlFor="buyPoints">
                                 Estos son los puntos que se le otorgaran al usuario cuando adquiere este producto o servicio.
                             </label>
                             <input
@@ -147,7 +147,7 @@ export const AddProductForm = ({ companyId, userId }: Props) => {
                                 })}
                                 type="number"
                                 id="buyPoints"
-                                className="border rounded p-2 w-full"
+                                className="border rounded p-2 w-full text-xs"
                                 placeholder="Puntos (opcional)"
                                 onKeyDown={handleKeyPress}
                                 min={0}
@@ -155,8 +155,8 @@ export const AddProductForm = ({ companyId, userId }: Props) => {
                             {errors.buyPoints && <p className="text-red-500 text-sm">{errors.buyPoints.message}</p>}
                         </div>
                         <div className="mb-4">
-                            <label className="block mb-1" htmlFor="rewardPoints">Puntos necesarios</label>
-                            <label className="block mb-2 text-xs" htmlFor="rewardPoints">
+                            <label className="block mb-1 text-xs" htmlFor="rewardPoints">Puntos necesarios</label>
+                            <label className="block mb-2 text-xs text-slate-400" htmlFor="rewardPoints">
                                 Estos son los puntos que se necesitan para adquirir este producto o servicio.
                             </label>
                             <input
@@ -166,7 +166,7 @@ export const AddProductForm = ({ companyId, userId }: Props) => {
                                 })}
                                 type="number"
                                 id="rewardPoints"
-                                className="border rounded p-2 w-full"
+                                className="border rounded p-2 w-full text-xs"
                                 placeholder="Puntos (opcional)"
                                 onKeyDown={handleKeyPress}
                                 min={0}

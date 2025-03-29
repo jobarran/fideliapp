@@ -121,10 +121,10 @@ export const ClientAdminProductTableRow = ({
                         name="name"
                         value={editedProduct.name}
                         onChange={handleInputChange}
-                        className="border rounded p-1 w-full"
+                        className="border rounded p-1 w-full text-xs"
                     />
                 ) : (
-                    product.name
+                    <p className="text-slate-800 text-xs truncate">{product.name}</p>
                 )}
             </td>
             <td className="text-left p-3">
@@ -133,10 +133,10 @@ export const ClientAdminProductTableRow = ({
                         name="description"
                         value={editedProduct.description ?? ""}
                         onChange={handleInputChange}
-                        className="border rounded p-1 w-full"
+                        className="border rounded p-1 w-full text-xs"
                     />
                 ) : (
-                    <p className="text-slate-400 text-sm truncate">{product.description}</p>
+                    <p className="text-slate-400 text-xs truncate">{product.description}</p>
                 )}
             </td>
             <td className="w-16 text-center p-3">
@@ -146,10 +146,10 @@ export const ClientAdminProductTableRow = ({
                         name="buyPoints"
                         value={calculatePoints('BUY')}
                         onChange={handleInputChange}
-                        className="border rounded p-1 w-full text-green-600"
+                        className="border rounded p-1 w-full text-green-600 text-xs"
                     />
                 ) : (
-                    <span className="text-green-600">{calculatePoints('BUY')}</span>
+                    <span className="text-green-600 text-xs">{calculatePoints('BUY')}</span>
                 )}
             </td>
             <td className="w-16 text-center p-3">
@@ -159,10 +159,10 @@ export const ClientAdminProductTableRow = ({
                         name="rewardPoints"
                         value={calculatePoints('REWARD')}
                         onChange={handleInputChange}
-                        className="border rounded p-1 w-full text-amber-600"
+                        className="border rounded p-1 w-full text-amber-600 text-xs"
                     />
                 ) : (
-                    <span className="text-orange-600">{calculatePoints('REWARD')}</span>
+                    <span className="text-orange-600 text-xs">{calculatePoints('REWARD')}</span>
                 )}
             </td>
             <td className="w-16 text-center p-3">
@@ -171,14 +171,14 @@ export const ClientAdminProductTableRow = ({
                         onClick={handleSave}
                         className="p-2 hover:bg-slate-100 rounded-full text-slate-600"
                     >
-                        <FiSave className="text-lg" /> {/* Save icon */}
+                        <FiSave className="text-base" /> {/* Save icon */}
                     </button>
                 ) : (
                     <button
                         onClick={onEdit}
                         className="p-2 hover:bg-slate-100 rounded-full text-slate-600"
                     >
-                        <FiEdit className="text-lg" />
+                        <FiEdit className="text-base" />
                     </button>
                 )}
             </td>
