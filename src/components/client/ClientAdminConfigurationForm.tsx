@@ -88,21 +88,21 @@ export const ClientAdminConfigurationForm = ({ company }: Props) => {
     return (
         <div className='flex flex-col'>
             <div className='flex justify-between items-center pb-4'>
-                <h2 className="text-lg font-semibold text-gray-700">Información</h2>
+                <h2 className="text-base font-semibold text-gray-700">Información</h2>
                 <div className="flex gap-2">
                     {isEditing && (
                         <button
                             onClick={handleCancelClick}
                             className="p-2 rounded-full bg-slate-200 text-slate-800"
                         >
-                            <FiX className="w-6 h-6" />
+                            <FiX className="w-4 h-4" />
                         </button>
                     )}
                     <button
                         onClick={handleEditClick}
                         className={`p-2 rounded-full ${isEditing ? "bg-slate-800 text-slate-200" : "bg-slate-200 text-slate-800"} `}
                     >
-                        {isEditing ? <FiSave className='w-6 h-6' /> : <FiEdit className='w-6 h-6' />}
+                        {isEditing ? <FiSave className='w-4 h-4' /> : <FiEdit className='w-4 h-4' />}
                     </button>
                 </div>
             </div>
@@ -111,9 +111,9 @@ export const ClientAdminConfigurationForm = ({ company }: Props) => {
                 value={editedCompany.name}
                 onChange={(e) => handleInputChange(e, 'name')}
                 disabled={true}
-                divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
+                divClassName='text-sm grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
                 labelClassName='font-medium hidden sm:flex'
-                inputClassName='border p-1 rounded w-full'
+                inputClassName='text-xs border p-1 rounded w-full'
             />
 
             <TextField
@@ -121,9 +121,9 @@ export const ClientAdminConfigurationForm = ({ company }: Props) => {
                 value={editedCompany.address}
                 onChange={(e) => handleInputChange(e, 'address')}
                 disabled={true}
-                divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
+                divClassName='text-sm grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
                 labelClassName='font-medium hidden sm:flex'
-                inputClassName='border p-1 rounded w-full'
+                inputClassName='text-xs border p-1 rounded w-full'
             />
 
             <SelectField
@@ -133,9 +133,9 @@ export const ClientAdminConfigurationForm = ({ company }: Props) => {
                 value={editedCompany.activityType.id}
                 onChange={handleSelectChange}
                 isEditing={isEditing}
-                divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
+                divClassName='text-sm grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
                 labelClassName='font-medium hidden sm:flex'
-                selectClassName='input border col-span-2 p-1 rounded'
+                selectClassName='text-xs input border col-span-2 p-1 rounded'
             />
 
             <TextAreaField
@@ -143,9 +143,9 @@ export const ClientAdminConfigurationForm = ({ company }: Props) => {
                 value={editedCompany.description || ''}
                 onChange={handleDescriptionChange}
                 disabled={!isEditing}
-                divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
+                divClassName='text-sm grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
                 labelClassName='font-medium hidden sm:flex'
-                inputClassName='border p-1 col-span-2 rounded resize-none overflow-auto'
+                inputClassName='text-xs border p-1 col-span-2 rounded resize-none overflow-auto'
                 rows={6}
             />
 

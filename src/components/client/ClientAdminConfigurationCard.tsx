@@ -69,21 +69,21 @@ export const ClientAdminConfigurationCard = ({ company, setOpenModal }: Props) =
 
         <div className='flex flex-col gap-4'>
             <div className='flex justify-between items-center'>
-                <h2 className="text-lg font-semibold text-gray-700">Tarjeta</h2>
+                <h2 className="text-base font-semibold text-gray-700">Tarjeta</h2>
                 <div className="flex gap-2">
                     {isEditing && (
                         <button
                             onClick={handleCancelClick}
                             className="p-2 rounded-full bg-slate-200 text-slate-800"
                         >
-                            <FiX className="w-6 h-6" />
+                            <FiX className="w-4 h-4" />
                         </button>
                     )}
                     <button
                         onClick={handleEditClick}
                         className={`p-2 rounded-full ${isEditing ? "bg-slate-800 text-slate-200" : "bg-slate-200 text-slate-800"} `}
                     >
-                        {isEditing ? <FiSave className='w-6 h-6' /> : <FiEdit className='w-6 h-6' />}
+                        {isEditing ? <FiSave className='w-4 h-4' /> : <FiEdit className='w-4 h-4' />}
                     </button>
                 </div>
             </div>
@@ -143,7 +143,7 @@ export const ClientAdminConfigurationCard = ({ company, setOpenModal }: Props) =
 
                     <div className="flex flex-col items-center">
                         <button
-                            className="w-10 h-10 rounded-full border-2 border-slate-200 flex items-center justify-center"
+                            className="w-8 h-8 rounded-full border-2 border-slate-200 flex items-center justify-center"
                             onClick={() => setOpenModal(true)}
                             disabled={!isEditing}
                         >
@@ -153,7 +153,7 @@ export const ClientAdminConfigurationCard = ({ company, setOpenModal }: Props) =
                     </div>
 
                     <div className="flex flex-col items-center">
-                        <div className="relative w-10 h-10 rounded-full overflow-hidden flex items-center justify-center border-2 border-slate-200">
+                        <div className="relative w-8 h-8 rounded-full overflow-hidden flex items-center justify-center border-2 border-slate-200">
                             <input
                                 ref={colorInputRef} 
                                 type="color"
@@ -167,7 +167,7 @@ export const ClientAdminConfigurationCard = ({ company, setOpenModal }: Props) =
                     </div>
 
                     <div className="flex flex-col items-center">
-                        <div className="relative w-10 h-10 rounded-full overflow-hidden flex items-center justify-center border-2 border-slate-200">
+                        <div className="relative w-8 h-8 rounded-full overflow-hidden flex items-center justify-center border-2 border-slate-200">
                             <input
                                 ref={colorInputRef}
                                 type="color"

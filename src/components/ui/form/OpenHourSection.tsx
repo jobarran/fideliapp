@@ -66,14 +66,14 @@ export const OpenHoursSection = ({
                                         value={hours?.from || ""}
                                         onChange={(e) => onHourChange(e, day, "from")}
                                         disabled={!isEditing}
-                                        className="border rounded text-sm py-1 pl-1"
+                                        className="border rounded text-xs py-1 pl-1"
                                     />
                                     <input
                                         type="time"
                                         value={hours?.to || ""}
                                         onChange={(e) => onHourChange(e, day, "to")}
                                         disabled={!isEditing}
-                                        className="border rounded text-sm py-1 pl-1"
+                                        className="border rounded text-xs py-1 pl-1"
                                     />
                                 </>
                             )}

@@ -50,21 +50,21 @@ export const ClientAdminConfigurationSocial = ({ company }: Props) => {
     return (
         <div className='flex flex-col'>
             <div className='flex justify-between items-center pb-4'>
-                <h2 className="text-lg font-semibold text-gray-700">Contacto y redes</h2>
+                <h2 className="text-base font-semibold text-gray-700">Contacto y redes</h2>
                 <div className="flex gap-2">
                     {isEditing && (
                         <button
                             onClick={handleCancelClick}
                             className="p-2 rounded-full bg-slate-200 text-slate-800"
                         >
-                            <FiX className="w-6 h-6" />
+                            <FiX className="w-4 h-4" />
                         </button>
                     )}
                     <button
                         onClick={handleEditClick}
                         className={`p-2 rounded-full ${isEditing ? "bg-slate-800 text-slate-200" : "bg-slate-200 text-slate-800"} `}
                     >
-                        {isEditing ? <FiSave className='w-6 h-6' /> : <FiEdit className='w-6 h-6' />}
+                        {isEditing ? <FiSave className='w-4 h-4' /> : <FiEdit className='w-4 h-4' />}
                     </button>
                 </div>
             </div>
@@ -74,9 +74,9 @@ export const ClientAdminConfigurationSocial = ({ company }: Props) => {
                 value={editedCompany.phone || ''}
                 onChange={(e) => handleInputChange(e, 'phone')}
                 disabled={!isEditing}
-                divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
+                divClassName='text-sm grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
                 labelClassName='font-medium hidden sm:flex'
-                inputClassName='border p-1 rounded ps-10 w-full'
+                inputClassName='text-xs border p-1 rounded ps-10 w-full'
                 icon={FaPhone}
             />
 
@@ -86,21 +86,21 @@ export const ClientAdminConfigurationSocial = ({ company }: Props) => {
                 value={editedCompany.whatsapp || ''}
                 onChange={(e) => handleInputChange(e, 'whatsapp')}
                 disabled={!isEditing}
-                divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4 w-full'
+                divClassName='text-sm grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4 w-full'
                 labelClassName='font-medium hidden sm:flex'
-                inputClassName='border p-1 rounded ps-10 w-full'
+                inputClassName='text-xs border p-1 rounded ps-10 w-full'
                 icon={FaWhatsapp}
             />
 
 
             <TextField
-                label="site"
+                label="Web"
                 value={editedCompany.site || ''}
                 onChange={(e) => handleInputChange(e, 'site')}
                 disabled={!isEditing}
-                divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4 w-full'
+                divClassName='text-sm grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4 w-full'
                 labelClassName='font-medium hidden sm:flex'
-                inputClassName='border p-1 rounded ps-10 w-full'
+                inputClassName='text-xs border p-1 rounded ps-10 w-full'
                 icon={FaLink}
             />
 
@@ -109,9 +109,9 @@ export const ClientAdminConfigurationSocial = ({ company }: Props) => {
                 value={editedCompany.instagram || ''}
                 onChange={(e) => handleInputChange(e, 'instagram')}
                 disabled={!isEditing}
-                divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
+                divClassName='text-sm grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
                 labelClassName='font-medium hidden sm:flex'
-                inputClassName='border p-1 rounded ps-10 w-full'
+                inputClassName='text-xs border p-1 rounded ps-10 w-full'
                 icon={FaInstagram}
             />
 
@@ -120,9 +120,9 @@ export const ClientAdminConfigurationSocial = ({ company }: Props) => {
                 value={editedCompany.facebook || ''}
                 onChange={(e) => handleInputChange(e, 'facebook')}
                 disabled={!isEditing}
-                divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
+                divClassName='text-sm grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
                 labelClassName='font-medium hidden sm:flex'
-                inputClassName='border p-1 rounded ps-10 w-full'
+                inputClassName='text-xs border p-1 rounded ps-10 w-full'
                 icon={FaFacebook}
             />
 
@@ -131,9 +131,9 @@ export const ClientAdminConfigurationSocial = ({ company }: Props) => {
                 value={editedCompany.twitter || ''}
                 onChange={(e) => handleInputChange(e, 'twitter')}
                 disabled={!isEditing}
-                divClassName='grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
+                divClassName='text-sm grid grid-cols-1 sm:grid-cols-3 gap-4 items-center mb-4'
                 labelClassName='font-medium hidden sm:flex'
-                inputClassName='border p-1 rounded ps-10 w-full'
+                inputClassName='text-xs border p-1 rounded ps-10 w-full'
                 icon={FaTwitter}
             />
 

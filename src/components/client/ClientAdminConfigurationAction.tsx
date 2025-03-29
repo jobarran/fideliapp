@@ -24,7 +24,7 @@ export const ClientAdminConfigurationAction = ({ company }: Props) => {
     return (
         <div className='flex flex-col'>
             <div className='flex justify-between items-center pb-4'>
-                <h2 className="text-lg font-semibold text-gray-700">Acciones</h2>
+                <h2 className="text-base font-semibold text-gray-700">Acciones</h2>
             </div>
             <ActiveWarningModal
                 buttonLabel={isActive ? 'Desactivar negocio' : 'Activar negocio'}

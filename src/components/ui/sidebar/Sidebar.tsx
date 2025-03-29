@@ -24,7 +24,7 @@ const Sidebar = ({ company }: Props) => {
     const pathname = usePathname();
 
     const updateScreenSize = () => {
-        setIsSmallScreen(window.matchMedia("(max-width: 1024px)").matches);
+        setIsSmallScreen(window.matchMedia("(max-width: 640px)").matches);
     };
 
     useEffect(() => {
@@ -114,12 +114,11 @@ const Sidebar = ({ company }: Props) => {
 
     return (
         <>
-            <div className={`lg:hidden ${isOpen ? "w-16" : "w-0"}`} />
+            <div className="w-12" />
             <aside
                 ref={sidebarRef}
-                className={`flex flex-col min-h-screen h-full bg-white text-slate-800 border-r border-gray-200 transition-all duration-300
-                    ${isOpen ? "w-64" : "w-16"}
-                    ${isOpen ? "absolute lg:relative z-40" : "relative"}`}
+                className={`flex flex-col absolute z-40 min-h-screen h-full bg-white text-slate-800 border-r border-gray-200 transition-all duration-300
+                    ${isOpen ? "w-64" : "w-12"}`}
                 onMouseEnter={handleMouseEnterSidebar}
                 onMouseLeave={handleMouseLeaveSidebar}
                 onTransitionEnd={handleTransitionEnd}
@@ -130,7 +129,7 @@ const Sidebar = ({ company }: Props) => {
                             onClick={isOpen ? closeSidebar : openSidebar}
                             className={`p-2 z-40 rounded-full text-slate-800 hover:bg-slate-200 ${isOpen ? "" : "mb-2"}`}
                         >
-                            {isOpen ? <FiChevronLeft size={20} /> : <FiChevronRight size={20} />}
+                            {isOpen ? <FiChevronLeft size={16} /> : <FiChevronRight size={16} />}
                         </button>
                     )}
                     <Link
@@ -138,7 +137,7 @@ const Sidebar = ({ company }: Props) => {
                         className={`flex items-center gap-2 ${isSmallScreen || !isOpen ? "" : "mx-auto"
                             } ${isOpen ? "order-1" : ""}`}
                     >
-                        <FiHome size={24} className="text-slate-800" />
+                        <FiHome size={20} className="text-slate-800" />
                         {isOpen && isTransitionComplete && (
                             <h1 className="text-xl font-bold text-slate-800 truncate">Klumpit</h1>
                         )}
@@ -146,7 +145,7 @@ const Sidebar = ({ company }: Props) => {
                 </div>
 
                 {/* Logo and Company Name */}
-                <div className={`flex flex-col items-center gap-2 p-4 border-b border-slate-300 ${isOpen ? "h-28" : "h-20"}`}>
+                <div className={`flex flex-col items-center justify-center gap-1 p-2 border-b border-slate-300 ${isOpen ? "h-28" : "h-20"}`}>
                     {company.CompanyLogo?.url ? (
                         <CompanyLinkImage
                             src={company.CompanyLogo.url}
@@ -155,16 +154,16 @@ const Sidebar = ({ company }: Props) => {
                             alt={company.name}
                             className="object-cover rounded-full"
                             priority
-                            style={{ width: "48px", height: "48px" }}
+                            style={{ width: isOpen ? "56px" : "36px", height: isOpen ? "56px" : "36px" }}
                         />
                     ) : (
-                        <Avatar name={company.name} backgroundColor={company.backgroundColor} size="48" />
+                        <Avatar name={company.name} backgroundColor={company.backgroundColor} size={isOpen ? "56" : "36"} />
                     )}
                     {isOpen && isTransitionComplete && <span className="text-base font-semibold truncate">{company.name}</span>}
                 </div>
 
                 {/* Main Navigation Items */}
-                <nav className="flex-1 mt-4">
+                <nav className="flex-1">
                     {clientAdminNavItems.map((item) => (
                         <Link
                             href={`${pathname.split('/').slice(0, 3).join('/')}/${item.link}`}
@@ -172,15 +171,15 @@ const Sidebar = ({ company }: Props) => {
                         >
                             <button
                                 onClick={() => handleNavItemClick(item.link)}
-                                className={`flex items-center w-full h-11 px-4 text-left text-slate-800 hover:bg-slate-100
+                                className={`flex items-center w-full h-9 px-4 text-left text-slate-800 hover:bg-slate-100
                                     ${isOpen ? "justify-start gap-4" : "justify-center gap-0"}
                                     ${pathname.endsWith(item.link) ? "font-bold" : ""}`}
                                 disabled={pathname.endsWith(item.link)}
                             >
                                 <item.icon
-                                    className={`text-3xl p-1 shrink-0 ${pathname.endsWith(item.link) ? "bg-slate-200 text-slate-800 rounded-full" : ""}`}
+                                    className={`text-2xl p-1 shrink-0 ${pathname.endsWith(item.link) ? "bg-slate-200 text-slate-800 rounded-full" : ""}`}
                                 />
-                                {isOpen && isTransitionComplete && <span className="truncate">{item.label}</span>}
+                                {isOpen && isTransitionComplete && <span className="text-sm truncate">{item.label}</span>}
                             </button>
                         </Link>
                     ))}
@@ -190,22 +189,22 @@ const Sidebar = ({ company }: Props) => {
                 <nav className="mt-auto border-t border-slate-300">
                     <div>
                         <Link
-                            className={`flex items-center w-full h-11 px-4 text-left text-slate-800 hover:bg-slate-100
+                            className={`flex items-center w-full h-9 px-4 text-left text-slate-800 hover:bg-slate-100
                             ${isOpen ? "justify-start gap-4" : "justify-center gap-0"}`}
                             href={`/user/${company.userId}`}
                         >
                             <FiUser className="text-xl shrink-0" />
-                            {isOpen && isTransitionComplete && <span className="truncate">Ir a perfil de usuario</span>}
+                            {isOpen && isTransitionComplete && <span className="text-sm truncate">Ir a perfil de usuario</span>}
                         </Link>
                     </div>
                     <div>
                         <button
-                            className={`flex items-center w-full h-11 px-4 text-left text-slate-800 hover:bg-slate-100
+                            className={`flex items-center w-full h-9 px-4 text-left text-slate-800 hover:bg-slate-100
                             ${isOpen ? "justify-start gap-4" : "justify-center gap-0"}`}
                             onClick={handleLogout}
                         >
                             <FiLogOut className="text-xl shrink-0" />
-                            {isOpen && isTransitionComplete && <span className="truncate">Cerrar sesión</span>}
+                            {isOpen && isTransitionComplete && <span className="text-sm truncate">Cerrar sesión</span>}
                         </button>
                     </div>
                 </nav>
