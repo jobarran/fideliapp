@@ -155,12 +155,12 @@ export const ClientAdminConfigurationCard = ({ company, setOpenModal }: Props) =
                     <div className="flex flex-col items-center">
                         <div className="relative w-10 h-10 rounded-full overflow-hidden flex items-center justify-center border-2 border-slate-200">
                             <input
-                                ref={colorInputRef} // Attach the ref here
+                                ref={colorInputRef} 
                                 type="color"
                                 value={editedCompany.backgroundColor}
                                 onChange={(e) => handleInputChange(e, 'backgroundColor')}
                                 disabled={!isEditing}
-                                className="absolute w-16 h-16 cursor-pointer"
+                                className={`absolute ${isEditing ? 'cursor-pointer' : ''} w-16 h-16`}
                             />
                         </div>
                         <label className="text-xs text-slate-500 mt-1">Fondo</label>
@@ -174,7 +174,7 @@ export const ClientAdminConfigurationCard = ({ company, setOpenModal }: Props) =
                                 value={editedCompany.textColor}
                                 onChange={(e) => handleInputChange(e, 'textColor')}
                                 disabled={!isEditing}
-                                className="absolute w-16 h-16 cursor-pointer"
+                                className={`absolute ${isEditing ? 'cursor-pointer' : ''} w-16 h-16`}
                             />
                         </div>
                         <label className="text-xs text-slate-500 mt-1">Texto</label>

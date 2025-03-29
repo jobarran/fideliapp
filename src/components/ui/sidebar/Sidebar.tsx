@@ -17,16 +17,26 @@ interface Props {
 const Sidebar = ({ company }: Props) => {
     const [isOpen, setIsOpen] = useState(false);
     const [isTransitionComplete, setIsTransitionComplete] = useState(false);
-    const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
-    const [inactiveTimeout, setInactiveTimeout] = useState<NodeJS.Timeout | null>(null);
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
 
     const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const sidebarRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
 
+    const updateScreenSize = () => {
+        setIsSmallScreen(window.matchMedia("(max-width: 1024px)").matches);
+    };
+
+    useEffect(() => {
+        updateScreenSize();
+        window.addEventListener("resize", updateScreenSize);
+        return () => {
+            window.removeEventListener("resize", updateScreenSize);
+        };
+    }, []);
+
     const openSidebar = () => {
         setIsOpen(true);
-        resetAutoCloseTimer();
     };
 
     const closeSidebar = () => {
@@ -35,21 +45,6 @@ const Sidebar = ({ company }: Props) => {
         if (timeoutRef.current) {
             clearTimeout(timeoutRef.current);
         }
-        if (hoverTimeout) {
-            clearTimeout(hoverTimeout);
-        }
-        if (inactiveTimeout) {
-            clearTimeout(inactiveTimeout);
-        }
-    };
-
-    const resetAutoCloseTimer = () => {
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-        }
-        timeoutRef.current = setTimeout(() => {
-            closeSidebar();
-        }, 2000); // Auto-close after 2 seconds of inactivity
     };
 
     const handleTransitionEnd = () => {
@@ -59,26 +54,27 @@ const Sidebar = ({ company }: Props) => {
     };
 
     const handleMouseEnterSidebar = () => {
-        if (timeoutRef.current) {
-            clearTimeout(timeoutRef.current);
-        }
-        setHoverTimeout(
-            setTimeout(() => {
+        if (!isSmallScreen) {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current); // Prevent closing if mouse re-enters quickly
+            }
+            timeoutRef.current = setTimeout(() => {
                 openSidebar();
-            }, 1000)
-        );
+            }, 500); // 500ms delay for opening
+        }
     };
 
     const handleMouseLeaveSidebar = () => {
-        if (hoverTimeout) {
-            clearTimeout(hoverTimeout);
-        }
-        setInactiveTimeout(
-            setTimeout(() => {
+        if (!isSmallScreen) {
+            if (timeoutRef.current) {
+                clearTimeout(timeoutRef.current); // Clear any existing timeouts to prevent conflicts
+            }
+            timeoutRef.current = setTimeout(() => {
                 closeSidebar();
-            }, 2000)
-        );
+            }, 1000); // 1-second delay for closing
+        }
     };
+
 
     const handleClickOutside = (event: MouseEvent) => {
         if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
@@ -88,7 +84,7 @@ const Sidebar = ({ company }: Props) => {
 
     const handleNavItemClick = (path: string) => {
         if (pathname !== path) {
-            closeSidebar();
+            // closeSidebar();
         }
     };
 
@@ -98,7 +94,7 @@ const Sidebar = ({ company }: Props) => {
     };
 
     useEffect(() => {
-        if (isOpen) {
+        if (isOpen && isSmallScreen) {
             document.addEventListener("click", handleClickOutside);
         } else {
             document.removeEventListener("click", handleClickOutside);
@@ -109,14 +105,8 @@ const Sidebar = ({ company }: Props) => {
             if (timeoutRef.current) {
                 clearTimeout(timeoutRef.current);
             }
-            if (hoverTimeout) {
-                clearTimeout(hoverTimeout);
-            }
-            if (inactiveTimeout) {
-                clearTimeout(inactiveTimeout);
-            }
         };
-    }, [isOpen]);
+    }, [isOpen, isSmallScreen]);
 
     if (!company) {
         return null;
@@ -129,29 +119,34 @@ const Sidebar = ({ company }: Props) => {
                 ref={sidebarRef}
                 className={`flex flex-col min-h-screen h-full bg-white text-slate-800 border-r border-gray-200 transition-all duration-300
                     ${isOpen ? "w-64" : "w-16"}
-                    ${isOpen ? "absolute lg:relative z-40" : "relative"}
-                    overflow-y-auto`} // Add this class
+                    ${isOpen ? "absolute lg:relative z-40" : "relative"}`}
                 onMouseEnter={handleMouseEnterSidebar}
                 onMouseLeave={handleMouseLeaveSidebar}
                 onTransitionEnd={handleTransitionEnd}
             >
-
-                {/* Top Section: Logo and Toggle */}
-                <div className={`flex ${isOpen ? "items-center justify-between" : "flex-col items-center"} p-4 border-b border-slate-300`}>
-                    <button
-                        onClick={isOpen ? closeSidebar : openSidebar}
-                        className={`p-2 z-40 rounded-full text-slate-800 hover:bg-slate-200 ${isOpen ? "" : "mb-2"}`}
+                <div className={`flex ${isOpen ? "items-center justify-between h-20" : "flex-col items-center h-28"} p-4 border-b border-slate-300`}>
+                    {(isSmallScreen || !isOpen) && (
+                        <button
+                            onClick={isOpen ? closeSidebar : openSidebar}
+                            className={`p-2 z-40 rounded-full text-slate-800 hover:bg-slate-200 ${isOpen ? "" : "mb-2"}`}
+                        >
+                            {isOpen ? <FiChevronLeft size={20} /> : <FiChevronRight size={20} />}
+                        </button>
+                    )}
+                    <Link
+                        href={`/`}
+                        className={`flex items-center gap-2 ${isSmallScreen || !isOpen ? "" : "mx-auto"
+                            } ${isOpen ? "order-1" : ""}`}
                     >
-                        {isOpen ? <FiChevronLeft size={20} /> : <FiChevronRight size={20} />}
-                    </button>
-                    <Link href={`/`} className={`flex items-center gap-2 ${isOpen ? "order-1" : ""}`}>
                         <FiHome size={24} className="text-slate-800" />
-                        {isOpen && isTransitionComplete && <h1 className="text-xl font-bold text-slate-800 truncate">Klumpit</h1>}
+                        {isOpen && isTransitionComplete && (
+                            <h1 className="text-xl font-bold text-slate-800 truncate">Klumpit</h1>
+                        )}
                     </Link>
                 </div>
 
                 {/* Logo and Company Name */}
-                <div className={`flex flex-col items-center gap-2 p-4 border-b border-slate-300 ${isOpen ? "h-28" : ""}`}>
+                <div className={`flex flex-col items-center gap-2 p-4 border-b border-slate-300 ${isOpen ? "h-28" : "h-20"}`}>
                     {company.CompanyLogo?.url ? (
                         <CompanyLinkImage
                             src={company.CompanyLogo.url}
@@ -163,11 +158,7 @@ const Sidebar = ({ company }: Props) => {
                             style={{ width: "48px", height: "48px" }}
                         />
                     ) : (
-                        <Avatar
-                            name={company.name}
-                            backgroundColor={company.backgroundColor}
-                            size="48"
-                        />
+                        <Avatar name={company.name} backgroundColor={company.backgroundColor} size="48" />
                     )}
                     {isOpen && isTransitionComplete && <span className="text-base font-semibold truncate">{company.name}</span>}
                 </div>
@@ -176,21 +167,18 @@ const Sidebar = ({ company }: Props) => {
                 <nav className="flex-1 mt-4">
                     {clientAdminNavItems.map((item) => (
                         <Link
-                            href={`${pathname.split('/').slice(0, 3).join('/')}/${item.link}`} // Dynamic base path logic
+                            href={`${pathname.split('/').slice(0, 3).join('/')}/${item.link}`}
                             key={item.id}
                         >
                             <button
                                 onClick={() => handleNavItemClick(item.link)}
-                                className={`
-                                    flex items-center w-full h-11 px-4 text-left text-slate-800 hover:bg-slate-100
+                                className={`flex items-center w-full h-11 px-4 text-left text-slate-800 hover:bg-slate-100
                                     ${isOpen ? "justify-start gap-4" : "justify-center gap-0"}
-                                    ${pathname.endsWith(item.link) ? "font-bold" : ""}
-                                `}
-                                disabled={pathname.endsWith(item.link)} // Disable button if already selected
+                                    ${pathname.endsWith(item.link) ? "font-bold" : ""}`}
+                                disabled={pathname.endsWith(item.link)}
                             >
                                 <item.icon
-                                    className={`text-3xl p-1 shrink-0 ${pathname.endsWith(item.link) ? "bg-slate-200 text-slate-800 rounded-full" : ""
-                                        }`}
+                                    className={`text-3xl p-1 shrink-0 ${pathname.endsWith(item.link) ? "bg-slate-200 text-slate-800 rounded-full" : ""}`}
                                 />
                                 {isOpen && isTransitionComplete && <span className="truncate">{item.label}</span>}
                             </button>
@@ -200,7 +188,6 @@ const Sidebar = ({ company }: Props) => {
 
                 {/* Footer Navigation Items */}
                 <nav className="mt-auto border-t border-slate-300">
-                    {/* Define static footer nav items */}
                     <div>
                         <Link
                             className={`flex items-center w-full h-11 px-4 text-left text-slate-800 hover:bg-slate-100
@@ -222,7 +209,6 @@ const Sidebar = ({ company }: Props) => {
                         </button>
                     </div>
                 </nav>
-
             </aside>
         </>
     );
