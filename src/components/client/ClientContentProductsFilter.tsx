@@ -38,7 +38,7 @@ export const ClientContentProductsFilter = ({
 
             {/* Product Type Dropdown */}
             <select
-                className="border px-3 py-2 w-full sm:w-auto rounded-md text-sm bg-white focus:outline-none"
+                className="border px-3 py-2 rounded-md text-sm w-full sm:w-auto bg-white focus:outline-none appearance-none leading-5"
                 value={productType}
                 onChange={(e) => setProductType(e.target.value)}
             >
