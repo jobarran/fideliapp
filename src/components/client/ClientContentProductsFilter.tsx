@@ -21,7 +21,7 @@ export const ClientContentProductsFilter = ({
                 <input
                     type="text"
                     placeholder="Buscar por nombre"
-                    className="flex-1 border px-3 py-2 rounded-md text-sm w-full focus:outline-none"
+                    className="flex-1 border px-3 h-10 py-2 rounded-md text-sm w-full focus:outline-none"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -38,7 +38,7 @@ export const ClientContentProductsFilter = ({
 
             {/* Product Type Dropdown */}
             <select
-                className="border px-3 py-2 rounded-md text-sm w-full sm:w-auto bg-white focus:outline-none leading-5"
+                className="border px-3 py-2 h-10 rounded-md text-sm w-full sm:w-auto bg-white focus:outline-none"
                 value={productType}
                 onChange={(e) => setProductType(e.target.value)}
             >

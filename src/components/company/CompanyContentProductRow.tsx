@@ -37,7 +37,7 @@ export const CompanyContentProductRow = ({
     return (
         <li key={product.id}>
             <div
-                className={`flex items-center h-14 p-2 border border-slate-200 rounded-lg transition-all duration-300 overflow-hidden ${isExpanded ? "h-auto py-2" : ""}`}
+                className={`flex items-center h-16 p-2 border border-slate-200 rounded-lg transition-all duration-300 overflow-hidden ${isExpanded ? "h-auto py-2" : ""}`}
             >
                 {/* Product Image */}
                 <div
