@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useCallback, useState } from 'react';
-import { TextField, PasswordField, DeleteWarningModal } from '..'; // Import custom fields
-import { FaRegTrashCan } from 'react-icons/fa6';
+import { TextField } from '..'; // Import custom fields
 import { updateUser } from '@/actions';
 import { UserProfileData } from '@/interfaces';
 import { FaRegEdit, FaRegSave } from 'react-icons/fa';
@@ -12,7 +11,6 @@ interface EditedUser {
   name: string;
   lastName: string;
   email: string;
-  password?: string;
   active: boolean;
   role?: string;
 }
@@ -24,9 +22,6 @@ interface Props {
 export const UserContentInformation = ({ user }: Props) => {
   const [editedUser, setEditedUser] = useState<EditedUser>({ ...user });
   const [isEditing, setIsEditing] = useState(false);
-  const [oldPassword, setOldPassword] = useState<string | undefined>(undefined); // Set as undefined
-  const [newPassword, setNewPassword] = useState<string | undefined>(undefined); // Set as undefined
-  const [confirmPassword, setConfirmPassword] = useState<string | undefined>(undefined); // Set as undefined
   const [errors, setErrors] = useState<string[]>([]); // Track errors for validation
 
   // Handle changes in editable fields
@@ -40,28 +35,12 @@ export const UserContentInformation = ({ user }: Props) => {
     []
   );
 
-  const handleDeleteCompany = () => {
-    console.log('delete');
-  }
-
   const handleEditClick = useCallback(async () => {
     // Clear previous errors
     setErrors([]);
 
     // Perform client-side validation
     const newErrors: string[] = [];
-
-    if (newPassword !== confirmPassword) {
-      newErrors.push("La nueva contraseña y la confirmación no coinciden.");
-    }
-
-    if (newPassword && newPassword.length < 6) {
-      newErrors.push("La nueva contraseña debe tener al menos 6 caracteres.");
-    }
-
-    if (oldPassword && !newPassword) {
-      newErrors.push("Debes ingresar una nueva contraseña si deseas cambiarla.");
-    }
 
     if (newErrors.length > 0) {
       setErrors(newErrors);
@@ -74,8 +53,6 @@ export const UserContentInformation = ({ user }: Props) => {
         ...editedUser,
         id: user.id,
         role: user.role || 'user',
-        oldPassword: oldPassword,  // Corrected to oldPassword
-        password: newPassword === confirmPassword ? newPassword : undefined,
       };
 
       try {
@@ -85,9 +62,6 @@ export const UserContentInformation = ({ user }: Props) => {
           setErrors([response.message]); // Set server error message if any
         } else {
           setErrors([]); // Clear errors on success
-          setOldPassword(undefined)
-          setNewPassword(undefined)
-          setConfirmPassword(undefined)
         }
       } catch (error) {
         console.error("Error updating user:", error);
@@ -96,7 +70,7 @@ export const UserContentInformation = ({ user }: Props) => {
     }
 
     setIsEditing((prev) => !prev);
-  }, [isEditing, editedUser, user, newPassword, confirmPassword, oldPassword]);
+  }, [isEditing, editedUser, user]);
 
   return (
     <div>
@@ -106,21 +80,21 @@ export const UserContentInformation = ({ user }: Props) => {
         <TextField
           label="Nombre"
           value={editedUser.name}
-          onChange={(e) => handleInputChange(e, 'name')}
+          onChange={(e) => handleInputChange(e, "name")}
           disabled={!isEditing}
           divClassName="grid grid-cols-1 sm:grid-cols-5 gap-2 items-center mb-2"
           labelClassName="font-medium hidden sm:flex"
-          inputClassName="border p-1 col-span-2 rounded"
+          inputClassName="border p-1 rounded w-full"
         />
 
         <TextField
           label="Apellido"
           value={editedUser.lastName}
-          onChange={(e) => handleInputChange(e, 'lastName')}
+          onChange={(e) => handleInputChange(e, "lastName")}
           disabled={!isEditing}
           divClassName="grid grid-cols-1 sm:grid-cols-5 gap-2 items-center mb-2"
           labelClassName="font-medium hidden sm:flex"
-          inputClassName="border p-1 col-span-2 rounded"
+          inputClassName="border p-1 rounded w-full"
         />
 
         <TextField
@@ -129,42 +103,10 @@ export const UserContentInformation = ({ user }: Props) => {
           disabled
           divClassName="grid grid-cols-1 sm:grid-cols-5 gap-2 items-center mb-2"
           labelClassName="font-medium hidden sm:flex"
-          inputClassName="border p-1 col-span-2 rounded"
+          inputClassName="border p-1 rounded w-full"
           onChange={() => { }}
         />
 
-        <PasswordField
-          label="Old Password"
-          value={oldPassword ?? ""}
-          onChange={(e) => setOldPassword(e.target.value)}
-          disabled={!isEditing}
-          placeholder="********"
-          divClassName="grid grid-cols-1 sm:grid-cols-5 gap-2 items-center mb-2"
-          labelClassName="font-medium hidden sm:flex"
-          inputClassName="border p-1 col-span-2 rounded"
-        />
-
-        <PasswordField
-          label="New Password"
-          value={newPassword ?? ""}
-          onChange={(e) => setNewPassword(e.target.value)}
-          disabled={!isEditing}
-          placeholder="********"
-          divClassName="grid grid-cols-1 sm:grid-cols-5 gap-2 items-center mb-2"
-          labelClassName="font-medium hidden sm:flex"
-          inputClassName="border p-1 col-span-2 rounded"
-        />
-
-        <PasswordField
-          label="Confirm Password"
-          value={confirmPassword ?? ""}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          disabled={!isEditing}
-          placeholder="********"
-          divClassName="grid grid-cols-1 sm:grid-cols-5 gap-2 items-center mb-2"
-          labelClassName="font-medium hidden sm:flex"
-          inputClassName="border p-1 col-span-2 rounded"
-        />
 
         {/* Display errors */}
         {errors.length > 0 && (
@@ -187,20 +129,6 @@ export const UserContentInformation = ({ user }: Props) => {
             </span>
           </button>
         </div>
-
-        {/* <DeleteWarningModal
-          buttonLabel={'Eliminar usuario'}
-          buttonBgColor={''}
-          buttonTextColor={'text-red-600'}
-          buttonHoverColor={'hover:bg-red-100 border border-red-200'}
-          buttonIcon={<FaRegTrashCan/>}
-          buttonPossition="justify-start"
-          modalLabel="Atención!"
-          content="Atención! Una vez que elimines tu negocio ya no podrás acceder a toda tu información."
-          contentAction={handleDeleteCompany}
-          acceptButton={'Eliminar'}
-          cancelButton={'Cancelar'}
-        /> */}
 
       </div>
     </div>

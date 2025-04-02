@@ -14,12 +14,14 @@ interface Props {
 }
 
 export const UserCard = ({ card }: Props) => {
-    
+
     const [isFavourite, setIsFavourite] = useState(card.favourite);
 
     const backgroundColor = card.company.backgroundColor;
-    const inactiveColor = softColor(backgroundColor, 70);
+    const inactiveColor = "#e5e5e5";
+    const inactiveTextColor = '#a0a0a0';
     const textColor = card.company.textColor;
+    const isActive = card.company.active;
 
     const handleToggleFavourite = async () => {
         try {
@@ -31,19 +33,20 @@ export const UserCard = ({ card }: Props) => {
     };
 
     const renderImage = () =>
+        
         card.company.CompanyLogo ? (
             <UserCardImage
                 src={card.company.CompanyLogo.url}
                 width={64}
                 height={64}
                 alt={card.company.name}
-                className="object-cover w-full h-full"
+                className={`object-cover w-full h-full ${!isActive ? 'opacity-30' : ''}`}
                 priority
             />
         ) : (
             <Avatar
                 name={card.company.name}
-                backgroundColor={card.company.backgroundColor}
+                backgroundColor={card.company.active ? card.company.backgroundColor : inactiveTextColor}
                 size="16"
             />
         );
@@ -62,7 +65,7 @@ export const UserCard = ({ card }: Props) => {
                         <p
                             className="text-xs font-medium text-center"
                             style={{
-                                color: card.company.active ? textColor : inactiveColor,
+                                color: card.company.active ? textColor : inactiveTextColor,
                             }}
                         >
                             {cropText(card.company.name, 23)}
@@ -83,7 +86,7 @@ export const UserCard = ({ card }: Props) => {
                             <p
                                 className="text-xs font-medium"
                                 style={{
-                                    color: card.company.active ? textColor : inactiveColor,
+                                    color: card.company.active ? textColor : inactiveTextColor,
                                 }}
                             >
                                 {card.company.active ? `${card.points} puntos` : 'Negocio inactivo'}
@@ -106,7 +109,7 @@ export const UserCard = ({ card }: Props) => {
                                     />
                                 )
                             ) : (
-                                <FaBan size={16} style={{ color: inactiveColor }} />
+                                <FaBan size={16} style={{ color: inactiveTextColor }} />
                             )}
                         </div>
                     </div>

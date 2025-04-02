@@ -1,6 +1,6 @@
 import { getCompanyByUser, getProductsByCompanyId } from "@/actions";
 import { auth } from "@/auth.config";
-import { AddProductForm, ClientAdminProducts } from "@/components";
+import { AddProductForm } from "@/components";
 import { redirect } from "next/navigation";
 
 interface Props {
@@ -30,6 +30,6 @@ export default async function ClientAdminProductNewPage({ params }: Props) {
     }
 
     return (
-        <AddProductForm companyId={company.id} userId={id} />
+        <AddProductForm companyId={company.id} userId={id} companyName={company.name} companyLogoUrl={company.CompanyLogo?.url} companyColor={company.backgroundColor} />
     );
 }

@@ -55,22 +55,32 @@ Alert
 - add "user" / "client" type
 - create more alerts for intereactions
 
+promociones
+- PRODUCT TYPE
+- add promo to home
+- Ver como va quedando el producto o promocion a medida que se crea
+- agregar puntos 0 a transacciones
+- separar productos / promociones
+- agregar promos a home
+- companies/slug - add % if promo / sort by type
+
+promo fields
+- tipo (descuento / 2x1)
+- 
+
+Agregar Calculadora a transacciones
 
 Admin
 - Company validation
 - Contact answer
 
+User/info
+- add fields to complete profile (adress, preferences, etc)
+
 UX
-- agregar a fav en companies header (too small in device)
-- agrupar nombres "valor" / "premio" para que sea claro
-- user/info mostrar labels en sm, icono show solo cuando edita, nombre apellido input w
-- when card is created... puntos is null
-- home - como se ven las tarjetas de negocios desactivados
 - choose location manually
-- client/config update on live card color when editing
-- client - Revisar tamaño de elemento s(poner zoom al 100%)
 
-
+* add PROMOCIONES
 
 all admin
 - movements: Check cancel movements style

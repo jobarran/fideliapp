@@ -141,7 +141,7 @@ export const CompanyProfileHeader = ({
 
             </div>
 
-            <div className="p-4 border rounded-lg bg-white">
+            <div className="p-4 border rounded-lg bg-white mb-2">
 
                 <CompanyProfileHeaderData
                     company={company}

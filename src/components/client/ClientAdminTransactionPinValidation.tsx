@@ -21,6 +21,7 @@ interface Props {
     setAvailablePoints: Dispatch<SetStateAction<number>>
     availablePoints: number
     totalPoints: number
+    setManualPoints: Dispatch<SetStateAction<number>>
 }
 
 export const ClientAdminTransactionPinValidation = ({
@@ -36,7 +37,8 @@ export const ClientAdminTransactionPinValidation = ({
     setSelectedProducts,
     setAvailablePoints,
     availablePoints,
-    totalPoints
+    totalPoints,
+    setManualPoints
 }: Props) => {
 
     const [transactionSuccess, setTransactionSuccess] = useState(false);
@@ -97,6 +99,7 @@ export const ClientAdminTransactionPinValidation = ({
                 setTransactionSuccess(true);
                 setIsPinValidated(false);
                 setSelectedProducts({})
+                setManualPoints(0)
                 userPin && deletePin(userPin)
             } else {
                 console.error('Transaction failed:', response.message);

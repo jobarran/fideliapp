@@ -2,6 +2,7 @@
 
 import { updateImage } from '@/actions';
 import { Product } from '@/interfaces';
+import { translateProductType } from '@/utils';
 import React, { useState, useEffect } from 'react';
 import { FaRegImage } from 'react-icons/fa6';
 import { FiEdit, FiSave } from 'react-icons/fi';
@@ -103,9 +104,6 @@ export const ClientAdminProductTableRow = ({
                     <span className="absolute top-1/2 start-0.5 -translate-y-1/2 size-4 bg-white rounded-full shadow-xs transition-transform duration-200 ease-in-out peer-checked:translate-x-full "></span>
                 </label>
             </td>
-
-
-
             <td className="w-16 text-center p-2">
                 <ProductImage
                     image={product.ProductImage}
@@ -116,17 +114,65 @@ export const ClientAdminProductTableRow = ({
             </td>
             <td className="max-w-[150px] text-left p-3">
                 {isEditing ? (
-                    <input
-                        type="text"
-                        name="name"
-                        value={editedProduct.name}
-                        onChange={handleInputChange}
-                        className="border rounded p-1 w-full text-xs"
-                    />
+                    product.productType === "PROMOTION" ? (
+                        (() => {
+                            const parts = editedProduct.name.split(" - ");
+                            return (
+                                <div className="flex items-center gap-1">
+                                    <input
+                                        type="text"
+                                        name="promoPart1"
+                                        value={parts[0] || ""}
+                                        onChange={(e) => {
+                                            const newName = `${e.target.value} - ${parts[1] || ""}`;
+                                            setEditedProduct((prev) => ({ ...prev, name: newName }));
+                                        }}
+                                        className="border rounded p-1 w-1/3 text-xs text-center"
+                                    />
+                                    <span>-</span>
+                                    <input
+                                        type="text"
+                                        name="promoPart2"
+                                        value={parts[1] || ""}
+                                        onChange={(e) => {
+                                            const newName = `${parts[0] || ""} - ${e.target.value}`;
+                                            setEditedProduct((prev) => ({ ...prev, name: newName }));
+                                        }}
+                                        className="border rounded p-1 w-2/3 text-xs"
+                                    />
+                                </div>
+                            );
+                        })()
+                    ) : (
+                        <input
+                            type="text"
+                            name="name"
+                            value={editedProduct.name}
+                            onChange={handleInputChange}
+                            className="border rounded p-1 w-full text-xs"
+                        />
+                    )
                 ) : (
-                    <p className="text-slate-800 text-xs truncate">{product.name}</p>
+                    <p className="text-slate-800 text-xs truncate flex items-center">
+                        {product.productType === "PROMOTION" ? (
+                            (() => {
+                                const parts = product.name.split(" - ");
+                                return (
+                                    <>
+                                        <span className="bg-red-600 text-white px-2 py-1 rounded">{parts[0]}</span>
+                                        {parts[1] && <span className="ml-2">{parts[1]}</span>}
+                                    </>
+                                );
+                            })()
+                        ) : (
+                            product.name.length > 20
+                                ? `${product.name.slice(0, 20)}...`
+                                : product.name
+                        )}
+                    </p>
                 )}
             </td>
+
             <td className="text-left p-3">
                 {isEditing ? (
                     <input
@@ -136,8 +182,15 @@ export const ClientAdminProductTableRow = ({
                         className="border rounded p-1 w-full text-xs"
                     />
                 ) : (
-                    <p className="text-slate-400 text-xs truncate">{product.description}</p>
+                    <p className="text-slate-400 text-xs truncate">
+                        {product.description && product.description.length > 45
+                            ? `${product.description.slice(0, 45)}...`
+                            : product.description}
+                    </p>
                 )}
+            </td>
+            <td className="w-16 text-center p-3">
+                <p className="text-slate-800 text-xs truncate">{translateProductType(product.productType)}</p>
             </td>
             <td className="w-16 text-center p-3">
                 {isEditing ? (

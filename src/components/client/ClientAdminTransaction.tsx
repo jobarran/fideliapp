@@ -91,6 +91,7 @@ export const ClientAdminTransaction = ({ products, companySlug, companyActive }:
                             availablePoints={availablePoints}
                             totalPoints={totalPoints}
                             isPinValidated={false}
+                            setManualPoints={setManualPoints}
                         />
                     </div>
                     {selectedTransactionType && (

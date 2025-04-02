@@ -76,7 +76,7 @@ export const CompanyProfile = ({ company, userCardForCompany, products, card, se
     const renderContent = () => {
         switch (selectedTab) {
             case "productos":
-                return <CompanyContentProducts companyId={company.id} products={products ?? []} />;
+                return <CompanyContentProducts companyId={company.id} products={products ?? []} companyLogo={company.CompanyLogo?.url} companyColor={company.backgroundColor} />;
             case "movimientos":
                 return <CompanyContentMovements
                     userCardForCompany={userCardForCompany}

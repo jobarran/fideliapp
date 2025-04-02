@@ -16,11 +16,13 @@ interface Props {
 }
 
 export const ClientAdminProductTable = ({ products, userId }: Props) => {
+    
     const [searchTerm, setSearchTerm] = useState("");
+    const [productType, setProductType] = useState(""); // New state for product type
     const [editingProductId, setEditingProductId] = useState<string | null>(null);
     const [updatedProducts, setUpdatedProducts] = useState(products);
 
-    const { visibleProducts } = useProductFilter(products, searchTerm);
+    const { visibleProducts } = useProductFilter(products, searchTerm, productType);
 
     const sortedProducts = [...visibleProducts].sort((a, b) =>
         a.name.localeCompare(b.name)
@@ -49,18 +51,20 @@ export const ClientAdminProductTable = ({ products, userId }: Props) => {
 
     return (
         <div className="flex flex-col h-full overflow-hidden">
-            <div className="flex my-2">
+            <div className="flex my-2 gap-2">
                 <div className="flex-grow">
                     <ClientContentProductsFilter
                         searchTerm={searchTerm}
                         setSearchTerm={setSearchTerm}
+                        productType={productType}
+                        setProductType={setProductType}
                     />
                 </div>
                 <Link
                     href={`/client/${userId}/products/new`}
-                    className="border border-slate-200 text-slate-800 text-xs py-2 px-2 rounded-lg hover:bg-slate-100"
-                >
-                    <p> Agregar producto </p>
+                    className="border border-slate-200 text-slate-800 text-sm py-2 px-2 rounded-lg hover:bg-slate-100 flex items-center justify-center"
+                    >
+                    <p>Agregar</p>
                 </Link>
             </div>
 
@@ -77,6 +81,7 @@ export const ClientAdminProductTable = ({ products, userId }: Props) => {
                             <th className="min-w-[200px] text-left text-xs font-semibold p-3">
                                 Descripción
                             </th>
+                            <th className="w-24 text-center text-xs font-semibold p-3">Tipo</th>
                             <th className="w-16 text-center text-xs font-semibold p-3">
                                 <div className="flex items-center justify-center text-green-600">
                                     <FaPlusCircle className="mr-1 text-xs" />

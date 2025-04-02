@@ -4,7 +4,8 @@ import { Product } from "@/interfaces/product.interface";
 export const useProductFilter = (
     products: Product[],
     searchTerm: string,
-    itemsPerPage?: number // Optional parameter for pagination
+    productType: string, // New productType filter
+    itemsPerPage?: number
 ) => {
     const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
     const [visibleProducts, setVisibleProducts] = useState<Product[]>([]);
@@ -12,14 +13,15 @@ export const useProductFilter = (
 
     const normalizeString = (str: string) => {
         return str
-            .normalize("NFD") // Normalize to decomposed form (NFD)
-            .replace(/[\u0300-\u036f]/g, "") // Remove diacritical marks (accents)
-            .toLowerCase(); // Make lowercase for case-insensitive comparison
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase();
     };
 
     useEffect(() => {
+        const normalizedSearchTerm = normalizeString(searchTerm);
+
         const filtered = products.filter((product) => {
-            const normalizedSearchTerm = normalizeString(searchTerm);
             const normalizedName = normalizeString(product.name);
             const normalizedDescription = product.description
                 ? normalizeString(product.description)
@@ -27,19 +29,20 @@ export const useProductFilter = (
 
             const matchesName = normalizedName.includes(normalizedSearchTerm);
             const matchesDescription = normalizedDescription.includes(normalizedSearchTerm);
+            const matchesType = productType ? product.productType === productType : true;
 
-            return matchesName || matchesDescription;
+            return (matchesName || matchesDescription) && matchesType;
         });
 
         setFilteredProducts(filtered);
-        setCurrentPage(1); // Reset pagination when filters change
-    }, [searchTerm, products]);
+        setCurrentPage(1);
+    }, [searchTerm, productType, products]);
 
     useEffect(() => {
         if (itemsPerPage) {
             setVisibleProducts(filteredProducts.slice(0, currentPage * itemsPerPage));
         } else {
-            setVisibleProducts(filteredProducts); // Show all if itemsPerPage is not provided
+            setVisibleProducts(filteredProducts);
         }
     }, [currentPage, filteredProducts, itemsPerPage]);
 

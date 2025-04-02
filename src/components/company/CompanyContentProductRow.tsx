@@ -3,6 +3,8 @@
 import { Product } from "@/interfaces";
 import Image from "next/image";
 import React from "react";
+import { FaPlusCircle } from "react-icons/fa";
+import { IoTicketOutline } from "react-icons/io5";
 
 interface ProductListProps {
     product: Product;
@@ -10,6 +12,8 @@ interface ProductListProps {
     toggleExpand: (productId: string) => void;
     buyPoints: string;
     rewardPoints: string;
+    companyLogo?: string;
+    companyColor: string;
 }
 
 export const CompanyContentProductRow = ({
@@ -18,18 +22,34 @@ export const CompanyContentProductRow = ({
     buyPoints,
     rewardPoints,
     toggleExpand,
+    companyLogo,
+    companyColor,
 }: ProductListProps) => {
     // Fallback No Image URL (Placeholder)
-    const noImagePlaceholder = "/imgs/noimage-logo.jpg";
+    const noImagePlaceholder = companyLogo ? companyLogo : "/imgs/noimage-logo.jpg";
+
+    // Split name if productType is PROMOTION
+    const [promoTitle, promoSubtitle] =
+        product.productType === "PROMOTION" && product.name.includes("-")
+            ? product.name.split(" - ", 2)
+            : [null, product.name];
 
     return (
         <li key={product.id}>
             <div
-                className={`flex items-center h-auto p-2 border border-slate-200 rounded-lg transition-all duration-300 overflow-hidden ${isExpanded ? "h-auto py-2" : ""
-                    }`}
+                className={`flex items-center h-14 p-2 border border-slate-200 rounded-lg transition-all duration-300 overflow-hidden ${isExpanded ? "h-auto py-2" : ""}`}
             >
                 {/* Product Image */}
-                <div className="w-10 h-10 flex-shrink-0 rounded-full overflow-hidden bg-gray-200 mr-4">
+                <div
+                    className={`w-10 h-10 flex-shrink-0 rounded-full overflow-hidden mr-4`}
+                    style={{
+                        background: product?.ProductImage?.url
+                            ? "transparent"
+                            : companyLogo
+                                ? companyColor
+                                : "gray",
+                    }}
+                >
                     <Image
                         src={product?.ProductImage?.url || noImagePlaceholder}
                         width={40}
@@ -45,35 +65,23 @@ export const CompanyContentProductRow = ({
                 <div className="flex-grow min-w-0 mr-4">
                     {/* Product Name */}
                     <h3
-                        className={`text-sm font-medium text-slate-800 ${isExpanded
-                                ? "whitespace-normal"
-                                : "overflow-hidden text-ellipsis whitespace-nowrap"
-                            }`}
+                        className={`text-sm p-1 font-medium text-slate-800 ${isExpanded ? "whitespace-normal" : "overflow-hidden text-ellipsis whitespace-nowrap"}`}
                         style={{ wordBreak: "break-word" }}
                     >
-                        {product.name}
+                        {promoTitle && (
+                            <span className="bg-red-500 text-white px-2 py-1 rounded-md mr-2">
+                                {promoTitle}
+                            </span>
+                        )}
+                        {promoSubtitle}
                     </h3>
 
                     {/* Product Description */}
                     <p
-                        className={`text-slate-400 text-xs ${isExpanded
-                                ? "whitespace-normal"
-                                : "overflow-hidden text-ellipsis whitespace-nowrap"
-                            }`}
+                        className={`text-slate-400 pl-1  text-xs ${isExpanded ? "whitespace-normal" : "overflow-hidden text-ellipsis whitespace-nowrap"}`}
                     >
                         {product.description}
                     </p>
-
-                    {/* Toggle Button */}
-                    {(product.name.length > 20 ||
-                        (product.description?.length || 0) > 20) && (
-                            <button
-                                onClick={() => toggleExpand(product.id)}
-                                className="text-xs text-slate-800 mt-1 font-medium"
-                            >
-                                {isExpanded ? "Ver menos" : "Ver más"}
-                            </button>
-                        )}
                 </div>
 
                 {/* Points Sections */}
@@ -81,19 +89,22 @@ export const CompanyContentProductRow = ({
                     {buyPoints && (
                         <div className="text-center items-center justify-center min-w-14">
                             <div className="flex items-center justify-center text-green-600">
-                                <span className="mr-1 text-sm">+</span>
+                                <FaPlusCircle className="mr-1 text-sm" />
                                 <p className="text-sm font-semibold">{buyPoints}</p>
                             </div>
                             <p className="text-xs text-slate-500">premio</p>
                         </div>
                     )}
                 </div>
-                <div className="border-l border-dotted border-gray-300 h-12 mx-2 hidden sm:block"></div>
+                {/* Conditionally render the separator only if both points exist */}
+                {buyPoints && rewardPoints && (
+                    <div className="border-l border-dotted border-gray-300 h-10 mx-2 hidden sm:block"></div>
+                )}
                 <div className="flex flex-col items-center flex-shrink-0">
                     {rewardPoints && (
                         <div className="text-center items-center justify-center min-w-14">
                             <div className="flex items-center justify-center text-amber-600">
-                                <span className="mr-1 text-sm">T</span>
+                                <IoTicketOutline className="mr-1 text-sm" />
                                 <p className="text-sm font-semibold">{rewardPoints}</p>
                             </div>
                             <p className="text-xs text-slate-500">valor</p>

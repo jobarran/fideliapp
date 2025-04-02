@@ -46,6 +46,11 @@ enum TransactionState {
   CANCELLED
 }
 
+enum ProductType {
+  PRODUCT
+  PROMOTION
+}
+
 enum AlertStatus {
   NOT_SEEN
   SEEN
@@ -218,10 +223,11 @@ model PointTransactionTemplate {
 }
 
 model Product {
-  id          String  @id @default(uuid())
+  id          String      @id @default(uuid())
   name        String
   description String?
-  active      Boolean @default(true)
+  active      Boolean     @default(true)
+  productType ProductType @default(PRODUCT)
 
   // Relations - Many-to-Many with PointTransaction
   // transactions PointTransaction[] @relation("TransactionProducts")

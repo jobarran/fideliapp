@@ -1,27 +1,27 @@
 "use client";
 
-import { CompanyLinkImage } from '@/components/company/CompanyLinkImage';
 import { useProductFilter } from '@/hooks/useProductFilter';
 import { Product } from '@/interfaces';
 import React, { useState } from 'react';
-import { FaPlusCircle } from 'react-icons/fa';
-import { FaRegImage } from 'react-icons/fa6';
-import { IoTicketOutline } from 'react-icons/io5';
 import { ClientContentProductsFilter, CompanyContentProductRow, LoadingSpinnerDark } from '..';
 
 interface Props {
     products: Product[];
+    companyLogo?: string
+    companyColor: string
 }
 
-export const CompanyContentProduct = ({ products }: Props) => {
+export const CompanyContentProduct = ({ products, companyLogo, companyColor }: Props) => {
 
     const [expandedProductIds, setExpandedProductIds] = useState<Set<string>>(new Set());
     const [searchTerm, setSearchTerm] = useState("");
+    const [productType, setProductType] = useState(""); // New state for product type
     const [showMoreLoading, setShowMoreLoading] = useState(false)
 
     const { visibleProducts, loadMore, filteredProducts } = useProductFilter(
         products,
         searchTerm,
+        productType,
         10
     );
 
@@ -53,6 +53,8 @@ export const CompanyContentProduct = ({ products }: Props) => {
             <ClientContentProductsFilter
                 searchTerm={searchTerm}
                 setSearchTerm={setSearchTerm}
+                productType={productType}
+                setProductType={setProductType}
             />
 
             <ul className="space-y-2">
@@ -75,6 +77,8 @@ export const CompanyContentProduct = ({ products }: Props) => {
                             buyPoints={buyPoints}
                             rewardPoints={rewardPoints}
                             key={product.id}
+                            companyLogo={companyLogo}
+                            companyColor={companyColor}
                         />
                     );
                 })}

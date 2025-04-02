@@ -2,7 +2,7 @@
 
 import { auth } from '@/auth.config';
 import prisma from '@/lib/prisma';
-import { Prisma, TransactionType } from '@prisma/client';
+import { Prisma, ProductType, TransactionType } from '@prisma/client';
 import { z } from 'zod';
 import { v2 as cloudinary } from 'cloudinary';
 import { revalidatePath } from 'next/cache';
@@ -14,12 +14,17 @@ const createProductSchema = z.object({
     name: z.string().min(1, "Product name is required"),
     description: z.string().optional(),
     companyId: z.string().uuid("Invalid company ID format"),
-    imageFile: z.instanceof(File).nullable().optional(), // Allow null or undefined
+    imageFile: z.instanceof(File).nullable().optional(),
     buyPoints: z.number().positive().optional(),
     rewardPoints: z.number().positive().optional(),
-});
+    productType: z.enum(["PRODUCT", "PROMOTION"] as const), 
+}).refine(
+    (data) => ["PRODUCT", "PROMOTION"].includes(data.productType),
+    { message: "Invalid product type", path: ["productType"] }
+);
 
 export const createNewProduct = async (params: unknown) => {
+
     const session = await auth();
     const userId = session?.user?.id;
 
@@ -34,6 +39,7 @@ export const createNewProduct = async (params: unknown) => {
         name: formData.get("name") as string,
         description: formData.get("description") as string || '',
         companyId: formData.get("companyId") as string,
+        productType: formData.get("productType") as "PRODUCT" | "PROMOTION", // Extract productType
         imageFile: formData.get("image") as File | null,
         buyPoints: parseFloat(formData.get("buyPoints") as string) || undefined,
         rewardPoints: parseFloat(formData.get("rewardPoints") as string) || undefined,
@@ -49,13 +55,14 @@ export const createNewProduct = async (params: unknown) => {
         };
     }
 
-    const { name, description, companyId, imageFile, buyPoints, rewardPoints } = validatedParams.data;
+    const { name, description, companyId, buyPoints, rewardPoints, productType } = validatedParams.data;
 
     try {
         const productData: Prisma.ProductCreateInput = {
             name,
             description,
             active: true,
+            productType,
             company: { connect: { id: companyId } },
         };
 

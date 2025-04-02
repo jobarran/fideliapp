@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 interface Props {
-    companyName: string | undefined
+    companyName: string | undefined;
 }
 
 const ClientAdminBreadcrumb = ({ companyName }: Props) => {
@@ -19,13 +19,12 @@ const ClientAdminBreadcrumb = ({ companyName }: Props) => {
 
     // Filter out "client" and the UUID
     const filteredSegments = pathSegments.filter(
-        (segment) =>
-            segment !== "client" && segment !== clientId
+        (segment) => segment !== "client" && segment !== clientId
     );
 
     // Create a mapping of links to labels
     const linkToLabelMap = clientAdminNavItems.reduce((acc, item) => {
-        acc[item.link] = item.label;
+        acc[item.link] = item.label; // Map the "link" to "label"
         return acc;
     }, {} as Record<string, string>);
 
@@ -33,11 +32,11 @@ const ClientAdminBreadcrumb = ({ companyName }: Props) => {
     const isInicioPage = pathname === `/client/${clientId}/`;
 
     return (
-        <nav aria-label="breadcrumb" className="mb-4">
-            <ul className="flex text-sm text-gray-600">
+        <nav aria-label="breadcrumb" className="mb-2">
+            <ul className="flex text-xs text-gray-600">
                 {/* Conditionally render "Inicio" only if not the last breadcrumb */}
                 {filteredSegments.length > 0 && (
-                    <li className="flex items-center">
+                    <li className="flex items-center truncate max-w-36 sm:w-auto">
                         <Link
                             href={`/client/${clientId}/`}
                             className="flex items-baseline hover:underline"
@@ -48,11 +47,18 @@ const ClientAdminBreadcrumb = ({ companyName }: Props) => {
                 )}
 
                 {filteredSegments.map((segment, index) => {
-                    const href = `/${filteredSegments
+                    const href = `/client/${clientId}/${filteredSegments
                         .slice(0, index + 1)
                         .join("/")}`;
                     const isLast = index === filteredSegments.length - 1;
-                    const label = linkToLabelMap[segment] || segment; // Use label or fallback to segment
+
+                    // Translate the segment using the linkToLabelMap or fallback to the segment
+                    let label = linkToLabelMap[segment] || segment;
+
+                    // Special case: Replace "new" with "Agregar"
+                    if (label.toLowerCase() === "new") {
+                        label = "Agregar";
+                    }
 
                     // Skip rendering "Inicio" as the last breadcrumb
                     if (isLast && label === "Inicio") {
@@ -61,7 +67,7 @@ const ClientAdminBreadcrumb = ({ companyName }: Props) => {
 
                     return (
                         <li key={href} className="flex items-center">
-                            <span className="mx-2">/</span>
+                            <span className="mx-1">/</span>
                             {isLast ? (
                                 <span className="text-gray-900 font-medium">
                                     {decodeURIComponent(label)}

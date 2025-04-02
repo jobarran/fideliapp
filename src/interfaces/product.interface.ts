@@ -1,4 +1,4 @@
-import { TransactionType } from "@prisma/client";
+import { ProductType, TransactionType } from "@prisma/client";
 
 export interface Product {
     id: string;
@@ -6,6 +6,7 @@ export interface Product {
     description: string | null;
     companyId: string;
     active: boolean;
+    productType: ProductType
     templates: PointTransactionTemplate[];
     ProductImage: ProductImage | null; // Allow single object or array
 }
