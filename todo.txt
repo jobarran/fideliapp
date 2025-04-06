@@ -56,11 +56,7 @@ Alert
 - create more alerts for intereactions
 
 promociones
-- PRODUCT TYPE
-- add promo to home
-- Ver como va quedando el producto o promocion a medida que se crea
-- agregar puntos 0 a transacciones
-- separar productos / promociones
+- order by... in client source transactions
 - agregar promos a home
 - companies/slug - add % if promo / sort by type
 

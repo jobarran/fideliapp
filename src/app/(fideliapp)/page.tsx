@@ -1,5 +1,5 @@
 import { getAllCardsByUser, getAllCompanies, getAllRewards } from "@/actions";
-import { ActivityTypeGrid, CompanyCloserSlider, CompanyRecommendedSlider, HowItWorks, PopularRewardsSlider, SearchCompanySmallScreen, UserCardSlider } from '@/components';
+import { ActivityTypeGrid, CompanyCloserSlider, CompanyRecommendedSlider, HowItWorks, PopularPromoSlider, PopularRewardsSlider, SearchCompanySmallScreen, UserCardSlider } from '@/components';
 import { UserCard } from "@/interfaces";
 import { auth } from "@/auth.config";
 
@@ -17,6 +17,9 @@ export default async function Home() {
     console.error(cardsResult.message);
   }
 
+  const productRewards = rewards.filter(reward => reward.productType === 'PRODUCT');
+  const promoRewards = rewards.filter(reward => reward.productType === 'PROMOTION');
+
   return (
 
     <main className="flex flex-col">
@@ -29,7 +32,9 @@ export default async function Home() {
 
       <CompanyCloserSlider companiesAll={companies} />
 
-      <PopularRewardsSlider popularRewards={rewards} />
+      <PopularRewardsSlider popularRewards={productRewards} />
+
+      <PopularPromoSlider popularRewards={promoRewards} />
 
       <CompanyRecommendedSlider companiesAll={companies} />
 

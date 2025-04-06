@@ -2,7 +2,7 @@
 
 import { Product } from "@/interfaces";
 import { TransactionType } from "@prisma/client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaMinusCircle, FaPlusCircle, FaRegImage, FaTimes } from "react-icons/fa";
 
 interface Props {
@@ -36,7 +36,13 @@ export const ClientAdminTransactionSource = ({
     handleProductSelect,
     handleQuantityChange,
 }: Props) => {
+
     const [searchQuery, setSearchQuery] = useState<string>("");
+    const [activeFilter, setActiveFilter] = useState<string | null>(null);
+
+    useEffect(() => {
+        setActiveFilter(null)
+    }, [selectedTransactionType, setActiveFilter])
 
     const transactionTypes = [
         { type: TransactionType.BUY, label: "Compra" },
@@ -46,9 +52,9 @@ export const ClientAdminTransactionSource = ({
 
     const isExceedingPoints = manualPoints > availablePoints;
 
-    const filteredAndSearchedProducts = filteredProducts.filter((product) =>
-        product.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredAndSearchedProducts = filteredProducts
+        .filter((product) => product.name.toLowerCase().includes(searchQuery.toLowerCase()))
+        .filter((product) => (activeFilter ? product.productType === activeFilter : true));
 
     const handlePointsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.target.value);
@@ -160,30 +166,42 @@ export const ClientAdminTransactionSource = ({
                             </div>
                         </div>
                     ) : (
-                        <div className="flex flex-col h-full overflow-hidden">
-                            {/* Product Search */}
-                            <div className="relative mb-4">
+                        <div className="flex flex-col h-full overflow-hidden gap-4">
+
+                            {/* Search and Filter Buttons */}
+                            <div className="flex flex-col sm:flex-row gap-2 items-center w-full">
                                 <input
                                     type="text"
-                                    placeholder="Buscar productos..."
+                                    placeholder="Buscar producto..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full p-2 border border-gray-300 rounded-lg text-xs"
+                                    className="border text-xs px-3 py-2 rounded-md flex-1 w-full"
                                 />
-                                {searchQuery && (
-                                    <button
-                                        onClick={() => setSearchQuery("")}
-                                        className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                                    >
-                                        <FaTimes />
-                                    </button>
+                                {selectedTransactionType === TransactionType.REWARD && (
+                                    <div className="flex gap-2 items-center w-full sm:w-auto">
+                                        <button
+                                            className={`px-3 py-2 text-xs rounded-md border w-full sm:w-auto ${activeFilter === "PRODUCT" ? "bg-slate-800 text-white" : "bg-white text-slate-800"}`}
+                                            onClick={() => setActiveFilter(activeFilter === "PRODUCT" ? null : "PRODUCT")}
+                                        >
+                                            Productos
+                                        </button>
+                                        <button
+                                            className={`px-3 py-2 text-xs rounded-md border w-full sm:w-auto ${activeFilter === "PROMOTION" ? "bg-slate-800 text-white" : "bg-white text-slate-800"}`}
+                                            onClick={() => setActiveFilter(activeFilter === "PROMOTION" ? null : "PROMOTION")}
+                                        >
+                                            Promociones
+                                        </button>
+                                    </div>
                                 )}
                             </div>
+
 
                             {/* Product List */}
                             <div className="flex-1 overflow-y-auto border rounded-md">
                                 {filteredAndSearchedProducts.map((product) => {
                                     const isChecked = Boolean(selectedProducts[product.id]);
+                                    const isPromotion = product.productType === "PROMOTION";
+                                    const [firstPart, ...restParts] = product.name.split("-");
                                     return (
                                         <div
                                             key={product.id}
@@ -211,8 +229,13 @@ export const ClientAdminTransactionSource = ({
                                                     <FaRegImage className="text-base text-slate-300" />
                                                 )}
                                             </div>
-                                            <span className="flex-1 text-xs font-medium text-gray-800 truncate">
-                                                {product.name}
+                                            <span className="flex-1 text-xs font-medium text-gray-800 truncate flex items-center gap-2">
+                                                {isPromotion && (
+                                                    <span className="bg-red-500 text-white px-2 py-1 rounded text-xs">
+                                                        {firstPart}
+                                                    </span>
+                                                )}
+                                                {isPromotion ? restParts.join("-") : product.name}
                                             </span>
                                             <div className="flex items-center space-x-2">
                                                 <button

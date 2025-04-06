@@ -2,9 +2,8 @@
 
 import { Product } from "@/interfaces";
 import React, { useState, useCallback } from "react";
-import { ClientContentProductsFilter } from "./ClientContentProductsFilter";
 import { useProductFilter } from "@/hooks/useProductFilter";
-import { ClientAdminProductTableRow } from "..";
+import { ClientAdminProductFilter, ClientAdminProductTableRow } from "..";
 import Link from "next/link";
 import { FaPlusCircle } from "react-icons/fa";
 import { IoTicketOutline } from "react-icons/io5";
@@ -53,7 +52,7 @@ export const ClientAdminProductTable = ({ products, userId }: Props) => {
         <div className="flex flex-col h-full overflow-hidden">
             <div className="flex my-2 gap-2">
                 <div className="flex-grow">
-                    <ClientContentProductsFilter
+                    <ClientAdminProductFilter
                         searchTerm={searchTerm}
                         setSearchTerm={setSearchTerm}
                         productType={productType}
@@ -62,7 +61,7 @@ export const ClientAdminProductTable = ({ products, userId }: Props) => {
                 </div>
                 <Link
                     href={`/client/${userId}/products/new`}
-                    className="border border-slate-200 text-slate-800 text-sm py-2 px-2 rounded-lg hover:bg-slate-100 flex items-center justify-center"
+                    className="border border-slate-200 text-slate-800 text-xs py-2 px-2 rounded-lg hover:bg-slate-100 flex items-center justify-center"
                     >
                     <p>Agregar</p>
                 </Link>

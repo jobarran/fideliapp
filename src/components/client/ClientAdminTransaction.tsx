@@ -46,13 +46,16 @@ export const ClientAdminTransaction = ({ products, companySlug, companyActive }:
     };
 
 
-    const filteredProducts = products.filter((product) =>
-        selectedTransactionType === TransactionType.BUY
-            ? product.templates.some((template) => template.type === 'BUY')
-            : selectedTransactionType === TransactionType.REWARD
-                ? product.templates.some((template) => template.type === 'REWARD')
-                : false
-    );
+    const filteredProducts = products
+        .filter((product) =>
+            selectedTransactionType === TransactionType.BUY
+                ? product.templates.some((template) => template.type === 'BUY')
+                : selectedTransactionType === TransactionType.REWARD
+                    ? product.templates.some((template) => template.type === 'REWARD')
+                    : false
+        )
+        .sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' }));
+
 
     const selectedProductDetails = products.filter((product) => product.id in selectedProducts);
 

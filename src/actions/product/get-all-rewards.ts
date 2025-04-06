@@ -13,6 +13,7 @@ export const getAllRewards = async () => {
         product: {
           select: {
             name: true,
+            productType: true,
             ProductImage: {
               select: {
                 url: true,
@@ -44,13 +45,14 @@ export const getAllRewards = async () => {
       points: reward.points,
       description: reward.description,
       productName: reward.product.name,
+      productType: reward.product.productType,
       productImageUrl: reward.product.ProductImage?.url,
       companyName: reward.product.company.name,
       companySlug: reward.product.company.slug, // Add company slug to the result
       companyLogoUrl: reward.product.company.CompanyLogo?.url,
       companyBackgroundColor: reward.product.company.backgroundColor,
       companyLat: reward.product.company.lat || undefined,
-      companyLng: reward.product.company.lng || undefined
+      companyLng: reward.product.company.lng || undefined,
     }));
   } catch (error) {
     console.error('Error fetching rewards:', error);

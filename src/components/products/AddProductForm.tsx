@@ -132,7 +132,7 @@ export const AddProductForm = ({ companyId, userId, companyName, companyLogoUrl,
                                 {...register("productType", { required: "El tipo de producto es obligatorio" })}
                                 id="productType"
                                 className={clsx(
-                                    "border rounded p-2 w-full text-xs",
+                                    "border rounded p-2 w-full text-xs h-9",
                                     errors.productType ? 'border-red-500' : 'border-gray-300'
                                 )}
                             >
