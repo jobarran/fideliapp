@@ -39,6 +39,7 @@ export const ProductPromotionLink = ({ reward }: Props) => {
                     className="flex items-center justify-center p-1 bg-red-600 rounded-s-lg"
                     style={{
                         height: '4rem', // Match h-16
+                        width: '2rem',
                     }}
                 >
                     <span
@@ -56,7 +57,7 @@ export const ProductPromotionLink = ({ reward }: Props) => {
                 {/* Coupon Cut Divider */}
                 <div className="relative h-16 flex items-center justify-center bg-white">
                     {/* Dotted Line */}
-                    <div className="w-px h-full border-l border-dotted border-slate-500 z-0"></div>
+                    <div className="w-px h-full border-l border-dotted border-slate-300 z-0"></div>
                     {/* Top Half Circle */}
                     <div
                         className="absolute top-0 left-1/2 -translate-x-1/2 -mt-[1px] w-3 h-2 bg-[#F8F8F8] border-x border-b border-gray-300 rounded-b-full z-10"

@@ -26,7 +26,7 @@ export const PopularPromoSlider = ({ popularRewards }: Props) => {
                 data={filteredRewards}
                 breakpoints={breakpoints}
                 renderItem={(reward) => (<ProductPromotionLink reward={reward} />)}
-                loadingComponent={<SliderLoading sliderType={'reward'} />}
+                loadingComponent={<SliderLoading sliderType={'promotion'} />}
             />
         </div>
     );

@@ -1,7 +1,7 @@
-import { UserCardLoading, CompanyLinkLoading, ProductRewardLinkLoading, CompanyLinkWidgetLoading } from '../..'; // Make sure to import RewardCardLoading
+import { UserCardLoading, CompanyLinkLoading, ProductRewardLinkLoading, CompanyLinkWidgetLoading, ProductPromoLinkLoading } from '../..'; // Make sure to import RewardCardLoading
 
 interface Props {
-    sliderType: "userCard" | "company" | "reward",
+    sliderType: "userCard" | "company" | "reward" | "promotion",
 }
 
 export const SliderLoading = ({ sliderType }: Props) => {
@@ -27,7 +27,12 @@ export const SliderLoading = ({ sliderType }: Props) => {
                         <ProductRewardLinkLoading />
                     </div>
                 ))
-            ) : null}
-        </div>
+            ) : sliderType === "promotion" ? (
+                Array.from({ length: 4 }).map((_, index) => (
+                    <div className="w-70 flex-shrink-0" key={index}> {/* Set a fixed width */}
+                        <ProductPromoLinkLoading />
+                    </div>
+                ))
+            ) : null}        </div>
     );
 };
