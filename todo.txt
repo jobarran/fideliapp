@@ -55,11 +55,10 @@ Alert
 - add "user" / "client" type
 - create more alerts for intereactions
 
-Agregar Calculadora a transacciones
-0 value reward bug ( add NO REWARD when creating product
-)
-default suma puntos 0
-add free option to reward points
+free prod logic in companies/prod and transaction / case points 0 && free false ?
+
+Companies/slug/product
+ Tipo: Producto / Promoción / Junta 10 (agregar)
 
 Admin
 - Company validation

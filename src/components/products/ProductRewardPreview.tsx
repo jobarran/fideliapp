@@ -68,8 +68,8 @@ export const ProductRewardPreview = ({ logo, companyColor, productName, companyN
                             </div>
                         ) : (
                             <div className="text-center flex flex-col items-center space-y-1">
-                                <p className="text-sm md:text-md font-normal sm:font-semibold text-amber-600">{rewardPoints}</p>
-                                <p className="text-xs text-amber-600">Valor</p>
+                                <p className="text-sm md:text-md font-normal sm:font-semibold text-slate-800">{rewardPoints}</p>
+                                <p className="text-xs text-slate-400">Puntos</p>
                             </div>
                         )}
                     </div>
@@ -77,5 +77,6 @@ export const ProductRewardPreview = ({ logo, companyColor, productName, companyN
 
                 </div>
             </div>
-        </div>)
+        </div>
+    )
 }

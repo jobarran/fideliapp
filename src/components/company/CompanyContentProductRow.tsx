@@ -15,6 +15,7 @@ interface ProductListProps {
     companyLogo?: string;
     companyColor: string;
     isDisabled?: boolean;
+    isFree: boolean
 }
 
 
@@ -26,7 +27,8 @@ export const CompanyContentProductRow = ({
     toggleExpand,
     companyLogo,
     companyColor,
-    isDisabled
+    isDisabled,
+    isFree
 }: ProductListProps) => {
     const noImagePlaceholder = companyLogo ? companyLogo : "/imgs/noimage-logo.jpg";
 
@@ -104,7 +106,7 @@ export const CompanyContentProductRow = ({
 
                 {/* Reward Points / Free Box */}
                 <div className="flex flex-col items-center flex-shrink-0">
-                    {rewardPoints ? (
+                    {rewardPoints && !isFree ? (
                         <div
                             className={`text-center items-center justify-center min-w-14 ${isDisabled ? "opacity-40 grayscale" : ""}`}
                         >

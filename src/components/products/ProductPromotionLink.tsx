@@ -84,9 +84,9 @@ export const ProductPromotionLink = ({ reward }: Props) => {
                         {/* Product Details Section (with image inline) */}
                         <div className="flex-grow min-w-0 mr-2 ml-2 text-left flex items-center space-x-2">
                             <div className="flex-shrink-0 w-8 h-8 rounded-full overflow-hidden" style={{ background: reward.companyBackgroundColor }}>
-                                {reward.companyLogoUrl ? (
+                                {reward.productImageUrl ? (
                                     <CompanyLinkImage
-                                        src={reward.companyLogoUrl}
+                                        src={reward.productImageUrl}
                                         alt={reward.companyName}
                                         className="object-cover w-full h-full"
                                         width={0}
@@ -118,10 +118,10 @@ export const ProductPromotionLink = ({ reward }: Props) => {
                                 </div>
                             ) : (
                                 <div className="text-center flex flex-col items-center space-y-1">
-                                    <p className="text-sm md:text-md font-normal sm:font-semibold text-amber-500">
+                                    <p className="text-sm md:text-md font-normal sm:font-semibold text-slate-800">
                                         {reward.points}
                                     </p>
-                                    <p className="text-xs text-amber-500">Valor</p>
+                                    <p className="text-xs text-slate-400">Puntos</p>
                                 </div>
                             )}
 

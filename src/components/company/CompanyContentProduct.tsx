@@ -72,6 +72,7 @@ export const CompanyContentProduct = ({ products, companyLogo, companyColor, car
                     const rewardPoints = rewardPointsArr.join(", ");
                     const minRewardPoints = rewardPointsArr.length > 0 ? Math.min(...rewardPointsArr) : 0;
                     const isDisabled = cardPoints !== undefined && cardPoints < minRewardPoints;
+                    const isFree = product.templates?.some((t) => t.type === "REWARD" && t.free === true) ?? false;
 
                     return (
                         <CompanyContentProductRow
@@ -84,6 +85,7 @@ export const CompanyContentProduct = ({ products, companyLogo, companyColor, car
                             companyLogo={companyLogo}
                             companyColor={companyColor}
                             isDisabled={isDisabled}
+                            isFree={isFree}
                         />
                     );
                 })}

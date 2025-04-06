@@ -1,5 +1,6 @@
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
+import { FaCheck, FaPercent } from "react-icons/fa";
 
 interface Props {
     searchTerm: string;
@@ -12,8 +13,10 @@ export const ClientContentProductsFilter = ({
     searchTerm,
     setSearchTerm,
     productType,
-    setProductType
+    setProductType,
 }: Props) => {
+    const isActive = (type: string) => productType === type;
+
     return (
         <div className="flex flex-col sm:flex-row items-center gap-2">
             {/* Search Input */}
@@ -36,16 +39,45 @@ export const ClientContentProductsFilter = ({
                 )}
             </div>
 
-            {/* Product Type Dropdown */}
-            <select
-                className="border px-3 py-2 h-10 rounded-md text-sm w-full sm:w-auto bg-white focus:outline-none"
-                value={productType}
-                onChange={(e) => setProductType(e.target.value)}
-            >
-                <option value="">Todos</option>
-                <option value="PRODUCT">Producto</option>
-                <option value="PROMOTION">Promoción</option>
-            </select>
+            {/* Product Type Buttons */}
+            <div className="flex gap-2 w-full sm:w-auto">
+                <button
+                    onClick={() => setProductType("PRODUCT")}
+                    className={`px-4 h-10 py-2 rounded-md text-sm border w-full sm:w-auto
+            ${isActive("PRODUCT") ? "bg-slate-800 text-white" : "bg-white text-slate-800"}
+        `}
+                >
+                    Producto
+                </button>
+
+                <button
+                    onClick={() => setProductType("PROMOTION")}
+                    className={`px-4 h-10 py-2 rounded-md text-sm border w-full sm:w-auto flex items-center gap-2
+                        ${isActive("PROMOTION") ? "bg-red-600 text-white" : "bg-white text-slate-800"}
+        `}
+                >
+                    <span className={`flex items-center justify-center w-5 h-5 rounded-full
+            ${isActive("PROMOTION") ? "bg-white text-red-600" : "bg-slate-200 text-slate-700"}
+        `}>
+                        <FaPercent size={10} />
+                    </span>
+                    <span>Promoción</span>
+                </button>
+
+                <button
+                    onClick={() => setProductType("JUNTA")}
+                    className={`px-4 h-10 py-2 rounded-md text-sm border w-full sm:w-auto flex items-center gap-2
+            ${isActive("JUNTA") ? "bg-green-600 text-white" : "bg-white text-slate-800"}
+        `}
+                >
+                    <span className={`flex items-center justify-center w-5 h-5 rounded-full
+            ${isActive("JUNTA") ? "bg-white text-green-600" : "bg-slate-200 text-slate-700"}
+        `}>
+                        <FaCheck size={10} />
+                    </span>
+                    Junta
+                </button>
+            </div>
         </div>
     );
 };

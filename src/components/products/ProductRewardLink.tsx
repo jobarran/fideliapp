@@ -31,9 +31,9 @@ export const ProductRewardLink = ({ reward }: Props) => {
 
                             {/* Product Image Section */}
                             <div className="w-10 h-10 flex-shrink-0 rounded-full overflow-hidden bg-gray-200 mr-2" style={{ backgroundColor: reward.companyBackgroundColor }}>
-                                {reward.companyLogoUrl ? (
+                                {reward.productImageUrl ? (
                                     <CompanyLinkImage
-                                        src={reward.companyLogoUrl}
+                                        src={reward.productImageUrl}
                                         alt={reward.companyName}
                                         className="object-cover"
                                         width={0}
@@ -74,8 +74,6 @@ export const ProductRewardLink = ({ reward }: Props) => {
                                         <p className="text-xs text-slate-400">Puntos</p>
                                     </div>
                                 )}
-
-
                             </div>
 
                         </div>

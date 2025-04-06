@@ -4,7 +4,7 @@ import { Product } from "@/interfaces/product.interface";
 export const useProductFilter = (
     products: Product[],
     searchTerm: string,
-    productType: string, // New productType filter
+    productType: string,
     itemsPerPage?: number
 ) => {
     const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
@@ -34,7 +34,10 @@ export const useProductFilter = (
             return (matchesName || matchesDescription) && matchesType;
         });
 
-        setFilteredProducts(filtered);
+        // Sort by productType (alphabetically by default)
+        const sorted = [...filtered].sort((a, b) => a.productType.localeCompare(b.productType));
+
+        setFilteredProducts(sorted);
         setCurrentPage(1);
     }, [searchTerm, productType, products]);
 
