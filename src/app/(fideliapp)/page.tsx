@@ -17,8 +17,14 @@ export default async function Home() {
     console.error(cardsResult.message);
   }
 
-  const productRewards = rewards.filter(reward => reward.productType === 'PRODUCT');
-  const promoRewards = rewards.filter(reward => reward.productType === 'PROMOTION');
+  const productRewards = rewards
+    .filter(reward => reward.productType === 'PRODUCT')
+    .slice(0, 10);
+
+  const promoRewards = rewards
+    .filter(reward => reward.productType === 'PROMOTION')
+    .slice(0, 10);
+
 
   return (
 

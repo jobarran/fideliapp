@@ -55,15 +55,6 @@ Alert
 - add "user" / "client" type
 - create more alerts for intereactions
 
-promociones
-- order by... in client source transactions
-- agregar promos a home
-- companies/slug - add % if promo / sort by type
-
-promo fields
-- tipo (descuento / 2x1)
-- 
-
 Agregar Calculadora a transacciones
 
 Admin
@@ -75,8 +66,6 @@ User/info
 
 UX
 - choose location manually
-
-* add PROMOCIONES
 
 all admin
 - movements: Check cancel movements style

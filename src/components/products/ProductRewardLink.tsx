@@ -30,7 +30,7 @@ export const ProductRewardLink = ({ reward }: Props) => {
                         <div className="flex items-center bg-white p-2">
 
                             {/* Product Image Section */}
-                            <div className="w-10 h-10 flex-shrink-0 rounded-full overflow-hidden bg-gray-200 mr-2">
+                            <div className="w-10 h-10 flex-shrink-0 rounded-full overflow-hidden bg-gray-200 mr-2" style={{ backgroundColor: reward.companyBackgroundColor }}>
                                 {reward.companyLogoUrl ? (
                                     <CompanyLinkImage
                                         src={reward.companyLogoUrl}

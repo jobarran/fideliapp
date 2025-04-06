@@ -3,7 +3,7 @@
 import { Product } from "@/interfaces";
 import { TransactionType } from "@prisma/client";
 import React, { useEffect, useState } from "react";
-import { FaMinusCircle, FaPlusCircle, FaRegImage, FaTimes } from "react-icons/fa";
+import { FaMinusCircle, FaPlusCircle, FaRegImage } from "react-icons/fa";
 
 interface Props {
     handleTransactionTypeSelect: (type: TransactionType) => void;
