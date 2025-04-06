@@ -13,15 +13,16 @@ export interface Product {
 
 export interface PointTransactionTemplate {
     id: string;
-    description: string | null; 
+    description: string | null;
     points: number;
-    type: TransactionType; 
+    type: TransactionType;
     productId: string;
+    free: boolean
 }
 
 interface ProductImage {
     id: string;
-    url: string;  
+    url: string;
     productId: string;
 }
 

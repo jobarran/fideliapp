@@ -33,11 +33,16 @@ export const ClientAdminProductTableRow = ({
     }, [product]);
 
     // Calculate buyPoints and rewardPoints from the templates array
+    // Returns either a number or 'GRATIS'
     const calculatePoints = (type: 'BUY' | 'REWARD') => {
-        return editedProduct.templates
-            .filter(template => template.type === type)
-            .reduce((sum, template) => sum + template.points, 0);
+        const templates = editedProduct.templates.filter(template => template.type === type);
+        if (type === 'REWARD') {
+            const isFree = templates.some(t => t.free);
+            if (isFree) return 'GRATIS';
+        }
+        return templates.reduce((sum, template) => sum + template.points, 0);
     };
+
 
     // Handle input changes, including buyPoints and rewardPoints
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -215,9 +220,16 @@ export const ClientAdminProductTableRow = ({
                         className="border rounded p-1 w-full text-amber-600 text-xs"
                     />
                 ) : (
-                    <span className="text-orange-600 text-xs">{calculatePoints('REWARD')}</span>
+                    typeof calculatePoints('REWARD') === 'number' ? (
+                        <span className="text-orange-600 text-xs">{calculatePoints('REWARD')}</span>
+                    ) : (
+                        <span className="text-xs text-green-700 bg-green-100 px-2 py-1 rounded">
+                            Gratis
+                        </span>
+                    )
                 )}
             </td>
+
             <td className="w-16 text-center p-3">
                 {isEditing ? (
                     <button

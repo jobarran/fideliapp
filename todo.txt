@@ -56,6 +56,10 @@ Alert
 - create more alerts for intereactions
 
 Agregar Calculadora a transacciones
+0 value reward bug ( add NO REWARD when creating product
+)
+default suma puntos 0
+add free option to reward points
 
 Admin
 - Company validation

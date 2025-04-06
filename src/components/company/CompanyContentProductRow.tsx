@@ -14,7 +14,9 @@ interface ProductListProps {
     rewardPoints: string;
     companyLogo?: string;
     companyColor: string;
+    isDisabled?: boolean;
 }
+
 
 export const CompanyContentProductRow = ({
     product,
@@ -24,11 +26,10 @@ export const CompanyContentProductRow = ({
     toggleExpand,
     companyLogo,
     companyColor,
+    isDisabled
 }: ProductListProps) => {
-    // Fallback No Image URL (Placeholder)
     const noImagePlaceholder = companyLogo ? companyLogo : "/imgs/noimage-logo.jpg";
 
-    // Split name if productType is PROMOTION
     const [promoTitle, promoSubtitle] =
         product.productType === "PROMOTION" && product.name.includes("-")
             ? product.name.split(" - ", 2)
@@ -37,7 +38,9 @@ export const CompanyContentProductRow = ({
     return (
         <li key={product.id}>
             <div
-                className={`flex items-center h-16 p-2 border border-slate-200 rounded-lg transition-all duration-300 overflow-hidden ${isExpanded ? "h-auto py-2" : ""}`}
+                className={`flex items-center h-16 p-2 border border-slate-200 rounded-lg transition-all duration-300 overflow-hidden
+                ${isExpanded ? "h-auto py-2" : ""}
+            `}
             >
                 {/* Product Image */}
                 <div
@@ -63,7 +66,6 @@ export const CompanyContentProductRow = ({
 
                 {/* Product Details */}
                 <div className="flex-grow min-w-0 mr-4">
-                    {/* Product Name */}
                     <h3
                         className={`text-sm p-1 font-medium text-slate-800 ${isExpanded ? "whitespace-normal" : "overflow-hidden text-ellipsis whitespace-nowrap"}`}
                         style={{ wordBreak: "break-word" }}
@@ -75,16 +77,14 @@ export const CompanyContentProductRow = ({
                         )}
                         {promoSubtitle}
                     </h3>
-
-                    {/* Product Description */}
                     <p
-                        className={`text-slate-400 pl-1  text-xs ${isExpanded ? "whitespace-normal" : "overflow-hidden text-ellipsis whitespace-nowrap"}`}
+                        className={`text-slate-400 pl-1 text-xs ${isExpanded ? "whitespace-normal" : "overflow-hidden text-ellipsis whitespace-nowrap"}`}
                     >
                         {product.description}
                     </p>
                 </div>
 
-                {/* Points Sections */}
+                {/* Buy Points */}
                 <div className="flex flex-col items-center flex-shrink-0">
                     {buyPoints && (
                         <div className="text-center items-center justify-center min-w-14">
@@ -96,18 +96,27 @@ export const CompanyContentProductRow = ({
                         </div>
                     )}
                 </div>
-                {/* Conditionally render the separator only if both points exist */}
+
+                {/* Separator */}
                 {buyPoints && rewardPoints && (
                     <div className="border-l border-dotted border-gray-300 h-10 mx-2 hidden sm:block"></div>
                 )}
+
+                {/* Reward Points / Free Box */}
                 <div className="flex flex-col items-center flex-shrink-0">
-                    {rewardPoints && (
-                        <div className="text-center items-center justify-center min-w-14">
+                    {rewardPoints ? (
+                        <div
+                            className={`text-center items-center justify-center min-w-14 ${isDisabled ? "opacity-40 grayscale" : ""}`}
+                        >
                             <div className="flex items-center justify-center text-amber-600">
                                 <IoTicketOutline className="mr-1 text-sm" />
                                 <p className="text-sm font-semibold">{rewardPoints}</p>
                             </div>
                             <p className="text-xs text-slate-500">valor</p>
+                        </div>
+                    ) : (
+                        <div className="bg-green-100 text-green-700 px-3 py-1 rounded-md text-xs font-semibold">
+                            Gratis
                         </div>
                     )}
                 </div>

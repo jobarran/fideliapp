@@ -9,9 +9,10 @@ interface Props {
     promoName: string
     companyName: string
     rewardPoints: number
+    free: boolean
 }
 
-export const ProductPromotionPreview = ({ logo, companyColor, promoType, promoName, companyName, rewardPoints }: Props) => {
+export const ProductPromotionPreview = ({ logo, companyColor, promoType, promoName, companyName, rewardPoints, free }: Props) => {
     return (
         <div
             className="rounded-lg flex items-stretch"
@@ -72,7 +73,7 @@ export const ProductPromotionPreview = ({ logo, companyColor, promoType, promoNa
                     {/* Product Details Section (with image inline) */}
                     <div className="flex-grow min-w-0 mr-2 ml-2 text-left flex items-center space-x-2">
                         <div className="flex-shrink-0 w-8 h-8 rounded-full overflow-hidden" style={{ background: companyColor }}>
-                            {!logo ? (
+                            {logo ? (
                                 <Image
                                     src={logo}
                                     alt="Preview"
@@ -101,12 +102,16 @@ export const ProductPromotionPreview = ({ logo, companyColor, promoType, promoNa
 
                     {/* Points Section */}
                     <div className="flex flex-col items-center flex-shrink-0 ml-2 mr-4">
-                        <div className="text-center flex flex-col items-center space-y-1">
-                            <p className="text-sm md:text-md font-normal sm:font-semibold text-amber-500">
-                                {rewardPoints}
-                            </p>
-                            <p className="text-xs text-amber-500">Valor</p>
-                        </div>
+                        {free ? (
+                            <div className="bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded-md">
+                                Gratis
+                            </div>
+                        ) : (
+                            <div className="text-center flex flex-col items-center space-y-1">
+                                <p className="text-sm md:text-md font-normal sm:font-semibold text-amber-600">{rewardPoints}</p>
+                                <p className="text-xs text-amber-600">Valor</p>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

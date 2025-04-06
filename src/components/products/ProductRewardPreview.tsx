@@ -8,9 +8,10 @@ interface Props {
     productName: string
     companyName: string
     rewardPoints: number
+    free: boolean
 }
 
-export const ProductRewardPreview = ({ logo, companyColor, productName, companyName, rewardPoints }: Props) => {
+export const ProductRewardPreview = ({ logo, companyColor, productName, companyName, rewardPoints, free }: Props) => {
     return (
         <div
             className="rounded-lg"
@@ -61,12 +62,18 @@ export const ProductRewardPreview = ({ logo, companyColor, productName, companyN
 
                     {/* Points Section */}
                     <div className="flex flex-col items-center flex-shrink-0 mx-2">
-                        {/* Reward Points */}
-                        <div className="text-center flex flex-col items-center space-y-1">
-                            <p className="text-sm md:text-md font-normal sm:font-semibold text-amber-600">{rewardPoints}</p>
-                            <p className="text-xs text-amber-600">Valor</p>
-                        </div>
+                        {free ? (
+                            <div className="bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded-md">
+                                Gratis
+                            </div>
+                        ) : (
+                            <div className="text-center flex flex-col items-center space-y-1">
+                                <p className="text-sm md:text-md font-normal sm:font-semibold text-amber-600">{rewardPoints}</p>
+                                <p className="text-xs text-amber-600">Valor</p>
+                            </div>
+                        )}
                     </div>
+
 
                 </div>
             </div>

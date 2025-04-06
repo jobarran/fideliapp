@@ -110,13 +110,21 @@ export const ProductPromotionLink = ({ reward }: Props) => {
                         <div className="border-l border-dotted border-gray-300 h-12 mr-2"></div>
 
                         {/* Points Section */}
-                        <div className="flex flex-col items-center flex-shrink-0 ml-2 mr-4">
-                            <div className="text-center flex flex-col items-center space-y-1">
-                                <p className="text-sm md:text-md font-normal sm:font-semibold text-amber-500">
-                                    {reward.points}
-                                </p>
-                                <p className="text-xs text-amber-500">Valor</p>
-                            </div>
+                        <div className="flex flex-col items-center flex-shrink-0 mr-2">
+
+                            {reward.free ? (
+                                <div className="bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded-md">
+                                    Gratis
+                                </div>
+                            ) : (
+                                <div className="text-center flex flex-col items-center space-y-1">
+                                    <p className="text-sm md:text-md font-normal sm:font-semibold text-amber-500">
+                                        {reward.points}
+                                    </p>
+                                    <p className="text-xs text-amber-500">Valor</p>
+                                </div>
+                            )}
+
                         </div>
                     </div>
                 </div>

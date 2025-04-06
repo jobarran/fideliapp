@@ -1,4 +1,4 @@
-import { getCompanyByUser, getProductsByCompanyId } from "@/actions";
+import { getCompanyByUser } from "@/actions";
 import { auth } from "@/auth.config";
 import { AddProductForm } from "@/components";
 import { redirect } from "next/navigation";
@@ -19,11 +19,6 @@ export default async function ClientAdminProductNewPage({ params }: Props) {
     if (!company) {
         redirect("/");
     }
-
-    const products = await getProductsByCompanyId(company.id);
-
-    // Ensure that products is always an array
-    const companyProducts = products ?? []; // If products is null, default to an empty array
 
     if (user?.id !== id) {
         redirect("/");

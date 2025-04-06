@@ -19,6 +19,7 @@ interface FormInputs {
     image?: FileList;
     promoType?: string; // Add this
     promoProduct?: string; // Add this
+    free: boolean
 }
 
 
@@ -36,21 +37,34 @@ export const AddProductForm = ({ companyId, userId, companyName, companyLogoUrl,
     const [logo, setLogo] = useState<string>(companyLogoUrl || '');
     const router = useRouter();
 
-    const { register, handleSubmit, reset, watch, formState: { isValid, errors } } = useForm<FormInputs>({
-        mode: 'onChange',
-        defaultValues: {
-            name: '',
-            description: '',
-            companyId: companyId,
-            productType: ProductType.PRODUCT,
-            buyPoints: undefined,
-            rewardPoints: undefined,
-        },
-    });
+    const { register, handleSubmit, reset, watch, setValue, trigger,
+        formState: { isValid, errors } } = useForm<FormInputs>({
+            mode: 'onChange',
+            defaultValues: {
+                name: '',
+                description: '',
+                companyId: companyId,
+                productType: ProductType.PRODUCT,
+                buyPoints: undefined,
+                rewardPoints: undefined,
+                free: false
+            },
+        });
 
     const productType = watch("productType");
     const promoType = watch("promoType");
     const promoProduct = watch("promoProduct");
+    const free = watch("free");
+    const rewardPointsWatch = watch("rewardPoints");
+
+
+    useEffect(() => {
+        if (free) {
+            setValue("rewardPoints", 0, { shouldValidate: true });
+        } else {
+            setValue("rewardPoints", undefined, { shouldValidate: true });
+        }
+    }, [free, setValue]);
 
     useEffect(() => {
         if (isCreating) {
@@ -61,6 +75,7 @@ export const AddProductForm = ({ companyId, userId, companyName, companyLogoUrl,
                 productType: ProductType.PRODUCT,
                 buyPoints: undefined,
                 rewardPoints: undefined,
+                free: false,
             });
         }
     }, [isCreating, companyId, reset]);
@@ -95,6 +110,7 @@ export const AddProductForm = ({ companyId, userId, companyName, companyLogoUrl,
                 productType: ProductType.PRODUCT,
                 buyPoints: undefined,
                 rewardPoints: undefined,
+                free: false,
             });
             router.replace(`/client/${userId}/products`);
         } else {
@@ -146,7 +162,9 @@ export const AddProductForm = ({ companyId, userId, companyName, companyLogoUrl,
                             <div className="mb-4">
                                 <div className="flex space-x-4">
                                     <div className="flex-1">
-                                        <label className="block text-xs mb-1" htmlFor="promoType">Tipo de promoción</label>
+                                        <label className="block text-xs mb-1" htmlFor="promoType">
+                                            Tipo de promoción <span className="text-red-500">*</span>
+                                        </label>
                                         <input
                                             {...register("promoType", {
                                                 required: "El tipo de promoción es obligatorio",
@@ -167,7 +185,9 @@ export const AddProductForm = ({ companyId, userId, companyName, companyLogoUrl,
 
                                     </div>
                                     <div className="flex-[2]">
-                                        <label className="block text-xs mb-1" htmlFor="promoProduct">Producto</label>
+                                        <label className="block text-xs mb-1" htmlFor="promoProduct">
+                                            Producto <span className="text-red-500">*</span>
+                                        </label>
                                         <input
                                             {...register("promoProduct", { required: "El producto es obligatorio" })}
                                             type="text"
@@ -185,7 +205,7 @@ export const AddProductForm = ({ companyId, userId, companyName, companyLogoUrl,
                         ) : (
                             <div className="mb-4">
                                 <label className="block mb-1 text-xs" htmlFor="name">
-                                    Nombre del producto o servicio
+                                    Nombre del producto o servicio <span className="text-red-500">*</span>
                                 </label>
                                 <input
                                     {...register("name", { required: "El nombre es obligatorio" })}
@@ -246,25 +266,54 @@ export const AddProductForm = ({ companyId, userId, companyName, companyLogoUrl,
                             />
                             {errors.buyPoints && <p className="text-red-500 text-xs">{errors.buyPoints.message}</p>}
                         </div>
+
                         <div className="mb-4">
-                            <label className="block mb-1 text-xs" htmlFor="rewardPoints">Puntos necesarios</label>
+                            <label className="block mb-1 text-xs" htmlFor="rewardPoints">
+                                Puntos necesarios <span className="text-red-500">*</span>
+                            </label>
                             <label className="block mb-2 text-xs text-slate-400" htmlFor="rewardPoints">
                                 Estos son los puntos que se necesitan para adquirir este producto o servicio.
                             </label>
-                            <input
-                                {...register("rewardPoints", {
-                                    valueAsNumber: true,
-                                    min: { value: 0, message: "Los puntos no pueden ser negativos" }
-                                })}
-                                type="number"
-                                id="rewardPoints"
-                                className="border rounded p-2 w-full text-xs"
-                                placeholder="Puntos (opcional)"
-                                onKeyDown={handleKeyPress}
-                                min={0}
-                            />
-                            {errors.rewardPoints && <p className="text-red-500 text-xs">{errors.rewardPoints.message}</p>}
+
+                            <div className="flex items-center gap-2">
+                                <input
+                                    {...register("rewardPoints", {
+                                        validate: (value) => {
+                                            if (!free && (value === undefined || value < 1)) {
+                                                return "Debe ser mayor a 0";
+                                            }
+                                            return true;
+                                        }
+                                    })}
+                                    type="number"
+                                    id="rewardPoints"
+                                    className="border rounded p-2 w-full text-xs"
+                                    placeholder="Puntos"
+                                    onKeyDown={handleKeyPress}
+                                    min={0}
+                                    disabled={free}
+                                />
+
+                                <div className="flex items-center gap-1">
+                                    <input
+                                        type="checkbox"
+                                        id="free"
+                                        {...register("free")}
+                                        className="accent-green-500"
+                                    />
+                                    <label htmlFor="free" className="text-xs">
+                                        <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-[10px] font-medium">
+                                            Gratis
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            {!free && rewardPointsWatch && rewardPointsWatch < 1 && errors.rewardPoints && (
+                                <p className="text-red-500 text-xs">{errors.rewardPoints.message}</p>
+                            )}
                         </div>
+
 
 
                         {/* Vista previa */}
@@ -278,6 +327,7 @@ export const AddProductForm = ({ companyId, userId, companyName, companyLogoUrl,
                                 promoType={watch("promoType") || '%'}
                                 companyName={companyName}
                                 rewardPoints={watch('rewardPoints') || 0}
+                                free={free}
                             />
                             :
                             <ProductRewardPreview
@@ -286,6 +336,7 @@ export const AddProductForm = ({ companyId, userId, companyName, companyLogoUrl,
                                 productName={watch('name') || 'Nombre del producto'}
                                 companyName={companyName}
                                 rewardPoints={watch('rewardPoints') || 0}
+                                free={free}
                             />
                         }
 

@@ -213,6 +213,7 @@ model PointTransactionTemplate {
   id          String  @id @default(uuid())
   points      Int
   description String?
+  free        Boolean @default(false)
 
   // Relations - Down
   type TransactionType

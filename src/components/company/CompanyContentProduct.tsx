@@ -9,9 +9,10 @@ interface Props {
     products: Product[];
     companyLogo?: string
     companyColor: string
+    cardPoints: number | undefined;
 }
 
-export const CompanyContentProduct = ({ products, companyLogo, companyColor }: Props) => {
+export const CompanyContentProduct = ({ products, companyLogo, companyColor, cardPoints }: Props) => {
 
     const [expandedProductIds, setExpandedProductIds] = useState<Set<string>>(new Set());
     const [searchTerm, setSearchTerm] = useState("");
@@ -64,10 +65,13 @@ export const CompanyContentProduct = ({ products, companyLogo, companyColor }: P
                         ?.filter((t) => t.type === "BUY")
                         .map((t) => t.points)
                         .join(", ");
-                    const rewardPoints = product.templates
+                    const rewardPointsArr = product.templates
                         ?.filter((t) => t.type === "REWARD")
-                        .map((t) => t.points)
-                        .join(", ");
+                        .map((t) => t.points);
+
+                    const rewardPoints = rewardPointsArr.join(", ");
+                    const minRewardPoints = rewardPointsArr.length > 0 ? Math.min(...rewardPointsArr) : 0;
+                    const isDisabled = cardPoints !== undefined && cardPoints < minRewardPoints;
 
                     return (
                         <CompanyContentProductRow
@@ -79,6 +83,7 @@ export const CompanyContentProduct = ({ products, companyLogo, companyColor }: P
                             key={product.id}
                             companyLogo={companyLogo}
                             companyColor={companyColor}
+                            isDisabled={isDisabled}
                         />
                     );
                 })}

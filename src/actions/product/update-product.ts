@@ -56,6 +56,7 @@ export const updateProduct = async (product: Product, clientId: string) => {
                         description: template.description,
                         points: template.points,
                         type: template.type,
+                        free: template.type === "REWARD" && template.points === 0 ? true : false
                     })),
                 },
             },

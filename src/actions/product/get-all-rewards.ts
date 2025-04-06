@@ -43,6 +43,7 @@ export const getAllRewards = async () => {
     return rewards.map((reward) => ({
       id: reward.id,
       points: reward.points,
+      free: reward.free,
       description: reward.description,
       productName: reward.product.name,
       productType: reward.product.productType,

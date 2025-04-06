@@ -59,15 +59,23 @@ export const ProductRewardLink = ({ reward }: Props) => {
                             </div>
 
                             {/* Vertical Dotted Line Separator */}
-                            <div className="border-l border-dotted border-gray-300 h-12 mx-1"></div>
+                            <div className="border-l border-dotted border-gray-300 h-12"></div>
 
                             {/* Points Section */}
-                            <div className="flex flex-col items-center flex-shrink-0">
-                                {/* Reward Points */}
-                                <div className="text-center flex flex-col items-center space-y-1">
-                                    <p className="text-sm md:text-md font-normal sm:font-semibold text-slate-800">{reward.points}</p>
-                                    <p className="text-xs text-slate-400">Puntos</p>
-                                </div>
+                            <div className="flex flex-col items-center flex-shrink-0 ml-2">
+                            {/* Reward Points */}
+                                {reward.free ? (
+                                    <div className="bg-green-100 text-green-700 text-xs font-semibold px-2 py-1 rounded-md">
+                                        Gratis
+                                    </div>
+                                ) : (
+                                    <div className="text-center flex flex-col items-center space-y-1">
+                                        <p className="text-sm md:text-md font-normal sm:font-semibold text-slate-800">{reward.points}</p>
+                                        <p className="text-xs text-slate-400">Puntos</p>
+                                    </div>
+                                )}
+
+
                             </div>
 
                         </div>
