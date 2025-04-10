@@ -24,7 +24,7 @@ export default async function ClientAdminTransactionPage({ params }: Props) {
   const products = await getProductsByCompanyId(company.id);
 
   // Ensure that products is always an array
-  const companyProducts = products ?? []; // If products is null, default to an empty array
+  const companyProducts = products?.filter(product => product.active) ?? []; // If products is null, default to an empty array
 
   if (user?.id !== id) {
     redirect("/");

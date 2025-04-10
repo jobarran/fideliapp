@@ -19,8 +19,10 @@ export const CompanyContentProduct = ({ products, companyLogo, companyColor, car
     const [productType, setProductType] = useState(""); // New state for product type
     const [showMoreLoading, setShowMoreLoading] = useState(false)
 
+    const activeProducts = products.filter(product => product.active);
+
     const { visibleProducts, loadMore, filteredProducts } = useProductFilter(
-        products,
+        activeProducts,
         searchTerm,
         productType,
         10

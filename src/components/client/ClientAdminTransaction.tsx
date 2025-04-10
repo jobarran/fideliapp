@@ -13,8 +13,6 @@ interface Props {
 
 export const ClientAdminTransaction = ({ products, companySlug, companyActive }: Props) => {
 
-    console.log(products)
-
     const [selectedTransactionType, setSelectedTransactionType] = useState<TransactionType | null>('BUY');
     const [selectedProducts, setSelectedProducts] = useState<Record<string, number>>({});
     const [availablePoints, setAvailablePoints] = useState<number>(0);
